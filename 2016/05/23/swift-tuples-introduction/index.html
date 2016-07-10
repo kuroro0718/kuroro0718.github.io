@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="在objective-c當中，如果method需要回傳二個以上的值，則可以使用帶有二個property的object或dictionary而Swift新增tuples此資料型態，可一次回傳多個值">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="Swift Tuples介紹"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Hexo</title>
+    <title>Swift Tuples介紹 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -124,81 +126,59 @@
 
     <!-- Main Content -->
     <!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Hexo</h1>
-                    <hr class="small">
-                    <span class="subheading"></span>
+                <div class="post-heading">
+                    <h1>Swift Tuples介紹</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-23
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h2 class="post-title">
-            Test Post
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2016/05/23/swift-tuples-introduction/">
-        <h2 class="post-title">
-            Swift Tuples介紹
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2016-05-23
-    </p>
-</div>
-<hr>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
 
-            <ul class="pager">
-    
-    
-</ul>
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>在objective-c當中，如果method需要回傳二個以上的值，則可以使用帶有二個property的object或dictionary<br>而Swift新增tuples此資料型態，可一次回傳多個值<br><a id="more"></a></p>
+<h2 id="Unnamed-Tuples"><a href="#Unnamed-Tuples" class="headerlink" title="Unnamed Tuples"></a>Unnamed Tuples</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> stockProfolio = (<span class="number">3000</span>, <span class="number">3.4</span>)</div><div class="line"></div><div class="line">stockProfolio.<span class="number">0</span>		<span class="comment">// 3000</span></div><div class="line">stockProfolio.<span class="number">1</span>		<span class="comment">// 3.4</span></div></pre></td></tr></table></figure>
+<p>此為無識別字的tuple，在存取時不方便使用。<br>我們可透過以下方式給予識別<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> (share, price) = stockProfolio</div><div class="line">share				<span class="comment">// 3000</span></div><div class="line">price				<span class="comment">// 3.4</span></div></pre></td></tr></table></figure></p>
+<h2 id="Named-Tuples"><a href="#Named-Tuples" class="headerlink" title="Named Tuples"></a>Named Tuples</h2><p>上述的使用方式不夠直觀，建議使用named tuples增加可讀性<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> stockProfolio = (share: <span class="number">3000</span>, price: <span class="number">3.4</span>)</div><div class="line">stockProfolio.share			<span class="comment">// 3000</span></div><div class="line">stockProfolio.price			<span class="comment">// 3.4</span></div></pre></td></tr></table></figure></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />
