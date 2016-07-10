@@ -10,6 +10,9 @@
 
     <!--Description-->
     
+        <meta name="description" content="Class 宣告Swift宣告class相當簡單，只要使用class這個關鍵字和class名稱123class TaxCalculator &amp;#123;&amp;#125;
+跟objective-c的宣告方式比較，不需要繼承NSObject或?生的類別。">
+    
 
     <!--Author-->
     
@@ -18,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="Swift Class 介紹"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +32,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>Swift Class 介紹 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +126,64 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>Swift Class 介紹</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-20
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Class-宣告"><a href="#Class-宣告" class="headerlink" title="Class 宣告"></a>Class 宣告</h2><p>Swift宣告class相當簡單，只要使用class這個關鍵字和class名稱<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>跟objective-c的宣告方式比較，不需要繼承NSObject或?生的類別。<br><a id="more"></a></p>
+<h2 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h2><p>class的property則需要賦與初始值或使用init做初始化<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</div><div class="line">  <span class="keyword">let</span> salary: <span class="type">Int</span></div><div class="line">  <span class="keyword">let</span> taxRate: <span class="type">Double</span></div><div class="line">  <span class="keyword">var</span> tax: <span class="type">Int</span></div><div class="line">  </div><div class="line">  <span class="keyword">init</span>(salary: <span class="type">Int</span>, taxRate: <span class="type">Double</span>) &#123;</div><div class="line">  	<span class="keyword">self</span>.salary = salary</div><div class="line">    <span class="keyword">self</span>.taxRate = taxRate</div><div class="line">    tax = <span class="type">Int</span>(salary * taxRate)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由於init的參數和property名稱一樣，所以使用self來區別<br>另一個要注意的是，class可以有多個init函式，但使用的參數必須不同 （和c的overloading function一樣）</p>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</div><div class="line">  <span class="comment">// 略</span></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">calcSalary</span><span class="params">(tax: Int, taxRate: Double)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="type">Int</span>(tax / taxRate)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>method的宣告需要加上回傳值的資料型態，若無回傳值可省略。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> taxCalc = <span class="type">TaxCalculator</span>(salary: <span class="number">55000</span>, taxRate: <span class="number">0.15</span>)</div><div class="line">taxCalc.calcSalary(tax: <span class="number">2000</span>, taxRate: <span class="number">0.15</span>)</div></pre></td></tr></table></figure>
+<p>參考來源：<br><a href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start" target="_blank" rel="external">Swift 2 Tutorial</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

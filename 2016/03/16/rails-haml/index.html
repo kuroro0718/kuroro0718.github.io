@@ -10,6 +10,9 @@
 
     <!--Description-->
     
+        <meta name="description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template
+以下做個整理">
+    
 
     <!--Author-->
     
@@ -18,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="[Rails] HAML介紹"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +32,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>[Rails] HAML介紹 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +126,70 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>[Rails] HAML介紹</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-03-16
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template</p>
+<p>以下做個整理</p>
+<a id="more"></a>
+<p>首先得安裝gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gem &quot;haml&quot;</div><div class="line"></div><div class="line">&gt; bundle install</div></pre></td></tr></table></figure></p>
+<p>HAML必須將.erb檔案改為.haml，如app/views/docs/index.html.erb改為app/views/docs/index.html.haml</p>
+<p>基本的轉換規則如下：</p>
+<pre><code>1. html的tag改用％代替，例如&lt;header&gt;改為％header，不需要close tage
+2. class attribute改用.，例如&lt;div class=&quot;nav&quot;&gt;改為.nav
+3. id attribute改用＃，例如&lt;div class=&quot;banner&quot; id=&quot;message&quot;&gt;改為.banner#message
+4. 遇到&lt;%= ...&gt;的代碼改用＝，例如&lt;= f.input&gt;改為= f.input
+</code></pre><p>舉例：</p>
+<figure class="highlight"><figcaption><span>show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div class="wrapper_with_padding&gt;</div><div class="line">	&lt;div id="doc_show"&gt;</div><div class="line">		&lt;h1&gt;&lt;%= @doc.title %&gt;&lt;/h1&gt;</div><div class="line">    	&lt;p&gt;&lt;%= simple_format(@doc.content) %&gt;</div><div class="line">    </div><div class="line">    	&lt;div class="buttons"&gt;</div><div class="line">    		&lt;%= link_to "Fix Doc", edit_doc_path(@doc), class: "button" %&gt;</div><div class="line">    	  &lt;%= link_to "Delete Doc", doc_path(@doc), method: :delete, data: &#123;confirm: "Are you sure?"&#125;, class: "button" %&gt;</div><div class="line">   	 	&lt;/div&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>show.html.haml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.wrapper_with_padding</div><div class="line">  <span class="comment">#doc_show</span></div><div class="line">    %h1= @doc.title</div><div class="line">    %p= simple_format(@doc.content)</div><div class="line"></div><div class="line">    .buttons</div><div class="line">      = link_to <span class="string">"Fix Doc"</span>, edit_doc_path(@doc), <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></div><div class="line">      = link_to <span class="string">"Delete It"</span>, doc_path(@doc), <span class="symbol">method:</span> <span class="symbol">:delete</span>, <span class="symbol">data:</span> &#123;<span class="symbol">confirm:</span> <span class="string">"Are you sure?"</span>&#125;, <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></div></pre></td></tr></table></figure>
+<p>參考資料：<br><a href="http://haml.info/tutorial.html" target="_blank" rel="external">haml官網教材</a><br><a href="http://haml.info/docs/yardoc/file.REFERENCE.html" target="_blank" rel="external">haml refrence</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

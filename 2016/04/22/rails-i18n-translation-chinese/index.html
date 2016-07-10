@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="網站的頁面需要提供下拉式選單供使用者選擇星期幾一開始使用Date::DAYNAMES取得一週的詞彙：">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="[Rails] 使用i18n轉換中文詞彙"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>[Rails] 使用i18n轉換中文詞彙 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +125,65 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>[Rails] 使用i18n轉換中文詞彙</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-04-22
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>網站的頁面需要提供下拉式選單供使用者選擇星期幾<br>一開始使用Date::DAYNAMES取得一週的詞彙：<br><a id="more"></a></p>
+<figure class="highlight"><figcaption><span>app/views/posts/_form.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%= simple_form_for @post do |f| %&gt;</div><div class="line">  ...略</div><div class="line">  &lt;p&gt;</div><div class="line">    球聚時間：每週 &lt;%= f.select :day, Date::DAYNAMES.zip((0..6).to_a) %&gt;</div><div class="line">  &lt;/p&gt;</div><div class="line">&lt;% end %&gt;</div></pre></td></tr></table></figure>
+<p>然而預設為英文單字<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">=&gt; [[<span class="string">"Sunday"</span>, 0], [<span class="string">"Monday"</span>, 1], [<span class="string">"Tuesday"</span>, 2], [<span class="string">"Wednesday"</span>, 3], [<span class="string">"Thursday"</span>, 4], [<span class="string">"Friday"</span>, 5], [<span class="string">"Saturday"</span>, 6]]</div></pre></td></tr></table></figure></p>
+<p>我們想改成中文顯示，於是使用i18n轉換字詞</p>
+<p>首先，在config/locales下新增一個zh-TW.yml檔，裡面建立中文的對應單字<br><figure class="highlight ruby"><figcaption><span>config/locales/zh-TW.yml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="string">"zh-TW"</span>:</div><div class="line">  <span class="symbol">date:</span></div><div class="line">    <span class="symbol">day_names:</span></div><div class="line">      - 星期日</div><div class="line">      - 星期一</div><div class="line">      - 星期二</div><div class="line">      - 星期三</div><div class="line">      - 星期四</div><div class="line">      - 星期五</div><div class="line">      - 星期六</div></pre></td></tr></table></figure></p>
+<p>要特別注意的是yml檔裡不能用tab來縮排，必需使用2個空白</p>
+<p>接著設定config<br><figure class="highlight ruby"><figcaption><span>config/application.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.i18n.default_locale = <span class="string">'zh-TW'</span></div></pre></td></tr></table></figure></p>
+<p>修改原來的view，即可轉換選單的英文字詞<br><figure class="highlight"><figcaption><span>app/views/posts/_form.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%= simple_form_for @post do |f| %&gt;</div><div class="line">  ...略</div><div class="line">  &lt;p&gt;</div><div class="line">    球聚時間：每週 &lt;%= f.select :day, t(:"date.day_names").zip((0..6).to_a) %&gt;</div><div class="line">  &lt;/p&gt;</div><div class="line">&lt;% end %&gt;</div></pre></td></tr></table></figure></p>
+<p>參考來源：<br><a href="http://stackoverflow.com/questions/6590364/ruby-how-to-store-and-display-a-day-of-the-week" target="_blank" rel="external">“How to store and display a day of the week” from Stack Overflow</a><br><a href="https://ihower.tw/rails4/i18n.html" target="_blank" rel="external">ihower介紹i118n</a><br><a href="http://stackoverflow.com/questions/19326744/cant-i-just-simply-get-the-day-name-i18n-ed" target="_blank" rel="external">設定yml檔 from Stack Overflow</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

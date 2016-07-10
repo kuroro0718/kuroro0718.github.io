@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="上完code school的javascript課後，回頭再複習前端的基礎-html和CSS對一個網頁來說，html控制文章架構、CSS則決定樣式以下記錄一些觀念:">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="[前端筆記］ html/CSS觀念記錄"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>[前端筆記］ html/CSS觀念記錄 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +125,72 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>[前端筆記］ html/CSS觀念記錄</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-03-14
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>上完code school的javascript課後，回頭再複習前端的基礎-html和CSS<br>對一個網頁來說，html控制文章架構、CSS則決定樣式<br>以下記錄一些觀念:<br><a id="more"></a></p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><pre><code>1. ul是指unordered list，顯示bullet項目
+2. ol是指ordered list，顯示編號項目
+3. 在head中加入CSS的檔案，需使用&lt;link style type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;css file&quot;&gt; 
+    4. 續上，link和img都是empty tag。它們不用加上closing tag 
+</code></pre><h2 id="The-box-model"><a href="#The-box-model" class="headerlink" title="The box model"></a>The box model</h2><p> html的文字採用box model，包含4個項目:</p>
+<pre><code>  1. content area內文
+2. padding 內文四個方向的留白
+3. border 內文四個方向的框線
+4. margin 是border外的留白區域
+</code></pre><p> 圖示如下：<br> <img src="http://user-image.logdown.io/user/15598/blog/14782/post/634054/oJSWMd5vSyCYe8fy6nJw_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-03-14%20%E4%B8%8B%E5%8D%882.21.30.png" alt="box-model"></p>
+<p>當我們需要調整段落間的距離或文字間留白，可調整margin或padding;如果要加框線，則使用border</p>
+<h2 id="CSS-Selector"><a href="#CSS-Selector" class="headerlink" title="CSS Selector"></a>CSS Selector</h2><p>如果我們要微調某部分的html style，可使用html class和CSS selector<br>以下例子是將ul內的項目左邊padding 15pixel：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span></div><div class="line">	...</div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.nav</span> &#123;</div><div class="line">	<span class="attribute">padding-left</span>: <span class="number">15px</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>要注意的是CSS的selector與其它樣式的順序會影響結果，以下這個例子會把nav class設定的padding-left覆寫：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.nav</span> &#123;</div><div class="line">	<span class="attribute">padding-left</span>: <span class="number">15px</span></div><div class="line">&#125;</div><div class="line"><span class="selector-tag">ul</span> &#123;</div><div class="line">	<span class="attribute">padding-left</span>: <span class="number">10px</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

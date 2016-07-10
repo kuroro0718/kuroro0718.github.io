@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="對一位C/C++ programmer來說，javascript的anonymous function(匿名者函式）是容易讓人困惑的存在。如何使用沒有identifier的function？ 有什麼好處？ 在這裡做個筆記。">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="[Javascript筆記] Anonymous Function"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>[Javascript筆記] Anonymous Function - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +125,70 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>[Javascript筆記] Anonymous Function</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-02-25
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>對一位C/C++ programmer來說，javascript的anonymous function(匿名者函式）是容易讓人困惑的存在。<br>如何使用沒有identifier的function？ 有什麼好處？ 在這裡做個筆記。<br><a id="more"></a></p>
+<p>javascript提供3種宣告function的作法</p>
+<h2 id="Function-Declarations"><a href="#Function-Declarations" class="headerlink" title="Function Declarations"></a>Function Declarations</h2><p>一般function的作法，需要提供function name，範例如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> a * b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(multiply(<span class="number">3</span>, <span class="number">4</span>));	<span class="comment">// Print 3 * 4</span></div></pre></td></tr></table></figure>
+<h2 id="The-Function-Constructor"><a href="#The-Function-Constructor" class="headerlink" title="The Function() Constructor"></a>The Function() Constructor</h2><p>類似C++的建構者函式 (constructor)，只不過是用在function上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mulitplyFunc = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"return a * b"</span>);</div><div class="line"><span class="keyword">var</span> x = mulitplyFunc(<span class="number">3</span>, <span class="number">4</span>);</div></pre></td></tr></table></figure>
+<p>一般來說不建議用此方式宣告函式</p>
+<h2 id="Function-Expressions"><a href="#Function-Expressions" class="headerlink" title="Function Expressions"></a>Function Expressions</h2><p>也就是這篇的主角，function expression不需要function name，可視為variable</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mulitplyFunc = <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123; <span class="keyword">return</span> a * b; &#125;;</div><div class="line"><span class="keyword">var</span> x = multiplyFunc(<span class="number">3</span>, <span class="number">4</span>);  <span class="comment">// Calculate 3 * 4</span></div></pre></td></tr></table></figure>
+<h2 id="使用anonymous-function的好處"><a href="#使用anonymous-function的好處" class="headerlink" title="使用anonymous function的好處"></a>使用anonymous function的好處</h2><ol>
+<li>可用來實做Closure，實現design pattern的工廠方法 </li>
+<li>簡化程式碼，提高易讀性<br>之前要用C++實作工廠方法時，需要dynamic binding的技術，確實要花點心思<br>下一篇討論closure</li>
+</ol>
+<p>參考來源：<br><a href="http://www.w3schools.com/js/js_function_definition.asp" target="_blank" rel="external">Javascript function基本教學</a><br><a href="http://martinfowler.com/bliki/Lambda.html" target="_blank" rel="external">關於lambda觀念的說明</a><br><a href="https://robots.thoughtbot.com/back-to-basics-anonymous-functions-and-closures" target="_blank" rel="external">比較ruby和js的anonymous function</a><br><a href="http://helephant.com/2012/07/14/javascript-function-declaration-vs-expression/#function-operator-is-an-expression" target="_blank" rel="external">Javascript function declarations vs function operators</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

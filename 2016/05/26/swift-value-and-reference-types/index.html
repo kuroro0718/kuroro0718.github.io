@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="初次接觸Swift時，少了pointer的機制，讓人好奇過去function call的call by value, call by reference是否有所不同而Swift除了class外，其餘資料型態皆為value type。這篇文章整理Swift Value and Reference type的差異">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="Swift Value and Reference Types"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>Swift Value and Reference Types - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +125,73 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>Swift Value and Reference Types</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-26
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>初次接觸Swift時，少了pointer的機制，讓人好奇過去function call的call by value, call by reference是否有所不同<br>而Swift除了class外，其餘資料型態皆為value type。<br>這篇文章整理Swift Value and Reference type的差異<br><a id="more"></a></p>
+<h2 id="Value-Type"><a href="#Value-Type" class="headerlink" title="Value Type"></a>Value Type</h2><p>當copy value type資料時，Swift其實是創造一份獨立的”拷貝”，任何改變原本變數的值不會影響拷貝的資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123; <span class="keyword">var</span> name: <span class="type">String</span> = <span class="string">"Alex"</span> &#125;</div><div class="line"><span class="keyword">let</span> somePerson = <span class="type">Person</span>()</div><div class="line"><span class="keyword">let</span> otherPerson = somePerson</div><div class="line">somePerson = <span class="string">"John"</span></div><div class="line"><span class="built_in">print</span>(<span class="string">"\(somePerson.name), \(otherPerson.name)) 	// print John, Alex</span></div></pre></td></tr></table></figure></p>
+<p>當somePerson的name被改變時，otherPerson並不受影響</p>
+<h2 id="Reference-Type"><a href="#Reference-Type" class="headerlink" title="Reference Type"></a>Reference Type</h2><p>當copy reference type資料時，Swift只是增加一個reference指向原本的資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; <span class="keyword">var</span> name: <span class="type">String</span> = <span class="string">"Alex"</span> &#125;</div><div class="line"><span class="keyword">let</span> somePerson = <span class="type">Person</span>()</div><div class="line"><span class="keyword">let</span> otherPerson = somePerson</div><div class="line">somePerson = <span class="string">"John"</span></div><div class="line"><span class="built_in">print</span>(<span class="string">"\(somePerson.name), \(otherPerson.name)) 	// print Alex, Alex</span></div></pre></td></tr></table></figure></p>
+<p>由以上例子可知，在使用function時要注意是否需要改變傳入的值<br>因為大多數的資料型態為value type，傳入function後無法修改原本的值<br>在multi-thread的環境中，這也一定確保資料的完整性，降低debug的困難度</p>
+<h2 id="如何選擇？"><a href="#如何選擇？" class="headerlink" title="如何選擇？"></a>如何選擇？</h2><p>使用value type:</p>
+<ol>
+<li>比較拷貝的資料(==)是合理行為</li>
+<li>拷貝的複本有獨立的狀態</li>
+<li>資料可能會被多個執行緒使用</li>
+</ol>
+<p>使用reference type:</p>
+<ol>
+<li>比較拷貝的識別(===)是合理的行為</li>
+<li>想創造可共享和改變的狀態</li>
+</ol>
+<p>參考來源：<br><a href="https://developer.apple.com/swift/blog/?id=10" target="_blank" rel="external">Apple官方文件</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="在上一篇搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="[Rails]  KH Badminton Map計算聚會時間及使用helper整理views"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>[Rails]  KH Badminton Map計算聚會時間及使用helper整理views - Hexo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>[Rails]  KH Badminton Map計算聚會時間及使用helper整理views</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-04-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>在<a href="http://alexliang-blog.logdown.com/posts/713401-rails-i18n-translation-chinese" target="_blank" rel="external">上一篇</a>搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）<br>藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view<br><a id="more"></a></p>
+<p>首先，因為球聚的時間是記錄星期幾，在model裡僅是個數字 (0~6表示週日到週六)<br>下次球聚的日期會根據使用者看到文章的當天計算<br>例如，預計週三聚會，使用者週四才看到文章。此時需顯示下次聚會日期 (也就是下週三)</p>
+<h2 id="Time-Class"><a href="#Time-Class" class="headerlink" title="Time Class"></a>Time Class</h2><p>Ruby的Time class提供wday，可得知日期對應到星期幾，例如<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">2.2.0 :009 &gt;</span> t = Time.now</div><div class="line"> =&gt; <span class="number">2016</span>-<span class="number">04</span>-<span class="number">22</span> <span class="number">15</span><span class="symbol">:</span><span class="number">20</span><span class="symbol">:</span><span class="number">42</span> +080<span class="number">0</span></div><div class="line"><span class="meta">2.2.0 :010 &gt;</span> t.wday</div><div class="line"> =&gt; <span class="number">5</span></div></pre></td></tr></table></figure></p>
+<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...略</div><div class="line">&lt;p&gt;</div><div class="line">  時間：&lt;%= next_meetup_date(@post.day.to_i) %&gt;</div><div class="line">&lt;<span class="regexp">/p&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Helper"><a href="#Helper" class="headerlink" title="Helper"></a>Helper</h2><p>day_offset是預計週幾聚會，利用Time.now.wday和它之間的關係算出下次聚會日期<br>next_meetup_date除了顯示日期，還加上星期幾<br><figure class="highlight ruby"><figcaption><span>app/helper/posts_helper.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">PostsHelper</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">calculate_date</span><span class="params">(day_offset)</span></span></div><div class="line">    meetup_day = day_offset</div><div class="line">    current_day = Time.now.wday   </div><div class="line">    next_date = DateTime.now + (meetup_day - current_day).days      </div><div class="line">    </div><div class="line">    <span class="keyword">if</span> meetup_day &lt; current_day </div><div class="line">      next_date += <span class="number">7</span>.days  <span class="comment"># Next week</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    next_date.strftime(<span class="string">'%Y/%m/%d'</span>)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">next_meetup_date</span><span class="params">(day_offset)</span></span></div><div class="line">    calculate_date(day_offset) + <span class="string">' ('</span> + I18n.t(<span class="symbol">:<span class="string">"date.day_names"</span></span>)[day_offset] + <span class="string">')'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>使用helper的好處是將來如果要改變顯示格式，只要改一個地方就好，其它的view也能使用。</p>
+<p>參考來源：<br><a href="http://ruby-doc.org/core-2.1.1/Time.html" target="_blank" rel="external">Ruby Time文件</a><br><a href="http://apidock.com/ruby/DateTime/strftime" target="_blank" rel="external">strftime 格式化時間的說明</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

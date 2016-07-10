@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="let vs. var一開始接觸新語言時，首先會碰到各種資料型態的用法。在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="Swift 基本型態筆記"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>Swift 基本型態筆記 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +125,63 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>Swift 基本型態筆記</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-20
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="let-vs-var"><a href="#let-vs-var" class="headerlink" title="let vs. var"></a>let vs. var</h2><p>一開始接觸新語言時，首先會碰到各種資料型態的用法。<br>在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事<br>特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug<br><a id="more"></a></p>
+<p>Swift為變數宣告提供二種方式： let和var<br>前者為constant，也就是不可變動的值；後者則是一般的宣告<br>一般是建議能使用let就使用，complier會自動做最佳化的動作</p>
+<p>如果想特別指定資料型態，也可用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> total : <span class="type">Int</span> = <span class="number">0</span>  <span class="comment">// 強制宣告total為Int</span></div><div class="line"><span class="keyword">let</span> taxRate = <span class="number">0.13</span>   <span class="comment">// 一般的宣告方式</span></div></pre></td></tr></table></figure></p>
+<p>但如果沒特殊理由，使用預設的宣告方式以加強可讀性</p>
+<h2 id="Array-and-Dictionaries"><a href="#Array-and-Dictionaries" class="headerlink" title="Array and Dictionaries"></a>Array and Dictionaries</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> taxRate = [<span class="number">0.15</span>, <span class="number">0.18</span>, <span class="number">0.20</span>]		<span class="comment">// array</span></div><div class="line"><span class="keyword">let</span> emptyArray = [<span class="type">String</span>]()					<span class="comment">// create an empty array with String type</span></div><div class="line"><span class="keyword">var</span> arr = [[<span class="type">Int</span>]]()									<span class="comment">// 2 dimensional array of arrays of Ints</span></div></pre></td></tr></table></figure>
+<p>另一個資料型態為dictionary，這個在Python、Ruby都有類似的型態。<br>基本上就是一個key搭配value，可供建表及查循<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Double</span>]()					<span class="comment">// dictionary</span></div></pre></td></tr></table></figure></p>
+<p>參考來源：<br><a href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start" target="_blank" rel="external">Swift 2 Tutorial</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

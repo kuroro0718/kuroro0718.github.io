@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="最近看了Uncle Bob在Ruby Midwest 2011的演講（影片連結）介紹軟體架構。">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="Archetecture the Lost Years by Uncle Bob演講筆記"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Hexo</title>
+    <title>Archetecture the Lost Years by Uncle Bob演講筆記 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -123,76 +125,71 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>Archetecture the Lost Years by Uncle Bob演講筆記</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-04-01
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/10/Test-Post/">
-        <h1 class="post-title archive">
-            Test Post
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>最近看了Uncle Bob在Ruby Midwest 2011的演講（<a href="https://www.youtube.com/watch?v=WpkDN78P884&amp;list=LLvUp_IPqUJMajFn1HI2PYgw&amp;index=1" target="_blank" rel="external">影片連結</a>）介紹軟體架構。<br><a id="more"></a></p>
+<h3 id="Archetecture-is-about-intent"><a href="#Archetecture-is-about-intent" class="headerlink" title="Archetecture is about intent"></a>Archetecture is about intent</h3><p>一開始Uncle Bob列出幾種建築物的結構圖，藉此比喻好的架構設計能讓工程師迅速了解系統<br>從這裡再帶出web framework常採用的MVC架構<br>為何會有MVC的出現？ 為了讓系統耦合度降低 讓前端的設計不需要跟後端的資料庫或商業邏輯綁在一起</p>
+<p>演講從一個user case講起，再畫一個UML圖解釋架構。<br>他使用類似MVC架構的系統(interactor, entity, boundary)來處理這個問題<br>例如： interactor負責application特有的商業邏輯，並且和entity有連結的關係，可以視為controller<br>entity則是處理資料庫存取，屬於一般application共有的行為<br>boundary把interactor產生的資訊秀出來給使用者，整體架構如下圖所示：<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wVKfwcrEQO2FVYwXNMAd_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%884.44.26.png" alt="螢幕快照 2016-04-01 下午4.44.26.png"><br>Uncle Bob解釋這種設計能將商業邏輯和使用者介面切開，二者之間少了相依性<br>而右半邊的interactor和entity可封裝成gem或dll(看是哪種application)<br>最左邊的delivery machanism負責將user input分配給boundary，可封裝成plug-in的型態，方便測試</p>
+<h3 id="What-about-MVC"><a href="#What-about-MVC" class="headerlink" title="What about MVC?"></a>What about MVC?</h3><p>講到MVC這章，先從發明人<a href="https://en.wikipedia.org/wiki/Trygve_Reenskaug" target="_blank" rel="external">Trygve Reenskaug</a>開始介紹<br>延申到web application時會出現view和controller相依model的現象，如下圖<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wxVl3bRZSX63THFRtV6d_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%882.27.14.png" alt="螢幕快照 2016-04-04 下午2.27.14.png"><br>從測試的角度來看，view只要把資訊編排顯示正確即可，不需要關心後端的資料如何產生<br>對於商業邏輯的正確才是每次測試的重點，這點他比較偏好<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter" target="_blank" rel="external">Model-View-Presenter</a><br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/UYnWHAPQkSOdj6leELrD_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.06.06.png" alt="螢幕快照 2016-04-04 下午3.06.06.png"></p>
+<p>接下來Uncle Bob問觀眾做一次測試要多久？測了幾項？</p>
+<blockquote>
+<p>4分半測1000多項 –&gt; That’s good<br> 1小時半 –&gt; That’s bad &gt;”&lt;</p>
+</blockquote>
+<p>對工程師來說，測試如果花太久的時間，之後每次修改都會猶豫要不要測試。<br>這也增加專案爆炸的機率…</p>
+<h3 id="Good-Architeture"><a href="#Good-Architeture" class="headerlink" title="Good Architeture"></a>Good Architeture</h3><p>Uncle Bob最後提到早期一個wiki-like project。<br>從一開始他們就決定晚一點連結資料庫，先把application實作完<br>為了滅少測試時間，把wiki page存在memory中，雖然不能存檔，但至少能測試整個專案<br>後來他的同事實作FileSystemPage測試persistence，架構如下<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/mKseKRgTWeCgK3GK6yg6_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.30.17.png" alt="螢幕快照 2016-04-04 下午3.30.17.png"><br>而這時專案還沒有真正的database</p>
+<blockquote>
+<p>A good architecture allows major decisions to be deferred<br>A good architecture maximizes the number of decisions not made</p>
+</blockquote>
+<p>到最後客戶要求需要database，而他們只需要一天就把專案完成了</p>
+<p>好的架構可推遲重大的決定；好的架構能滅少做決定的次數。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/07/09/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-09
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/07/07/765290/">
-        <h1 class="post-title archive">
-            iOS APP Develop Cheat Sheet
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-07
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

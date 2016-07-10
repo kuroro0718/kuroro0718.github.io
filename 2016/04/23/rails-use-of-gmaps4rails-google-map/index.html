@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="新專案需要將地址放在google map顯示，於是使用gmaps4rails實作經過一陣鬼打牆的debug後才搞定這個功能，這裡記錄下來，也提醒自己別再犯錯。">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="[Rails] 使用gmaps4rails增加Google Map"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>[Rails] 使用gmaps4rails增加Google Map - Hexo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>[Rails] 使用gmaps4rails增加Google Map</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-04-23
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>新專案需要將地址放在google map顯示，於是使用gmaps4rails實作<br>經過一陣鬼打牆的debug後才搞定這個功能，這裡記錄下來，也提醒自己別再犯錯。<br><a id="more"></a></p>
+<h2 id="Install-gmaps4rails"><a href="#Install-gmaps4rails" class="headerlink" title="Install gmaps4rails"></a>Install gmaps4rails</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">'gmaps4rails'</span></div><div class="line">gem <span class="string">'geocoder'</span>		<span class="comment"># 協助轉助座標</span></div></pre></td></tr></table></figure>
+<p>然後bundle 安裝gem</p>
+<h2 id="Javascript-Dependencies"><a href="#Javascript-Dependencies" class="headerlink" title="Javascript Dependencies"></a>Javascript Dependencies</h2><p>這段code需要放在view裡面<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script src="//maps.google.com/maps/api/js?v=3.18&amp;sensor=false&amp;client=&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region="&gt;&lt;/script&gt; </div><div class="line">&lt;script src="//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js"&gt;&lt;/script&gt;</div><div class="line">&lt;script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js' type='text/javascript'&gt;&lt;/script&gt; &lt;!-- only if you need custom infoboxes --&gt;</div></pre></td></tr></table></figure></p>
+<p>接著在vendor/assets/javascripts底下新增underscore.js<br>並且將<a href="http://underscorejs.org/underscore-min.js" target="_blank" rel="external">這段程式碼</a>放入</p>
+<h2 id="Javascript-Source-Code"><a href="#Javascript-Source-Code" class="headerlink" title="Javascript Source Code"></a>Javascript Source Code</h2><figure class="highlight"><figcaption><span>app/assets/javascripts/application.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//= require underscore</div><div class="line">//= require gmaps/google</div></pre></td></tr></table></figure>
+<h2 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h2><figure class="highlight"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div style='width: 800px;'&gt;</div><div class="line">  &lt;div id="map" style='width: 800px; height: 400px;'&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="Javascript-Code"><a href="#Javascript-Code" class="headerlink" title="Javascript Code"></a>Javascript Code</h2><p>在view底下加入javascript code，這段會顯示一個標記在經緯度原點的地圖<br><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">  handler = Gmaps.build(<span class="string">'Google'</span>);</div><div class="line">  handler.buildMap(&#123; <span class="symbol">provider:</span> &#123;&#125;, <span class="symbol">internal:</span> &#123;<span class="symbol">id:</span> <span class="string">'map'</span>&#125;&#125;, function()&#123;</div><div class="line">    markers = handler.addMarkers([</div><div class="line">      &#123;</div><div class="line">        <span class="string">"lat"</span>: <span class="number">0</span>,</div><div class="line">        <span class="string">"lng"</span>: <span class="number">0</span>,</div><div class="line">        <span class="string">"picture"</span>: &#123;</div><div class="line">          <span class="string">"url"</span>: <span class="string">"http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png"</span>,</div><div class="line">          <span class="string">"width"</span>:  <span class="number">32</span>,</div><div class="line">          <span class="string">"height"</span>: <span class="number">32</span></div><div class="line">        &#125;,</div><div class="line">        <span class="string">"infowindow"</span>: <span class="string">"hello!"</span></div><div class="line">      &#125;</div><div class="line">    ]);</div><div class="line">    handler.bounds.extendWith(markers);</div><div class="line">    handler.fitMapToBounds();</div><div class="line">  &#125;);</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>假設我們有一個post controller和model，其中有個欄位是address<br>此欄位需要轉換為經緯度，並且在controller建立一個hash table做為google map標記的資料<br><figure class="highlight ruby"><figcaption><span>app/controllers/posts_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsController</span> &lt; ApplicationController</span></div><div class="line">	...略</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">show</span> </span></div><div class="line">  	@post = Post.find(params[<span class="symbol">:id</span>])</div><div class="line">    @hash = Gmaps4rails.build_markers(@post) <span class="keyword">do</span> <span class="params">|post, marker|</span></div><div class="line">      marker.lat post.latitude</div><div class="line">      marker.lng post.longitude</div><div class="line">    <span class="keyword">end</span>   </div><div class="line">  <span class="keyword">end</span></div><div class="line">  </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p><em>這裡要注意的是建立hash這段code要放在相對應的action</em>，本來照著官網的示範做(它是放在index)，一直都失敗<br>才發現是hash沒建出來</p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></div><div class="line">  validates <span class="symbol">:title</span>, <span class="symbol">:address</span>, <span class="symbol">presence:</span> <span class="literal">true</span></div><div class="line">  geocoded_by <span class="symbol">:address</span></div><div class="line">  after_validation <span class="symbol">:geocode</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>需要使用geocoded_by才能轉換至經緯度座楆</p>
+<p>以上都設定好後，可以回頭修改script</p>
+<h2 id="Javascript-Code-1"><a href="#Javascript-Code-1" class="headerlink" title="Javascript Code"></a>Javascript Code</h2><p>在view底下加入javascript code，這段會顯示一個標記在經緯度原點的地圖<br><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">  handler = Gmaps.build(<span class="string">'Google'</span>);  </div><div class="line">  handler.buildMap(&#123; <span class="symbol">provider:</span> &#123;&#125;, <span class="symbol">internal:</span> &#123;<span class="symbol">id:</span> <span class="string">'map'</span>&#125;&#125;, function()&#123;</div><div class="line">      markers = handler.addMarkers(&lt;%=raw @hash.to_json %&gt;);  <span class="comment"># 將hash table轉成json格式當標記</span></div><div class="line">      handler.bounds.extendWith(markers);</div><div class="line">      handler.fitMapToBounds();</div><div class="line">      handler.getMap().setZoom(<span class="number">15</span>);		<span class="comment"># 預設zoom為15</span></div><div class="line">    &#125;</div><div class="line">  );</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure></p>
+<p>到這裡就完成google map的顯示了，如果還需要其它功能（畫路徑、客製化圖層）請參考官方說明</p>
+<p>參考來源：<br><a href="https://www.youtube.com/watch?v=oi3yxYs8Y4Q" target="_blank" rel="external">Youtube教學影片</a><br><a href="https://github.com/apneadiving/Google-Maps-for-Rails" target="_blank" rel="external">gmaps4rails github</a><br><a href="https://github.com/alexreisner/geocoder" target="_blank" rel="external">geocoder github</a><br><a href="http://stackoverflow.com/questions/19918942/gmaps4rails-v2-change-default-zoom" target="_blank" rel="external">“Change default zoom” from Stack Overflow</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

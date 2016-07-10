@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="實作專案ResolutionTracker時，想增加分享目標給朋友的功能。在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料這裡介紹nested_form解決問題">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="[Rails] 使用nested_form動態新增輸入欄位"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>[Rails] 使用nested_form動態新增輸入欄位 - Hexo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>[Rails] 使用nested_form動態新增輸入欄位</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-04-04
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>實作專案ResolutionTracker時，想增加分享目標給朋友的功能。<br>在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料<br>這裡介紹<a href="https://github.com/ryanb/nested_form" target="_blank" rel="external">nested_form</a>解決問題</p>
+<a id="more"></a>
+<h3 id="Install-Gem"><a href="#Install-Gem" class="headerlink" title="Install Gem"></a>Install Gem</h3><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">'nested_form'</span></div></pre></td></tr></table></figure>
+<p>然後使用bundle install安裝並重開server</p>
+<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>我們有二個model: goal, shared_mail，分別負責處理目標和使用者存入的mail address<br>在goal.rb需要能接受nested_attribute</p>
+<figure class="highlight ruby"><figcaption><span>app/models/goal.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goal</span> &lt; ActiveRecord::Base</span></div><div class="line">  validates <span class="symbol">:title</span>, <span class="symbol">presence:</span> <span class="literal">true</span></div><div class="line"></div><div class="line">  has_many <span class="symbol">:shared_mails</span></div><div class="line">  belongs_to <span class="symbol">:owner</span>, <span class="symbol">class_name:</span> <span class="string">"User"</span>, <span class="symbol">foreign_key:</span> <span class="symbol">:user_id</span></div><div class="line">  </div><div class="line">  accepts_nested_attributes_for <span class="symbol">:shared_mails</span>, <span class="symbol">allow_destroy:</span> <span class="literal">true</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>app/models/shared_mail.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SharedMail</span> &lt; ActiveRecord::Base</span></div><div class="line">  belongs_to <span class="symbol">:goal</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>controller接受strong parameter時，得允許傳入shared_mails_attribute<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></div><div class="line">  <span class="comment">#略...</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">create</span></span></div><div class="line">    @goal = current_user.goals.create(goal_params)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> @goal.save</div><div class="line">      redirect_to goals_path </div><div class="line">    <span class="keyword">else</span></div><div class="line">      render <span class="string">'new'</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update</span></span></div><div class="line">    <span class="keyword">if</span> @goal.update(goal_params)</div><div class="line">      redirect_to goal_path </div><div class="line">    <span class="keyword">else</span></div><div class="line">      render <span class="string">'edit'</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  private</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">goal_params</span></span></div><div class="line">    params.<span class="keyword">require</span>(<span class="symbol">:goal</span>).permit(<span class="symbol">:title</span>, <span class="symbol">:comment</span>, <span class="symbol">:is_shareable</span>, </div><div class="line">      <span class="symbol">:complete_date</span>, </div><div class="line">      <span class="symbol">shared_mails_attributes:</span> [<span class="symbol">:id</span>, <span class="symbol">:mail_addr</span>, <span class="symbol">:_destroy</span>])</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><p>view的部分，將原來的form_for(或simple_form_for)改成nested_form_for<br><figure class="highlight"><figcaption><span>app/views/shared_mails/new.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;h2&gt;分享目標&lt;/h2&gt;</div><div class="line"></div><div class="line">&lt;%= nested_form_for @goal do |f| %&gt;</div><div class="line">  &lt;%= f.fields_for :shared_mails do |mail_form| %&gt;    </div><div class="line">    &lt;%= mail_form.text_field :mail_addr %&gt;</div><div class="line">    &lt;%= mail_form.link_to_remove "Remove this mail address" %&gt;</div><div class="line">  &lt;% end %&gt;</div><div class="line">  </div><div class="line">  &lt;%= f.link_to_add "Add a mail address", :shared_mails %&gt;</div><div class="line">  &lt;%= f.submit "提交", disable_with: "Submiting...", class: "btn btn-primary" %&gt;</div><div class="line">&lt;% end %&gt;</div></pre></td></tr></table></figure></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
