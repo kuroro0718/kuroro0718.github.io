@@ -6,21 +6,18 @@
   <title>Swift Closure 介紹 | Alex&#39;s Playground</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function
-第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression
-Functions">
+第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift Closure 介紹">
 <meta property="og:url" content="http://yoursite.com/2016/06/17/swift-closure-introduced/index.html">
 <meta property="og:site_name" content="Alex's Playground">
 <meta property="og:description" content="Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function
-第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression
-Functions">
-<meta property="og:updated_time" content="2016-07-12T04:02:59.000Z">
+第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression">
+<meta property="og:updated_time" content="2016-07-18T08:41:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Closure 介紹">
 <meta name="twitter:description" content="Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function
-第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression
-Functions">
+第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression">
   
     <link rel="alternate" href="/atom.xml" title="Alex&#39;s Playground" type="application/atom+xml">
   
@@ -79,7 +76,7 @@ Functions">
     <div class="blog-header">
   <h1 class="blog-title">Alex&#39;s Playground</h1>
   
-    <p class="lead blog-description">記錄學習的過程</p>
+    <p class="lead blog-description">記錄我在web和ios學習的過程</p>
   
 </div>
 
@@ -116,7 +113,7 @@ Functions">
     <div class="article-entry" itemprop="articleBody">
       
         <p>Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function</p>
-<p>第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression</p>
+<p>第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression<br><a id="more"></a></p>
 <h1 id="Functions-Parameters"><a href="#Functions-Parameters" class="headerlink" title="Functions Parameters"></a>Functions Parameters</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(str: String)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(str)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">displayName</span><span class="params">(printFunc: String -&gt; Void)</span></span> &#123;</div><div class="line">  printFunc(<span class="string">"Alex Gordon"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">displayName(printString) 	<span class="comment">// Print "Alex Gordon"</span></div></pre></td></tr></table></figure>
 <p>Swift可以將function當參數傳入另一個function</p>
 <h1 id="Capturing-Values"><a href="#Capturing-Values" class="headerlink" title="Capturing Values"></a>Capturing Values</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">doSomething</span><span class="params">(y: Int)</span></span> -&gt; () -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="number">10</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        x += y</div><div class="line">        <span class="keyword">return</span> x</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> f = doSomething(<span class="number">19</span>)</div><div class="line"><span class="keyword">var</span> result = f()		<span class="comment">// result = 29</span></div></pre></td></tr></table></figure>
@@ -139,7 +136,7 @@ Functions">
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/17/swift-closure-introduced/" data-id="ciqre71jy0012q25483o9x3t0" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/06/17/swift-closure-introduced/" data-id="ciqrs7qeb000zfq54z57mwxb7" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       

@@ -69,7 +69,7 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex&#39;s Playground</h1>
   
-    <p class="lead blog-description">記錄學習的過程</p>
+    <p class="lead blog-description">記錄我在web和ios學習的過程</p>
   
 </div>
 
@@ -123,7 +123,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/07/765290/" data-id="ciqre71jz0013q254h4qualv7" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/07/07/765290/" data-id="ciqrs7qf70014fq54dfz2zslw" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -168,30 +168,19 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function</p>
-<p>第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression</p>
-<h1 id="Functions-Parameters"><a href="#Functions-Parameters" class="headerlink" title="Functions Parameters"></a>Functions Parameters</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(str: String)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(str)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">displayName</span><span class="params">(printFunc: String -&gt; Void)</span></span> &#123;</div><div class="line">  printFunc(<span class="string">"Alex Gordon"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">displayName(printString) 	<span class="comment">// Print "Alex Gordon"</span></div></pre></td></tr></table></figure>
-<p>Swift可以將function當參數傳入另一個function</p>
-<h1 id="Capturing-Values"><a href="#Capturing-Values" class="headerlink" title="Capturing Values"></a>Capturing Values</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">doSomething</span><span class="params">(y: Int)</span></span> -&gt; () -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="number">10</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        x += y</div><div class="line">        <span class="keyword">return</span> x</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> f = doSomething(<span class="number">19</span>)</div><div class="line"><span class="keyword">var</span> result = f()		<span class="comment">// result = 29</span></div></pre></td></tr></table></figure>
-<p>function f可以捕捉到x的值並且做運算，x在這裡為free variable，這種nested function能帶來很大的彈性</p>
-<h1 id="Closure-Expressions"><a href="#Closure-Expressions" class="headerlink" title="Closure Expressions"></a>Closure Expressions</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;(i: <span class="type">Int</span>) -&gt; <span class="type">Int</span> <span class="keyword">in</span> <span class="keyword">return</span> i * <span class="number">2</span>&#125; ) 	<span class="comment">// [2, 4, 6]</span></div></pre></td></tr></table></figure>
-<p>Swift的array內建許多高階函式，map能將陣列的值做轉換並回傳新陣列<br>上例中，map裡{}包起來的表示式為closure expression<br>i當做參數並寫明回傳型態為Int，in return接上陣列轉換的算式<br>此為完整closure expression的宣告方式</p>
-<p>而Swift提供許多syntax sugar，<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;i <span class="keyword">in</span> <span class="keyword">return</span> i * <span class="number">2</span>&#125; )</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;i <span class="keyword">in</span> i * <span class="number">2</span>&#125; )</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;$<span class="number">0</span> * <span class="number">2</span>&#125; )</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>() &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span> &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;</div></pre></td></tr></table></figure></p>
-<p>以上的表示式功能都一樣，把陣列元素*2後回傳</p>
-<h1 id="Trailing-Closures"><a href="#Trailing-Closures" class="headerlink" title="Trailing Closures"></a>Trailing Closures</h1><p>一般的function要加上closure exprssion當參數有二種做法<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunc</span><span class="params">(closure: <span class="params">()</span></span></span> -&gt; <span class="type">Int</span>) &#123;</div><div class="line">  <span class="comment">// function body</span></div><div class="line">&#125; </div><div class="line"></div><div class="line">someFunc(&#123;		<span class="comment">// 做法1</span></div><div class="line">  <span class="comment">// closure body</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line">someFunc() &#123;		<span class="comment">// 做法2</span></div><div class="line">  <span class="comment">// trailing closure body</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>第二種做法將closure expression寫在function之後，增加可讀性</p>
-<p>Closure在現代程式設計被廣泛使用，這也是functional programming的基石</p>
-<p>參考來源：<br><a href="https://airspeedvelocity.net/2014/06/11/a-basic-tutorial-on-functions-and-closures-in-swift/" target="_blank" rel="external">A Basic Tutorial on Functions and Closures in Swift</a><br><a href="https://airspeedvelocity.net/2014/06/06/an-accumulator-in-swift/" target="_blank" rel="external">An Accumulator in Swift</a><br><a href="https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/" target="_blank" rel="external">Higher Order Functions: Map, Filter, Reduce and more</a><br><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html#//apple_ref/doc/uid/TP40014097-CH11-ID94" target="_blank" rel="external">官方文件</a></p>
-
+<p>第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression<br>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2016/06/17/swift-closure-introduced/#more">Read More</a>
+          </p>
+        
       
     </div>
 
     
-      
-
-    
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/17/swift-closure-introduced/" data-id="ciqre71jy0012q25483o9x3t0" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/06/17/swift-closure-introduced/" data-id="ciqrs7qeb000zfq54z57mwxb7" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -243,7 +232,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/07/swift-and/" data-id="ciqre71jx0011q254u48junak" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/06/07/swift-and/" data-id="ciqrs7qf60013fq5472yyamq6" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -295,7 +284,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/29/swift-enumerations/" data-id="ciqre71jw0010q2543lh28xav" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/05/29/swift-enumerations/" data-id="ciqrs7qf50012fq54n6t7tglz" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -347,7 +336,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/27/swift-protocol-oriented-programming/" data-id="ciqre71jv000zq254ifts8byo" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/05/27/swift-protocol-oriented-programming/" data-id="ciqrs7qe9000yfq54ldegzcmr" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -399,7 +388,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/26/swift-value-and-reference-types/" data-id="ciqre71jt000yq2547czhi5aq" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/05/26/swift-value-and-reference-types/" data-id="ciqrs7qec0010fq5463jabax1" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -451,7 +440,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/23/swift-protocol-introduction/" data-id="ciqre71jm000vq254c3yu0b2k" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/05/23/swift-protocol-introduction/" data-id="ciqrs7qe5000wfq54wmb345y6" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -503,7 +492,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/23/swift-tuples-introduction/" data-id="ciqre71jr000xq254hbmqth1i" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/05/23/swift-tuples-introduction/" data-id="ciqrs7qe1000vfq543fdyngxz" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -556,7 +545,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/20/swift-class-introduction/" data-id="ciqre71jk000uq254herba2y1" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/05/20/swift-class-introduction/" data-id="ciqrs7qe0000ufq54jn4xqmdj" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -608,7 +597,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/20/basic-patterns-of-swift-notes/" data-id="ciqre71jp000wq254vrk54stg" class="article-share-link">
+      <a data-url="http://yoursite.com/2016/05/20/basic-patterns-of-swift-notes/" data-id="ciqrs7qe7000xfq546fef5w8p" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
