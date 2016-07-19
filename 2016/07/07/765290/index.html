@@ -5,28 +5,16 @@
   
   <title>iOS APP Develop Cheat Sheet | Alex&#39;s Playground</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="UITableView:
-
-ViewController 需要繼承UITableViewDataSource, UITableViewDelegate 
-加入func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {}
-加入func tableView(tableView: UITab">
+  <meta name="description" content="UITableView:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS APP Develop Cheat Sheet">
 <meta property="og:url" content="http://yoursite.com/2016/07/07/765290/index.html">
 <meta property="og:site_name" content="Alex's Playground">
-<meta property="og:description" content="UITableView:
-
-ViewController 需要繼承UITableViewDataSource, UITableViewDelegate 
-加入func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {}
-加入func tableView(tableView: UITab">
-<meta property="og:updated_time" content="2016-07-18T14:36:22.000Z">
+<meta property="og:description" content="UITableView:">
+<meta property="og:updated_time" content="2016-07-19T03:12:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS APP Develop Cheat Sheet">
-<meta name="twitter:description" content="UITableView:
-
-ViewController 需要繼承UITableViewDataSource, UITableViewDelegate 
-加入func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&amp;gt; Int {}
-加入func tableView(tableView: UITab">
+<meta name="twitter:description" content="UITableView:">
   
     <link rel="alternate" href="/atom.xml" title="Alex&#39;s Playground" type="application/atom+xml">
   
@@ -117,7 +105,7 @@ ViewController 需要繼承UITableViewDataSource, UITableViewDelegate
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>UITableView:</p>
+        <p>UITableView:<br><a id="more"></a></p>
 <ol>
 <li>ViewController 需要繼承UITableViewDataSource, UITableViewDelegate </li>
 <li>加入func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {}</li>
@@ -127,7 +115,11 @@ ViewController 需要繼承UITableViewDataSource, UITableViewDelegate
 <li><p>最後，選取TableView，按住ctrl拖曳至View Controller並選取dataSource和delegate</p>
 </li>
 </ol>
-
+<p>額外設定：</p>
+<ol>
+<li>修改section title </li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, titleForHeaderInSection section: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"Section <span class="subst">\(section)</span>"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
