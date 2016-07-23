@@ -5,16 +5,16 @@
   
   <title>Swift Error Handling | Alex&#39;s Playground</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error handle結合，以及函式定義會告知可能抛出錯誤">
+  <meta name="description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error type結合，產出可讀性高的程式碼">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift Error Handling">
-<meta property="og:url" content="http://yoursite.com/2016/07/21/Swift-Error-Handling/index.html">
+<meta property="og:url" content="http://localhost:4000/2016/07/21/Swift-Error-Handling/index.html">
 <meta property="og:site_name" content="Alex's Playground">
-<meta property="og:description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error handle結合，以及函式定義會告知可能抛出錯誤">
-<meta property="og:updated_time" content="2016-07-22T02:33:52.000Z">
+<meta property="og:description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error type結合，產出可讀性高的程式碼">
+<meta property="og:updated_time" content="2016-07-23T07:59:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Error Handling">
-<meta name="twitter:description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error handle結合，以及函式定義會告知可能抛出錯誤">
+<meta name="twitter:description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error type結合，產出可讀性高的程式碼">
   
     <link rel="alternate" href="/atom.xml" title="Alex&#39;s Playground" type="application/atom+xml">
   
@@ -105,7 +105,7 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>撰寫程式過程中，免不了需要處理錯誤情形。<br>如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來<br>Swift特別的是enum能和error handle結合，以及函式定義會告知可能抛出錯誤</p>
+        <p>撰寫程式過程中，免不了需要處理錯誤情形。<br>如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來<br>Swift特別的是enum能和error type結合，產出可讀性高的程式碼</p>
 <a id="more"></a>
 <h2 id="Error-Type"><a href="#Error-Type" class="headerlink" title="Error Type"></a>Error Type</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Error</span>: <span class="title">ErrorType</span> </span>&#123;</div><div class="line">  <span class="keyword">case</span> <span class="type">InvalidName</span></div><div class="line">  <span class="keyword">case</span> <span class="type">InsufficientFund</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">throw</span> <span class="type">Error</span>.<span class="type">InvalidName</span></div></pre></td></tr></table></figure>
 <p>將enum繼承ErrorType，在抛出例外時有較高的可讀性</p>
@@ -123,9 +123,13 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/21/Swift-Error-Handling/" data-id="ciqx56ypa0028f154gk1p7l1c" class="article-share-link">
+      <a data-url="http://localhost:4000/2016/07/21/Swift-Error-Handling/" data-id="ciqyvxo0b0028p354jeym7o0b" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
+      
+        <a href="http://localhost:4000/2016/07/21/Swift-Error-Handling/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
@@ -151,6 +155,12 @@
   
 </article>
 
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 
 
@@ -234,6 +244,20 @@
 </footer>
 
   
+<script>
+  var disqus_shortname = 'disqus_4Zv1Z0RdKm';
+  
+  var disqus_url = 'http://localhost:4000/2016/07/21/Swift-Error-Handling/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 

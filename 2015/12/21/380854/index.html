@@ -10,7 +10,7 @@
 剛開始接觸時，對MVC的控制會感到一頭霧水，這裡以rails 101為範本做簡單的流程介紹:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Rails] MVC設定基本流程">
-<meta property="og:url" content="http://yoursite.com/2015/12/21/380854/index.html">
+<meta property="og:url" content="http://localhost:4000/2015/12/21/380854/index.html">
 <meta property="og:site_name" content="Alex's Playground">
 <meta property="og:description" content="rails是使用MVC架構的framework。學習一段時間後，更能體會這種架構開發web application帶來的方便。
 所謂的MVC，指的是Model（資料操作）、View（前端效果）和Controller（流程控制）。
@@ -140,9 +140,13 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/21/380854/" data-id="ciqx56yml0001f154dlfg39y7" class="article-share-link">
+      <a data-url="http://localhost:4000/2015/12/21/380854/" data-id="ciqyvxnxf0003p354tdokjuwx" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
+      
+        <a href="http://localhost:4000/2015/12/21/380854/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
@@ -175,6 +179,12 @@
   
 </article>
 
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 
 
@@ -258,6 +268,20 @@
 </footer>
 
   
+<script>
+  var disqus_shortname = 'disqus_4Zv1Z0RdKm';
+  
+  var disqus_url = 'http://localhost:4000/2015/12/21/380854/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 

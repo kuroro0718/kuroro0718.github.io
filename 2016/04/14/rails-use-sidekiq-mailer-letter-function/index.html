@@ -8,7 +8,7 @@
   <meta name="description" content="在上一篇完成動態新增email欄位後，我們使用sidekiq和mailer完成非同步寄信功能sidekiq官方建議使用JSON作為active job的參數，此篇也記錄將Model的參數轉換成需要的json格式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Rails] 使用sidekiq處理mailer寄信功能">
-<meta property="og:url" content="http://yoursite.com/2016/04/14/rails-use-sidekiq-mailer-letter-function/index.html">
+<meta property="og:url" content="http://localhost:4000/2016/04/14/rails-use-sidekiq-mailer-letter-function/index.html">
 <meta property="og:site_name" content="Alex's Playground">
 <meta property="og:description" content="在上一篇完成動態新增email欄位後，我們使用sidekiq和mailer完成非同步寄信功能sidekiq官方建議使用JSON作為active job的參數，此篇也記錄將Model的參數轉換成需要的json格式">
 <meta property="og:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/709982/kZ99h8LTya2PH093CyAL_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-14%20%E4%B8%8B%E5%8D%883.27.10.png">
@@ -137,9 +137,13 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/14/rails-use-sidekiq-mailer-letter-function/" data-id="ciqx56ynv0010f1542t2m7km2" class="article-share-link">
+      <a data-url="http://localhost:4000/2016/04/14/rails-use-sidekiq-mailer-letter-function/" data-id="ciqyvxnyr0012p354nersvj5j" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
+      
+        <a href="http://localhost:4000/2016/04/14/rails-use-sidekiq-mailer-letter-function/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
@@ -172,6 +176,12 @@
   
 </article>
 
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 
 
@@ -255,6 +265,20 @@
 </footer>
 
   
+<script>
+  var disqus_shortname = 'disqus_4Zv1Z0RdKm';
+  
+  var disqus_url = 'http://localhost:4000/2016/04/14/rails-use-sidekiq-mailer-letter-function/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 
