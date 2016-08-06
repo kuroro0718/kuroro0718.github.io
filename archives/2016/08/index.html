@@ -3,18 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Check list of Heroku deployment | Alex&#39;s Playground</title>
+  <title>Archives: 2016/8 | Alex&#39;s Playground</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在deploy到Heroku前，應該檢查的事：">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Check list of Heroku deployment">
-<meta property="og:url" content="https://kuroro0718.github.io/2016/05/03/check-list-of-heroku-deployment/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Alex's Playground">
+<meta property="og:url" content="https://kuroro0718.github.io/archives/2016/08/index.html">
 <meta property="og:site_name" content="Alex's Playground">
-<meta property="og:description" content="在deploy到Heroku前，應該檢查的事：">
-<meta property="og:updated_time" content="2016-07-18T14:34:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Check list of Heroku deployment">
-<meta name="twitter:description" content="在deploy到Heroku前，應該檢查的事：">
+<meta name="twitter:title" content="Alex's Playground">
   
     <link rel="alternate" href="/atom.xml" title="Alex&#39;s Playground" type="application/atom+xml">
   
@@ -66,7 +62,7 @@ ga('send', 'pageview');
           <li><a class=""
                  href="/index.html">Home</a></li>
         
-          <li><a class=""
+          <li><a class="active"
                  href="/archives/">Archives</a></li>
         
       </ul>
@@ -92,94 +88,41 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-check-list-of-heroku-deployment" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
+          
+  
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <header class="archive-article-header">
     
   
-    <h1 class="article-title" itemprop="name">
-      Check list of Heroku deployment
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2016/08/06/How-to-Pitch上課心得/">How to Pitch上課心得</a>
     </h1>
   
 
 
-  </header>
-
-  <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2016/05/03/check-list-of-heroku-deployment/" class="article-date"><time datetime="2016-05-02T19:24:00.000Z" itemprop="datePublished">2016-05-03</time></a>
+  <a href="/2016/08/06/How-to-Pitch上課心得/" class="archive-article-date"><time datetime="2016-08-06T12:09:17.000Z" itemprop="datePublished">August 6th</time></a>
 </div>
 
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在deploy到Heroku前，應該檢查的事：<br><a id="more"></a></p>
-<h2 id="開Branch"><a href="#開Branch" class="headerlink" title="開Branch"></a>開Branch</h2><p>因為你永遠不知道deploy後有什麼狀況，修改branch也比較安全<br>事實上，在修改bug、開發沒做過的功能前，你都應該新增branch</p>
-<h2 id="Devise"><a href="#Devise" class="headerlink" title="Devise"></a>Devise</h2><p>如果有裝Devise，記得加上這段<br><figure class="highlight ruby"><figcaption><span>config/initializers/devise.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.secret_key = ENV[<span class="string">"DEVISE_SECRET"</span>]</div></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ heroku config:<span class="built_in">set</span> DEVISE_SECRET=XXX</div></pre></td></tr></table></figure>
-<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>因為Heroku不支援sqlite3，production改用postgresql<br><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  gem <span class="string">'sqlite3'</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">group <span class="symbol">:production</span> <span class="keyword">do</span></div><div class="line">  gem <span class="string">'pg'</span></div><div class="line">en</div></pre></td></tr></table></figure></p>
-<p>記得bundle install</p>
-<p>參考資料：<br><a href="http://stackoverflow.com/questions/18080910/devise-secret-key-was-not-set" target="_blank" rel="external">Stack Overflow文章</a><br><a href="http://stackoverflow.com/questions/11714336/heroku-push-fails-with-the-error-an-error-occurred-while-installing-sqlite3-rub" target="_blank" rel="external">設定production database</a></p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/2016/05/03/check-list-of-heroku-deployment/" data-id="cirj51fns001f3u545ehnlyqk" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="https://kuroro0718.github.io/2016/05/03/check-list-of-heroku-deployment/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-    
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/2016/04/27/rails-use-friendly-id-increase-the-readability-url/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Rails]  使用friendly_id增加URL可讀性</span>
-    </a>
-  </li>
-  
-  
-  <li role="presentation">
-    <a href="/2016/05/03/upload-image-to-aws-s3-with-paperclip/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Uploading image to AWS S3 with Paperclip </span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
-  
-</ul>
-
-
-  
+  </header>
 </article>
 
+  
+  
+    </div></section>
+  
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
 
 
 
@@ -266,13 +209,11 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/2016/05/03/check-list-of-heroku-deployment/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

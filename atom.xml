@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Alex&#39;s Playground</title>
-  <subtitle>記錄我在web和ios學習的過程</subtitle>
+  <subtitle>記錄我在web和iOS學習的過程</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-07-23T07:59:33.000Z</updated>
+  <updated>2016-08-06T12:09:17.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,71 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>How to Pitch上課心得</title>
+    <link href="https://kuroro0718.github.io/2016/08/06/How-to-Pitch%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/"/>
+    <id>https://kuroro0718.github.io/2016/08/06/How-to-Pitch上課心得/</id>
+    <published>2016-08-06T12:09:17.000Z</published>
+    <updated>2016-08-06T12:09:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在工程師的職涯中，最難解的問題不是code寫不出來，而是無法說服其它人採用我的想法。</p>
+<p>原因不外乎幾點： </p>
+<ol>
+<li>沒有想清楚問題</li>
+<li>無法用對方理解的語言溝通</li>
+<li>沒有清楚表達想法的核心價值</li>
+</ol>
+<p>今天孫治華老師在短短2個小時裡講解pitch的重點以及表達的技巧，這項soft skill值得我們學習</p>
+<a id="more"></a>
+<h2 id="Why-pitch-is-important"><a href="#Why-pitch-is-important" class="headerlink" title="Why pitch is important?"></a>Why pitch is important?</h2><p>課程一開始，老師用巴菲特在一場座談的問答帶出為什麼每個人需要學習pitch</p>
+<p>有學生問老巴，如何在同儕中脫穎而出。 老巴回答：能在台上從容的和觀眾對話</p>
+<p>這點讓我想到過去在職場遇到的優秀工程師，他們不僅實作能力強，在公開場合能<br>有自信的表達想法，而這群人往往是主管職的候選人。</p>
+<p>另一種情境是新創團隊向別人介紹idea時，講者該如何引發對方的興趣</p>
+<p>所以在課堂前老師要求我們先寫下pitch的逐字稿，並找出幾位同學在台上pitch，藉此讓大家知道彼此的問題。</p>
+<h2 id="How-to-prepare-pitch"><a href="#How-to-prepare-pitch" class="headerlink" title="How to prepare pitch?"></a>How to prepare pitch?</h2><p>簡報一開始便開宗明義：</p>
+<blockquote>
+<p>讓每個架構都清楚，讓每句話都是重點。</p>
+</blockquote>
+<p>如果你只有一分鐘，該怎麼做到以上這件事？</p>
+<p>一個必要的練習是把它寫下來，逐字逐句去修飾並講給其它人聽</p>
+<p>在這個過程會不斷反思這個idea的問題在哪？ 如何讓他人感受到我感受的痛點？ 我能說服別人相信由我來做才是合適的嗎？</p>
+<p>經過不斷地修正，慢慢地會找到最精煉的版本。</p>
+<h2 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h2><p>在課堂演練中，同學們針對各pitch寫出看法，並藉由問答讓大家了解pitch該注意的事項</p>
+<p>例如在pitch時常常講了30秒觀眾還不清楚要解決的問題；或是對於解決方法不了解</p>
+<p>另一個常見的錯誤是觀眾提出問題時，回答只要針對問題就好，不要用故事回答。</p>
+<p>再來就是商業模式的問題，這點老師建議平時就要注意好的服務或app，了解背後的營利模式並反思自己的idea；或是找TA及投資者檢視，也是改善的方法</p>
+<h2 id="自我介紹"><a href="#自我介紹" class="headerlink" title="自我介紹"></a>自我介紹</h2><p>老師也針對團隊成員該如何介紹自己，給別人留下印象。</p>
+<p>這點對工程師來說是很重要的，也很我們很缺乏的一塊</p>
+<p>原因是工程師通常以本身的技術出發去介紹自己，而忘了對方需要的是你能提供什麼價值</p>
+<p>例如：</p>
+<blockquote>
+<p>熟悉js框架和前端技術 vs. 能做出跨平台和良好使用體驗的網站</p>
+</blockquote>
+<p>後者清楚的說明工程師的價值</p>
+<p>試著從個人累積的經驗、專業能力和要解決的問題這三點介紹自己，會是脫穎而出的關鍵</p>
+<h2 id="實際案例"><a href="#實際案例" class="headerlink" title="實際案例"></a>實際案例</h2><p>最後老師使用一段在北京創業比賽獲獎的<a href="http://on.aol.com/video/order-with-me-517390015" target="_blank" rel="external">pitch影片</a>來總結課程</p>
+<p>影片一開始使用數字強調它們的商業模式是可行的，並說明和對手的差異性，最後才介紹他們的產品，整段pitch流𣈱且令人信服。</p>
+<p>老師也舉出幾種簡報架構讓我們能參考，這個不管是demo day或以後在公司內提案都有相當大的幫助。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在工程師的職涯中，最難解的問題不是code寫不出來，而是無法說服其它人採用我的想法。&lt;/p&gt;
+&lt;p&gt;原因不外乎幾點： &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;沒有想清楚問題&lt;/li&gt;
+&lt;li&gt;無法用對方理解的語言溝通&lt;/li&gt;
+&lt;li&gt;沒有清楚表達想法的核心價值&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;今天孫治華老師在短短2個小時裡講解pitch的重點以及表達的技巧，這項soft skill值得我們學習&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
+    
+  </entry>
   
   <entry>
     <title>Swift Error Handling</title>
@@ -597,30 +662,6 @@
     <summary type="html">
     
       &lt;p&gt;在實作寄信功能時，需要把一維陣列轉成hash，於是思維還沒轉成ruby的我就寫下這段很初學者的code&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Rails] 重構controllers</title>
-    <link href="https://kuroro0718.github.io/2016/04/19/rails-refactoring-controllers/"/>
-    <id>https://kuroro0718.github.io/2016/04/19/rails-refactoring-controllers/</id>
-    <published>2016-04-19T04:50:00.000Z</published>
-    <updated>2016-07-18T14:33:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在<a href="http://alexliang-blog.logdown.com/posts/709982-rails-use-sidekiq-mailer-letter-function" target="_blank" rel="external">上一篇</a>我們介紹使用sidekiq和ActionMailer處理寄信功能。<br>原本要寄信時還得手動按下按鈕且controller寫得不夠乾淨，這次選擇重構controller</p>
-<a id="more"></a>
-<p>原來的controller<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></div><div class="line">	before_action <span class="symbol">:find_params</span>, <span class="symbol">only:</span> [<span class="symbol">:edit</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>, <span class="symbol">:complete</span>, <span class="symbol">:notify_friend</span>]</div><div class="line">	...略</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">notify_friend</span> </span></div><div class="line">		mail_list = &#123;&#125;</div><div class="line">    count = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> email <span class="keyword">in</span> @goal.shared_mails</div><div class="line">      mail_list[count.to_s] = email.mail_addr</div><div class="line">      count+=<span class="number">1</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    h = JSON.generate(&#123; <span class="string">'owner'</span> =&gt; @goal.owner.name,</div><div class="line">                        <span class="string">'goal'</span> =&gt; @goal.title,</div><div class="line">                        <span class="string">'complete_date'</span> =&gt; @goal.complete_date,</div><div class="line">                        <span class="string">'email'</span> =&gt; mail_list &#125;)  </div><div class="line">    SendEmailJob.perform_now(h)</div><div class="line">    redirect_to goals_path</div><div class="line">  <span class="keyword">end</span></div><div class="line">  </div><div class="line">  private</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_params</span></span></div><div class="line">    @goal = current_user.goals.find(params[<span class="symbol">:id</span>])</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>使用after_action，在更新目標的分享對象後發信。並且將產生json格式分出來讓notify_friend功能單一<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></div><div class="line">	before_action <span class="symbol">:authenticate_user!</span>, <span class="symbol">only:</span> [<span class="symbol">:new</span>, <span class="symbol">:edit</span>, <span class="symbol">:create</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>]</div><div class="line">	before_action <span class="symbol">:find_params</span>, <span class="symbol">only:</span> [<span class="symbol">:edit</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>, <span class="symbol">:complete</span>]</div><div class="line">  +  after_action <span class="symbol">:notify_friend</span>, <span class="symbol">only:</span> [<span class="symbol">:update</span>]</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">notify_friend</span>   </span></div><div class="line">    SendEmailJob.perform_now(generate_json_params)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  private</div><div class="line">	...略</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">generate_json_params</span></span></div><div class="line">    mail_list = &#123;&#125;</div><div class="line">    count = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> email <span class="keyword">in</span> @goal.shared_mails</div><div class="line">      mail_list[count.to_s] = email.mail_addr</div><div class="line">      count+=<span class="number">1</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    h = JSON.generate(&#123; <span class="string">'owner'</span> =&gt; @goal.owner.name,</div><div class="line">                        <span class="string">'goal'</span> =&gt; @goal.title,</div><div class="line">                        <span class="string">'complete_date'</span> =&gt; @goal.complete_date,</div><div class="line">                        <span class="string">'email'</span> =&gt; mail_list &#125;)</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在&lt;a href=&quot;http://alexliang-blog.logdown.com/posts/709982-rails-use-sidekiq-mailer-letter-function&quot;&gt;上一篇&lt;/a&gt;我們介紹使用sidekiq和ActionMailer處理寄信功能。&lt;br&gt;原本要寄信時還得手動按下按鈕且controller寫得不夠乾淨，這次選擇重構controller&lt;/p&gt;
     
     </summary>
     
