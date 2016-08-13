@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-08-06T12:09:17.000Z</updated>
+  <updated>2016-08-13T07:40:33.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用StackView包裝不同寛高的同類型元件</title>
+    <link href="https://kuroro0718.github.io/2016/08/13/%E4%BD%BF%E7%94%A8StackView%E5%8C%85%E8%A3%9D%E4%B8%8D%E5%90%8C%E5%AF%9B%E9%AB%98%E7%9A%84%E5%90%8C%E9%A1%9E%E5%9E%8B%E5%85%83%E4%BB%B6/"/>
+    <id>https://kuroro0718.github.io/2016/08/13/使用StackView包裝不同寛高的同類型元件/</id>
+    <published>2016-08-13T06:32:24.000Z</published>
+    <updated>2016-08-13T07:40:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>iOS 9加入了stackview這個新元件幫助工程師更快打造UI，盡量減少使用auto layout</p>
+<p>今年的<a href="http://web.stanford.edu/class/cs193p/cgi-bin/drupal/" target="_blank" rel="external">CS193P課程</a>的第一個範例－－計算機就改用stackview實作</p>
+<p>練習時我不想照它的layout來做，想比照iPhone內建的計算機，將0的按鈕寛度設定其它按鈕的二倍，這個問題請教了老師，花了幾天才試出來</p>
+<a id="more"></a>
+<p>下圖是我想呈現的結果，該如何用stackview刻出來呢？</p>
+<p><img src="calculator-result.png" alt="計算機"></p>
+<p>Step1. 先把button拉進view controller，並複製其它三個<br><img src="step1.png" alt="創建按鈕"></p>
+<p>Step2. 選取4個button並加入stackview</p>
+<p>方法1: 點選最左邊的stack<br><img src="stackview-1.png" alt="stackview 1"></p>
+<p>方法2: 從選單 (Editor-&gt; Embed In-&gt; Stack View)<br><img src="stackview-2.png" alt="stackview 2"></p>
+<p>Step3. 修改stackview裡面元件的間隔<br><img src="stackview-setting.png" alt="stackview setting"></p>
+<p>Step4. 重複上述2個步驟，完成剩下的計算機按鈕<br><img src="4x4buttons.png" alt="4x4按鈕"></p>
+<p>Step5. 將4個stackview再包成一個stackview，垂直間隔也要修改</p>
+<p>Step6. 選取最下面一排的stackview，砍掉最左邊的button<br><img src="delete-button.png" alt="刪除按鈕"></p>
+<p>Step7. 將最右邊二個button的寛度設成和上一排任一button一樣</p>
+<p>Step8. 最後再設定整個stackview的auto layout，這裡是置於右下角<br><img src="autolayout-1.png" alt="auto layout"></p>
+<p><img src="autolayout-2.png" alt="constraints"></p>
+<p>對照之前的教學，使用stackview的確能為工程師省下不少時間，可設計出整齊的介面。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;iOS 9加入了stackview這個新元件幫助工程師更快打造UI，盡量減少使用auto layout&lt;/p&gt;
+&lt;p&gt;今年的&lt;a href=&quot;http://web.stanford.edu/class/cs193p/cgi-bin/drupal/&quot;&gt;CS193P課程&lt;/a&gt;的第一個範例－－計算機就改用stackview實作&lt;/p&gt;
+&lt;p&gt;練習時我不想照它的layout來做，想比照iPhone內建的計算機，將0的按鈕寛度設定其它按鈕的二倍，這個問題請教了老師，花了幾天才試出來&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+  </entry>
   
   <entry>
     <title>How to Pitch上課心得</title>
@@ -638,32 +678,6 @@
     <summary type="html">
     
       &lt;p&gt;網站的頁面需要提供下拉式選單供使用者選擇星期幾&lt;br&gt;一開始使用Date::DAYNAMES取得一週的詞彙：&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Ruby] 1-D Array to Hash</title>
-    <link href="https://kuroro0718.github.io/2016/04/20/rails-1-d-array-to-hash/"/>
-    <id>https://kuroro0718.github.io/2016/04/20/rails-1-d-array-to-hash/</id>
-    <published>2016-04-20T02:02:00.000Z</published>
-    <updated>2016-07-18T14:33:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在實作寄信功能時，需要把一維陣列轉成hash，於是思維還沒轉成ruby的我就寫下這段很初學者的code</p>
-<a id="more"></a>
-<p>原來的code，為了建立mail_list這個hash，花了6行程式碼<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></div><div class="line">	...略</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">generate_json_params</span></span></div><div class="line">    mail_list = &#123;&#125;</div><div class="line">    count = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> email <span class="keyword">in</span> @goal.shared_mails</div><div class="line">      mail_list[count.to_s] = email.mail_addr</div><div class="line">      count+=<span class="number">1</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    h = JSON.generate(&#123; <span class="string">'owner'</span> =&gt; @goal.owner.name,</div><div class="line">                        <span class="string">'goal'</span> =&gt; @goal.title,</div><div class="line">                        <span class="string">'complete_date'</span> =&gt; @goal.complete_date,</div><div class="line">                        <span class="string">'email'</span> =&gt; mail_list &#125;)</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>使用Ruby內建的Hash[]可將陣列轉成Hash，再搭配with_index以index當key，一行搞定！<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController	</span></div><div class="line">  ...略</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">generate_json_params</span>    </span></div><div class="line">    mail_list = Hash[ @goal.shared_mails.map.with_index &#123;<span class="params">|x, i|</span> [i, x.mail_addr]&#125;]</div><div class="line">    h = JSON.generate(&#123; <span class="string">'owner'</span> =&gt; @goal.owner.name,</div><div class="line">                        <span class="string">'goal'</span> =&gt; @goal.title,</div><div class="line">                        <span class="string">'complete_date'</span> =&gt; @goal.complete_date,</div><div class="line">                        <span class="string">'email'</span> =&gt; mail_list &#125;)</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>(沒想到重構一個function居然可以寫3篇文章 XD)</p>
-<p>參考來源：<br><a href="https://ihower.tw/blog/archives/5959" target="_blank" rel="external">ihower blog文章</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在實作寄信功能時，需要把一維陣列轉成hash，於是思維還沒轉成ruby的我就寫下這段很初學者的code&lt;/p&gt;
     
     </summary>
     
