@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-08-13T07:40:33.000Z</updated>
+  <updated>2016-08-28T13:48:32.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Facebook SDK製作app登入按鈕</title>
+    <link href="https://kuroro0718.github.io/2016/08/28/%E4%BD%BF%E7%94%A8Facebook-SDK%E8%A3%BD%E4%BD%9Capp%E7%99%BB%E5%85%A5%E6%8C%89%E9%88%95/"/>
+    <id>https://kuroro0718.github.io/2016/08/28/使用Facebook-SDK製作app登入按鈕/</id>
+    <published>2016-08-28T12:14:43.000Z</published>
+    <updated>2016-08-28T13:48:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用facebook登入是會員系統基本的功能（不論是web或mobile app)</p>
+<p>由於官方文件不夠清楚，且過程中有許多需要注意的地方，特別將此記錄下來</p>
+<a id="more"></a>
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><ol>
+<li>需要在facebook developer下新增應用程式</li>
+<li>本機端需要安裝cocoapods</li>
+</ol>
+<h2 id="新增facebook應用程式"><a href="#新增facebook應用程式" class="headerlink" title="新增facebook應用程式"></a>新增facebook應用程式</h2><p>在<a href="https://developers.facebook.com/" target="_blank" rel="external">facebook developer</a>裡新增一個應用程式</p>
+<p><img src="new-fb-app.png" alt="新增facebook應用程式"></p>
+<p>建立應用程式後，進主控板可看到應用程式編號和api版本<br><img src="dashboard.png" alt="主控板"></p>
+<h2 id="使用cocoapods安裝FBSDKLoginKit"><a href="#使用cocoapods安裝FBSDKLoginKit" class="headerlink" title="使用cocoapods安裝FBSDKLoginKit"></a>使用cocoapods安裝FBSDKLoginKit</h2><p>先建立xcode專案，本例以FBAuthPractice為例<br>接著在command line下進入專案資料夾輸入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod init</div></pre></td></tr></table></figure></p>
+<p>然後編輯Podfile</p>
+<figure class="highlight bash"><figcaption><span>Podfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Uncomment this line to define a global platform for your project</span></div><div class="line"><span class="comment"># platform :ios, '9.0'</span></div><div class="line"></div><div class="line">target <span class="string">'FBAuthPractice'</span> <span class="keyword">do</span></div><div class="line">  <span class="comment"># Comment this line if you're not using Swift and don't want to use dynamic frameworks</span></div><div class="line">  use_frameworks!</div><div class="line"></div><div class="line">  <span class="comment"># Pods for FBAuthPractice</span></div><div class="line">  pod <span class="string">'FBSDKLoginKit'</span></div><div class="line">end</div></pre></td></tr></table></figure>
+<p>存檔後安裝FBSDKLoginKit<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod install</div></pre></td></tr></table></figure></p>
+<p>接著重開xcode並compile專案</p>
+<h2 id="設定xcode-project"><a href="#設定xcode-project" class="headerlink" title="設定xcode project"></a>設定xcode project</h2><p>回到facebook應用程式主控板，按下選擇平台並選擇ios</p>
+<p><img src="select-platform.png" alt="選擇平台"></p>
+<p>step 1. 設定plist，在 dict … /dict 裡加上以下的設定<br><figure class="highlight xml"><figcaption><span>.plist</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleURLTypes<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">dict</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleURLSchemes<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>fb&#123;應用程式編號&#125;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">array</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>FacebookAppID<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>&#123;應用程式編號&#125;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>FacebookDisplayName<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>&#123;應用程式名稱&#125;<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意這裡的{}需要替換你的應用程式資訊</p>
+<p>如果app在facebook登入時會切換到Facebook apps則需以下的設定<br><figure class="highlight xml"><figcaption><span>.plist</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>LSApplicationQueriesSchemes<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbapi<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>fb-messenger-api<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbauth2<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>fbshareextension<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>step 2. 填入Bundle Identifier<br>在設定頁面的最後會要求輸入xcode專案的Bundle Identifier</p>
+<h2 id="為APP裝上facebook-login按鈕"><a href="#為APP裝上facebook-login按鈕" class="headerlink" title="為APP裝上facebook login按鈕"></a>為APP裝上facebook login按鈕</h2><figure class="highlight swift"><figcaption><span>AppDelegate.swift</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> FBSDKLoginKit</div><div class="line"><span class="meta">@UIApplicationMain</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDelegate</span>: <span class="title">UIResponder</span>, <span class="title">UIApplicationDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> window: <span class="type">UIWindow</span>?</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">        <span class="comment">// Override point for customization after application launch.</span></div><div class="line">        </div><div class="line">        <span class="type">FBSDKApplicationDelegate</span>.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 中略</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">applicationDidBecomeActive</span><span class="params">(application: UIApplication)</span></span> &#123;</div><div class="line">        <span class="comment">// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.</span></div><div class="line">        <span class="type">FBSDKAppEvents</span>.activateApp()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">FBSDKApplicationDelegate</span>.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)</div><div class="line">    &#125;</div><div class="line">｝</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><figcaption><span>ViewController.swift</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> FBSDKLoginKit</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line">        </div><div class="line">        <span class="keyword">let</span> loginButton = <span class="type">FBSDKLoginButton</span>()</div><div class="line">        loginButton.center = <span class="keyword">self</span>.view.center</div><div class="line">        <span class="keyword">self</span>.view.addSubview(loginButton)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>完成以上修改後，執行app就可看到facebook登入按鈕在畫面中間</p>
+<p>參考來源：<br><a href="https://developers.facebook.com/quickstarts/287841964917855/?platform=ios" target="_blank" rel="external">facebook官方文件</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用facebook登入是會員系統基本的功能（不論是web或mobile app)&lt;/p&gt;
+&lt;p&gt;由於官方文件不夠清楚，且過程中有許多需要注意的地方，特別將此記錄下來&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+  </entry>
   
   <entry>
     <title>使用StackView包裝不同寛高的同類型元件</title>
@@ -153,7 +199,7 @@
     <link href="https://kuroro0718.github.io/2016/07/07/765290/"/>
     <id>https://kuroro0718.github.io/2016/07/07/765290/</id>
     <published>2016-07-06T19:44:00.000Z</published>
-    <updated>2016-08-23T07:13:22.000Z</updated>
+    <updated>2016-08-23T07:14:19.000Z</updated>
     
     <content type="html"><![CDATA[<p><em>2016-07-21 新增使用程式碼刻UI元件</em><br><em>2016-07-22 新增使用segue</em><br><em>2016-08-10 新增Switch button和Segmented Control, 修改segue用法</em><br>*2016-08-23 新增UIPickerView和UISearchController</p>
 <a id="more"></a>
@@ -170,7 +216,7 @@
 <ol>
 <li>修改section title </li>
 </ol>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, titleForHeaderInSection section: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"Section <span class="subst">\(section)</span>"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, titleForHeaderInSection section: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"Section \(section)"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="使用程式碼新增UI元件"><a href="#使用程式碼新增UI元件" class="headerlink" title="使用程式碼新增UI元件"></a>使用程式碼新增UI元件</h2><p>以UIImageView為例</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> image = <span class="type">UIImageView</span>()</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLayoutSubviews</span><span class="params">()</span></span> &#123;</div><div class="line">  view.addSubview(image)</div><div class="line">  image.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></div><div class="line">  <span class="type">NSLayoutConstraint</span>.activateConstraints([</div><div class="line">    artwork.topAnchor.constraintEqualToAnchor(view.topAnchor),</div><div class="line">    artwork.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor),</div><div class="line">    artwork.rightAnchor.constraintEqualToAnchor(view.rightAnchor),</div><div class="line">    artwork.leftAnchor.constraintEqualToAnchor(view.leftAnchor)</div><div class="line">  ])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="使用segue"><a href="#使用segue" class="headerlink" title="使用segue"></a>使用segue</h2><p>在storyboard建立segue後。在Attribute inspector中，修改Identifier（例如命名為showMessageIdentifier)，假如轉換到名為ImageViewController的ViewController</p>
@@ -530,9 +576,9 @@
     </summary>
     
     
-      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
       <category term="heroku" scheme="https://kuroro0718.github.io/tags/heroku/"/>
+    
+      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
     
   </entry>
   
@@ -654,35 +700,6 @@
     <summary type="html">
     
       &lt;p&gt;在&lt;a href=&quot;http://alexliang-blog.logdown.com/posts/713401-rails-i18n-translation-chinese&quot;&gt;上一篇&lt;/a&gt;搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）&lt;br&gt;藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Rails] 使用i18n轉換中文詞彙</title>
-    <link href="https://kuroro0718.github.io/2016/04/22/rails-i18n-translation-chinese/"/>
-    <id>https://kuroro0718.github.io/2016/04/22/rails-i18n-translation-chinese/</id>
-    <published>2016-04-21T22:38:00.000Z</published>
-    <updated>2016-07-18T14:33:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>網站的頁面需要提供下拉式選單供使用者選擇星期幾<br>一開始使用Date::DAYNAMES取得一週的詞彙：<br><a id="more"></a></p>
-<figure class="highlight"><figcaption><span>app/views/posts/_form.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%= simple_form_for @post do |f| %&gt;</div><div class="line">  ...略</div><div class="line">  &lt;p&gt;</div><div class="line">    球聚時間：每週 &lt;%= f.select :day, Date::DAYNAMES.zip((0..6).to_a) %&gt;</div><div class="line">  &lt;/p&gt;</div><div class="line">&lt;% end %&gt;</div></pre></td></tr></table></figure>
-<p>然而預設為英文單字<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">=&gt; [[<span class="string">"Sunday"</span>, 0], [<span class="string">"Monday"</span>, 1], [<span class="string">"Tuesday"</span>, 2], [<span class="string">"Wednesday"</span>, 3], [<span class="string">"Thursday"</span>, 4], [<span class="string">"Friday"</span>, 5], [<span class="string">"Saturday"</span>, 6]]</div></pre></td></tr></table></figure></p>
-<p>我們想改成中文顯示，於是使用i18n轉換字詞</p>
-<p>首先，在config/locales下新增一個zh-TW.yml檔，裡面建立中文的對應單字<br><figure class="highlight ruby"><figcaption><span>config/locales/zh-TW.yml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="string">"zh-TW"</span>:</div><div class="line">  <span class="symbol">date:</span></div><div class="line">    <span class="symbol">day_names:</span></div><div class="line">      - 星期日</div><div class="line">      - 星期一</div><div class="line">      - 星期二</div><div class="line">      - 星期三</div><div class="line">      - 星期四</div><div class="line">      - 星期五</div><div class="line">      - 星期六</div></pre></td></tr></table></figure></p>
-<p>要特別注意的是yml檔裡不能用tab來縮排，必需使用2個空白</p>
-<p>接著設定config<br><figure class="highlight ruby"><figcaption><span>config/application.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.i18n.default_locale = <span class="string">'zh-TW'</span></div></pre></td></tr></table></figure></p>
-<p>修改原來的view，即可轉換選單的英文字詞<br><figure class="highlight"><figcaption><span>app/views/posts/_form.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%= simple_form_for @post do |f| %&gt;</div><div class="line">  ...略</div><div class="line">  &lt;p&gt;</div><div class="line">    球聚時間：每週 &lt;%= f.select :day, t(:"date.day_names").zip((0..6).to_a) %&gt;</div><div class="line">  &lt;/p&gt;</div><div class="line">&lt;% end %&gt;</div></pre></td></tr></table></figure></p>
-<p>參考來源：<br><a href="http://stackoverflow.com/questions/6590364/ruby-how-to-store-and-display-a-day-of-the-week" target="_blank" rel="external">“How to store and display a day of the week” from Stack Overflow</a><br><a href="https://ihower.tw/rails4/i18n.html" target="_blank" rel="external">ihower介紹i118n</a><br><a href="http://stackoverflow.com/questions/19326744/cant-i-just-simply-get-the-day-name-i18n-ed" target="_blank" rel="external">設定yml檔 from Stack Overflow</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;網站的頁面需要提供下拉式選單供使用者選擇星期幾&lt;br&gt;一開始使用Date::DAYNAMES取得一週的詞彙：&lt;br&gt;
     
     </summary>
     
