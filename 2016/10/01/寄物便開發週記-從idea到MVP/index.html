@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[Rails] MVC設定基本流程 | Alex&#39;s Playground</title>
+  <title>寄物便開發週記: 從idea到MVP | Alex&#39;s Playground</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rails是使用MVC架構的framework。學習一段時間後，更能體會這種架構開發web application帶來的方便。
-所謂的MVC，指的是Model（資料操作）、View（前端效果）和Controller（流程控制）。
-剛開始接觸時，對MVC的控制會感到一頭霧水，這裡以rails 101為範本做簡單的流程介紹:">
+  <meta name="description" content="把腦中的想法從無到有實現出來，相信是工程師們最有成就感的時候雖然現代的軟體開發哲學強調deliver fast。但如果沒做好溝通和協調，做出來的產品歪掉也會讓工程師們充滿挫折感
+我們把開發的過程記錄下來，以後回顧時能知道當初的決策過程。在快速迭代中最重要的目的是能早點修正偏差並得到經驗">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Rails] MVC設定基本流程">
-<meta property="og:url" content="https://kuroro0718.github.io/2015/12/21/380854/index.html">
+<meta property="og:title" content="寄物便開發週記: 從idea到MVP">
+<meta property="og:url" content="https://kuroro0718.github.io/2016/10/01/寄物便開發週記-從idea到MVP/index.html">
 <meta property="og:site_name" content="Alex's Playground">
-<meta property="og:description" content="rails是使用MVC架構的framework。學習一段時間後，更能體會這種架構開發web application帶來的方便。
-所謂的MVC，指的是Model（資料操作）、View（前端效果）和Controller（流程控制）。
-剛開始接觸時，對MVC的控制會感到一頭霧水，這裡以rails 101為範本做簡單的流程介紹:">
-<meta property="og:updated_time" content="2016-07-18T14:41:00.000Z">
+<meta property="og:description" content="把腦中的想法從無到有實現出來，相信是工程師們最有成就感的時候雖然現代的軟體開發哲學強調deliver fast。但如果沒做好溝通和協調，做出來的產品歪掉也會讓工程師們充滿挫折感
+我們把開發的過程記錄下來，以後回顧時能知道當初的決策過程。在快速迭代中最重要的目的是能早點修正偏差並得到經驗">
+<meta property="og:image" content="https://kuroro0718.github.io/whiteboard.jpg">
+<meta property="og:image" content="https://kuroro0718.github.io/map.jpg">
+<meta property="og:updated_time" content="2016-10-01T14:33:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Rails] MVC設定基本流程">
-<meta name="twitter:description" content="rails是使用MVC架構的framework。學習一段時間後，更能體會這種架構開發web application帶來的方便。
-所謂的MVC，指的是Model（資料操作）、View（前端效果）和Controller（流程控制）。
-剛開始接觸時，對MVC的控制會感到一頭霧水，這裡以rails 101為範本做簡單的流程介紹:">
+<meta name="twitter:title" content="寄物便開發週記: 從idea到MVP">
+<meta name="twitter:description" content="把腦中的想法從無到有實現出來，相信是工程師們最有成就感的時候雖然現代的軟體開發哲學強調deliver fast。但如果沒做好溝通和協調，做出來的產品歪掉也會讓工程師們充滿挫折感
+我們把開發的過程記錄下來，以後回顧時能知道當初的決策過程。在快速迭代中最重要的目的是能早點修正偏差並得到經驗">
+<meta name="twitter:image" content="https://kuroro0718.github.io/whiteboard.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Alex&#39;s Playground" type="application/atom+xml">
   
@@ -98,13 +98,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-380854" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-寄物便開發週記-從idea到MVP" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [Rails] MVC設定基本流程
+      寄物便開發週記: 從idea到MVP
     </h1>
   
 
@@ -113,7 +113,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2015/12/21/380854/" class="article-date"><time datetime="2015-12-21T06:04:00.000Z" itemprop="datePublished">2015-12-21</time></a>
+  <a href="/2016/10/01/寄物便開發週記-從idea到MVP/" class="article-date"><time datetime="2016-10-01T13:20:11.000Z" itemprop="datePublished">2016-10-01</time></a>
 </div>
 
     
@@ -124,25 +124,43 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>rails是使用MVC架構的framework。學習一段時間後，更能體會這種架構開發web application帶來的方便。</p>
-<p>所謂的MVC，指的是Model（資料操作）、View（前端效果）和Controller（流程控制）。</p>
-<p>剛開始接觸時，對MVC的控制會感到一頭霧水，這裡以rails 101為範本做簡單的流程介紹:<br><a id="more"></a></p>
+        <p>把腦中的想法從無到有實現出來，相信是工程師們最有成就感的時候<br>雖然現代的軟體開發哲學強調deliver fast。<br>但如果沒做好溝通和協調，做出來的產品歪掉也會讓工程師們充滿挫折感</p>
+<p>我們把開發的過程記錄下來，以後回顧時能知道當初的決策過程。<br>在快速迭代中最重要的目的是能早點修正偏差並得到經驗</p>
+<a id="more"></a>
+<p><a href="https://www.facebook.com/bagkeeper/?ref=aymt_homepage_panel" target="_blank" rel="external">寄物便 BagKeeper</a>的服務對象是需要在不同地點移動的人，提供寄物地點的媒合以省去身上大包小包的累贅。</p>
+<p>概念上與Airbnb類似。對於MVP來說，我們需要展示使用者和店家的的操作平台，也就是APP和Web後台。</p>
+<p>使用情境如下: </p>
 <ol>
-<li><p>設定routing，讓http request到對應的controller action執行</p>
-<figure class="highlight ruby"><figcaption><span>config/routes.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Rails.application.routes.draw <span class="keyword">do</span></div><div class="line">  root <span class="string">"groups#index"</span></div><div class="line">  resources <span class="symbol">:groups</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="string">``</span><span class="string">`	    </span></div><div class="line"></div><div class="line">2. 在controller新增action，例如討論版的首頁就需要建立index action</div><div class="line">`<span class="string">``</span> ruby app/controllers/groups_controller.rb</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GroupsController</span> &lt; ApplicationController</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">index</span></span></div><div class="line">  	  @group = Group.all</div><div class="line"> 	<span class="keyword">end</span></div><div class="line"> 	...</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>設定model，思考需要哪些資料欄位以及和其它資料表的關係。例如group和post有has_many的關係</p>
-<figure class="highlight ruby"><figcaption><span>app/models/group.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Group</span> &lt; ActiveRecord::Base</span></div><div class="line">   validates <span class="symbol">:title</span>, <span class="symbol">presence:</span> <span class="literal">true</span>		<span class="comment">#表示title這個欄位必填</span></div><div class="line">   has_many <span class="symbol">:posts</span>, <span class="symbol">dependent:</span> <span class="symbol">:delete</span>	<span class="comment">#當group被刪除時，底下的post也得刪除</span></div><div class="line">   ...</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>設定view。如果需要使用URL helper，得思考request要發到哪個action，例如：<br><code>ruby app/views/groups/index.html.erb
-&lt;div class=&quot;col-md-12&quot;&gt;
-&lt;div class=&quot;group&quot;&gt;
- &lt;%= link_to(&quot;New group&quot;, new_group_path, class: &quot;btn btn-primary pull-right&quot;) %&gt;
-&lt;/div&gt;
-...</code><br>使用者點擊”New group”這個按鈕時，會發一個request至new這個action並將頁面轉到/groups/new.html</p>
-</li>
+<li>使用者打開寄物便APP輸入寄物件數和時間</li>
+<li>APP顯示地圖標出使用者附近符合條件的店家</li>
+<li>使用者也能在地圖頁面搜尋指定的地點</li>
+<li>找到店家後送出訂單並完成預約</li>
+<li>商家在Web後台能看到訂單</li>
+<li>使用者前往商家寄物，此時商家可以開始計時</li>
+<li>使用者前往商家取物，商家結束計時並完成扣款 </li>
 </ol>
-<p>以上是簡單的流程。這四個步驟會依功能需要增加複雜度，開始實作前也得思考model間的關係。</p>
+<p>對於二個平台的開發者來說光有user story還不夠清楚<br>服務的二端最重要的資訊是訂單和商家資料</p>
+<p>第一次討論完後在白板畫下簡單的系統方塊圖，並且寫出各功能的開發比重<br><img src="whiteboard.jpg" alt="white board"><br>由Web端送出商家的資料給APP顯示在地圖上<br>APP能送出訂單給Web完成預約</p>
+<p>搭配圖形和user story，工程師腦中對於整個流程有了大方向<br>剩下的就是訂單和商家這二個model所需要的資料有哪些</p>
+<p>第二次討論時，我們針對訂單和商家model的細項做溝通<br>以下是討論結果:<br>訂單model: </p>
+<ol>
+<li>物件大小 （背包或行李箱）</li>
+<li>寄物件數</li>
+<li>日期，時數</li>
+<li>店家id</li>
+<li>使用者電話號碼</li>
+</ol>
+<p>商家model </p>
+<ol>
+<li>店名</li>
+<li>地址</li>
+<li>id</li>
+<li>空間照片</li>
+<li>營業時間</li>
+<li>評價 （用星等）</li>
+</ol>
+<p>再來是地圖的頁面，這方面很多APP都有範例可以參考，我使用EZTable的畫面<br><img src="map.jpg" alt="map"><br>上方是search bar，畫面中間是使用者附近的地圖並標示商家，下方是商家資訊<br>有了圖片，product designer和工程師比較容易達成共識<br>對於刻前端的人來說也不會浪費時間</p>
+<p>剩不到一個月就要demo了，希望開發過程能順利，打造出理想的產品。</p>
 
       
     </div>
@@ -153,16 +171,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/2015/12/21/380854/" data-id="citr9wral0001d354l7k2o7fk" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/2016/10/01/寄物便開發週記-從idea到MVP/" data-id="citr9wrdu002md354pbb7d2hr" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/2015/12/21/380854/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/2016/10/01/寄物便開發週記-從idea到MVP/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios-soft-skill/">ios, soft skill</a></li></ul>
 
 
     </footer>
@@ -172,19 +190,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/2015/12/20/379369/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/09/03/iOS基礎Networking處理/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">開發工具及設定</span>
+      <span class="article-nav-link-title">iOS基礎Networking處理</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/2015/12/24/aws-uses-s3-for-uploading-images/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[AWS] 使用S3存放上傳圖片</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -284,7 +295,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/2015/12/21/380854/';
+  var disqus_url = 'https://kuroro0718.github.io/2016/10/01/寄物便開發週記-從idea到MVP/';
   
   (function(){
     var dsq = document.createElement('script');
