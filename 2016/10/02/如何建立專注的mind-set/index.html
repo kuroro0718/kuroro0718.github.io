@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[Rails] 使用carrierwave實作圖片上傳 | Alex&#39;s Playground</title>
+  <title>如何建立專注的mind set | Alex&#39;s Playground</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一篇說明如何設定AWS S3。這一篇則是記錄使用carrierwave實作圖片上傳。">
+  <meta name="description" content="最近看了為何這樣工作會快、準、好，”專注”那一章給我帶來很大的啟發。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Rails] 使用carrierwave實作圖片上傳">
-<meta property="og:url" content="https://kuroro0718.github.io/2015/12/28/392355/index.html">
+<meta property="og:title" content="如何建立專注的mind set">
+<meta property="og:url" content="https://kuroro0718.github.io/2016/10/02/如何建立專注的mind-set/index.html">
 <meta property="og:site_name" content="Alex's Playground">
-<meta property="og:description" content="上一篇說明如何設定AWS S3。這一篇則是記錄使用carrierwave實作圖片上傳。">
-<meta property="og:updated_time" content="2016-07-18T14:40:53.000Z">
+<meta property="og:description" content="最近看了為何這樣工作會快、準、好，”專注”那一章給我帶來很大的啟發。">
+<meta property="og:updated_time" content="2016-10-02T15:11:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Rails] 使用carrierwave實作圖片上傳">
-<meta name="twitter:description" content="上一篇說明如何設定AWS S3。這一篇則是記錄使用carrierwave實作圖片上傳。">
+<meta name="twitter:title" content="如何建立專注的mind set">
+<meta name="twitter:description" content="最近看了為何這樣工作會快、準、好，”專注”那一章給我帶來很大的啟發。">
   
     <link rel="alternate" href="/atom.xml" title="Alex&#39;s Playground" type="application/atom+xml">
   
@@ -92,13 +92,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-392355" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-如何建立專注的mind-set" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [Rails] 使用carrierwave實作圖片上傳
+      如何建立專注的mind set
     </h1>
   
 
@@ -107,7 +107,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2015/12/28/392355/" class="article-date"><time datetime="2015-12-28T06:16:00.000Z" itemprop="datePublished">2015-12-28</time></a>
+  <a href="/2016/10/02/如何建立專注的mind-set/" class="article-date"><time datetime="2016-10-02T14:36:26.000Z" itemprop="datePublished">2016-10-02</time></a>
 </div>
 
     
@@ -118,19 +118,16 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images" target="_blank" rel="external">上一篇</a>說明如何設定AWS S3。這一篇則是記錄使用carrierwave實作圖片上傳。</p>
+        <p>最近看了<a href="http://www.books.com.tw/products/0010712988" target="_blank" rel="external">為何這樣工作會快、準、好</a>，”專注”那一章給我帶來很大的啟發。</p>
 <a id="more"></a>
-<p>本例我們將建立一個model:Photo 配合carrierwave實現圖片上傳</p>
-<h2 id="安裝gem-carrierwave"><a href="#安裝gem-carrierwave" class="headerlink" title="安裝gem carrierwave"></a>安裝gem carrierwave</h2><figure class="highlight plain"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem &quot;carrierwave&quot;</div><div class="line">gem &quot;mini_megick&quot;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;bundle install</div><div class="line">&gt;&gt;rails g uploader image</div></pre></td></tr></table></figure>
-<p>會產生uploaders/image_uploader.rb</p>
-<h2 id="設定autoload-paths"><a href="#設定autoload-paths" class="headerlink" title="設定autoload_paths"></a>設定autoload_paths</h2><figure class="highlight ruby"><figcaption><span>config/application.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">module</span> <span class="title">Artstore</span></span></div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Application</span> &lt; Rails::Application</span></div><div class="line">...(略)</div><div class="line">   config.autoload_paths += <span class="string">%W(<span class="subst">#&#123;config.root&#125;</span>/app/uploaders)</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<h2 id="建立model-Photo"><a href="#建立model-Photo" class="headerlink" title="建立model:Photo"></a>建立model:Photo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;rails g model photo product_id:integer image:string</div><div class="line">&gt;&gt;rake db:migrate</div></pre></td></tr></table></figure>
-<h2 id="假如己有一個product-model，設定product和photo的關聯"><a href="#假如己有一個product-model，設定product和photo的關聯" class="headerlink" title="假如己有一個product model，設定product和photo的關聯"></a>假如己有一個product model，設定product和photo的關聯</h2><figure class="highlight ruby"><figcaption><span>models/photo.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> &lt; ActiveRecord::Base</span></div><div class="line">	belongs_to <span class="symbol">:product</span></div><div class="line">  </div><div class="line">	mount_uploader <span class="symbol">:image</span>, ImageUplader</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<figure class="highlight ruby"><figcaption><span>models/product.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> &lt; ActiveRecord::Base</span></div><div class="line">	has_one <span class="symbol">:photo</span></div><div class="line"></div><div class="line"> 	accepts_nested_attributes_for <span class="symbol">:photo</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<h2 id="新增product時能新增圖片"><a href="#新增product時能新增圖片" class="headerlink" title="新增product時能新增圖片"></a>新增product時能新增圖片</h2><figure class="highlight ruby"><figcaption><span>app/controllers/admin/products_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">new</span></span></div><div class="line"> 	@product ＝ Prodcut.new</div><div class="line">   @photo = @product.build_photo</div><div class="line"> <span class="keyword">end</span></div></pre></td></tr></table></figure>
-<h2 id="將upload資料夾加入gitignore"><a href="#將upload資料夾加入gitignore" class="headerlink" title="將upload資料夾加入gitignore"></a>將upload資料夾加入gitignore</h2><figure class="highlight plain"><figcaption><span>.gitignore</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public/uploads</div></pre></td></tr></table></figure>
-<p>以上是使用carrierwave上傳圖片的流程，下一篇說明使用figaro管理s3密鑰。</p>
+<p>一開始作者以法航四四七班機失事的案例說明人在危急情況下，是如何容易被外界雜訊干擾而忘記基本的操作法則。</p>
+<p>當飛機出現故障時，駕駛艙會出現各種警示音、螢幕不斷地跳出指令。此時正副機長該怎麼排除問題呢？ 讀到這個故事搭配前陣子看的<a href="https://www.youtube.com/watch?v=NGe7NmYbXo0" target="_blank" rel="external">薩利機長</a>，會有很深刻的印象。</p>
+<p>當我們從熟悉的情境突然發生狀況，如下雨天車子失控打滑。假如沒有正確的觀念，駕駛可能會猛踩煞車進而導致意外。</p>
+<p>於是，這本書提到我們該建立”心智模型”。也就是對可能發生的情況事先在腦中演練應對措施。當危急發生時，可以迅速排除雜訊，專注在解決問題本身。</p>
+<p>這種在腦中演練的方式可以在許多領域見到: 賽車手會邊模擬開在賽道上每一個進彎出彎的動作、體育選手會想像比賽時和對手攻守的畫面。</p>
+<p>以我自己的經驗來說。在前往景點拍照時，會先想像我要呈現的畫面，到當地時便能專心”找”心中的場景。</p>
+<p>書中也提到另一場飛安事故，結局卻大不相同。原因是機長和副機長們平時建立心智模型，並在危急發生時把過去的經驗用在解決問題上;這也讓我想到一開始學打球時，教練對我說的一句話: 「比賽時你是不可能打出平常練習打不出來的球路」。</p>
+<p>所以，要提升專注的方法在於平常對生活或工作建立”演練”的概念。當狀況來臨時，我們不只是靠本能反應在解決問題，而是清楚該怎麼做才能渡過危機。</p>
 
       
     </div>
@@ -141,16 +138,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/2015/12/28/392355/" data-id="citsrmf0s0004q154879lzt1c" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/2016/10/02/如何建立專注的mind-set/" data-id="citsrmf4b002mq154luyr9jps" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/2015/12/28/392355/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/2016/10/02/如何建立專注的mind-set/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/讀書筆記/">讀書筆記</a></li></ul>
 
 
     </footer>
@@ -160,19 +157,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/2015/12/24/aws-uses-s3-for-uploading-images/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/10/01/寄物便開發週記-從idea到MVP/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[AWS] 使用S3存放上傳圖片</span>
+      <span class="article-nav-link-title">寄物便開發週記: 從idea到MVP</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/2016/01/04/project-management-on-resolution-tracker/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Rails]  Resolution Tracker－KICK OFF! </span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -272,7 +262,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/2015/12/28/392355/';
+  var disqus_url = 'https://kuroro0718.github.io/2016/10/02/如何建立專注的mind-set/';
   
   (function(){
     var dsq = document.createElement('script');

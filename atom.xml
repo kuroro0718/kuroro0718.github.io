@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-10-01T14:33:46.000Z</updated>
+  <updated>2016-10-02T15:11:21.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -16,16 +16,46 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>如何建立專注的mind set</title>
+    <link href="https://kuroro0718.github.io/2016/10/02/%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E5%B0%88%E6%B3%A8%E7%9A%84mind-set/"/>
+    <id>https://kuroro0718.github.io/2016/10/02/如何建立專注的mind-set/</id>
+    <published>2016-10-02T14:36:26.000Z</published>
+    <updated>2016-10-02T15:11:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近看了<a href="http://www.books.com.tw/products/0010712988" target="_blank" rel="external">為何這樣工作會快、準、好</a>，”專注”那一章給我帶來很大的啟發。</p>
+<a id="more"></a>
+<p>一開始作者以法航四四七班機失事的案例說明人在危急情況下，是如何容易被外界雜訊干擾而忘記基本的操作法則。</p>
+<p>當飛機出現故障時，駕駛艙會出現各種警示音、螢幕不斷地跳出指令。此時正副機長該怎麼排除問題呢？ 讀到這個故事搭配前陣子看的<a href="https://www.youtube.com/watch?v=NGe7NmYbXo0" target="_blank" rel="external">薩利機長</a>，會有很深刻的印象。</p>
+<p>當我們從熟悉的情境突然發生狀況，如下雨天車子失控打滑。假如沒有正確的觀念，駕駛可能會猛踩煞車進而導致意外。</p>
+<p>於是，這本書提到我們該建立”心智模型”。也就是對可能發生的情況事先在腦中演練應對措施。當危急發生時，可以迅速排除雜訊，專注在解決問題本身。</p>
+<p>這種在腦中演練的方式可以在許多領域見到: 賽車手會邊模擬開在賽道上每一個進彎出彎的動作、體育選手會想像比賽時和對手攻守的畫面。</p>
+<p>以我自己的經驗來說。在前往景點拍照時，會先想像我要呈現的畫面，到當地時便能專心”找”心中的場景。</p>
+<p>書中也提到另一場飛安事故，結局卻大不相同。原因是機長和副機長們平時建立心智模型，並在危急發生時把過去的經驗用在解決問題上;這也讓我想到一開始學打球時，教練對我說的一句話: 「比賽時你是不可能打出平常練習打不出來的球路」。</p>
+<p>所以，要提升專注的方法在於平常對生活或工作建立”演練”的概念。當狀況來臨時，我們不只是靠本能反應在解決問題，而是清楚該怎麼做才能渡過危機。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近看了&lt;a href=&quot;http://www.books.com.tw/products/0010712988&quot;&gt;為何這樣工作會快、準、好&lt;/a&gt;，”專注”那一章給我帶來很大的啟發。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="讀書筆記" scheme="https://kuroro0718.github.io/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
+    
+  </entry>
+  
+  <entry>
     <title>寄物便開發週記: 從idea到MVP</title>
     <link href="https://kuroro0718.github.io/2016/10/01/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98-%E5%BE%9Eidea%E5%88%B0MVP/"/>
     <id>https://kuroro0718.github.io/2016/10/01/寄物便開發週記-從idea到MVP/</id>
     <published>2016-10-01T13:20:11.000Z</published>
-    <updated>2016-10-01T14:33:46.000Z</updated>
+    <updated>2016-10-03T15:51:20.000Z</updated>
     
     <content type="html"><![CDATA[<p>把腦中的想法從無到有實現出來，相信是工程師們最有成就感的時候<br>雖然現代的軟體開發哲學強調deliver fast。<br>但如果沒做好溝通和協調，做出來的產品歪掉也會讓工程師們充滿挫折感</p>
 <p>我們把開發的過程記錄下來，以後回顧時能知道當初的決策過程。<br>在快速迭代中最重要的目的是能早點修正偏差並得到經驗</p>
 <a id="more"></a>
-<p><a href="https://www.facebook.com/bagkeeper/?ref=aymt_homepage_panel" target="_blank" rel="external">寄物便 BagKeeper</a>的服務對象是需要在不同地點移動的人，提供寄物地點的媒合以省去身上大包小包的累贅。</p>
+<p><a href="http://www.bagkeeper.co" target="_blank" rel="external">寄物便 BagKeeper</a>的服務對象是需要在不同地點移動的人，提供寄物地點的媒合以省去身上大包小包的累贅。</p>
 <p>概念上與Airbnb類似。對於MVP來說，我們需要展示使用者和店家的的操作平台，也就是APP和Web後台。</p>
 <p>使用情境如下: </p>
 <ol>
@@ -670,9 +700,9 @@
     </summary>
     
     
-      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
       <category term="heroku" scheme="https://kuroro0718.github.io/tags/heroku/"/>
+    
+      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
     
   </entry>
   
@@ -700,42 +730,6 @@
     
     
       <category term="heroku" scheme="https://kuroro0718.github.io/tags/heroku/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Rails]  使用friendly_id增加URL可讀性</title>
-    <link href="https://kuroro0718.github.io/2016/04/27/rails-use-friendly-id-increase-the-readability-url/"/>
-    <id>https://kuroro0718.github.io/2016/04/27/rails-use-friendly-id-increase-the-readability-url/</id>
-    <published>2016-04-27T03:39:00.000Z</published>
-    <updated>2016-07-18T14:33:53.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在預設的routing和URL中，每筆資料皆以id做查詢及顯示。<br>例如網站有個post model及controller，則第一則post id為1，其URL為/posts/1。<br>這對網站SEO及可讀性來說是很糟糕的做法。<br><a id="more"></a></p>
-<p>如果要使用有意義的欄位(例如post title)作為URL的一部分，我們可以覆寫to_param並使用parameterize將id加上post title</p>
-<figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">to_param</span></span></div><div class="line">		<span class="string">"<span class="subst">#&#123;id&#125;</span>-<span class="subst">#&#123;title&#125;</span>"</span>.parameterize</div><div class="line">	<span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>透過此方法，假如第一則post title為rails routing，則本來的//post/1會變成//post/1-rails-routing。<br>但這樣還是有id number在URL。想更進一步去除id，需要在post model加入名為slug的欄位</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; rails g migration AddSlugToPosts slug</div><div class="line">&gt;&gt; rake db:migrate</div></pre></td></tr></table></figure>
-<p>修改post model<br><figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></div><div class="line">	before_save <span class="symbol">:update_slug</span></div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update_slug</span></span></div><div class="line">  	<span class="keyword">self</span>.slug =	title.parameterize  <span class="comment"># 在儲存post前，先將title參數化存到slug</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  </div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">to_param</span></span></div><div class="line">		slug</div><div class="line">	<span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight ruby"><figcaption><span>app/controllers/posts_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsController</span> &lt; ActionController	</span></div><div class="line">  ... 略</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_params</span></span></div><div class="line">		@post = Post.find_by_slug(params[<span class="symbol">:id</span>])  <span class="comment"># 由於id在to_param時己改為slug，找資料時得用slug</span></div><div class="line">	<span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>以上介紹的方法最大的問題是當title被更改後(例如rails routing 2)，則URL會成為//posts/rails-routing-2<br>舊的網址將會失效，這對使用者來說會是非常不便的事。</p>
-<p>因此介紹friendly_id這套gem，它能幫我們把URL變美觀，且省下很多力氣</p>
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">'friendly_id'</span>, <span class="string">'~&gt; 5.1.0'</span> <span class="comment"># Note: You MUST use 5.0.0 or greater for Rails 4.0+</span></div></pre></td></tr></table></figure>
-<p>接著bundle install以完成安裝</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; rails generate friendly_id</div><div class="line">&gt;&gt; rake db:migrate</div></pre></td></tr></table></figure>
-<h2 id="Model-and-Controller"><a href="#Model-and-Controller" class="headerlink" title="Model and Controller"></a>Model and Controller</h2><figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></div><div class="line">  extend FriendlyId</div><div class="line">  friendly_id <span class="symbol">:title</span>, <span class="symbol">use:</span> <span class="symbol">:slugged</span></div><div class="line">  ... 略</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<figure class="highlight ruby"><figcaption><span>app/controllers/posts_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsController</span> &lt; ActionController	</span></div><div class="line">  ... 略</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_params</span></span></div><div class="line">		@post = Post.friendly.find(params[<span class="symbol">:id</span>]) </div><div class="line">	<span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<p>將本來的find前面加上friendly這個method，才能找到資料。</p>
-<p>參考來源：<br><a href="https://gorails.com/episodes/pretty-urls-with-friendly-id" target="_blank" rel="external">Friendly ID介紹影片</a><br><a href="https://github.com/norman/friendly_id" target="_blank" rel="external">friendly_id github</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在預設的routing和URL中，每筆資料皆以id做查詢及顯示。&lt;br&gt;例如網站有個post model及controller，則第一則post id為1，其URL為/posts/1。&lt;br&gt;這對網站SEO及可讀性來說是很糟糕的做法。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
     
   </entry>
   
