@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-10-02T15:11:21.000Z</updated>
+  <updated>2016-10-05T15:35:29.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>讓APP在iOS 10能存取照相機</title>
+    <link href="https://kuroro0718.github.io/2016/10/05/%E8%AE%93APP%E5%9C%A8iOS-10%E8%83%BD%E5%AD%98%E5%8F%96%E7%85%A7%E7%9B%B8%E6%A9%9F/"/>
+    <id>https://kuroro0718.github.io/2016/10/05/讓APP在iOS-10能存取照相機/</id>
+    <published>2016-10-05T15:23:43.000Z</published>
+    <updated>2016-10-05T15:35:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>APP如果要在iOS 10的環境使用照相機，必須取得使用者同意(還有其它功能也需要，細節請參考<a href="http://useyourloaf.com/blog/privacy-settings-in-ios-10/" target="_blank" rel="external">連結</a>)</p>
+<p>在寫mini project時，因為xcode 8需要手動加入設定，否則會出現錯誤訊息<br><a id="more"></a></p>
+<blockquote>
+<p>This app has crashed because it attempted to access privacy-sensitive data without a usage description. The app’s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</p>
+</blockquote>
+<p>log要我們加入NSCameraUsageDescription key到Info.plist</p>
+<p>在專案的info.plist加上Privacy Camera Usage Description<br>並給它一個值</p>
+<p><img src="info.png" alt="Info.plist"></p>
+<p>完成後APP在iOS 10環境下執行時便會詢問使用者允不允許APP存取相機。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;APP如果要在iOS 10的環境使用照相機，必須取得使用者同意(還有其它功能也需要，細節請參考&lt;a href=&quot;http://useyourloaf.com/blog/privacy-settings-in-ios-10/&quot;&gt;連結&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;在寫mini project時，因為xcode 8需要手動加入設定，否則會出現錯誤訊息&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+  </entry>
   
   <entry>
     <title>如何建立專注的mind set</title>
@@ -709,33 +739,6 @@
     
     
       <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
-      <category term="heroku" scheme="https://kuroro0718.github.io/tags/heroku/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Check list of Heroku deployment</title>
-    <link href="https://kuroro0718.github.io/2016/05/03/check-list-of-heroku-deployment/"/>
-    <id>https://kuroro0718.github.io/2016/05/03/check-list-of-heroku-deployment/</id>
-    <published>2016-05-02T19:24:00.000Z</published>
-    <updated>2016-07-18T14:34:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在deploy到Heroku前，應該檢查的事：<br><a id="more"></a></p>
-<h2 id="開Branch"><a href="#開Branch" class="headerlink" title="開Branch"></a>開Branch</h2><p>因為你永遠不知道deploy後有什麼狀況，修改branch也比較安全<br>事實上，在修改bug、開發沒做過的功能前，你都應該新增branch</p>
-<h2 id="Devise"><a href="#Devise" class="headerlink" title="Devise"></a>Devise</h2><p>如果有裝Devise，記得加上這段<br><figure class="highlight ruby"><figcaption><span>config/initializers/devise.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.secret_key = ENV[<span class="string">"DEVISE_SECRET"</span>]</div></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ heroku config:<span class="built_in">set</span> DEVISE_SECRET=XXX</div></pre></td></tr></table></figure>
-<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>因為Heroku不支援sqlite3，production改用postgresql<br><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  gem <span class="string">'sqlite3'</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">group <span class="symbol">:production</span> <span class="keyword">do</span></div><div class="line">  gem <span class="string">'pg'</span></div><div class="line">en</div></pre></td></tr></table></figure></p>
-<p>記得bundle install</p>
-<p>參考資料：<br><a href="http://stackoverflow.com/questions/18080910/devise-secret-key-was-not-set" target="_blank" rel="external">Stack Overflow文章</a><br><a href="http://stackoverflow.com/questions/11714336/heroku-push-fails-with-the-error-an-error-occurred-while-installing-sqlite3-rub" target="_blank" rel="external">設定production database</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在deploy到Heroku前，應該檢查的事：&lt;br&gt;
-    
-    </summary>
-    
     
       <category term="heroku" scheme="https://kuroro0718.github.io/tags/heroku/"/>
     
