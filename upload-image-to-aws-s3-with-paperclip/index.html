@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Uploading image to AWS S3 with Paperclip  | Alex Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uploading image to AWS S3 with Paperclip ">
+<meta property="og:url" content="https://kuroro0718.github.io/upload-image-to-aws-s3-with-paperclip/index.html">
+<meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷">
+<meta property="og:updated_time" content="2016-07-18T14:34:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Uploading image to AWS S3 with Paperclip ">
+<meta name="twitter:description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷">
+  
+    <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-81216364-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">Alex Liang</h1>
+  
+    <p class="lead blog-description">記錄我在web和iOS學習的過程</p>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-upload-image-to-aws-s3-with-paperclip" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      Uploading image to AWS S3 with Paperclip 
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/upload-image-to-aws-s3-with-paperclip/" class="article-date"><time datetime="2016-05-02T23:29:00.000Z" itemprop="datePublished">2016-05-03</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br><a id="more"></a></p>
+<p>一開始，照著<a href="https://devcenter.heroku.com/articles/paperclip-s3" target="_blank" rel="external">Heroku 官方教學</a>實作。<br>沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗</p>
+<h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><pre><code>1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images)
+2. 己安裝ImageMagick
+3. 己安裝Heroku Toolbelt
+</code></pre><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">"paperclip"</span>, <span class="string">'~&gt; 4.3.6'</span></div><div class="line">gem <span class="string">'aws-sdk'</span>, <span class="string">'&lt; 2.0'</span></div></pre></td></tr></table></figure>
+<p>因為paperclip對新版的aws-sdk尚未支援，aws-sdk採用2.0以前版本；paperclip用穩定版本</p>
+<figure class="highlight ruby"><figcaption><span>config/environments/production.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">config.paperclip_defaults = &#123;</div><div class="line">  <span class="symbol">:storage</span> =&gt; <span class="symbol">:s3</span>,</div><div class="line">  <span class="symbol">:s3_credentials</span> =&gt; &#123;</div><div class="line">    <span class="symbol">:bucket</span> =&gt; ENV[<span class="string">'S3_BUCKET_NAME'</span>],</div><div class="line">    <span class="symbol">:access_key_id</span> =&gt; ENV[<span class="string">'AWS_ACCESS_KEY_ID'</span>],</div><div class="line">    <span class="symbol">:secret_access_key</span> =&gt; ENV[<span class="string">'AWS_SECRET_ACCESS_KEY'</span>]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>這裡使用ENV表示機密資訊，你可以在application.yml設定其值（注意此yml檔要加入.gitignore）<br>但heroku不知道這些值，所以要另外設定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ heroku config:<span class="built_in">set</span> S3_BUCKET_NAME=your_bucket_name</div><div class="line">$ heroku config:<span class="built_in">set</span> AWS_ACCESS_KEY_ID=your_access_key_id</div><div class="line">$ heroku config:<span class="built_in">set</span> AWS_SECRET_ACCESS_KEY=your_secret_access_key</div></pre></td></tr></table></figure>
+<p>新增paperclip.rb檔在config/initializers下<br><figure class="highlight ruby"><figcaption><span>config/initializers/paperclip.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> Rails.env.production?</div><div class="line">  Paperclip::Attachment.default_options[<span class="symbol">:url</span>] = your_bucket_url</div><div class="line">  Paperclip::Attachment.default_options[<span class="symbol">:path</span>] = <span class="string">'/:class/:attachment/:id_partition/:style/:filename'</span></div><div class="line">  Paperclip::Attachment.default_options[<span class="symbol">:s3_host_name</span>] = <span class="string">'s3-us-west-1.amazonaws.com'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>要注意:url的值為’bucket_name’+s3.amazonaws.com，例如bucket取名paperclip-test，則url為paperclip-test.s3.amazonaws.com<br>而:s3_host_name則需參考<a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank" rel="external">AWS文件</a>做相對應的修改。</p>
+<p>參考資料：<br><a href="http://stackoverflow.com/questions/36391871/paperclip-s3-heroku-but-something-went-wrong" target="_blank" rel="external">Stack Overflow討論文章</a><br><a href="https://github.com/thoughtbot/paperclip" target="_blank" rel="external">Paperclip github</a></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://kuroro0718.github.io/upload-image-to-aws-s3-with-paperclip/" data-id="citxobj7p001ty954ir2gi1sc" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+        <a href="https://kuroro0718.github.io/upload-image-to-aws-s3-with-paperclip/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/check-list-of-heroku-deployment/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">Check list of Heroku deployment</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/code-school-rails-api-note/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">[Code School] Rails API  Routing Note</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  <h4>About</h4>
+  <p>Alex Liang is a software developer living in Taipei. He enjoy solving problem with software.</p>
+
+</div>
+
+
+  
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/front-end/" style="font-size: 11.67px;">front-end</a> <a href="/tags/heroku/" style="font-size: 15px;">heroku</a> <a href="/tags/ios/" style="font-size: 16.67px;">ios</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.67px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.33px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 10px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 10px;">讀書筆記</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">October 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">September 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">August 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">July 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">June 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">May 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">April 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">March 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">February 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">January 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">December 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/讓APP在iOS-10能存取照相機/">讓APP在iOS 10能存取照相機</a>
+        </li>
+      
+        <li>
+          <a href="/如何建立專注的mind-set/">如何建立專注的mind set</a>
+        </li>
+      
+        <li>
+          <a href="/寄物便開發週記-從idea到MVP/">寄物便開發週記: 從idea到MVP</a>
+        </li>
+      
+        <li>
+          <a href="/iOS基礎Networking處理/">iOS基礎Networking處理</a>
+        </li>
+      
+        <li>
+          <a href="/使用Facebook-SDK製作app登入按鈕/">使用Facebook SDK製作app登入按鈕</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Alex Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+<script>
+  var disqus_shortname = 'alexsplayground';
+  
+  var disqus_url = 'https://kuroro0718.github.io/upload-image-to-aws-s3-with-paperclip/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
