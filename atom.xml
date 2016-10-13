@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-10-05T15:35:29.000Z</updated>
+  <updated>2016-10-13T00:43:30.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,47 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>寄物便開發週記W2: 開始動工</title>
+    <link href="https://kuroro0718.github.io/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/"/>
+    <id>https://kuroro0718.github.io/寄物便開發週記W2-開始動工/</id>
+    <published>2016-10-12T15:44:05.000Z</published>
+    <updated>2016-10-13T00:43:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面</p>
+<p>與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整</p>
+<a id="more"></a>
+<p>一開始product designer給二張wireframe</p>
+<p><img src="mapview.png" alt="Map"><br><img src="store-detail.png" alt="Store detail"></p>
+<p>第一張比較麻煩的是下半部的商店簡介，這裡應該要能左右滑動且地圖中心點要移到商店座標</p>
+<p>我使用一個隱藏的collection view，上面排好元件<br>使用者點選商家時，由商家名稱找出商家陣列中符合的index，再reload collection view的資料</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MapViewDelegate</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">mapView</span><span class="params">(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView)</span></span> &#123;</div><div class="line">       selectedAnnoView = storeList.indexOf &#123; (store) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></div><div class="line">           store.name! == (view.annotation?.title)!</div><div class="line">       &#125;!</div><div class="line">       storeCollectionView.reloadData()</div><div class="line">       storeCollectionView.hidden = <span class="literal">false</span></div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   </div><div class="line">   <span class="comment">// UICollectionViewDelegate</span></div><div class="line">   <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</div><div class="line">       <span class="keyword">let</span> indexToDisplay = <span class="type">NSIndexPath</span>(forRow: selectedAnnoView, inSection: <span class="number">0</span>)</div><div class="line">       <span class="keyword">self</span>.storeCollectionView.scrollToItemAtIndexPath(indexToDisplay, atScrollPosition: .<span class="type">None</span>, animated: <span class="literal">false</span>)</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>使用者點選商家會觸發didSelectAnnotationView事件，找到商家後更新collection view<br>而collection view需要捲到相對應的cell，這裡需要willDisplayCell這個delegate的方法把剛才得到的index使用scrollToItemAtIndexPath捲動cell</p>
+<p>點選collection view cell後可以進到該商家的頁面，這裡花了比較多時間刻出designer想要的畫面</p>
+<p>原本第一版上半部商家圖片和下半部使用者評論都是使用collection view，但考量需要加入page controll後，上半部改用scroll view來做</p>
+<p><img src="store-detail-v1.jpg" alt="Store detail v1"></p>
+<p>但給其它同學測試，發現下半部的畫面會讓使用者不知道可以滑動<br>所以我把cell的寬度縮減一些</p>
+<p><img src="store-detail-v2.jpg" alt="Store detail v2"><br>發現效果還是平平，改加一個框框後</p>
+<p><img src="store-detail-v3.jpg" alt="Store detail v3"></p>
+<p>CollectionViewCell程式碼<br><figure class="highlight swift"><figcaption><span>StoreCommentsCollectionViewCell</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StoreCommentsCollectionViewCell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</div><div class="line">   </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">self</span>.userImageView.clipsToBounds = <span class="literal">true</span></div><div class="line">        <span class="keyword">self</span>.userImageView.layer.cornerRadius = userImageView.frame.size.width / <span class="number">2</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">drawRect</span><span class="params">(rect: CGRect)</span></span> &#123;</div><div class="line">        <span class="keyword">self</span>.layer.borderWidth = <span class="number">0.5</span></div><div class="line">        <span class="keyword">self</span>.layer.borderColor = <span class="type">UIColor</span>.blackColor().<span class="type">CGColor</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>這效果讓designer點頭，於是第一版的畫面就先定下來。</p>
+<p>這中間討論的過程還算順利，也很慶幸自己沒有偷懶，看到wireframe先不要急著打搶，想辦法找答案做出來才是該有的態度。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面&lt;/p&gt;
+&lt;p&gt;與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+  </entry>
   
   <entry>
     <title>讓APP在iOS 10能存取照相機</title>
@@ -401,9 +442,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -706,41 +747,6 @@
     
     
       <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Uploading image to AWS S3 with Paperclip </title>
-    <link href="https://kuroro0718.github.io/upload-image-to-aws-s3-with-paperclip/"/>
-    <id>https://kuroro0718.github.io/upload-image-to-aws-s3-with-paperclip/</id>
-    <published>2016-05-02T23:29:00.000Z</published>
-    <updated>2016-07-18T14:34:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br><a id="more"></a></p>
-<p>一開始，照著<a href="https://devcenter.heroku.com/articles/paperclip-s3" target="_blank" rel="external">Heroku 官方教學</a>實作。<br>沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗</p>
-<h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><pre><code>1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images)
-2. 己安裝ImageMagick
-3. 己安裝Heroku Toolbelt
-</code></pre><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">"paperclip"</span>, <span class="string">'~&gt; 4.3.6'</span></div><div class="line">gem <span class="string">'aws-sdk'</span>, <span class="string">'&lt; 2.0'</span></div></pre></td></tr></table></figure>
-<p>因為paperclip對新版的aws-sdk尚未支援，aws-sdk採用2.0以前版本；paperclip用穩定版本</p>
-<figure class="highlight ruby"><figcaption><span>config/environments/production.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">config.paperclip_defaults = &#123;</div><div class="line">  <span class="symbol">:storage</span> =&gt; <span class="symbol">:s3</span>,</div><div class="line">  <span class="symbol">:s3_credentials</span> =&gt; &#123;</div><div class="line">    <span class="symbol">:bucket</span> =&gt; ENV[<span class="string">'S3_BUCKET_NAME'</span>],</div><div class="line">    <span class="symbol">:access_key_id</span> =&gt; ENV[<span class="string">'AWS_ACCESS_KEY_ID'</span>],</div><div class="line">    <span class="symbol">:secret_access_key</span> =&gt; ENV[<span class="string">'AWS_SECRET_ACCESS_KEY'</span>]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>這裡使用ENV表示機密資訊，你可以在application.yml設定其值（注意此yml檔要加入.gitignore）<br>但heroku不知道這些值，所以要另外設定</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ heroku config:<span class="built_in">set</span> S3_BUCKET_NAME=your_bucket_name</div><div class="line">$ heroku config:<span class="built_in">set</span> AWS_ACCESS_KEY_ID=your_access_key_id</div><div class="line">$ heroku config:<span class="built_in">set</span> AWS_SECRET_ACCESS_KEY=your_secret_access_key</div></pre></td></tr></table></figure>
-<p>新增paperclip.rb檔在config/initializers下<br><figure class="highlight ruby"><figcaption><span>config/initializers/paperclip.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> Rails.env.production?</div><div class="line">  Paperclip::Attachment.default_options[<span class="symbol">:url</span>] = your_bucket_url</div><div class="line">  Paperclip::Attachment.default_options[<span class="symbol">:path</span>] = <span class="string">'/:class/:attachment/:id_partition/:style/:filename'</span></div><div class="line">  Paperclip::Attachment.default_options[<span class="symbol">:s3_host_name</span>] = <span class="string">'s3-us-west-1.amazonaws.com'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>要注意:url的值為’bucket_name’+s3.amazonaws.com，例如bucket取名paperclip-test，則url為paperclip-test.s3.amazonaws.com<br>而:s3_host_name則需參考<a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank" rel="external">AWS文件</a>做相對應的修改。</p>
-<p>參考資料：<br><a href="http://stackoverflow.com/questions/36391871/paperclip-s3-heroku-but-something-went-wrong" target="_blank" rel="external">Stack Overflow討論文章</a><br><a href="https://github.com/thoughtbot/paperclip" target="_blank" rel="external">Paperclip github</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久&lt;br&gt;把解決過程記錄下來，以免未來再踩雷&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="rails" scheme="https://kuroro0718.github.io/tags/rails/"/>
-    
-      <category term="heroku" scheme="https://kuroro0718.github.io/tags/heroku/"/>
     
   </entry>
   

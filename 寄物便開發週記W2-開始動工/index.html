@@ -3,18 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[Rails] 使用figaro管理密鑰 | Alex Liang</title>
+  <title>寄物便開發週記W2: 開始動工 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="figaro是一個管理機密資訊或密碼的gem，以下介紹如何同步資訊到heroku上">
+  <meta name="description" content="這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面
+與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Rails] 使用figaro管理密鑰">
-<meta property="og:url" content="https://kuroro0718.github.io/420290/index.html">
+<meta property="og:title" content="寄物便開發週記W2: 開始動工">
+<meta property="og:url" content="https://kuroro0718.github.io/寄物便開發週記W2-開始動工/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="figaro是一個管理機密資訊或密碼的gem，以下介紹如何同步資訊到heroku上">
-<meta property="og:updated_time" content="2016-07-18T14:26:34.000Z">
+<meta property="og:description" content="這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面
+與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整">
+<meta property="og:image" content="https://kuroro0718.github.io/mapview.png">
+<meta property="og:image" content="https://kuroro0718.github.io/store-detail.png">
+<meta property="og:image" content="https://kuroro0718.github.io/store-detail-v1.jpg">
+<meta property="og:image" content="https://kuroro0718.github.io/store-detail-v2.jpg">
+<meta property="og:image" content="https://kuroro0718.github.io/store-detail-v3.jpg">
+<meta property="og:updated_time" content="2016-10-13T00:43:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Rails] 使用figaro管理密鑰">
-<meta name="twitter:description" content="figaro是一個管理機密資訊或密碼的gem，以下介紹如何同步資訊到heroku上">
+<meta name="twitter:title" content="寄物便開發週記W2: 開始動工">
+<meta name="twitter:description" content="這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面
+與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整">
+<meta name="twitter:image" content="https://kuroro0718.github.io/mapview.png">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -92,13 +101,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-420290" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-寄物便開發週記W2-開始動工" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [Rails] 使用figaro管理密鑰
+      寄物便開發週記W2: 開始動工
     </h1>
   
 
@@ -107,7 +116,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/420290/" class="article-date"><time datetime="2016-01-09T23:43:00.000Z" itemprop="datePublished">2016-01-10</time></a>
+  <a href="/寄物便開發週記W2-開始動工/" class="article-date"><time datetime="2016-10-12T15:44:05.000Z" itemprop="datePublished">2016-10-12</time></a>
 </div>
 
     
@@ -118,15 +127,24 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>figaro是一個管理機密資訊或密碼的gem，以下介紹如何同步資訊到heroku上<br><a id="more"></a></p>
-<h2 id="安裝figaro"><a href="#安裝figaro" class="headerlink" title="安裝figaro"></a>安裝figaro</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">"figaro"</span></div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bundle install</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ figaro install</div></pre></td></tr></table></figure>
-<h2 id="管理機密資訊"><a href="#管理機密資訊" class="headerlink" title="管理機密資訊"></a>管理機密資訊</h2><p>假如有一組key不希望公開至github，則我們先把資訊存在yml檔，再使用ENV存取<br><figure class="highlight ruby"><figcaption><span>config/application.yml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">product_app_id:</span> <span class="string">"2924"</span></div><div class="line"><span class="symbol">product_key:</span> <span class="string">"7ad1a978f7dd7f9a1117"</span></div><div class="line"><span class="symbol">product_secret:</span> <span class="string">"11dcb896a0ffb85d373"</span></div></pre></td></tr></table></figure></p>
-<p>在initializer中存取資訊<br><figure class="highlight ruby"><figcaption><span>config/initializers/pusher.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Product.app_id = ENV[<span class="string">"product_app_id"</span>]</div><div class="line">Product.key    = ENV[<span class="string">"product_key"</span>]</div><div class="line">Product.secret = ENV[<span class="string">"product_secret"</span>]</div></pre></td></tr></table></figure></p>
-<h2 id="佈署至HEROKU"><a href="#佈署至HEROKU" class="headerlink" title="佈署至HEROKU"></a>佈署至HEROKU</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ figaro heroku:set -e production</div></pre></td></tr></table></figure>
-<p>查循目前設定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ heroku:config</div></pre></td></tr></table></figure></p>
-<p>參考來源：<br><a href="https://github.com/laserlemon/figaro" target="_blank" rel="external">figaro github</a></p>
+        <p>這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面</p>
+<p>與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整</p>
+<a id="more"></a>
+<p>一開始product designer給二張wireframe</p>
+<p><img src="mapview.png" alt="Map"><br><img src="store-detail.png" alt="Store detail"></p>
+<p>第一張比較麻煩的是下半部的商店簡介，這裡應該要能左右滑動且地圖中心點要移到商店座標</p>
+<p>我使用一個隱藏的collection view，上面排好元件<br>使用者點選商家時，由商家名稱找出商家陣列中符合的index，再reload collection view的資料</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MapViewDelegate</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">mapView</span><span class="params">(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView)</span></span> &#123;</div><div class="line">       selectedAnnoView = storeList.indexOf &#123; (store) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></div><div class="line">           store.name! == (view.annotation?.title)!</div><div class="line">       &#125;!</div><div class="line">       storeCollectionView.reloadData()</div><div class="line">       storeCollectionView.hidden = <span class="literal">false</span></div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   </div><div class="line">   <span class="comment">// UICollectionViewDelegate</span></div><div class="line">   <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</div><div class="line">       <span class="keyword">let</span> indexToDisplay = <span class="type">NSIndexPath</span>(forRow: selectedAnnoView, inSection: <span class="number">0</span>)</div><div class="line">       <span class="keyword">self</span>.storeCollectionView.scrollToItemAtIndexPath(indexToDisplay, atScrollPosition: .<span class="type">None</span>, animated: <span class="literal">false</span>)</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>使用者點選商家會觸發didSelectAnnotationView事件，找到商家後更新collection view<br>而collection view需要捲到相對應的cell，這裡需要willDisplayCell這個delegate的方法把剛才得到的index使用scrollToItemAtIndexPath捲動cell</p>
+<p>點選collection view cell後可以進到該商家的頁面，這裡花了比較多時間刻出designer想要的畫面</p>
+<p>原本第一版上半部商家圖片和下半部使用者評論都是使用collection view，但考量需要加入page controll後，上半部改用scroll view來做</p>
+<p><img src="store-detail-v1.jpg" alt="Store detail v1"></p>
+<p>但給其它同學測試，發現下半部的畫面會讓使用者不知道可以滑動<br>所以我把cell的寬度縮減一些</p>
+<p><img src="store-detail-v2.jpg" alt="Store detail v2"><br>發現效果還是平平，改加一個框框後</p>
+<p><img src="store-detail-v3.jpg" alt="Store detail v3"></p>
+<p>CollectionViewCell程式碼<br><figure class="highlight swift"><figcaption><span>StoreCommentsCollectionViewCell</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StoreCommentsCollectionViewCell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</div><div class="line">   </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">self</span>.userImageView.clipsToBounds = <span class="literal">true</span></div><div class="line">        <span class="keyword">self</span>.userImageView.layer.cornerRadius = userImageView.frame.size.width / <span class="number">2</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</div><div class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">drawRect</span><span class="params">(rect: CGRect)</span></span> &#123;</div><div class="line">        <span class="keyword">self</span>.layer.borderWidth = <span class="number">0.5</span></div><div class="line">        <span class="keyword">self</span>.layer.borderColor = <span class="type">UIColor</span>.blackColor().<span class="type">CGColor</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>這效果讓designer點頭，於是第一版的畫面就先定下來。</p>
+<p>這中間討論的過程還算順利，也很慶幸自己沒有偷懶，看到wireframe先不要急著打搶，想辦法找答案做出來才是該有的態度。</p>
 
       
     </div>
@@ -137,16 +155,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/420290/" data-id="ciu73la27000lb454c61kzwkf" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/寄物便開發週記W2-開始動工/" data-id="ciu73la4h0032b4549wh5dz7b" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/420290/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/寄物便開發週記W2-開始動工/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 
 
     </footer>
@@ -156,19 +174,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/404906/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/讓APP在iOS-10能存取照相機/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Rails]  Resolution Tracker－User Story</span>
+      <span class="article-nav-link-title">讓APP在iOS 10能存取照相機</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/javascript-anonymous-function/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Javascript筆記] Anonymous Function</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -268,7 +279,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/420290/';
+  var disqus_url = 'https://kuroro0718.github.io/寄物便開發週記W2-開始動工/';
   
   (function(){
     var dsq = document.createElement('script');
