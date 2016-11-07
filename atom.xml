@@ -4,9 +4,9 @@
   <subtitle>記錄我在web和iOS學習的過程</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://alexliang.me/"/>
+  <link href="https://kuroro0718.github.io/"/>
   <updated>2016-10-23T14:21:04.000Z</updated>
-  <id>https://alexliang.me/</id>
+  <id>https://kuroro0718.github.io/</id>
   
   <author>
     <name>Alex Liang</name>
@@ -17,12 +17,12 @@
   
   <entry>
     <title>寄物便開發週記W3: 完成初版</title>
-    <link href="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W3-%E5%AE%8C%E6%88%90%E5%88%9D%E7%89%88/"/>
-    <id>https://alexliang.me/寄物便開發週記W3-完成初版/</id>
+    <link href="https://kuroro0718.github.io/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W3-%E5%AE%8C%E6%88%90%E5%88%9D%E7%89%88/"/>
+    <id>https://kuroro0718.github.io/寄物便開發週記W3-完成初版/</id>
     <published>2016-10-23T13:33:35.000Z</published>
     <updated>2016-10-23T14:21:04.000Z</updated>
     
-    <content type="html"><![CDATA[<p>在<a href="https://kuroro0718.github.io/寄物便開發週記W2-開始動工" target="_blank" rel="external">上一篇</a>提到開發商家地圖和簡介的部分。</p>
+    <content type="html"><![CDATA[<p>在<a href="https://kuroro0718.github.io/寄物便開發週記W2-開始動工">上一篇</a>提到開發商家地圖和簡介的部分。</p>
 <p>本週則是完成畫面最複雜的頁面。</p>
 <a id="more"></a>
 <p>依照設計師的初稿，第一個頁面要能讓使用者選擇寄物件數和寄/取物的時間</p>
@@ -45,16 +45,16 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>寄物便開發週記W2: 開始動工</title>
-    <link href="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/"/>
-    <id>https://alexliang.me/寄物便開發週記W2-開始動工/</id>
+    <link href="https://kuroro0718.github.io/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/"/>
+    <id>https://kuroro0718.github.io/寄物便開發週記W2-開始動工/</id>
     <published>2016-10-12T15:44:05.000Z</published>
     <updated>2016-10-13T00:43:30.000Z</updated>
     
@@ -86,16 +86,16 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>讓APP在iOS 10能存取照相機</title>
-    <link href="https://alexliang.me/%E8%AE%93APP%E5%9C%A8iOS-10%E8%83%BD%E5%AD%98%E5%8F%96%E7%85%A7%E7%9B%B8%E6%A9%9F/"/>
-    <id>https://alexliang.me/讓APP在iOS-10能存取照相機/</id>
+    <link href="https://kuroro0718.github.io/%E8%AE%93APP%E5%9C%A8iOS-10%E8%83%BD%E5%AD%98%E5%8F%96%E7%85%A7%E7%9B%B8%E6%A9%9F/"/>
+    <id>https://kuroro0718.github.io/讓APP在iOS-10能存取照相機/</id>
     <published>2016-10-05T15:23:43.000Z</published>
     <updated>2016-10-05T15:35:29.000Z</updated>
     
@@ -118,14 +118,14 @@
     </summary>
     
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>如何建立專注的mind set</title>
-    <link href="https://alexliang.me/%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E5%B0%88%E6%B3%A8%E7%9A%84mind-set/"/>
-    <id>https://alexliang.me/如何建立專注的mind-set/</id>
+    <link href="https://kuroro0718.github.io/%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E5%B0%88%E6%B3%A8%E7%9A%84mind-set/"/>
+    <id>https://kuroro0718.github.io/如何建立專注的mind-set/</id>
     <published>2016-10-02T14:36:26.000Z</published>
     <updated>2016-10-02T15:11:21.000Z</updated>
     
@@ -148,14 +148,14 @@
     </summary>
     
     
-      <category term="讀書筆記" scheme="https://alexliang.me/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
+      <category term="讀書筆記" scheme="https://kuroro0718.github.io/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
   <entry>
     <title>寄物便開發週記: 從idea到MVP</title>
-    <link href="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98-%E5%BE%9Eidea%E5%88%B0MVP/"/>
-    <id>https://alexliang.me/寄物便開發週記-從idea到MVP/</id>
+    <link href="https://kuroro0718.github.io/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98-%E5%BE%9Eidea%E5%88%B0MVP/"/>
+    <id>https://kuroro0718.github.io/寄物便開發週記-從idea到MVP/</id>
     <published>2016-10-01T13:20:11.000Z</published>
     <updated>2016-10-05T09:47:36.000Z</updated>
     
@@ -212,16 +212,16 @@
     </summary>
     
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
-      <category term="soft skill" scheme="https://alexliang.me/tags/soft-skill/"/>
+      <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
     
   </entry>
   
   <entry>
     <title>iOS基礎Networking處理</title>
-    <link href="https://alexliang.me/iOS%E5%9F%BA%E7%A4%8ENetworking%E8%99%95%E7%90%86/"/>
-    <id>https://alexliang.me/iOS基礎Networking處理/</id>
+    <link href="https://kuroro0718.github.io/iOS%E5%9F%BA%E7%A4%8ENetworking%E8%99%95%E7%90%86/"/>
+    <id>https://kuroro0718.github.io/iOS基礎Networking處理/</id>
     <published>2016-09-03T09:37:54.000Z</published>
     <updated>2016-09-05T06:16:47.000Z</updated>
     
@@ -250,14 +250,14 @@
     </summary>
     
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>使用Facebook SDK製作app登入按鈕</title>
-    <link href="https://alexliang.me/%E4%BD%BF%E7%94%A8Facebook-SDK%E8%A3%BD%E4%BD%9Capp%E7%99%BB%E5%85%A5%E6%8C%89%E9%88%95/"/>
-    <id>https://alexliang.me/使用Facebook-SDK製作app登入按鈕/</id>
+    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8Facebook-SDK%E8%A3%BD%E4%BD%9Capp%E7%99%BB%E5%85%A5%E6%8C%89%E9%88%95/"/>
+    <id>https://kuroro0718.github.io/使用Facebook-SDK製作app登入按鈕/</id>
     <published>2016-08-28T12:14:43.000Z</published>
     <updated>2016-08-28T13:48:32.000Z</updated>
     
@@ -296,14 +296,14 @@
     </summary>
     
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>使用StackView包裝不同寛高的同類型元件</title>
-    <link href="https://alexliang.me/%E4%BD%BF%E7%94%A8StackView%E5%8C%85%E8%A3%9D%E4%B8%8D%E5%90%8C%E5%AF%9B%E9%AB%98%E7%9A%84%E5%90%8C%E9%A1%9E%E5%9E%8B%E5%85%83%E4%BB%B6/"/>
-    <id>https://alexliang.me/使用StackView包裝不同寛高的同類型元件/</id>
+    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8StackView%E5%8C%85%E8%A3%9D%E4%B8%8D%E5%90%8C%E5%AF%9B%E9%AB%98%E7%9A%84%E5%90%8C%E9%A1%9E%E5%9E%8B%E5%85%83%E4%BB%B6/"/>
+    <id>https://kuroro0718.github.io/使用StackView包裝不同寛高的同類型元件/</id>
     <published>2016-08-13T06:32:24.000Z</published>
     <updated>2016-08-13T07:40:33.000Z</updated>
     
@@ -336,14 +336,14 @@
     </summary>
     
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>How to Pitch上課心得</title>
-    <link href="https://alexliang.me/How-to-Pitch%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/"/>
-    <id>https://alexliang.me/How-to-Pitch上課心得/</id>
+    <link href="https://kuroro0718.github.io/How-to-Pitch%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/"/>
+    <id>https://kuroro0718.github.io/How-to-Pitch上課心得/</id>
     <published>2016-08-06T12:09:17.000Z</published>
     <updated>2016-08-06T12:09:17.000Z</updated>
     
@@ -401,14 +401,14 @@
     </summary>
     
     
-      <category term="soft skill" scheme="https://alexliang.me/tags/soft-skill/"/>
+      <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
     
   </entry>
   
   <entry>
     <title>Swift Error Handling</title>
-    <link href="https://alexliang.me/Swift-Error-Handling/"/>
-    <id>https://alexliang.me/Swift-Error-Handling/</id>
+    <link href="https://kuroro0718.github.io/Swift-Error-Handling/"/>
+    <id>https://kuroro0718.github.io/Swift-Error-Handling/</id>
     <published>2016-07-21T02:17:39.000Z</published>
     <updated>2016-07-23T07:59:33.000Z</updated>
     
@@ -429,14 +429,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>iOS APP Develop Cheat Sheet</title>
-    <link href="https://alexliang.me/765290/"/>
-    <id>https://alexliang.me/765290/</id>
+    <link href="https://kuroro0718.github.io/765290/"/>
+    <id>https://kuroro0718.github.io/765290/</id>
     <published>2016-07-06T19:44:00.000Z</published>
     <updated>2016-08-23T07:14:19.000Z</updated>
     
@@ -478,16 +478,16 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
-      <category term="ios" scheme="https://alexliang.me/tags/ios/"/>
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
   <entry>
     <title>Swift Closure 介紹</title>
-    <link href="https://alexliang.me/swift-closure-introduced/"/>
-    <id>https://alexliang.me/swift-closure-introduced/</id>
+    <link href="https://kuroro0718.github.io/swift-closure-introduced/"/>
+    <id>https://kuroro0718.github.io/swift-closure-introduced/</id>
     <published>2016-06-16T22:57:00.000Z</published>
     <updated>2016-07-18T14:36:06.000Z</updated>
     
@@ -515,14 +515,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift的？與！</title>
-    <link href="https://alexliang.me/swift-and/"/>
-    <id>https://alexliang.me/swift-and/</id>
+    <link href="https://kuroro0718.github.io/swift-and/"/>
+    <id>https://kuroro0718.github.io/swift-and/</id>
     <published>2016-06-06T23:17:00.000Z</published>
     <updated>2016-07-18T14:36:02.000Z</updated>
     
@@ -545,14 +545,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift Enumerations </title>
-    <link href="https://alexliang.me/swift-enumerations/"/>
-    <id>https://alexliang.me/swift-enumerations/</id>
+    <link href="https://kuroro0718.github.io/swift-enumerations/"/>
+    <id>https://kuroro0718.github.io/swift-enumerations/</id>
     <published>2016-05-28T23:02:00.000Z</published>
     <updated>2016-07-18T14:35:57.000Z</updated>
     
@@ -577,14 +577,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift Protocol Oriented Programming</title>
-    <link href="https://alexliang.me/swift-protocol-oriented-programming/"/>
-    <id>https://alexliang.me/swift-protocol-oriented-programming/</id>
+    <link href="https://kuroro0718.github.io/swift-protocol-oriented-programming/"/>
+    <id>https://kuroro0718.github.io/swift-protocol-oriented-programming/</id>
     <published>2016-05-26T17:28:00.000Z</published>
     <updated>2016-07-18T14:35:53.000Z</updated>
     
@@ -610,14 +610,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift Value and Reference Types</title>
-    <link href="https://alexliang.me/swift-value-and-reference-types/"/>
-    <id>https://alexliang.me/swift-value-and-reference-types/</id>
+    <link href="https://kuroro0718.github.io/swift-value-and-reference-types/"/>
+    <id>https://kuroro0718.github.io/swift-value-and-reference-types/</id>
     <published>2016-05-25T18:32:00.000Z</published>
     <updated>2016-07-18T14:35:49.000Z</updated>
     
@@ -647,14 +647,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift Protocol 介紹</title>
-    <link href="https://alexliang.me/swift-protocol-introduction/"/>
-    <id>https://alexliang.me/swift-protocol-introduction/</id>
+    <link href="https://kuroro0718.github.io/swift-protocol-introduction/"/>
+    <id>https://kuroro0718.github.io/swift-protocol-introduction/</id>
     <published>2016-05-22T23:21:00.000Z</published>
     <updated>2016-07-18T14:35:40.000Z</updated>
     
@@ -677,14 +677,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift Tuples介紹</title>
-    <link href="https://alexliang.me/swift-tuples-introduction/"/>
-    <id>https://alexliang.me/swift-tuples-introduction/</id>
+    <link href="https://kuroro0718.github.io/swift-tuples-introduction/"/>
+    <id>https://kuroro0718.github.io/swift-tuples-introduction/</id>
     <published>2016-05-22T22:57:00.000Z</published>
     <updated>2016-07-18T14:35:45.000Z</updated>
     
@@ -701,14 +701,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift Class 介紹</title>
-    <link href="https://alexliang.me/swift-class-introduction/"/>
-    <id>https://alexliang.me/swift-class-introduction/</id>
+    <link href="https://kuroro0718.github.io/swift-class-introduction/"/>
+    <id>https://kuroro0718.github.io/swift-class-introduction/</id>
     <published>2016-05-19T22:35:00.000Z</published>
     <updated>2016-07-18T14:35:35.000Z</updated>
     
@@ -730,14 +730,14 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>Swift 基本型態筆記</title>
-    <link href="https://alexliang.me/basic-patterns-of-swift-notes/"/>
-    <id>https://alexliang.me/basic-patterns-of-swift-notes/</id>
+    <link href="https://kuroro0718.github.io/basic-patterns-of-swift-notes/"/>
+    <id>https://kuroro0718.github.io/basic-patterns-of-swift-notes/</id>
     <published>2016-05-19T21:44:00.000Z</published>
     <updated>2016-07-18T14:35:31.000Z</updated>
     
@@ -757,7 +757,7 @@
     </summary>
     
     
-      <category term="swift" scheme="https://alexliang.me/tags/swift/"/>
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
