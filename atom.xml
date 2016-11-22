@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-10-23T14:21:04.000Z</updated>
+  <updated>2016-11-22T07:55:08.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,76 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NodeJS初探 Module Exports (1)</title>
+    <link href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/"/>
+    <id>https://kuroro0718.github.io/NodeJS初探-Module-Exports-1/</id>
+    <published>2016-11-22T06:13:19.000Z</published>
+    <updated>2016-11-22T07:55:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在學習NodeJS的過程中，module是結構化程式基本的組塊。<br>我們能藉由module將各function block分開來，並且在主程式引用其method或property<br>然而，要使用module的method或property有許多方式，本文整理常用的幾種並說明特性。</p>
+<a id="more"></a>
+<h2 id="Module基本使用方式"><a href="#Module基本使用方式" class="headerlink" title="Module基本使用方式"></a>Module基本使用方式</h2><p>假設我們有二個js程式：app.js和greet.js，想要讓app.js使用greet.js的method，則需要使用module</p>
+<figure class="highlight javascript"><figcaption><span>greet.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = greet;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet = <span class="built_in">require</span>(<span class="string">'./greet'</span>);</div><div class="line">greet();</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; Hello</div></pre></td></tr></table></figure>
+<p>要在app.js使用greet.js的greet方法，得先require greet.js<br>require預設是引入javascript檔案，所以副檔名可省略。<br>而greet.js中，將greet這個函式變數設為module.exports的參考<br>module.exports其實是個object，供其它js檔案使用其method</p>
+<p>上述的寫法可以簡化為：<br><figure class="highlight javascript"><figcaption><span>greet.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet = <span class="built_in">require</span>(<span class="string">'./greet'</span>);</div><div class="line">greet();</div></pre></td></tr></table></figure>
+<p>也是一樣的結果</p>
+<h2 id="使用Function-Expression"><a href="#使用Function-Expression" class="headerlink" title="使用Function Expression"></a>使用Function Expression</h2><figure class="highlight javascript"><figcaption><span>greet2.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports.greet = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet2 = <span class="built_in">require</span>(<span class="string">'./greet2'</span>).greet;</div><div class="line">greet2();</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; Hello World</div></pre></td></tr></table></figure>
+<p>利用function expression讓module.exports多一個method</p>
+<h2 id="使用Function-Constructor"><a href="#使用Function-Constructor" class="headerlink" title="使用Function Constructor"></a>使用Function Constructor</h2><figure class="highlight javascript"><figcaption><span>greet3.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Greetr</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.greeting = <span class="string">'Hello world!!'</span>;</div><div class="line">	<span class="keyword">this</span>.greet = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.greeting);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> Greetr();</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet3 = <span class="built_in">require</span>(<span class="string">'./greet3'</span>);</div><div class="line">greet3.greet();</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; Hello world!!</div></pre></td></tr></table></figure>
+<p>使用function constructor建立object，並利用this存取function<br>module.exports則指向新的function constructor</p>
+<p>此例有個需要注意的地方，假如我在app.js改變greeting的值，會發生什麼事？？<br><figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet3 = <span class="built_in">require</span>(<span class="string">'./greet3'</span>);</div><div class="line">greet3.greeting = <span class="string">'Changed'</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> greet3b = <span class="built_in">require</span>(<span class="string">'./greet3'</span>);</div><div class="line">greet3b.greet();</div></pre></td></tr></table></figure></p>
+<p>改變greeting的值以後，我們再require greet3並且呼叫method，則結果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; Hello world!!</div><div class="line">&gt; Changed</div></pre></td></tr></table></figure></p>
+<p>這裡帶出一個module重要的特性：NodeJs的核心會cache同一個module的參考，所以當我們宣告greet3b為greet3的object時，其實底層是回傳上一個greet3的參考，而此時greeting己被改變。</p>
+<p>所以在不同的js檔案使用同一個module時，需注意其實回傳的都是同一份copy</p>
+<h2 id="Function-Constructor變形"><a href="#Function-Constructor變形" class="headerlink" title="Function Constructor變形"></a>Function Constructor變形</h2><figure class="highlight javascript"><figcaption><span>greet4.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Greetr</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.greeting = <span class="string">'Hello world!！!'</span>;</div><div class="line">	<span class="keyword">this</span>.greet = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.greeting);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = Greetr;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet4 = <span class="built_in">require</span>(<span class="string">'./greet4'</span>);</div><div class="line"><span class="keyword">var</span> greetr = <span class="keyword">new</span> greet4();</div><div class="line">greetr.greet();</div></pre></td></tr></table></figure>
+<p>這種方式把建構子放在app.js，所以不會有二個require指向同一份copy</p>
+<h2 id="Revealing-Module-Pattern"><a href="#Revealing-Module-Pattern" class="headerlink" title="Revealing Module Pattern"></a>Revealing Module Pattern</h2><figure class="highlight javascript"><figcaption><span>greet5.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greeting = <span class="string">'Hello JS!'</span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(greeting);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	greet: greet</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> greet5 = <span class="built_in">require</span>(<span class="string">'./greet5'</span>).greet;</div><div class="line">greet5();</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; Hello JS!</div></pre></td></tr></table></figure>
+<p>這裡我們使用object並把greet指向greet methond，所以module.exports只能存取greet而不會改到其它值<br>這種方式也稱為Revealing Module Pattern，在javascript中是常用的包裝方式。</p>
+<p>以上為NodeJS使用module.exports的幾種方式。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在學習NodeJS的過程中，module是結構化程式基本的組塊。&lt;br&gt;我們能藉由module將各function block分開來，並且在主程式引用其method或property&lt;br&gt;然而，要使用module的method或property有許多方式，本文整理常用的幾種並說明特性。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+    
+      <category term="nodejs" scheme="https://kuroro0718.github.io/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Retain cycle and capture list in Swift</title>
+    <link href="https://kuroro0718.github.io/Retain-cycle-and-capture-list-in-Swift/"/>
+    <id>https://kuroro0718.github.io/Retain-cycle-and-capture-list-in-Swift/</id>
+    <published>2016-11-14T14:27:27.000Z</published>
+    <updated>2016-11-14T14:28:18.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+  </entry>
   
   <entry>
     <title>寄物便開發週記W3: 完成初版</title>
@@ -45,9 +115,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -86,9 +156,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -212,9 +282,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -223,7 +293,7 @@
     <link href="https://kuroro0718.github.io/iOS%E5%9F%BA%E7%A4%8ENetworking%E8%99%95%E7%90%86/"/>
     <id>https://kuroro0718.github.io/iOS基礎Networking處理/</id>
     <published>2016-09-03T09:37:54.000Z</published>
-    <updated>2016-09-05T06:16:47.000Z</updated>
+    <updated>2016-11-22T06:39:46.000Z</updated>
     
     <content type="html"><![CDATA[<p>幾乎所有的APP都需要連網抓取／上傳資料的功能，這篇文章記錄networking基本的處理。</p>
 <a id="more"></a>
@@ -241,6 +311,7 @@
 <h2 id="利用NSURLSessionDataTask上傳資料"><a href="#利用NSURLSessionDataTask上傳資料" class="headerlink" title="利用NSURLSessionDataTask上傳資料"></a>利用NSURLSessionDataTask上傳資料</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> url = <span class="type">NSURL</span>(string: <span class="string">"https://www.peter.com"</span>) </div><div class="line"><span class="keyword">let</span> urlRequest = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: url!) </div><div class="line">urlRequest.<span class="type">HTTPMethod</span> = <span class="string">"POST"</span> </div><div class="line"></div><div class="line"><span class="keyword">let</span> postStr = <span class="string">"name=peter&amp;grade=99"</span> </div><div class="line"><span class="keyword">let</span> data = postStr.dataUsingEncoding(<span class="type">NSUTF8StringEncoding</span>) urlRequest.<span class="type">HTTPBody</span> = data </div><div class="line"></div><div class="line"><span class="keyword">let</span> task = <span class="type">NSURLSession</span>.sharedSession().dataTaskWithRequest(urlRequest) &#123; </div><div class="line">  returnData, res, err <span class="keyword">in</span> </div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> returnData = returnData &#123; </div><div class="line">      <span class="keyword">do</span> &#123; </div><div class="line">        <span class="keyword">let</span> dic = <span class="keyword">try</span> <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(returnData , options: <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span>) <span class="keyword">as</span>! <span class="type">NSDictionary</span> </div><div class="line">        <span class="keyword">let</span> status = dic[<span class="string">"success"</span>] <span class="keyword">as</span>? <span class="type">NSNumber</span> </div><div class="line">        <span class="keyword">if</span> status!.intValue == <span class="number">1</span> &#123; </div><div class="line">          <span class="built_in">print</span>(<span class="string">"success"</span>) </div><div class="line">        &#125; </div><div class="line">      &#125; <span class="keyword">catch</span> &#123; </div><div class="line">      &#125; </div><div class="line">    &#125; </div><div class="line">&#125; </div><div class="line">task.resume()</div></pre></td></tr></table></figure>
 <p>可以將資料放進NSURLRequest的HTTPBody裡並上傳</p>
 <h2 id="利用NSURLSessionUploadTask上傳json格式資料"><a href="#利用NSURLSessionUploadTask上傳json格式資料" class="headerlink" title="利用NSURLSessionUploadTask上傳json格式資料"></a>利用NSURLSessionUploadTask上傳json格式資料</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> url = <span class="type">NSURL</span>(string: <span class="string">"https://www.peter.com"</span>) </div><div class="line"><span class="keyword">let</span> urlRequest = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: url!) </div><div class="line">urlRequest.<span class="type">HTTPMethod</span> = <span class="string">"POST"</span> </div><div class="line">urlRequest.setValue(<span class="string">"application/json"</span>, forKey: <span class="string">"Content-Type"</span>)   </div><div class="line"><span class="keyword">let</span> dictionary = [<span class="string">"name"</span>: <span class="string">"penny"</span>, <span class="string">"grade"</span>:<span class="string">"77"</span>] </div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123; </div><div class="line">  <span class="keyword">let</span> data = <span class="keyword">try</span>  <span class="type">NSJSONSerialization</span>.dataWithJSONObject(dictionary, options: []) </div><div class="line">  <span class="keyword">let</span> task = <span class="type">NSURLSession</span>.sharedSession().uploadTaskWithRequest(urlRequest, fromData: data) &#123; </div><div class="line">    (returnData, res, err:<span class="type">NSError</span>?) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// do something</span></div><div class="line">  &#125;</div><div class="line">&#125; <span class="keyword">catch</span> &#123;</div><div class="line">  </div><div class="line">&#125;</div><div class="line">task.resume()</div></pre></td></tr></table></figure>
+<p># </p>
 ]]></content>
     
     <summary type="html">
@@ -478,9 +549,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -697,62 +768,6 @@
     <summary type="html">
     
       &lt;p&gt;在objective-c當中，如果method需要回傳二個以上的值，則可以使用帶有二個property的object或dictionary&lt;br&gt;而Swift新增tuples此資料型態，可一次回傳多個值&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift Class 介紹</title>
-    <link href="https://kuroro0718.github.io/swift-class-introduction/"/>
-    <id>https://kuroro0718.github.io/swift-class-introduction/</id>
-    <published>2016-05-19T22:35:00.000Z</published>
-    <updated>2016-07-18T14:35:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Class-宣告"><a href="#Class-宣告" class="headerlink" title="Class 宣告"></a>Class 宣告</h2><p>Swift宣告class相當簡單，只要使用class這個關鍵字和class名稱<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>跟objective-c的宣告方式比較，不需要繼承NSObject或?生的類別。<br><a id="more"></a></p>
-<h2 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h2><p>class的property則需要賦與初始值或使用init做初始化<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</div><div class="line">  <span class="keyword">let</span> salary: <span class="type">Int</span></div><div class="line">  <span class="keyword">let</span> taxRate: <span class="type">Double</span></div><div class="line">  <span class="keyword">var</span> tax: <span class="type">Int</span></div><div class="line">  </div><div class="line">  <span class="keyword">init</span>(salary: <span class="type">Int</span>, taxRate: <span class="type">Double</span>) &#123;</div><div class="line">  	<span class="keyword">self</span>.salary = salary</div><div class="line">    <span class="keyword">self</span>.taxRate = taxRate</div><div class="line">    tax = <span class="type">Int</span>(salary * taxRate)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>由於init的參數和property名稱一樣，所以使用self來區別<br>另一個要注意的是，class可以有多個init函式，但使用的參數必須不同 （和c的overloading function一樣）</p>
-<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</div><div class="line">  <span class="comment">// 略</span></div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">calcSalary</span><span class="params">(tax: Int, taxRate: Double)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="type">Int</span>(tax / taxRate)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>method的宣告需要加上回傳值的資料型態，若無回傳值可省略。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> taxCalc = <span class="type">TaxCalculator</span>(salary: <span class="number">55000</span>, taxRate: <span class="number">0.15</span>)</div><div class="line">taxCalc.calcSalary(tax: <span class="number">2000</span>, taxRate: <span class="number">0.15</span>)</div></pre></td></tr></table></figure>
-<p>參考來源：<br><a href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start" target="_blank" rel="external">Swift 2 Tutorial</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Class-宣告&quot;&gt;&lt;a href=&quot;#Class-宣告&quot; class=&quot;headerlink&quot; title=&quot;Class 宣告&quot;&gt;&lt;/a&gt;Class 宣告&lt;/h2&gt;&lt;p&gt;Swift宣告class相當簡單，只要使用class這個關鍵字和class名稱&lt;br&gt;&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;TaxCalculator&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;跟objective-c的宣告方式比較，不需要繼承NSObject或?生的類別。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift 基本型態筆記</title>
-    <link href="https://kuroro0718.github.io/basic-patterns-of-swift-notes/"/>
-    <id>https://kuroro0718.github.io/basic-patterns-of-swift-notes/</id>
-    <published>2016-05-19T21:44:00.000Z</published>
-    <updated>2016-07-18T14:35:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="let-vs-var"><a href="#let-vs-var" class="headerlink" title="let vs. var"></a>let vs. var</h2><p>一開始接觸新語言時，首先會碰到各種資料型態的用法。<br>在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事<br>特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug<br><a id="more"></a></p>
-<p>Swift為變數宣告提供二種方式： let和var<br>前者為constant，也就是不可變動的值；後者則是一般的宣告<br>一般是建議能使用let就使用，complier會自動做最佳化的動作</p>
-<p>如果想特別指定資料型態，也可用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> total : <span class="type">Int</span> = <span class="number">0</span>  <span class="comment">// 強制宣告total為Int</span></div><div class="line"><span class="keyword">let</span> taxRate = <span class="number">0.13</span>   <span class="comment">// 一般的宣告方式</span></div></pre></td></tr></table></figure></p>
-<p>但如果沒特殊理由，使用預設的宣告方式以加強可讀性</p>
-<h2 id="Array-and-Dictionaries"><a href="#Array-and-Dictionaries" class="headerlink" title="Array and Dictionaries"></a>Array and Dictionaries</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> taxRate = [<span class="number">0.15</span>, <span class="number">0.18</span>, <span class="number">0.20</span>]		<span class="comment">// array</span></div><div class="line"><span class="keyword">let</span> emptyArray = [<span class="type">String</span>]()					<span class="comment">// create an empty array with String type</span></div><div class="line"><span class="keyword">var</span> arr = [[<span class="type">Int</span>]]()									<span class="comment">// 2 dimensional array of arrays of Ints</span></div></pre></td></tr></table></figure>
-<p>另一個資料型態為dictionary，這個在Python、Ruby都有類似的型態。<br>基本上就是一個key搭配value，可供建表及查循<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Double</span>]()					<span class="comment">// dictionary</span></div></pre></td></tr></table></figure></p>
-<p>參考來源：<br><a href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start" target="_blank" rel="external">Swift 2 Tutorial</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;let-vs-var&quot;&gt;&lt;a href=&quot;#let-vs-var&quot; class=&quot;headerlink&quot; title=&quot;let vs. var&quot;&gt;&lt;/a&gt;let vs. var&lt;/h2&gt;&lt;p&gt;一開始接觸新語言時，首先會碰到各種資料型態的用法。&lt;br&gt;在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事&lt;br&gt;特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug&lt;br&gt;
     
     </summary>
     
