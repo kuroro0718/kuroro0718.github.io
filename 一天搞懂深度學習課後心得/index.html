@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016/1 | Alex Liang</title>
+  <title>一天搞懂深度學習課後心得 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Alex Liang">
-<meta property="og:url" content="https://kuroro0718.github.io/archives/2016/01/index.html">
+  <meta name="description" content="11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。碩班曾接觸過機器學習，學習SVM,hMM和KNN之類的方法做分類和辯識，也使用matlab寫程式實作演算法。那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一天搞懂深度學習課後心得">
+<meta property="og:url" content="https://kuroro0718.github.io/一天搞懂深度學習課後心得/index.html">
 <meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。碩班曾接觸過機器學習，學習SVM,hMM和KNN之類的方法做分類和辯識，也使用matlab寫程式實作演算法。那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。">
+<meta property="og:updated_time" content="2016-11-27T08:53:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alex Liang">
+<meta name="twitter:title" content="一天搞懂深度學習課後心得">
+<meta name="twitter:description" content="11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。碩班曾接觸過機器學習，學習SVM,hMM和KNN之類的方法做分類和辯識，也使用matlab寫程式實作演算法。那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -62,7 +66,7 @@ ga('send', 'pageview');
           <li><a class=""
                  href="/index.html">Home</a></li>
         
-          <li><a class="active"
+          <li><a class=""
                  href="/archives/">Archives</a></li>
         
       </ul>
@@ -88,81 +92,99 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          
-  
-  
+          <article id="post-一天搞懂深度學習課後心得" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
     
+  
+    <h1 class="article-title" itemprop="name">
+      一天搞懂深度學習課後心得
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/一天搞懂深度學習課後心得/" class="article-date"><time datetime="2016-11-27T01:11:58.000Z" itemprop="datePublished">2016-11-27</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。<br>碩班曾接觸過機器學習，學習SVM,hMM和KNN之類的方法做分類和辯識，也使用matlab寫程式實作演算法。<br>那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。</p>
+<a id="more"></a>
+<h2 id="Introduction-of-Deep-Learning"><a href="#Introduction-of-Deep-Learning" class="headerlink" title="Introduction of Deep Learning"></a>Introduction of Deep Learning</h2><p>一開始先介紹machine learning，它的目的是找出一個function可以辯識聲音，影像的內容；或是指導電腦在特定情境下做出回應，如下圍棋。<br>做過machine learning的人都知道，最大的挑戰在於針對問題找出合適的feature，然後建構function來解決特定問題。</p>
+<p>也就是說，今天我要分辯影像中有沒有狗，那第一步得先研究狗的影像特徵是什麼？ 是形狀？顏色？或是其它空間的特徵？<br>有了特徵就能進一步建立數學式或是套用機器學習的模型，在餵給系統夠多的training data之後，丟給它一組testing data看結果如何</p>
+<p>這個過程在deep learning就不太一樣了，我們一樣需要準備training data和testing data，但”訓練”的過程是調整deep learning的model和參數。</p>
+<p>deep learning是由<a href="https://en.wikipedia.org/wiki/Artificial_neural_network" target="_blank" rel="external">Neural Network</a>建構。基本單位是neuron，是一個input * weights + bias再經過activation function的model。</p>
+<p>Neural Network正是許多neuron所建立的網絡，將網絡決定好後也就得到一組function set。</p>
+<p>這裡老師特別講解為何是”deep”而不是”fat”，其原因和電子電路一樣，我們可以使用簡單的邏輯閘（and,or,not)去組成複雜的電路。優點是參數的量會減少，也就是更有效率。</p>
+<p>有了function set，便要估算它的效果。這裡會計算output和ground truth(上課是用target，在碩班時我們都習慣稱ground truth)之間的落差，也就是loss</p>
+<p>老師用了一個非常有趣的例子說明為何找不到全域中最小的loss，在各種數學式的課程裡加進實際的例子會讓學生比較有感覺，效果也更好。</p>
+<p>live demo使用<a href="https://keras.io/" target="_blank" rel="external">Keras</a>分辯手寫數字影像，在GPU和各種tuning parameter的手法下，不用一分鐘就能達到95%的正確率，心裡想如果以前有這個工具，做研究也能快上許多。</p>
+<p>在QA時間，老師也說明遇到未知問題時，不見得要用deep learning的手法來解決，可以試著先用SVM。</p>
+<h2 id="Deep-Learning-Model"><a href="#Deep-Learning-Model" class="headerlink" title="Deep Learning Model"></a>Deep Learning Model</h2><p>這個session介紹二種learning model: CNN和RNN<br>CNN將問題拆解成各種子問題，特別適合用在影像處理上。例如我們能建立第一層layer處理顏色；第二層處理紋路材質。<br>透過downsampling便很適合餵給CNN處理</p>
+<p>CNN的另一種應用是套用style，網路上常有人分享使用deep learning將某種風格的畫作套用在照片上，便是使用此手法。</p>
+<p>另一種model是RNN，擁有記憶功能，適合用在文字和語音等長度不一及前後文相關的問題上。<br>舉例來說，好棒和好棒棒這個二詞只差一個字但意思差很多的問題，便很適合用RNN來解決</p>
+<h2 id="Beyond-Supervised-Learning"><a href="#Beyond-Supervised-Learning" class="headerlink" title="Beyond Supervised Learning"></a>Beyond Supervised Learning</h2><p>這節是我覺得deep learning最神奇的地方。</p>
+<p>這個手法的重點是將encoder和decoder的輸出輸入接起來，讓encoder的輸入和decoder的輸出越接近越好，由此可得到一個auto-encoder<br>而auto-encoder也可以拿來當neural network的pre-train<br>最後我們能餵給大量training data情況下自動完成分類</p>
+<p>另一種auto-encoder，Variational Auto Encoder(VAE)可幫助RNN提升正確率，而且它能透過演化讓結果越來越好</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>今天的演講充滿各種鄉民梗，也讓本來生硬的內容活潑易懂。<br>最後老師也以成為武林高手的條件來勉勵大家，要內外兼修才能達到高手的境界，也就是具備運算環境和解決問題的技巧。<br>一整天下來有點累，但也蠻多收獲的，知道現在的技術能達到什麼程度，以及該如何使用。<br>至於做的好不好就要看經驗啦 XD</p>
+
+      
+    </div>
+
     
       
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://kuroro0718.github.io/一天搞懂深度學習課後心得/" data-id="civzybo5c0039v8p59k9m2vg1" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
+        <a href="https://kuroro0718.github.io/一天搞懂深度學習課後心得/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/演講筆記/">演講筆記</a></li></ul>
+
+
+    </footer>
+  </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/420290/">[Rails] 使用figaro管理密鑰</a>
-    </h1>
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
   
+  <li role="presentation">
+    <a href="/NodeJS初探-Module-Exports-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">NodeJS初探 Module Exports (2)</span>
+    </a>
+  </li>
+  
+  
+</ul>
 
 
-    <div class="article-datetime">
-  <a href="/420290/" class="archive-article-date"><time datetime="2016-01-09T23:43:00.000Z" itemprop="datePublished">一月 10日</time></a>
-</div>
-
-  </header>
+  
 </article>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/404906/">[Rails]  Resolution Tracker－User Story</a>
-    </h1>
-  
 
-
-    <div class="article-datetime">
-  <a href="/404906/" class="archive-article-date"><time datetime="2016-01-04T06:20:00.000Z" itemprop="datePublished">一月 4日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/project-management-on-resolution-tracker/">[Rails]  Resolution Tracker－KICK OFF! </a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/project-management-on-resolution-tracker/" class="archive-article-date"><time datetime="2016-01-04T05:44:00.000Z" itemprop="datePublished">一月 4日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-  
-    </div></section>
-  
-
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 
 
@@ -249,11 +271,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
+  var disqus_url = 'https://kuroro0718.github.io/一天搞懂深度學習課後心得/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
