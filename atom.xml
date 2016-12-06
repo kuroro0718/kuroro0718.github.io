@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-11-27T08:53:09.000Z</updated>
+  <updated>2016-12-06T14:05:02.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -16,13 +16,96 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>The Effective Engineer讀書筆記-Focus on High-Leverage Activities</title>
+    <link href="https://kuroro0718.github.io/The-Effective-Engineer%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98-Focus-on-High-Leverage-Activities/"/>
+    <id>https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/</id>
+    <published>2016-12-06T13:36:48.000Z</published>
+    <updated>2016-12-06T14:05:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今年7月我參加一個雲端讀書會，主題為這本<a href="https://www.amazon.com/Effective-Engineer-Engineering-Disproportionate-Meaningful/dp/0996128107" target="_blank" rel="external">The Effective Engineer</a>。這本書由一位前google工程師撰寫，整本書圍繞在一個中心思想：如何讓工程師在有限的時間內產出最多的價值。</p>
+<p>在讀這本書不僅學到一流人才的思考邏輯，同時也認識一群努力學習的好夥伴。我將這十週的讀書筆記整理在這系列的文章。</p>
+<a id="more"></a>
+<p>本書前言裡作者提出一個問題：是什麼原因讓那些最有效率的工程師與一般工程師的產出有很大的差距？<br>他使用leverage（槓桿）這個詞來檢視工程師的績效，意即好的工程師會將時間花在對工作和團隊最有效益的地方，工作項目leverage越高表示產出越大。</p>
+<p>作者在章節裡提出幾項檢視的問題：</p>
+<h2 id="3個自我檢視問題："><a href="#3個自我檢視問題：" class="headerlink" title="3個自我檢視問題："></a>3個自我檢視問題：</h2><ol>
+<li>How can I complete this activity in a shorter amount of time?</li>
+<li>How can I increase the value produced by this activity?</li>
+<li>Is there something else that I could spend my time on that would produce more value?</li>
+</ol>
+<h2 id="提高leverage的方法："><a href="#提高leverage的方法：" class="headerlink" title="提高leverage的方法："></a>提高leverage的方法：</h2><ol>
+<li>從縮短開會時間著手（先定義會議的目的，不要為了開會而開會）</li>
+<li>減少開發或測試手動的比例（導入CI）</li>
+<li>針對工作排出優先順序，找出最大價值的項目</li>
+<li>找出客戶最大的痛點（網站裝線上客服，想辦法收集客戶的feedback）</li>
+<li>使用profiling tool找出系統的bottleneck （或是找出客戶使用app卡住的地方）</li>
+<li>建立onboarding flow（可設計像treehouse或其它線上程式教學網站的內容）</li>
+</ol>
+<h2 id="ORID練習"><a href="#ORID練習" class="headerlink" title="ORID練習"></a>ORID練習</h2><p>在讀書會中，organizer提倡使用ORID來討論事情。ORID為四個層次的問題，分別為Objective(客觀性層次)、Reflective(反應性層次)、Interpretive(詮釋性層次)、Decisional(決定性層次)。</p>
+<ul>
+<li>O: 作者在Quora建立onboarding flow，幫助新進工程師快速進入狀況<br>   之前待過的公司，不管團隊人數(200人或10人)，缺乏訓練規劃讓新進工程師容易犯錯</li>
+<li>R:  新成員不敢更動code base，對產品和流程一知半解。還是得由資深RD指導</li>
+<li>I:   如果建立onboarding flow，公司能節省training的總成本，新加入的工程師能很快就戰鬥位置</li>
+<li>D:  在選擇公司時，將訓練這一環列入考慮(對新手來說); 公司的資深人員可討論如何建立onboarding flow</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今年7月我參加一個雲端讀書會，主題為這本&lt;a href=&quot;https://www.amazon.com/Effective-Engineer-Engineering-Disproportionate-Meaningful/dp/0996128107&quot;&gt;The Effective Engineer&lt;/a&gt;。這本書由一位前google工程師撰寫，整本書圍繞在一個中心思想：如何讓工程師在有限的時間內產出最多的價值。&lt;/p&gt;
+&lt;p&gt;在讀這本書不僅學到一流人才的思考邏輯，同時也認識一群努力學習的好夥伴。我將這十週的讀書筆記整理在這系列的文章。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="讀書筆記" scheme="https://kuroro0718.github.io/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NodeJS Event Emitter介紹</title>
+    <link href="https://kuroro0718.github.io/NodeJS-Event-Emitter%E4%BB%8B%E7%B4%B9/"/>
+    <id>https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/</id>
+    <published>2016-12-04T04:54:02.000Z</published>
+    <updated>2016-12-04T05:46:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>NodeJS是以非同步事件驅動為導向的設計，而基本的事件要有發射端和接受端，以下做個介紹。</p>
+<a id="more"></a>
+<p>NodeJS有二種event: system event和custom event<br>前者為底層操作如檔案系統和網路協定，以C++為核心寫在libuv裡<br>後者是本文要介紹的event emitter</p>
+<p>以下範例實做簡單的event emitter</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Emitter = <span class="built_in">require</span>(<span class="string">'./emitter'</span>);</div><div class="line"><span class="keyword">var</span> emtr = <span class="keyword">new</span> Emitter();</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello, this is Alex'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Thanks'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">emtr.emit(<span class="string">'greet'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>emitter.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Emitter</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.events = &#123;&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Emitter.prototype.on = <span class="function"><span class="keyword">function</span>(<span class="params">type, listener</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.events[type] = <span class="keyword">this</span>.events[type] || [];</div><div class="line">    <span class="keyword">this</span>.events[type].push(listener);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Emitter.prototype.emit = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.events[type]) &#123;</div><div class="line">        <span class="keyword">this</span>.events[type].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">listener</span>) </span>&#123;</div><div class="line">            listener();</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = Emitter;</div></pre></td></tr></table></figure>
+<p>在emitter.js中，我們先宣告Emitter，其中包含一個空的events property。<br>接著定義on，此為事件的接收端，每次有人呼叫on時，將listener加入陣列中；emit則是發射端(emitter在電子學裡為電晶體的發射極，沒想到會借用這個字）負責把同類型事件的listener都執行一次</p>
+<p>而app.js一開始先定義’greet’這個event的二個listener，再來呼叫emit，最後的結果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ Hello</div><div class="line">$ Hello, this is Alex</div><div class="line">$ Thanks</div></pre></td></tr></table></figure>
+<p>從上例知道emitter的實作後，我們改用內建的events api來實作：</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Emitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</div><div class="line"><span class="keyword">var</span> emtr = <span class="keyword">new</span> Emitter();</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello, this is Alex'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Thanks'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">emtr.emit(<span class="string">'greet'</span>);</div></pre></td></tr></table></figure>
+<p>其實只要改成require內建的events即可。但這個程式還有一個問題：出現很多次’greet’這個magic string。我們可以使用config.js將其包裝：</p>
+<figure class="highlight javascript"><figcaption><span>config.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    events : &#123;</div><div class="line">        GREET: <span class="string">'greet'</span>,</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Emitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</div><div class="line"><span class="keyword">var</span> eventConfig = <span class="built_in">require</span>(<span class="string">'./config'</span>).events;</div><div class="line"></div><div class="line"><span class="keyword">var</span> emtr = <span class="keyword">new</span> Emitter();</div><div class="line"></div><div class="line">emtr.on(eventConfig.GREET, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello, this is Alex'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">emtr.on(eventConfig.GREET, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Thanks'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">emtr.emit(<span class="string">'greet'</span>);</div></pre></td></tr></table></figure>
+<p>如此一來，以後要加入／修改事件類型，只要改config.js就好，省去許多複製貼上和debug的時間。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;NodeJS是以非同步事件驅動為導向的設計，而基本的事件要有發射端和接受端，以下做個介紹。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+    
+      <category term="nodejs" scheme="https://kuroro0718.github.io/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
     <title>一天搞懂深度學習課後心得</title>
     <link href="https://kuroro0718.github.io/%E4%B8%80%E5%A4%A9%E6%90%9E%E6%87%82%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E8%AA%B2%E5%BE%8C%E5%BF%83%E5%BE%97/"/>
     <id>https://kuroro0718.github.io/一天搞懂深度學習課後心得/</id>
     <published>2016-11-27T01:11:58.000Z</published>
-    <updated>2016-11-27T08:53:09.000Z</updated>
+    <updated>2016-12-04T04:49:10.000Z</updated>
     
-    <content type="html"><![CDATA[<p>11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。<br>碩班曾接觸過機器學習，學習SVM,hMM和KNN之類的方法做分類和辯識，也使用matlab寫程式實作演算法。<br>那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。</p>
+    <content type="html"><![CDATA[<p>11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。<br>碩班曾接觸過機器學習，學習SVM,hMM和KNN等方法做分類和辯識，也使用matlab寫程式實作演算法。<br>那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。</p>
 <a id="more"></a>
 <h2 id="Introduction-of-Deep-Learning"><a href="#Introduction-of-Deep-Learning" class="headerlink" title="Introduction of Deep Learning"></a>Introduction of Deep Learning</h2><p>一開始先介紹machine learning，它的目的是找出一個function可以辯識聲音，影像的內容；或是指導電腦在特定情境下做出回應，如下圍棋。<br>做過machine learning的人都知道，最大的挑戰在於針對問題找出合適的feature，然後建構function來解決特定問題。</p>
 <p>也就是說，今天我要分辯影像中有沒有狗，那第一步得先研究狗的影像特徵是什麼？ 是形狀？顏色？或是其它空間的特徵？<br>有了特徵就能進一步建立數學式或是套用機器學習的模型，在餵給系統夠多的training data之後，丟給它一組testing data看結果如何</p>
@@ -45,7 +128,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。&lt;br&gt;碩班曾接觸過機器學習，學習SVM,hMM和KNN之類的方法做分類和辯識，也使用matlab寫程式實作演算法。&lt;br&gt;那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。&lt;/p&gt;
+      &lt;p&gt;11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。&lt;br&gt;碩班曾接觸過機器學習，學習SVM,hMM和KNN等方法做分類和辯識，也使用matlab寫程式實作演算法。&lt;br&gt;那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。&lt;/p&gt;
     
     </summary>
     
@@ -155,9 +238,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -191,9 +274,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -232,9 +315,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -358,9 +441,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -625,9 +708,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -720,76 +803,6 @@
     <summary type="html">
     
       &lt;p&gt;在C/C++中, 使用enum可提升程式碼的可讀性&lt;br&gt;而Swift的enum擴充原本的功能,使用上有更多的彈性&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift Protocol Oriented Programming</title>
-    <link href="https://kuroro0718.github.io/swift-protocol-oriented-programming/"/>
-    <id>https://kuroro0718.github.io/swift-protocol-oriented-programming/</id>
-    <published>2016-05-26T17:28:00.000Z</published>
-    <updated>2016-07-18T14:35:53.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在<a href="http://alexliang-blog.logdown.com/posts/734169-swift-protocol-introduction" target="_blank" rel="external">上一篇</a>介紹Swift Protocol基本的用法和優點。<br>這篇接著討論Swift使用protocol帶來的設計觀念：Protocol Oriented Programming<br><a id="more"></a></p>
-<h2 id="Composition"><a href="#Composition" class="headerlink" title="Composition"></a>Composition</h2><p>在物件導向設計中，繼承(inheritance)是常被誤用的觀念。<br>當二個”看起來”類似的類別套入繼承的關係後，有些操作便不適合<br>例如：圓形和橢圓形適合使用繼承的關係嗎？  前者有半徑；後者有長軸和短軸<br>如果將橢圓形繼承圓形，則初始化時，半徑為無意義的值</p>
-<p>所以在重構時，很重要的一點是分㦚二個類別是”Is A”或”Has A”的關係<br>如同前例，橢圓形並”不是”一種圓形；相反的，跑車”是”車子的一種<br>於是討論這類問題時，組合(composition)是一個更適合的pattern</p>
-<h2 id="Protocol-Inheritance"><a href="#Protocol-Inheritance" class="headerlink" title="Protocol Inheritance"></a>Protocol Inheritance</h2><p>由於Swift的class只能繼承單一class，但class能擁有多個protocol<br>所以在設計class時，我們傾向將各特性分為各種protocol<br>而protocol能繼承另一個protocol，可以組合各種小功能的protocol完成有彈性的設計<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Movable</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">func</span> <span class="title">move</span><span class="params">()</span></span></div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">FastMovable</span>: <span class="title">Movable</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">func</span> <span class="title">move</span><span class="params">()</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="Standard-Library-Protocols"><a href="#Standard-Library-Protocols" class="headerlink" title="Standard Library Protocols"></a>Standard Library Protocols</h2><p>Swift語言包含各種protocol，可分為三種類別：”Can Do”, “Is A”, “Can Be”<br>這三種protocol的命名方式也是Swift的慣例</p>
-<ol>
-<li>Can Do: 表示object可以做什麼，例如Standard Library中Equatable表示物件能判斷是否相等</li>
-<li>Is A: 表示object是某種形態，例如IntegerType</li>
-<li>Can Be: 表示object可以轉化成某種形態，例如ArrayLiteralConvertible表示物件能轉成array形態</li>
-</ol>
-<h2 id="Protocol-Oriented-Programming"><a href="#Protocol-Oriented-Programming" class="headerlink" title="Protocol Oriented Programming"></a>Protocol Oriented Programming</h2><p>假如有個class為Car，我們可以利用protocol組合該類別的基本行為<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Direction</span> </span>&#123;</div><div class="line">	<span class="keyword">case</span> <span class="type">Up</span>, <span class="type">Down</span>, <span class="type">Left</span>, <span class="type">Right</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Position</span> </span>&#123;</div><div class="line">	<span class="keyword">let</span> x: <span class="type">Int</span></div><div class="line">  <span class="keyword">let</span> y: <span class="type">Int</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Movable</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">func</span> <span class="title">move</span><span class="params">(direction: Direction, <span class="built_in">distance</span>: Int)</span></span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">VehicleType</span> </span>&#123;</div><div class="line">	<span class="keyword">var</span> hoursePower: <span class="type">Int</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</div><div class="line">  <span class="keyword">var</span> price: <span class="type">Double</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">init</span>(position: <span class="type">Position</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span>: <span class="title">VehicleType</span>, <span class="title">Movable</span> </span>&#123;</div><div class="line">	<span class="keyword">var</span> hoursePower: <span class="type">Int</span> = <span class="number">200</span></div><div class="line">  <span class="keyword">var</span> price: <span class="type">Double</span> = <span class="number">4000.25</span></div><div class="line">  </div><div class="line">  <span class="keyword">required</span> <span class="keyword">init</span>(position: <span class="type">Position</span>) &#123;</div><div class="line">  	<span class="keyword">self</span>.position = position</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">move</span><span class="params">(direction: Direction, <span class="built_in">distance</span>: Int)</span></span> &#123;</div><div class="line">  	<span class="keyword">switch</span> direction &#123;</div><div class="line">        <span class="keyword">case</span> .<span class="type">Up</span>: position.y += <span class="built_in">distance</span></div><div class="line">        <span class="keyword">case</span> .<span class="type">Down</span>: position.y -= <span class="built_in">distance</span></div><div class="line">        <span class="keyword">case</span> .<span class="type">Left</span>: position.x -= <span class="built_in">distance</span></div><div class="line">        <span class="keyword">case</span> .<span class="type">Right</span>: position.x += <span class="built_in">distance</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用protocol的組合可以讓class的可讀性增加，並且更有彈性。</p>
-<p>參考來源：<br><a href="https://www.skilled.io/gregheo/what-the-55-swift-standard-library-protocols-taught-me" target="_blank" rel="external">What the 55 Swift Protocols taught me</a><br><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html" target="_blank" rel="external">官方文件</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在&lt;a href=&quot;http://alexliang-blog.logdown.com/posts/734169-swift-protocol-introduction&quot;&gt;上一篇&lt;/a&gt;介紹Swift Protocol基本的用法和優點。&lt;br&gt;這篇接著討論Swift使用protocol帶來的設計觀念：Protocol Oriented Programming&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift Value and Reference Types</title>
-    <link href="https://kuroro0718.github.io/swift-value-and-reference-types/"/>
-    <id>https://kuroro0718.github.io/swift-value-and-reference-types/</id>
-    <published>2016-05-25T18:32:00.000Z</published>
-    <updated>2016-07-18T14:35:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>初次接觸Swift時，少了pointer的機制，讓人好奇過去function call的call by value, call by reference是否有所不同<br>而Swift除了class外，其餘資料型態皆為value type。<br>這篇文章整理Swift Value and Reference type的差異<br><a id="more"></a></p>
-<h2 id="Value-Type"><a href="#Value-Type" class="headerlink" title="Value Type"></a>Value Type</h2><p>當copy value type資料時，Swift其實是創造一份獨立的”拷貝”，任何改變原本變數的值不會影響拷貝的資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123; <span class="keyword">var</span> name: <span class="type">String</span> = <span class="string">"Alex"</span> &#125;</div><div class="line"><span class="keyword">let</span> somePerson = <span class="type">Person</span>()</div><div class="line"><span class="keyword">let</span> otherPerson = somePerson</div><div class="line">somePerson = <span class="string">"John"</span></div><div class="line"><span class="built_in">print</span>(<span class="string">"\(somePerson.name), \(otherPerson.name)) 	// print John, Alex</span></div></pre></td></tr></table></figure></p>
-<p>當somePerson的name被改變時，otherPerson並不受影響</p>
-<h2 id="Reference-Type"><a href="#Reference-Type" class="headerlink" title="Reference Type"></a>Reference Type</h2><p>當copy reference type資料時，Swift只是增加一個reference指向原本的資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; <span class="keyword">var</span> name: <span class="type">String</span> = <span class="string">"Alex"</span> &#125;</div><div class="line"><span class="keyword">let</span> somePerson = <span class="type">Person</span>()</div><div class="line"><span class="keyword">let</span> otherPerson = somePerson</div><div class="line">somePerson = <span class="string">"John"</span></div><div class="line"><span class="built_in">print</span>(<span class="string">"\(somePerson.name), \(otherPerson.name)) 	// print Alex, Alex</span></div></pre></td></tr></table></figure></p>
-<p>由以上例子可知，在使用function時要注意是否需要改變傳入的值<br>因為大多數的資料型態為value type，傳入function後無法修改原本的值<br>在multi-thread的環境中，這也一定確保資料的完整性，降低debug的困難度</p>
-<h2 id="如何選擇？"><a href="#如何選擇？" class="headerlink" title="如何選擇？"></a>如何選擇？</h2><p>使用value type:</p>
-<ol>
-<li>比較拷貝的資料(==)是合理行為</li>
-<li>拷貝的複本有獨立的狀態</li>
-<li>資料可能會被多個執行緒使用</li>
-</ol>
-<p>使用reference type:</p>
-<ol>
-<li>比較拷貝的識別(===)是合理的行為</li>
-<li>想創造可共享和改變的狀態</li>
-</ol>
-<p>參考來源：<br><a href="https://developer.apple.com/swift/blog/?id=10" target="_blank" rel="external">Apple官方文件</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;初次接觸Swift時，少了pointer的機制，讓人好奇過去function call的call by value, call by reference是否有所不同&lt;br&gt;而Swift除了class外，其餘資料型態皆為value type。&lt;br&gt;這篇文章整理Swift Value and Reference type的差異&lt;br&gt;
     
     </summary>
     

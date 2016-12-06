@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>NodeJS - 初探Module (2) | Alex Liang</title>
+  <title>NodeJS Event Emitter介紹 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一篇介紹module.export的使用方式，這一篇介紹它的底層和其它用法">
+  <meta name="description" content="NodeJS是以非同步事件驅動為導向的設計，而基本的事件要有發射端和接受端，以下做個介紹。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NodeJS - 初探Module (2)">
-<meta property="og:url" content="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/index.html">
+<meta property="og:title" content="NodeJS Event Emitter介紹">
+<meta property="og:url" content="https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="上一篇介紹module.export的使用方式，這一篇介紹它的底層和其它用法">
-<meta property="og:updated_time" content="2016-11-28T07:09:22.000Z">
+<meta property="og:description" content="NodeJS是以非同步事件驅動為導向的設計，而基本的事件要有發射端和接受端，以下做個介紹。">
+<meta property="og:updated_time" content="2016-12-04T05:46:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NodeJS - 初探Module (2)">
-<meta name="twitter:description" content="上一篇介紹module.export的使用方式，這一篇介紹它的底層和其它用法">
+<meta name="twitter:title" content="NodeJS Event Emitter介紹">
+<meta name="twitter:description" content="NodeJS是以非同步事件驅動為導向的設計，而基本的事件要有發射端和接受端，以下做個介紹。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -92,13 +92,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-NodeJS初探-Module-Exports-2" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-NodeJS-Event-Emitter介紹" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      NodeJS - 初探Module (2)
+      NodeJS Event Emitter介紹
     </h1>
   
 
@@ -107,7 +107,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/NodeJS初探-Module-Exports-2/" class="article-date"><time datetime="2016-11-25T05:12:51.000Z" itemprop="datePublished">2016-11-25</time></a>
+  <a href="/NodeJS-Event-Emitter介紹/" class="article-date"><time datetime="2016-12-04T04:54:02.000Z" itemprop="datePublished">2016-12-04</time></a>
 </div>
 
     
@@ -118,21 +118,21 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p>
+        <p>NodeJS是以非同步事件驅動為導向的設計，而基本的事件要有發射端和接受端，以下做個介紹。</p>
 <a id="more"></a>
-<h3 id="引入整個資料夾"><a href="#引入整個資料夾" class="headerlink" title="引入整個資料夾"></a>引入整個資料夾</h3><p>我們可以將一個module拆成數個js檔案，利用一個index.js便可將整個資料夾打包給其它檔案使用</p>
-<figure class="highlight javascript"><figcaption><span>payment/index.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> creditCard = <span class="built_in">require</span>(<span class="string">'credit_card'</span>);</div><div class="line"><span class="keyword">var</span> atmTransfer = <span class="built_in">require</span>(<span class="string">'atm'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.export = &#123;</div><div class="line">	creditCard: creditCard,</div><div class="line">	atmTransfer: atmTransfer</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var payment = function(price) &#123;</div><div class="line"> 	console.log('Pay $' + price + 'by credit card");</div><div class="line">&#125;</div><div class="line"></div><div class="line">module.export = payment;</div></pre></td></tr></table></figure>
-<figure class="highlight"><figcaption><span>payment/atm.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var payment = function(price) &#123;</div><div class="line">	console.log('Pay $' + price + 'by ATM transfer");</div><div class="line">&#125;</div><div class="line"></div><div class="line">module.export = payment;</div></pre></td></tr></table></figure>
-<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> payment = <span class="built_in">require</span>(<span class="string">'./payment'</span>);</div><div class="line"></div><div class="line">payment.creditCard();</div><div class="line">payment.atmTransfer();</div></pre></td></tr></table></figure>
-<p>上例將payment底下二種不同的付款方式包在index.js檔案給外部使用</p>
-<h3 id="利用json檔將設定包裝起來"><a href="#利用json檔將設定包裝起來" class="headerlink" title="利用json檔將設定包裝起來"></a>利用json檔將設定包裝起來</h3><figure class="highlight javascript"><figcaption><span>currency.json</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="string">"tw"</span>: <span class="string">"NTD"</span>,</div><div class="line">	<span class="string">"us"</span>: <span class="string">"USD"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var currency = require('./currency.json');</div><div class="line"></div><div class="line">var payment = function(price) &#123;</div><div class="line">	console.log('Pay $' + price + ' ' + currency.us + 'by credit card");</div><div class="line">&#125;</div><div class="line"></div><div class="line">module.export = payment;</div></pre></td></tr></table></figure>
-<p>用這個方式可將設定值包裝成json檔，增加source code的可讀性</p>
-<h3 id="原生module"><a href="#原生module" class="headerlink" title="原生module"></a>原生module</h3><p>NodeJS內建許多原生module，這裡是<a href="https://nodejs.org/dist/latest-v6.x/docs/api/" target="_blank" rel="external">api ducuments</a>。我們以util為例</p>
-<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> price = <span class="number">100</span>;</div><div class="line"><span class="keyword">var</span> statement = util.format(<span class="string">'The price is %s'</span>, price);</div><div class="line">util.log(statement);</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ 28 Nov 14:54:32 - The price is 100</div></pre></td></tr></table></figure>
-<p>原生module己提供一些方便的功能，遇到問題時上官網查文件說不定己有解決方案</p>
+<p>NodeJS有二種event: system event和custom event<br>前者為底層操作如檔案系統和網路協定，以C++為核心寫在libuv裡<br>後者是本文要介紹的event emitter</p>
+<p>以下範例實做簡單的event emitter</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Emitter = <span class="built_in">require</span>(<span class="string">'./emitter'</span>);</div><div class="line"><span class="keyword">var</span> emtr = <span class="keyword">new</span> Emitter();</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello, this is Alex'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Thanks'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">emtr.emit(<span class="string">'greet'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>emitter.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Emitter</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.events = &#123;&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Emitter.prototype.on = <span class="function"><span class="keyword">function</span>(<span class="params">type, listener</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.events[type] = <span class="keyword">this</span>.events[type] || [];</div><div class="line">    <span class="keyword">this</span>.events[type].push(listener);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Emitter.prototype.emit = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.events[type]) &#123;</div><div class="line">        <span class="keyword">this</span>.events[type].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">listener</span>) </span>&#123;</div><div class="line">            listener();</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = Emitter;</div></pre></td></tr></table></figure>
+<p>在emitter.js中，我們先宣告Emitter，其中包含一個空的events property。<br>接著定義on，此為事件的接收端，每次有人呼叫on時，將listener加入陣列中；emit則是發射端(emitter在電子學裡為電晶體的發射極，沒想到會借用這個字）負責把同類型事件的listener都執行一次</p>
+<p>而app.js一開始先定義’greet’這個event的二個listener，再來呼叫emit，最後的結果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ Hello</div><div class="line">$ Hello, this is Alex</div><div class="line">$ Thanks</div></pre></td></tr></table></figure>
+<p>從上例知道emitter的實作後，我們改用內建的events api來實作：</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Emitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</div><div class="line"><span class="keyword">var</span> emtr = <span class="keyword">new</span> Emitter();</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello, this is Alex'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">emtr.on(<span class="string">'greet'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Thanks'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">emtr.emit(<span class="string">'greet'</span>);</div></pre></td></tr></table></figure>
+<p>其實只要改成require內建的events即可。但這個程式還有一個問題：出現很多次’greet’這個magic string。我們可以使用config.js將其包裝：</p>
+<figure class="highlight javascript"><figcaption><span>config.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    events : &#123;</div><div class="line">        GREET: <span class="string">'greet'</span>,</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Emitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</div><div class="line"><span class="keyword">var</span> eventConfig = <span class="built_in">require</span>(<span class="string">'./config'</span>).events;</div><div class="line"></div><div class="line"><span class="keyword">var</span> emtr = <span class="keyword">new</span> Emitter();</div><div class="line"></div><div class="line">emtr.on(eventConfig.GREET, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello, this is Alex'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">emtr.on(eventConfig.GREET, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Thanks'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</div><div class="line">emtr.emit(<span class="string">'greet'</span>);</div></pre></td></tr></table></figure>
+<p>如此一來，以後要加入／修改事件類型，只要改config.js就好，省去許多複製貼上和debug的時間。</p>
 
       
     </div>
@@ -143,11 +143,11 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/" data-id="ciwdkrjdv003b30p53l1j340e" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/" data-id="ciwdkrjdx003e30p5b13obgqs" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
@@ -162,16 +162,16 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/NodeJS初探-Module-Exports-1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/一天搞懂深度學習課後心得/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">NodeJS - 初探Module (1)</span>
+      <span class="article-nav-link-title">一天搞懂深度學習課後心得</span>
     </a>
   </li>
   
   
   <li role="presentation">
-    <a href="/一天搞懂深度學習課後心得/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">一天搞懂深度學習課後心得</span>
+    <a href="/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">The Effective Engineer讀書筆記-Focus on High-Leverage Activities</span>
       <i class="fa fa-chevron-right pull-right"></i>
     </a>
   </li>
@@ -274,7 +274,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/';
+  var disqus_url = 'https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/';
   
   (function(){
     var dsq = document.createElement('script');
