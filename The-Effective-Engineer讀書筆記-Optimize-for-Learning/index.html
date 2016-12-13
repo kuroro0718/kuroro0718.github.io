@@ -3,20 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[前端筆記] CSS3 Cross Country筆記 | Alex Liang</title>
+  <title>The Effective Engineer讀書筆記-Optimize for Learning | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="把Code School CSS3課程做個筆記">
+  <meta name="description" content="作者在google瀏覽source code及內部工具，學習程式語言的best practice和同事們合作開發working demo並呈現給創辦人二年後離開google，因為那裡己經不是適合的學習環境接下來加入startup，尋求最大化自我成長
+
+最佳化學習是high leverage的項目 找到適合成長的環境">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[前端筆記] CSS3 Cross Country筆記">
-<meta property="og:url" content="https://kuroro0718.github.io/679354/index.html">
+<meta property="og:title" content="The Effective Engineer讀書筆記-Optimize for Learning">
+<meta property="og:url" content="https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Optimize-for-Learning/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="把Code School CSS3課程做個筆記">
-<meta property="og:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png">
-<meta property="og:updated_time" content="2016-07-18T14:30:23.000Z">
+<meta property="og:description" content="作者在google瀏覽source code及內部工具，學習程式語言的best practice和同事們合作開發working demo並呈現給創辦人二年後離開google，因為那裡己經不是適合的學習環境接下來加入startup，尋求最大化自我成長
+
+最佳化學習是high leverage的項目 找到適合成長的環境">
+<meta property="og:updated_time" content="2016-12-13T14:59:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[前端筆記] CSS3 Cross Country筆記">
-<meta name="twitter:description" content="把Code School CSS3課程做個筆記">
-<meta name="twitter:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png">
+<meta name="twitter:title" content="The Effective Engineer讀書筆記-Optimize for Learning">
+<meta name="twitter:description" content="作者在google瀏覽source code及內部工具，學習程式語言的best practice和同事們合作開發working demo並呈現給創辦人二年後離開google，因為那裡己經不是適合的學習環境接下來加入startup，尋求最大化自我成長
+
+最佳化學習是high leverage的項目 找到適合成長的環境">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -94,13 +98,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-679354" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-The-Effective-Engineer讀書筆記-Optimize-for-Learning" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [前端筆記] CSS3 Cross Country筆記
+      The Effective Engineer讀書筆記-Optimize for Learning
     </h1>
   
 
@@ -109,7 +113,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/679354/" class="article-date"><time datetime="2016-03-24T23:16:00.000Z" itemprop="datePublished">2016-03-25</time></a>
+  <a href="/The-Effective-Engineer讀書筆記-Optimize-for-Learning/" class="article-date"><time datetime="2016-12-13T14:55:04.000Z" itemprop="datePublished">2016-12-13</time></a>
 </div>
 
     
@@ -120,16 +124,29 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>把Code School CSS3課程做個筆記<br><a id="more"></a></p>
-<h2 id="Inheritance-amp-Specificity"><a href="#Inheritance-amp-Specificity" class="headerlink" title="Inheritance &amp; Specificity"></a>Inheritance &amp; Specificity</h2><p>CSS3對selector和class有優先權的設定<br>有個數列能做參考：</p>
-<p><inline>, <id>, <class>, <element><br>由左至右為權限高到低，舉例來說<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"product"</span>&gt;</span>Coffee brewer<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It's the best way to enjoy coffee<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div></pre></td></tr></table></figure></element></class></id></inline></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#content p &#123;		# specificity: 0,1,0,1</div><div class="line">	color: #000;</div><div class="line">&#125;</div><div class="line">.product &#123;			#	 specificity: 0,0,1,0  優先權較低，不會生效</div><div class="line">	color: #555;</div><div class="line">&#125;</div><div class="line">#content .product &#123;		# specificity: 0,1,1,0 加上ID selector才會生效</div><div class="line">	color: #555;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="The-Box-Model"><a href="#The-Box-Model" class="headerlink" title="The Box Model"></a>The Box Model</h2><p>當我們需要計算某個樣式的寬度時，需套入以下公式：<br>total calculated box width = content width + padding width + border width<br>例如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.form</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#fff</span>;</div><div class="line">  <span class="attribute">padding-left</span>: <span class="number">10px</span>;</div><div class="line">  <span class="attribute">padding-right</span>: <span class="number">5px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>此樣式總寬度為： 120(content)＋15(padding)＋10(border)＝145px</p>
-<h2 id="Positioning"><a href="#Positioning" class="headerlink" title="Positioning"></a>Positioning</h2><p>CSS的樣式位置預設是static，總共有4種設定：static/relative/absolute/fixed<br>除了static之外，其它3種設定可分別調整元素上、下、左、右位置，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Alex's Playground<span class="tag">&lt;<span class="name">sup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sup</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">sup</span> &#123;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">60%</span>;</div><div class="line">  <span class="attribute">vertical-align</span>: baseline;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">  <span class="attribute">top</span>: -<span class="number">0.5em</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png" alt="螢幕快照 2016-04-01 下午2.17.56.png"></p>
-<p>參考來源：<br><a href="http://www.w3schools.com/cssref/pr_class_position.asp" target="_blank" rel="external">Positioning</a></p>
+        <p>作者在google瀏覽source code及內部工具，學習程式語言的best practice<br>和同事們合作開發working demo並呈現給創辦人<br>二年後離開google，因為那裡己經不是適合的學習環境<br>接下來加入startup，尋求最大化自我成長</p>
+<blockquote>
+<p>最佳化學習是high leverage的項目 找到適合成長的環境</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="Adopt-a-Growth-Mindset"><a href="#Adopt-a-Growth-Mindset" class="headerlink" title="Adopt a Growth Mindset"></a>Adopt a Growth Mindset</h3><p>跨出自己的舒適圈</p>
+<blockquote>
+<p>別讓過去的經驗困住自己，別害怕學習新技能<br>決定論 vs 目的論<br>前者認為過去的經驗影響現在的自己；後者認為設定未來的自己才是目的<br>own your story</p>
+</blockquote>
+<h3 id="Invest-in-Your-Rate-of-Learning"><a href="#Invest-in-Your-Rate-of-Learning" class="headerlink" title="Invest in Your Rate of Learning"></a>Invest in Your Rate of Learning</h3><p>在學習初期，進步的幅度會很慢，但只要持續下去，後期會呈指數型成長<br>成長的百分比1%會影響結果很大<br>長期做重複性高的工作對成長沒有幫助</p>
+<blockquote>
+<p>thinking yourself as a startup or product<br>每天進步1%，一年後會成長37倍</p>
+</blockquote>
+<h3 id="Seek-Work-Environments-Conducive-to-Learning"><a href="#Seek-Work-Environments-Conducive-to-Learning" class="headerlink" title="Seek Work Environments Conducive to Learning"></a>Seek Work Environments Conducive to Learning</h3><p>六個選擇新環境的因素</p>
+<ol>
+<li>Fast growth</li>
+<li>Training</li>
+<li>開放心態</li>
+<li>迅速回饋</li>
+<li>同事</li>
+<li>自主</li>
+</ol>
+<h3 id="Dedicate-Time-on-the-Job-to-Develop-New-Skills"><a href="#Dedicate-Time-on-the-Job-to-Develop-New-Skills" class="headerlink" title="Dedicate Time on the Job to Develop New Skills"></a>Dedicate Time on the Job to Develop New Skills</h3><p>20% time working on side project or learning new skills<br>擴展自己的能力圈(by reading, online course, writing code)</p>
 
       
     </div>
@@ -140,16 +157,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/679354/" data-id="ciwnmw2ow000qeep5s8zwinv7" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Optimize-for-Learning/" data-id="ciwnmw2rr003eeep5s06p1qla" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/679354/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Optimize-for-Learning/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/">front-end</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/讀書筆記/">讀書筆記</a></li></ul>
 
 
     </footer>
@@ -159,19 +176,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/rails-paperclip-upload-files-and-images/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Rails] paperclip上傳檔案及圖片</span>
+      <span class="article-nav-link-title">The Effective Engineer讀書筆記-Focus on High-Leverage Activities</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Archetecture the Lost Years by Uncle Bob演講筆記</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -271,7 +281,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/679354/';
+  var disqus_url = 'https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Optimize-for-Learning/';
   
   (function(){
     var dsq = document.createElement('script');
