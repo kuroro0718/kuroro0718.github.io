@@ -3,20 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[前端筆記] CSS3 Cross Country筆記 | Alex Liang</title>
+  <title>Archives: 2017/2 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="把Code School CSS3課程做個筆記">
-<meta property="og:type" content="article">
-<meta property="og:title" content="[前端筆記] CSS3 Cross Country筆記">
-<meta property="og:url" content="https://kuroro0718.github.io/679354/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Alex Liang">
+<meta property="og:url" content="https://kuroro0718.github.io/archives/2017/02/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="把Code School CSS3課程做個筆記">
-<meta property="og:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png">
-<meta property="og:updated_time" content="2016-07-18T14:30:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[前端筆記] CSS3 Cross Country筆記">
-<meta name="twitter:description" content="把Code School CSS3課程做個筆記">
-<meta name="twitter:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png">
+<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -68,7 +62,7 @@ ga('send', 'pageview');
           <li><a class=""
                  href="/index.html">Home</a></li>
         
-          <li><a class=""
+          <li><a class="active"
                  href="/archives/">Archives</a></li>
         
       </ul>
@@ -94,97 +88,41 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-679354" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
+          
+  
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <header class="archive-article-header">
     
   
-    <h1 class="article-title" itemprop="name">
-      [前端筆記] CSS3 Cross Country筆記
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/Node-js爬蟲實戰：如何query動態網頁資料/">Node.js爬蟲實戰：如何query動態網頁資料</a>
     </h1>
   
 
 
-  </header>
-
-  <div class="article-meta">
     <div class="article-datetime">
-  <a href="/679354/" class="article-date"><time datetime="2016-03-24T23:16:00.000Z" itemprop="datePublished">2016-03-25</time></a>
+  <a href="/Node-js爬蟲實戰：如何query動態網頁資料/" class="archive-article-date"><time datetime="2017-02-05T12:00:49.000Z" itemprop="datePublished">二月 5日</time></a>
 </div>
 
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>把Code School CSS3課程做個筆記<br><a id="more"></a></p>
-<h2 id="Inheritance-amp-Specificity"><a href="#Inheritance-amp-Specificity" class="headerlink" title="Inheritance &amp; Specificity"></a>Inheritance &amp; Specificity</h2><p>CSS3對selector和class有優先權的設定<br>有個數列能做參考：</p>
-<p><inline>, <id>, <class>, <element><br>由左至右為權限高到低，舉例來說<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"product"</span>&gt;</span>Coffee brewer<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It's the best way to enjoy coffee<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div></pre></td></tr></table></figure></element></class></id></inline></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#content p &#123;		# specificity: 0,1,0,1</div><div class="line">	color: #000;</div><div class="line">&#125;</div><div class="line">.product &#123;			#	 specificity: 0,0,1,0  優先權較低，不會生效</div><div class="line">	color: #555;</div><div class="line">&#125;</div><div class="line">#content .product &#123;		# specificity: 0,1,1,0 加上ID selector才會生效</div><div class="line">	color: #555;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="The-Box-Model"><a href="#The-Box-Model" class="headerlink" title="The Box Model"></a>The Box Model</h2><p>當我們需要計算某個樣式的寬度時，需套入以下公式：<br>total calculated box width = content width + padding width + border width<br>例如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.form</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#fff</span>;</div><div class="line">  <span class="attribute">padding-left</span>: <span class="number">10px</span>;</div><div class="line">  <span class="attribute">padding-right</span>: <span class="number">5px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>此樣式總寬度為： 120(content)＋15(padding)＋10(border)＝145px</p>
-<h2 id="Positioning"><a href="#Positioning" class="headerlink" title="Positioning"></a>Positioning</h2><p>CSS的樣式位置預設是static，總共有4種設定：static/relative/absolute/fixed<br>除了static之外，其它3種設定可分別調整元素上、下、左、右位置，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Alex's Playground<span class="tag">&lt;<span class="name">sup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sup</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">sup</span> &#123;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">60%</span>;</div><div class="line">  <span class="attribute">vertical-align</span>: baseline;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">  <span class="attribute">top</span>: -<span class="number">0.5em</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png" alt="螢幕快照 2016-04-01 下午2.17.56.png"></p>
-<p>參考來源：<br><a href="http://www.w3schools.com/cssref/pr_class_position.asp" target="_blank" rel="external">Positioning</a></p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/679354/" data-id="ciysn45r7001fh2p54k0j0n9q" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="https://kuroro0718.github.io/679354/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/">front-end</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-    
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/rails-paperclip-upload-files-and-images/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Rails] paperclip上傳檔案及圖片</span>
-    </a>
-  </li>
-  
-  
-  <li role="presentation">
-    <a href="/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Archetecture the Lost Years by Uncle Bob演講筆記</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
-  
-</ul>
-
-
-  
+  </header>
 </article>
 
+  
+  
+    </div></section>
+  
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
 
 
 
@@ -271,13 +209,11 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/679354/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

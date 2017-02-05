@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2017-02-05T07:08:16.000Z</updated>
+  <updated>2017-02-05T13:09:00.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Node.js爬蟲實戰：如何query動態網頁資料</title>
+    <link href="https://kuroro0718.github.io/Node-js%E7%88%AC%E8%9F%B2%E5%AF%A6%E6%88%B0%EF%BC%9A%E5%A6%82%E4%BD%95query%E5%8B%95%E6%85%8B%E7%B6%B2%E9%A0%81%E8%B3%87%E6%96%99/"/>
+    <id>https://kuroro0718.github.io/Node-js爬蟲實戰：如何query動態網頁資料/</id>
+    <published>2017-02-05T12:00:49.000Z</published>
+    <updated>2017-02-05T13:09:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p> 前陣子工作上需要寫爬蟲撈政府機關的資料回來，一般的靜態網頁可以由URL的規則找到資料連結，而動態網頁常無法使用此方式。最常遇到的是client端按下button後送javascript的動作給後端，然後才render網頁。</p>
+<p> 這篇簡單記錄如何抓取這類型網站的資料。<br> <a id="more"></a></p>
+<p> 我們以<a href="https://www.laws.taipei.gov.tw/lawsystem/wfLaw_Interpretation_SearchResult.aspx" target="_blank" rel="external">北市府法規局</a>網站為例，使用chrome的開發者工具。<br> 這裡分成2個部分：</p>
+<ol>
+<li>檢視送出query的header帶了哪些參數</li>
+<li>觀察取得下一頁資料時，header又加入哪些參數</li>
+</ol>
+<p>一開始我們先測試最少需要哪些輸入才能查詢，在這個例子中至少需要勾選一個類別加上發布期間才能query資料。假設查詢營建類，從105年1月1日到105年12月31日。開啟開發人員工具，進入Network頁面，此時按”送出查詢”。</p>
+<p> 在Network頁面下，我們找到wfLaw_Interpretation_SearchResult.aspx，點進去後可看到以下畫面：<br> <img src="FormData.png" alt="HTTP Request"><br> 紅色框起來的部分便是query送出的表格資料，這裡可以看到有三個欄位需要控制：’TCGC’, ‘TADF’及’TADT’。程式需要二個套件: request和cheerio，前者可送出HTTP request;後者可以把回傳的網頁資料透過類似jQuery的selector抓取需要的內容</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Request = <span class="built_in">require</span>(<span class="string">'request'</span>);</div><div class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>);</div><div class="line"></div><div class="line"><span class="keyword">const</span> request = Request.defaults(&#123;</div><div class="line">  jar: <span class="literal">true</span>,</div><div class="line">  timeout: <span class="number">60</span> * <span class="number">1000</span>,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">request.post(&#123;</div><div class="line">  url: <span class="string">'http://www.laws.taipei.gov.tw/lawsystem/wfLaw_Interpretation_SearchResult.aspx'</span>,</div><div class="line">  form: &#123;</div><div class="line">    TCGC: <span class="string">'003008'</span>,</div><div class="line">    TLC1: <span class="string">'AND'</span>,</div><div class="line">    TLC2: <span class="string">'AND'</span>,</div><div class="line">    TADF: <span class="string">'1010604'</span>,</div><div class="line">    TADT: <span class="string">'1010604'</span></div><div class="line">  &#125;,</div><div class="line">&#125;, (error, response, body) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="built_in">console</span>.error(error);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (response.statusCode !== <span class="number">200</span>) &#123;</div><div class="line">    <span class="built_in">console</span>.log(response.statusCode);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">const</span> $ = cheerio.load(body);</div><div class="line">  <span class="keyword">const</span> span = $(<span class="string">'#ContentPlaceHolder1_gvList_lblRecordCount'</span>);</div><div class="line">  <span class="keyword">let</span> count = $(span[<span class="number">0</span>]).text();</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`Query結果共<span class="subst">$&#123;count&#125;</span>筆資料`</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>這段程式碼會印出query結果的資料數量。到此解決第一部分。<br>如果query數量超過一頁的上限，想抓取下一頁的資料會發現HTML並無下一頁的連結<br><img src="NextPage.png" alt="Next Page"></p>
+<p>它是透過javascript去產生下一頁的結果，我們使用開發者工具觀察點擊下一頁的動作：<br><img src="NextPageQuery1.png" alt="Form Data 1"><br><img src="NextPageQuery2.png" alt="Form Data 2"></p>
+<p>Form Data有</p>
+<ol>
+<li>_EVENTTARGET</li>
+<li>_VIEWSTATE</li>
+<li>_VIEWGERNERATOR</li>
+<li>_EVENTVALIDATION</li>
+<li>ctl00$ContentPlaceHolder1$gvList$ctl01$ddlPage</li>
+<li>ctl00$ContentPlaceHolder1$gvList$ctl24$ddlPage</li>
+</ol>
+<p>這6個值，其中_EVENTTARGET是固定的；ctl00$ContentPlaceHolder1$gvList$ctl01$ddlPage和ctl00$ContentPlaceHolder1$gvList$ctl24$ddlPage為從第幾頁過來和目前頁數-1</p>
+<p>而2, 3, 4這三個值與cookie有關，在前一頁可取出這些值。於是程式碼需改寫成：</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Request = <span class="built_in">require</span>(<span class="string">'request'</span>);</div><div class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>);</div><div class="line"></div><div class="line"><span class="keyword">const</span> request = Request.defaults(&#123;</div><div class="line">  jar: <span class="literal">true</span>,</div><div class="line">  timeout: <span class="number">60</span> * <span class="number">1000</span>,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">request.post(&#123;</div><div class="line">  url: <span class="string">'http://www.laws.taipei.gov.tw/lawsystem/wfLaw_Interpretation_SearchResult.aspx'</span>,</div><div class="line">  form: &#123;</div><div class="line">    TCGC: <span class="string">'003010'</span>,</div><div class="line">    TLC1: <span class="string">'AND'</span>,</div><div class="line">    TLC2: <span class="string">'AND'</span>,</div><div class="line">    TADF: <span class="string">'1050101'</span>,</div><div class="line">    TADT: <span class="string">'1051231'</span></div><div class="line">  &#125;,</div><div class="line">&#125;, (error, response, body) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="built_in">console</span>.error(error);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (response.statusCode !== <span class="number">200</span>) &#123;</div><div class="line">    <span class="built_in">console</span>.log(response.statusCode);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">const</span> $ = cheerio.load(body);</div><div class="line">  <span class="comment">// Get next page raw HTML</span></div><div class="line">  <span class="keyword">const</span> eventValidation = $(<span class="string">'#__EVENTVALIDATION'</span>).val();</div><div class="line">  <span class="keyword">const</span> viewState = $(<span class="string">'#__VIEWSTATE'</span>).val();</div><div class="line">  <span class="keyword">const</span> viewStateGenerator = $(<span class="string">'#__VIEWSTATEGENERATOR'</span>).val();</div><div class="line"></div><div class="line">  request.post(&#123;</div><div class="line">      url:  <span class="string">'http://www.laws.taipei.gov.tw/lawsystem/wfLaw_Interpretation_SearchResult.aspx'</span>,</div><div class="line">      form: &#123;</div><div class="line">        __EVENTTARGET:                                  <span class="string">'ctl00$ContentPlaceHolder1$gvList$ctl01$ddlPage'</span>,</div><div class="line">        __VIEWSTATE:                                    viewState,</div><div class="line">        __VIEWSTATEGENERATOR:                           viewStateGenerator,</div><div class="line">        __EVENTVALIDATION:                              eventValidation,</div><div class="line">        ctl00$ContentPlaceHolder1$gvList$ctl01$ddlPage: <span class="number">1</span>,</div><div class="line">        ctl00$ContentPlaceHolder1$gvList$ctl24$ddlPage: <span class="number">1</span></div><div class="line">      &#125;,</div><div class="line">    &#125;, (err, resp, nextPage) =&gt; &#123;</div><div class="line">      <span class="keyword">if</span> (err) &#123;</div><div class="line">        <span class="built_in">console</span>.error(err);</div><div class="line">        callback(err);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="built_in">console</span>.log(nextPage);</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div></pre></td></tr></table></figure>
+<p>取得第一個頁面後，記下view state等內容，再送出一個request並帶入剛才得到的狀態。如此可印出下一頁的內容。</p>
+<p>最後給個提醒，面對這種動態網站時，如果我們使用async queue一次跑多個worker抓取資料，request的設定就不能使用default。原因是很有可能不同worker會用到同一個request object去query，假如A worker在抓取第二頁時，B worker送出另一個第二頁的query，會發生回傳內容不如預期的情況。<br>這時我們需要改變request object為區域變數，並且使用request.jar()取得custom cookie jar，範例如下：</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">crawler4DynamicPage</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">const</span> customJar = request.jar();</div><div class="line">  	<span class="keyword">const</span> options = &#123;</div><div class="line">    	jar:     customJar,</div><div class="line">    	timeout: <span class="number">60</span> * <span class="number">1000</span>,</div><div class="line">  	&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>送query時再帶入options，這樣才能避免worker之間打架的情形</p>
+<p><a href="http://yhsiang.logdown.com/posts/2014/05/10/how-to-write-a-crawler" target="_blank" rel="external">參考資料</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 前陣子工作上需要寫爬蟲撈政府機關的資料回來，一般的靜態網頁可以由URL的規則找到資料連結，而動態網頁常無法使用此方式。最常遇到的是client端按下button後送javascript的動作給後端，然後才render網頁。&lt;/p&gt;
+&lt;p&gt; 這篇簡單記錄如何抓取這類型網站的資料。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB初探及CRUD筆記</title>
@@ -59,9 +109,9 @@
     </summary>
     
     
-      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
-    
       <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+    
+      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
     
   </entry>
   
@@ -805,41 +855,6 @@
     
     
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift Closure 介紹</title>
-    <link href="https://kuroro0718.github.io/swift-closure-introduced/"/>
-    <id>https://kuroro0718.github.io/swift-closure-introduced/</id>
-    <published>2016-06-16T22:57:00.000Z</published>
-    <updated>2016-07-18T14:36:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function</p>
-<p>第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression<br><a id="more"></a></p>
-<h1 id="Functions-Parameters"><a href="#Functions-Parameters" class="headerlink" title="Functions Parameters"></a>Functions Parameters</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(str: String)</span></span> &#123;</div><div class="line">  <span class="built_in">print</span>(str)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">displayName</span><span class="params">(printFunc: String -&gt; Void)</span></span> &#123;</div><div class="line">  printFunc(<span class="string">"Alex Gordon"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">displayName(printString) 	<span class="comment">// Print "Alex Gordon"</span></div></pre></td></tr></table></figure>
-<p>Swift可以將function當參數傳入另一個function</p>
-<h1 id="Capturing-Values"><a href="#Capturing-Values" class="headerlink" title="Capturing Values"></a>Capturing Values</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">doSomething</span><span class="params">(y: Int)</span></span> -&gt; () -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="number">10</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        x += y</div><div class="line">        <span class="keyword">return</span> x</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> f = doSomething(<span class="number">19</span>)</div><div class="line"><span class="keyword">var</span> result = f()		<span class="comment">// result = 29</span></div></pre></td></tr></table></figure>
-<p>function f可以捕捉到x的值並且做運算，x在這裡為free variable，這種nested function能帶來很大的彈性</p>
-<h1 id="Closure-Expressions"><a href="#Closure-Expressions" class="headerlink" title="Closure Expressions"></a>Closure Expressions</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;(i: <span class="type">Int</span>) -&gt; <span class="type">Int</span> <span class="keyword">in</span> <span class="keyword">return</span> i * <span class="number">2</span>&#125; ) 	<span class="comment">// [2, 4, 6]</span></div></pre></td></tr></table></figure>
-<p>Swift的array內建許多高階函式，map能將陣列的值做轉換並回傳新陣列<br>上例中，map裡{}包起來的表示式為closure expression<br>i當做參數並寫明回傳型態為Int，in return接上陣列轉換的算式<br>此為完整closure expression的宣告方式</p>
-<p>而Swift提供許多syntax sugar，<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;i <span class="keyword">in</span> <span class="keyword">return</span> i * <span class="number">2</span>&#125; )</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;i <span class="keyword">in</span> i * <span class="number">2</span>&#125; )</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>( &#123;$<span class="number">0</span> * <span class="number">2</span>&#125; )</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span>() &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;</div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].<span class="built_in">map</span> &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;</div></pre></td></tr></table></figure></p>
-<p>以上的表示式功能都一樣，把陣列元素*2後回傳</p>
-<h1 id="Trailing-Closures"><a href="#Trailing-Closures" class="headerlink" title="Trailing Closures"></a>Trailing Closures</h1><p>一般的function要加上closure exprssion當參數有二種做法<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunc</span><span class="params">(closure: <span class="params">()</span></span></span> -&gt; <span class="type">Int</span>) &#123;</div><div class="line">  <span class="comment">// function body</span></div><div class="line">&#125; </div><div class="line"></div><div class="line">someFunc(&#123;		<span class="comment">// 做法1</span></div><div class="line">  <span class="comment">// closure body</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line">someFunc() &#123;		<span class="comment">// 做法2</span></div><div class="line">  <span class="comment">// trailing closure body</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>第二種做法將closure expression寫在function之後，增加可讀性</p>
-<p>Closure在現代程式設計被廣泛使用，這也是functional programming的基石</p>
-<p>參考來源：<br><a href="https://airspeedvelocity.net/2014/06/11/a-basic-tutorial-on-functions-and-closures-in-swift/" target="_blank" rel="external">A Basic Tutorial on Functions and Closures in Swift</a><br><a href="https://airspeedvelocity.net/2014/06/06/an-accumulator-in-swift/" target="_blank" rel="external">An Accumulator in Swift</a><br><a href="https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/" target="_blank" rel="external">Higher Order Functions: Map, Filter, Reduce and more</a><br><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html#//apple_ref/doc/uid/TP40014097-CH11-ID94" target="_blank" rel="external">官方文件</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function&lt;/p&gt;
-&lt;p&gt;第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression&lt;br&gt;
-    
-    </summary>
-    
     
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
