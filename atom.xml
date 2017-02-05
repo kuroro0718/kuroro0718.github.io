@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2016-12-13T14:59:44.000Z</updated>
+  <updated>2017-02-05T07:08:16.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB初探及CRUD筆記</title>
+    <link href="https://kuroro0718.github.io/MongoDB%E5%88%9D%E6%8E%A2%E5%8F%8ACRUD%E7%AD%86%E8%A8%98/"/>
+    <id>https://kuroro0718.github.io/MongoDB初探及CRUD筆記/</id>
+    <published>2017-01-23T13:40:58.000Z</published>
+    <updated>2017-02-05T07:08:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<p> 由於工作的關係開始使用MongoDB，我註冊官方的<a href="https://university.mongodb.com/courses/M101JS/about" target="_blank" rel="external">MongoDB for Node.js Developer</a>及<a href="https://university.mongodb.com/courses/M102/about" target="_blank" rel="external">MongoDB for DBAS</a>。這一系列文章為上課筆記和心得。</p>
+ <a id="more"></a>
+<p>MongoDB是NoSQL的其中一種類別，它是document-base，適合存放文檔類型的database。<br>而NoSQL主要改善傳統SQL database在join table的操作，在系統scale-out時能降低複雜度及改善效能。</p>
+<p>一般來說，NoSQL不需要shema（專案需要加上schema的規則也是可以）採用key-value的存取方式，其格式類似json，以下介紹MongoDB CRUD的操作。</p>
+<h2 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h2><p>假設本地端己建立一個collection名為movieDetails。其內容格式如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"_id"</span> : ObjectId(<span class="string">"569190ca24de1e0ce2dfcd4f"</span>),</div><div class="line">	<span class="attr">"title"</span> : <span class="string">"Once Upon a Time in the West"</span>,</div><div class="line">	<span class="attr">"year"</span> : <span class="number">1968</span>,</div><div class="line">	<span class="attr">"rated"</span> : <span class="string">"PG-13"</span>,</div><div class="line">	<span class="attr">"released"</span> : ISODate(<span class="string">"1968-12-21T05:00:00Z"</span>),</div><div class="line">	<span class="attr">"runtime"</span> : <span class="number">175</span>,</div><div class="line">	<span class="attr">"countries"</span> : [</div><div class="line">		<span class="string">"Italy"</span>,</div><div class="line">		<span class="string">"USA"</span>,</div><div class="line">		<span class="string">"Spain"</span></div><div class="line">	],</div><div class="line">	<span class="attr">"genres"</span> : [</div><div class="line">		<span class="string">"Western"</span></div><div class="line">	],</div><div class="line">	<span class="attr">"director"</span> : <span class="string">"Sergio Leone"</span>,</div><div class="line">	<span class="attr">"writers"</span> : [</div><div class="line">		<span class="string">"Sergio Donati"</span>,</div><div class="line">		<span class="string">"Sergio Leone"</span>,</div><div class="line">		<span class="string">"Dario Argento"</span>,</div><div class="line">		<span class="string">"Bernardo Bertolucci"</span>,</div><div class="line">		<span class="string">"Sergio Leone"</span></div><div class="line">	],</div><div class="line">	<span class="attr">"actors"</span> : [</div><div class="line">		<span class="string">"Claudia Cardinale"</span>,</div><div class="line">		<span class="string">"Henry Fonda"</span>,</div><div class="line">		<span class="string">"Jason Robards"</span>,</div><div class="line">		<span class="string">"Charles Bronson"</span></div><div class="line">	],</div><div class="line">	<span class="attr">"imdb"</span> : &#123;</div><div class="line">		<span class="attr">"id"</span> : <span class="string">"tt0064116"</span>,</div><div class="line">		<span class="attr">"rating"</span> : <span class="number">8.6</span>,</div><div class="line">		<span class="attr">"votes"</span> : <span class="number">201283</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"metacritic"</span> : <span class="number">80</span>,</div><div class="line">	<span class="attr">"awards"</span> : &#123;</div><div class="line">		<span class="attr">"wins"</span> : <span class="number">4</span>,</div><div class="line">		<span class="attr">"nominations"</span> : <span class="number">5</span>,</div><div class="line">		<span class="attr">"text"</span> : <span class="string">"4 wins &amp; 5 nominations."</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"type"</span> : <span class="string">"movie"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果我要找出上映年份為2000年的電影，那該如何下指令呢？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.find(&#123;year: 2000&#125;).pretty()</div></pre></td></tr></table></figure>
+<p>find為基本的query指令，{}裡是query條件，而pretty能讓輸出結果像上面那樣編排整齊。<br>如果query條件不只一個，則使用,分開。要注意的是欄位的型別，例如查詢string型別（例如<br>title）必需使用單引號包起來</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.find(&#123;title: <span class="string">'Once Upon a Time in the West'</span>&#125;).pretty()</div></pre></td></tr></table></figure>
+<p>如果要限制query結果的數量可用limit；想依特定欄位排序則使用sort，skip可略過指定的數量的結果，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.find(&#123; year: 1968 &#125;).sort(&#123; runtime: -1 &#125;).skip(10).limit(5)</div></pre></td></tr></table></figure>
+<p>sort({ runtime: -1 })表示query結果依runtime的值做遞減排序；反之為1<br>skip(10)是省略前10筆結果；limit(5)表示只顯示5筆結果<br>要注意的是skip, sort和limit在實際運作時有預設的順序。分別為sort，skip最後才是limit</p>
+<p>更多query方式請參考<a href="https://docs.mongodb.com/manual/tutorial/query-documents/" target="_blank" rel="external">官方文件</a></p>
+<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><p>建立資料則是使用insertOne或insertMany。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.insertOne(&#123; title: <span class="string">'Batman'</span>, year: 2008, runtime: 150 &#125;)</div></pre></td></tr></table></figure>
+<p>上例是insertOne簡易的用法。{}裡的語法和find類似，我們可以建立指定的資料。<br>而insertMany則需要將多筆資料放在array裡：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetail.insertMany( [</div><div class="line">&gt;   &#123; title: <span class="string">'Batman'</span>, year: 2008, runtime: 150 &#125;,</div><div class="line">&gt;   &#123; title: <span class="string">'Taken'</span>, year: 2007, runtime: 124 &#125;,</div><div class="line">&gt;   &#123; title: <span class="string">'Iron Man'</span>, year: 2008, runtime: 130 &#125;</div><div class="line">&gt; ])</div></pre></td></tr></table></figure>
+<h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><p>刪除資料可使用deleteOne, deleteMany和remove。<br>deleteOne及deleteMany和find一樣，必須給予query條件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.insertOne(&#123; title: <span class="string">'Batman'</span> &#125;)</div></pre></td></tr></table></figure>
+<p>假如要刪除collection所有資料，則使用remove</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.remove()</div></pre></td></tr></table></figure>
+<p>remove也可以只刪除一筆資料，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.remove(&#123; title: <span class="string">'Batman'</span> &#125;, 1)</div></pre></td></tr></table></figure>
+<p>只要給予justOne參數為1即可</p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><p>更新資料可使用updateOne和updateMany。假如加上upsert: true，如果沒找到資料會新增一筆進DB</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt; db.movieDetails.updateOne(</div><div class="line">	&#123; title: <span class="string">'Batman'</span> &#125;,</div><div class="line">	&#123; title: <span class="string">'Batman 2'</span> &#125;,</div><div class="line">	&#123;</div><div class="line">		upsert: <span class="literal">true</span></div><div class="line">	&#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>上例中，我們將”Batman”資料的title更新為”Batman 2”，假如沒找到Batman這筆資料則新增一筆Batman 2</p>
+<p>參考來源：<br><a href="https://docs.mongodb.com/manual/crud/" target="_blank" rel="external">官方文件</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 由於工作的關係開始使用MongoDB，我註冊官方的&lt;a href=&quot;https://university.mongodb.com/courses/M101JS/about&quot;&gt;MongoDB for Node.js Developer&lt;/a&gt;及&lt;a href=&quot;https://university.mongodb.com/courses/M102/about&quot;&gt;MongoDB for DBAS&lt;/a&gt;。這一系列文章為上課筆記和心得。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
+    
+      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+    
+  </entry>
   
   <entry>
     <title>The Effective Engineer讀書筆記-Optimize for Learning</title>
@@ -112,7 +162,7 @@
     <link href="https://kuroro0718.github.io/NodeJS-Event-Emitter%E4%BB%8B%E7%B4%B9/"/>
     <id>https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/</id>
     <published>2016-12-04T04:54:02.000Z</published>
-    <updated>2016-12-04T05:46:36.000Z</updated>
+    <updated>2017-02-05T07:05:40.000Z</updated>
     
     <content type="html"><![CDATA[<p>NodeJS是以非同步事件驅動為導向的設計，而基本的事件要有發射端和接受端，以下做個介紹。</p>
 <a id="more"></a>
@@ -140,7 +190,7 @@
     
       <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
     
-      <category term="nodejs" scheme="https://kuroro0718.github.io/tags/nodejs/"/>
+      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
     
   </entry>
   
@@ -188,7 +238,7 @@
     <link href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-2/"/>
     <id>https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/</id>
     <published>2016-11-25T05:12:51.000Z</published>
-    <updated>2016-11-28T07:09:22.000Z</updated>
+    <updated>2017-02-05T07:06:06.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p>
 <a id="more"></a>
@@ -216,7 +266,7 @@
     
       <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
     
-      <category term="nodejs" scheme="https://kuroro0718.github.io/tags/nodejs/"/>
+      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
     
   </entry>
   
@@ -225,7 +275,7 @@
     <link href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/"/>
     <id>https://kuroro0718.github.io/NodeJS初探-Module-Exports-1/</id>
     <published>2016-11-22T06:13:19.000Z</published>
-    <updated>2016-11-28T07:06:34.000Z</updated>
+    <updated>2017-02-05T07:06:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>在學習NodeJS的過程中，module是結構化程式基本的組塊。<br>我們能藉由module將各function block分開來，並且在主程式引用其method或property<br>然而，要使用module的method或property有許多方式，本文整理常用的幾種並說明特性。</p>
 <a id="more"></a>
@@ -268,7 +318,7 @@
     
       <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
     
-      <category term="nodejs" scheme="https://kuroro0718.github.io/tags/nodejs/"/>
+      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
     
   </entry>
   
@@ -284,9 +334,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -320,9 +370,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -361,9 +411,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -487,9 +537,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -754,9 +804,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -787,36 +837,6 @@
     
       &lt;p&gt;Closure在Swift有二層意思。第一種是一般認知的global或nested functions，函式中擁有free variable可被nested function存取；或作為變數傳給另一個function&lt;/p&gt;
 &lt;p&gt;第二種為closure expression，在function的定義後加上簡短表示式。在Swift中，closure通常是指closure expression&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift的？與！</title>
-    <link href="https://kuroro0718.github.io/swift-and/"/>
-    <id>https://kuroro0718.github.io/swift-and/</id>
-    <published>2016-06-06T23:17:00.000Z</published>
-    <updated>2016-07-18T14:36:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在靜態語言中，nil or null的判斷是件重要卻常被忽略的事<br>當一個object或變數為null而沒被排除時，程式很有可能crash或出現莫明其妙的bug<br>Swift增加了optional幫助程式設計師避掉可能的crash，語法雖然簡單卻需要時間理解觀念<br><a id="more"></a></p>
-<h2 id="Optionals"><a href="#Optionals" class="headerlink" title="Optionals"></a>Optionals</h2><p>當資料可能為nil時，我們在宣告變數時加入？。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> customerName: <span class="type">String</span>? 		<span class="comment">// nil</span></div><div class="line"><span class="keyword">var</span> regards = <span class="string">"Thank you! "</span></div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> name = customerName &#123;		<span class="comment">// skip</span></div><div class="line">	regards += name</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>當執行到if let時，因為customerName為nil而判斷式不會成立<br>沒有給定初始值的變數最好加上optional，在程式剛執行時還未給予值的情況下可避免crash</p>
-<p>另一種情況是function的回傳值可能為nil時，使用optional會是合理的選擇<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">findStore</span><span class="params">(storeName: String)</span></span> -&gt; <span class="type">String</span>? &#123;</div><div class="line">	storeList = [<span class="string">"7-11"</span>, <span class="string">"FamilyMarket"</span>, <span class="string">"Hi-life"</span>]</div><div class="line">	<span class="keyword">for</span> store <span class="keyword">in</span> storeList &#123;</div><div class="line">		<span class="keyword">if</span> store == storeName &#123;</div><div class="line">    	<span class="keyword">return</span> <span class="string">"Find \(storeName)!"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> result = findStore(<span class="string">"Poya"</span>) &#123;</div><div class="line">	<span class="built_in">print</span>(result)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>findStore的回傳值為optionals，當storeList沒有符合的字串時則回傳nil<br>上例中result為nil，所以不會印出任何值</p>
-<h2 id="Unwrap"><a href="#Unwrap" class="headerlink" title="Unwrap"></a>Unwrap</h2><p>變數為optional時，使用！可以強制unwrap並存取資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> result = findStore(<span class="string">"7-11"</span>)			</div><div class="line">result!															<span class="comment">// Find 7-11!</span></div></pre></td></tr></table></figure></p>
-<p>如上例，但此操作不符合官方的建議用法，同時也失去安全性</p>
-<h2 id="Downcast"><a href="#Downcast" class="headerlink" title="Downcast"></a>Downcast</h2><p>當使用某些資料型態的值做為變數時，需要資料型態轉換。<br>如果不確定轉換是否成功，使用as?會回傳optional，如此可避免nil帶來的問題<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> playlistDictionary = [</div><div class="line">	[</div><div class="line">  	<span class="string">"title"</span>: <span class="string">"Native"</span>,</div><div class="line">    <span class="string">"artist"</span>: <span class="string">"OneRepublic"</span></div><div class="line">  ]											</div><div class="line">  [</div><div class="line">  	<span class="string">"title"</span>: <span class="string">"V"</span>,</div><div class="line">    <span class="string">"artist"</span>: <span class="string">"Maroon 5"</span></div><div class="line">  ]</div><div class="line">]</div><div class="line"></div><div class="line"><span class="keyword">let</span> playlist = playlistDictionary[<span class="number">0</span>]</div><div class="line"><span class="keyword">let</span> title = playlist[<span class="string">"title"</span>] <span class="keyword">as</span>? <span class="type">String</span></div></pre></td></tr></table></figure></p>
-<p>當我們存取playlist的title時，由於不確定回傳的值是否為nil，所以使用as?做型態轉換</p>
-<p>參考資料：<br><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TypeCasting.html" target="_blank" rel="external">Type Casting官方文件</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在靜態語言中，nil or null的判斷是件重要卻常被忽略的事&lt;br&gt;當一個object或變數為null而沒被排除時，程式很有可能crash或出現莫明其妙的bug&lt;br&gt;Swift增加了optional幫助程式設計師避掉可能的crash，語法雖然簡單卻需要時間理解觀念&lt;br&gt;
     
     </summary>
     
