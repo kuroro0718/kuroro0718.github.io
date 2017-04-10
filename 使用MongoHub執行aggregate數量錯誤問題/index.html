@@ -3,18 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[Rails] 使用nested_form動態新增輸入欄位 | Alex Liang</title>
+  <title>使用MongoHub執行aggregate數量錯誤問題 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="實作專案ResolutionTracker時，想增加分享目標給朋友的功能。在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料這裡介紹nested_form解決問題">
+  <meta name="description" content="在os X的環境下，常使用MongoHub檢視資料庫及執行aggregate的動作。
+前陣子使用aggregate檢查資料數量時，發現怎麼找數量總是多一筆。本來以為是指令下錯了，簡單做個實驗後，發現MongoHub的aggregate結果會有個預設值，如下圖
+
+在date match空值的情況下，仍然有1個document被找到，但根本沒這個document。下次做aggregate時結果的數量得">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Rails] 使用nested_form動態新增輸入欄位">
-<meta property="og:url" content="https://kuroro0718.github.io/rails-dynamic-resolution-tracker-released-simple-form-field/index.html">
+<meta property="og:title" content="使用MongoHub執行aggregate數量錯誤問題">
+<meta property="og:url" content="https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="實作專案ResolutionTracker時，想增加分享目標給朋友的功能。在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料這裡介紹nested_form解決問題">
-<meta property="og:updated_time" content="2016-07-18T14:31:36.000Z">
+<meta property="og:description" content="在os X的環境下，常使用MongoHub檢視資料庫及執行aggregate的動作。
+前陣子使用aggregate檢查資料數量時，發現怎麼找數量總是多一筆。本來以為是指令下錯了，簡單做個實驗後，發現MongoHub的aggregate結果會有個預設值，如下圖
+
+在date match空值的情況下，仍然有1個document被找到，但根本沒這個document。下次做aggregate時結果的數量得">
+<meta property="og:image" content="https://kuroro0718.github.io/MongoHub-aggregate.png">
+<meta property="og:updated_time" content="2017-04-10T15:23:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Rails] 使用nested_form動態新增輸入欄位">
-<meta name="twitter:description" content="實作專案ResolutionTracker時，想增加分享目標給朋友的功能。在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料這裡介紹nested_form解決問題">
+<meta name="twitter:title" content="使用MongoHub執行aggregate數量錯誤問題">
+<meta name="twitter:description" content="在os X的環境下，常使用MongoHub檢視資料庫及執行aggregate的動作。
+前陣子使用aggregate檢查資料數量時，發現怎麼找數量總是多一筆。本來以為是指令下錯了，簡單做個實驗後，發現MongoHub的aggregate結果會有個預設值，如下圖
+
+在date match空值的情況下，仍然有1個document被找到，但根本沒這個document。下次做aggregate時結果的數量得">
+<meta name="twitter:image" content="https://kuroro0718.github.io/MongoHub-aggregate.png">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -92,13 +103,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-rails-dynamic-resolution-tracker-released-simple-form-field" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-使用MongoHub執行aggregate數量錯誤問題" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [Rails] 使用nested_form動態新增輸入欄位
+      使用MongoHub執行aggregate數量錯誤問題
     </h1>
   
 
@@ -107,7 +118,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/rails-dynamic-resolution-tracker-released-simple-form-field/" class="article-date"><time datetime="2016-04-04T04:36:00.000Z" itemprop="datePublished">2016-04-04</time></a>
+  <a href="/使用MongoHub執行aggregate數量錯誤問題/" class="article-date"><time datetime="2017-04-10T14:57:35.000Z" itemprop="datePublished">2017-04-10</time></a>
 </div>
 
     
@@ -118,15 +129,10 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>實作專案ResolutionTracker時，想增加分享目標給朋友的功能。<br>在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料<br>這裡介紹<a href="https://github.com/ryanb/nested_form" target="_blank" rel="external">nested_form</a>解決問題</p>
-<a id="more"></a>
-<h3 id="Install-Gem"><a href="#Install-Gem" class="headerlink" title="Install Gem"></a>Install Gem</h3><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gem <span class="string">'nested_form'</span></div></pre></td></tr></table></figure>
-<p>然後使用bundle install安裝並重開server</p>
-<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>我們有二個model: goal, shared_mail，分別負責處理目標和使用者存入的mail address<br>在goal.rb需要能接受nested_attribute</p>
-<figure class="highlight ruby"><figcaption><span>app/models/goal.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goal</span> &lt; ActiveRecord::Base</span></div><div class="line">  validates <span class="symbol">:title</span>, <span class="symbol">presence:</span> <span class="literal">true</span></div><div class="line"></div><div class="line">  has_many <span class="symbol">:shared_mails</span></div><div class="line">  belongs_to <span class="symbol">:owner</span>, <span class="symbol">class_name:</span> <span class="string">"User"</span>, <span class="symbol">foreign_key:</span> <span class="symbol">:user_id</span></div><div class="line">  </div><div class="line">  accepts_nested_attributes_for <span class="symbol">:shared_mails</span>, <span class="symbol">allow_destroy:</span> <span class="literal">true</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<figure class="highlight ruby"><figcaption><span>app/models/shared_mail.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SharedMail</span> &lt; ActiveRecord::Base</span></div><div class="line">  belongs_to <span class="symbol">:goal</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>controller接受strong parameter時，得允許傳入shared_mails_attribute<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></div><div class="line">  <span class="comment">#略...</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">create</span></span></div><div class="line">    @goal = current_user.goals.create(goal_params)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> @goal.save</div><div class="line">      redirect_to goals_path </div><div class="line">    <span class="keyword">else</span></div><div class="line">      render <span class="string">'new'</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update</span></span></div><div class="line">    <span class="keyword">if</span> @goal.update(goal_params)</div><div class="line">      redirect_to goal_path </div><div class="line">    <span class="keyword">else</span></div><div class="line">      render <span class="string">'edit'</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  private</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">goal_params</span></span></div><div class="line">    params.<span class="keyword">require</span>(<span class="symbol">:goal</span>).permit(<span class="symbol">:title</span>, <span class="symbol">:comment</span>, <span class="symbol">:is_shareable</span>, </div><div class="line">      <span class="symbol">:complete_date</span>, </div><div class="line">      <span class="symbol">shared_mails_attributes:</span> [<span class="symbol">:id</span>, <span class="symbol">:mail_addr</span>, <span class="symbol">:_destroy</span>])</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><p>view的部分，將原來的form_for(或simple_form_for)改成nested_form_for<br><figure class="highlight"><figcaption><span>app/views/shared_mails/new.html.erb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;h2&gt;分享目標&lt;/h2&gt;</div><div class="line"></div><div class="line">&lt;%= nested_form_for @goal do |f| %&gt;</div><div class="line">  &lt;%= f.fields_for :shared_mails do |mail_form| %&gt;    </div><div class="line">    &lt;%= mail_form.text_field :mail_addr %&gt;</div><div class="line">    &lt;%= mail_form.link_to_remove "Remove this mail address" %&gt;</div><div class="line">  &lt;% end %&gt;</div><div class="line">  </div><div class="line">  &lt;%= f.link_to_add "Add a mail address", :shared_mails %&gt;</div><div class="line">  &lt;%= f.submit "提交", disable_with: "Submiting...", class: "btn btn-primary" %&gt;</div><div class="line">&lt;% end %&gt;</div></pre></td></tr></table></figure></p>
+        <p>在os X的環境下，常使用<a href="https://github.com/jeromelebel/MongoHub-Mac" target="_blank" rel="external">MongoHub</a>檢視資料庫及執行aggregate的動作。</p>
+<p>前陣子使用aggregate檢查資料數量時，發現怎麼找數量總是多一筆。本來以為是指令下錯了，簡單做個實驗後，發現MongoHub的aggregate結果會有個預設值，如下圖</p>
+<p><img src="MongoHub-aggregate.png" alt="MongoHub-aggregate"></p>
+<p>在date match空值的情況下，仍然有1個document被找到，但根本沒這個document。<br>下次做aggregate時結果的數量得先減個1才準。</p>
 
       
     </div>
@@ -137,16 +143,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/rails-dynamic-resolution-tracker-released-simple-form-field/" data-id="cj1c9mte7000v38p5p3v2id9a" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/" data-id="cj1c9mtgm003o38p53xvvjbql" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/rails-dynamic-resolution-tracker-released-simple-form-field/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
 
 
     </footer>
@@ -156,19 +162,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/MongoDB-Aggregation介紹/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">Archetecture the Lost Years by Uncle Bob演講筆記</span>
+      <span class="article-nav-link-title">MongoDB Aggregation介紹</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/rails-use-sidekiq-mailer-letter-function/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Rails] 使用sidekiq處理mailer寄信功能</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -268,7 +267,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/rails-dynamic-resolution-tracker-released-simple-form-field/';
+  var disqus_url = 'https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/';
   
   (function(){
     var dsq = document.createElement('script');

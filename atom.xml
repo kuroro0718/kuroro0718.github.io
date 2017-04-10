@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2017-02-19T05:53:14.000Z</updated>
+  <updated>2017-04-10T15:23:32.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用MongoHub執行aggregate數量錯誤問題</title>
+    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8MongoHub%E5%9F%B7%E8%A1%8Caggregate%E6%95%B8%E9%87%8F%E9%8C%AF%E8%AA%A4%E5%95%8F%E9%A1%8C/"/>
+    <id>https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/</id>
+    <published>2017-04-10T14:57:35.000Z</published>
+    <updated>2017-04-10T15:23:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在os X的環境下，常使用<a href="https://github.com/jeromelebel/MongoHub-Mac" target="_blank" rel="external">MongoHub</a>檢視資料庫及執行aggregate的動作。</p>
+<p>前陣子使用aggregate檢查資料數量時，發現怎麼找數量總是多一筆。本來以為是指令下錯了，簡單做個實驗後，發現MongoHub的aggregate結果會有個預設值，如下圖</p>
+<p><img src="MongoHub-aggregate.png" alt="MongoHub-aggregate"></p>
+<p>在date match空值的情況下，仍然有1個document被找到，但根本沒這個document。<br>下次做aggregate時結果的數量得先減個1才準。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在os X的環境下，常使用&lt;a href=&quot;https://github.com/jeromelebel/MongoHub-Mac&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MongoHub&lt;/a&gt;檢視資料庫及執行aggregate的動作。&lt;/p&gt;
+&lt;
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB Aggregation介紹</title>
@@ -423,9 +448,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -459,9 +484,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -500,9 +525,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -817,34 +842,6 @@
     
     
       <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift Error Handling</title>
-    <link href="https://kuroro0718.github.io/Swift-Error-Handling/"/>
-    <id>https://kuroro0718.github.io/Swift-Error-Handling/</id>
-    <published>2016-07-21T02:17:39.000Z</published>
-    <updated>2016-07-23T07:59:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>撰寫程式過程中，免不了需要處理錯誤情形。<br>如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來<br>Swift特別的是enum能和error type結合，產出可讀性高的程式碼</p>
-<a id="more"></a>
-<h2 id="Error-Type"><a href="#Error-Type" class="headerlink" title="Error Type"></a>Error Type</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Error</span>: <span class="title">ErrorType</span> </span>&#123;</div><div class="line">  <span class="keyword">case</span> <span class="type">InvalidName</span></div><div class="line">  <span class="keyword">case</span> <span class="type">InsufficientFund</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">throw</span> <span class="type">Error</span>.<span class="type">InvalidName</span></div></pre></td></tr></table></figure>
-<p>將enum繼承ErrorType，在抛出例外時有較高的可讀性</p>
-<h2 id="Propagating-Errors-Using-Throwing-Functions"><a href="#Propagating-Errors-Using-Throwing-Functions" class="headerlink" title="Propagating Errors Using Throwing Functions"></a>Propagating Errors Using Throwing Functions</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> memberList = [<span class="string">"John"</span>, <span class="string">"Joe"</span>, <span class="string">"Bob"</span>]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeMember</span><span class="params">(name: String)</span></span> <span class="keyword">throws</span> &#123;</div><div class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> index = memberList.indexOf(name) <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">throws</span> <span class="type">Error</span>.<span class="type">InvalidName</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>函式加上throws表示可抛出例外，如果名字不在成員清單中則抛出例外</p>
-<h2 id="Handling-Errors-Using-Do-Catch"><a href="#Handling-Errors-Using-Do-Catch" class="headerlink" title="Handling Errors Using Do-Catch"></a>Handling Errors Using Do-Catch</h2><p>如同其它語言，Swift也提供do-catch的block處理抛出的例外<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> memberList = [<span class="string">"John"</span>, <span class="string">"Joe"</span>, <span class="string">"Bob"</span>]</div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">  <span class="keyword">try</span> removeMember(<span class="string">"Alex"</span>)  </div><div class="line">&#125; <span class="keyword">catch</span> <span class="type">Error</span>.<span class="type">InvalidName</span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"There isn't any member named Alex"</span>)</div><div class="line">&#125; <span class="keyword">catch</span> <span class="type">Error</span>.<span class="type">InsufficientFund</span> &#123;</div><div class="line">  <span class="built_in">print</span>(<span class="string">"Not enough funds"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>參考來源：<br><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html" target="_blank" rel="external">官方文件</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;撰寫程式過程中，免不了需要處理錯誤情形。&lt;br&gt;如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來&lt;br&gt;Swift特別的是enum能和error type結合，產出可讀性高的程式碼&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
