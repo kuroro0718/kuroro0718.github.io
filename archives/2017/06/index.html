@@ -3,24 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>寄物便開發週記W3: 完成初版 | Alex Liang</title>
+  <title>Archives: 2017/6 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在上一篇提到開發商家地圖和簡介的部分。
-本週則是完成畫面最複雜的頁面。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="寄物便開發週記W3: 完成初版">
-<meta property="og:url" content="https://kuroro0718.github.io/寄物便開發週記W3-完成初版/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Alex Liang">
+<meta property="og:url" content="https://kuroro0718.github.io/archives/2017/06/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="在上一篇提到開發商家地圖和簡介的部分。
-本週則是完成畫面最複雜的頁面。">
-<meta property="og:image" content="https://kuroro0718.github.io/first-snapshot.png">
-<meta property="og:image" content="https://kuroro0718.github.io/bagkeeper.gif">
-<meta property="og:updated_time" content="2016-10-23T14:21:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="寄物便開發週記W3: 完成初版">
-<meta name="twitter:description" content="在上一篇提到開發商家地圖和簡介的部分。
-本週則是完成畫面最複雜的頁面。">
-<meta name="twitter:image" content="https://kuroro0718.github.io/first-snapshot.png">
+<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -72,7 +62,7 @@ ga('send', 'pageview');
           <li><a class=""
                  href="/index.html">Home</a></li>
         
-          <li><a class=""
+          <li><a class="active"
                  href="/archives/">Archives</a></li>
         
       </ul>
@@ -98,100 +88,41 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-寄物便開發週記W3-完成初版" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
+          
+  
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <header class="archive-article-header">
     
   
-    <h1 class="article-title" itemprop="name">
-      寄物便開發週記W3: 完成初版
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/使用jschardet偵測網頁編碼/">使用jschardet偵測網頁編碼</a>
     </h1>
   
 
 
-  </header>
-
-  <div class="article-meta">
     <div class="article-datetime">
-  <a href="/寄物便開發週記W3-完成初版/" class="article-date"><time datetime="2016-10-23T13:33:35.000Z" itemprop="datePublished">2016-10-23</time></a>
+  <a href="/使用jschardet偵測網頁編碼/" class="archive-article-date"><time datetime="2017-06-26T14:18:09.000Z" itemprop="datePublished">六月 26日</time></a>
 </div>
 
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在<a href="https://kuroro0718.github.io/寄物便開發週記W2-開始動工">上一篇</a>提到開發商家地圖和簡介的部分。</p>
-<p>本週則是完成畫面最複雜的頁面。</p>
-<a id="more"></a>
-<p>依照設計師的初稿，第一個頁面要能讓使用者選擇寄物件數和寄/取物的時間</p>
-<p>我第一版的畫面如下</p>
-<p><img src="first-snapshot.png" alt="first-snapshot"><br>構想是使用者點選件數或時間文字時，會跑出數字picker或date picker</p>
-<p>不囉嗦，先看完成品的操作畫面<br><img src="bagkeeper.gif" alt="Bagkeeper 操作畫面"></p>
-<p>為了讓使用者能以最少的動作完成工作，我們將數字或時間選擇的部分做自動收合</p>
-<p>時間的部分是參考apple內建的行事曆，更改寄物時間時，上方的時間文字和下方的取物時間會跟著變動;連取物時間的picker也有連動。</p>
-<p>整個畫面使用tableview controller完成。使用5個section（包含最下面的送出按鈕），除了最後一個section外，其餘都有2個row，也就是picker的部分。</p>
-<p>預設每個section只顯示一個row。當使用者點選某一個section時，會判斷該section的row number，接著改變其值，便能夠做到收合的效果。</p>
-<p>而date picker的部分，由於寄物時間的picker會影響到其它三個元件。所以這裡使用notification來通知其它元件。</p>
-<p>接下來就是demo day了。這三週比之前上班還累，但也蠻充實的。<br>希望demo day能夠順利介紹寄物便，為這10週畫下美好的句點！</p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/寄物便開發週記W3-完成初版/" data-id="cj4e96ri1002ughp5at95jsiv" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="https://kuroro0718.github.io/寄物便開發週記W3-完成初版/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-    
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/寄物便開發週記W2-開始動工/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">寄物便開發週記W2: 開始動工</span>
-    </a>
-  </li>
-  
-  
-  <li role="presentation">
-    <a href="/Retain-cycle-and-capture-list-in-Swift/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Retain cycle and capture list in Swift</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
-  
-</ul>
-
-
-  
+  </header>
 </article>
 
+  
+  
+    </div></section>
+  
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
 
 
 
@@ -277,13 +208,11 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/寄物便開發週記W3-完成初版/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
