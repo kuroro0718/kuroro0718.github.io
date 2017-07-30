@@ -90,6 +90,64 @@ ga('send', 'pageview');
         <div class="col-sm-8 blog-main">
           
   
+    <article id="post-Koa-使用koa-joi-router驗證API參數及其測試" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Koa-使用koa-joi-router驗證API參數及其測試/">Koa--使用koa-joi-router驗證API參數及其測試</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/Koa-使用koa-joi-router驗證API參數及其測試/" class="article-date"><time datetime="2017-07-30T13:17:59.000Z" itemprop="datePublished">2017-07-30</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近公司新的專案想用koa2來實作API服務，除了一般的post data外還會有第三方傳來的multipart-post data。我們使用koa-joi-router這個套件驗證傳進來的資料，同時使用supertest做測試。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/Koa-使用koa-joi-router驗證API參數及其測試/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://kuroro0718.github.io/Koa-使用koa-joi-router驗證API參數及其測試/" data-id="cj5qrln73003oa9p53kz61sxa" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+        <a href="https://kuroro0718.github.io/Koa-使用koa-joi-router驗證API參數及其測試/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/koa/">koa</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-使用jschardet偵測網頁編碼" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -116,22 +174,20 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>寫爬蟲的過程中需要對網頁選擇適當的編碼。今天找到一個jschardet能自動檢測網頁編碼</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> iconv     = <span class="built_in">require</span>(<span class="string">'iconv-lite'</span>);</div><div class="line"><span class="keyword">const</span> jschardet = <span class="built_in">require</span>(<span class="string">'jschardet'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchRawHtml</span>(<span class="params">linkURL, callback</span>) </span>&#123;	</div><div class="line">	request.get(&#123;</div><div class="line">      url:       linkURL,</div><div class="line">      encoding:  <span class="literal">null</span>,</div><div class="line">    &#125;, (error, response, body) =&gt; &#123;</div><div class="line">      <span class="keyword">if</span> (error) &#123;</div><div class="line">        <span class="built_in">console</span>.error(error);</div><div class="line">        callback(error);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (response.statusCode !== <span class="number">200</span>) &#123;</div><div class="line">        callback(<span class="string">`Status code: <span class="subst">$&#123;response.statusCode&#125;</span>`</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">const</span> buf = iconv.decode(<span class="keyword">new</span> Buffer(body), jschardet.detect(body).encoding);</div><div class="line"></div><div class="line">      callback(<span class="literal">null</span>, buf);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>jschardet.detect(body).encoding會回傳該網頁的編碼，對module實作有興趣的人可以參考原始碼，基本上是列出該編碼常用字元，算出網頁使用編碼的機率有多高</p>
-<p>如此一來，以後遇到big5或其它語系的編碼不用另外記錄，可以直接取得正確的raw data</p>
-<p>參考資料：<br><a href="https://github.com/aadsm/jschardet" target="_blank" rel="external">官方github</a></p>
-
+        <p>寫爬蟲的過程中常需要對網頁選擇適當的編碼。</p>
+<p>今天介紹一個jschardet module能自動檢測網頁編碼</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/使用jschardet偵測網頁編碼/#more">Read More</a>
+          </p>
+        
       
     </div>
 
     
-      
-
-    
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/使用jschardet偵測網頁編碼/" data-id="cj4e96rig003mghp5gcw22kd0" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/使用jschardet偵測網頁編碼/" data-id="cj5qrln76003ta9p54efbyj7o" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -191,7 +247,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/" data-id="cj4e96rif003jghp5i6oj57s1" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/" data-id="cj5qrln6z003ga9p5aptuoepu" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -249,7 +305,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/MongoDB-Aggregation介紹/" data-id="cj4e96rie003hghp5sfl3bqyz" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/MongoDB-Aggregation介紹/" data-id="cj5qrln71003la9p5e96cicyx" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -308,7 +364,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/Node-js爬蟲實戰：如何query動態網頁資料/" data-id="cj4e96rid003eghp52mzfl0ox" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/Node-js爬蟲實戰：如何query動態網頁資料/" data-id="cj5qrln70003ja9p5s89eom1b" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -366,7 +422,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/MongoDB初探及CRUD筆記/" data-id="cj4e96ric003cghp5ywa6kn6i" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/MongoDB初探及CRUD筆記/" data-id="cj5qrln6y003ea9p5h4jyydwi" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -427,7 +483,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Optimize-for-Learning/" data-id="cj4e96ri90035ghp5hthfe9ce" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Optimize-for-Learning/" data-id="cj5qrln6w003aa9p5fjnoicj6" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -486,7 +542,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/" data-id="cj4e96rib003aghp5hhd1yn6h" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/" data-id="cj5qrln6x003ca9p50nxra4jg" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -544,7 +600,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/" data-id="cj4e96ria0038ghp5cphwyiyq" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/" data-id="cj5qrln6v0037a9p5a7aczaci" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -602,7 +658,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/一天搞懂深度學習課後心得/" data-id="cj4e96ri70033ghp5wno1c3jw" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/一天搞懂深度學習課後心得/" data-id="cj5qrln6t0035a9p56bc5uav4" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
@@ -612,64 +668,6 @@ ga('send', 'pageview');
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/演講筆記/">演講筆記</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-NodeJS初探-Module-Exports-2" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/NodeJS初探-Module-Exports-2/">NodeJS - 初探Module (2)</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/NodeJS初探-Module-Exports-2/" class="article-date"><time datetime="2016-11-25T05:12:51.000Z" itemprop="datePublished">2016-11-25</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/NodeJS初探-Module-Exports-2/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/" data-id="cj4e96ri50030ghp5wgofyul3" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
 
     </footer>
@@ -702,7 +700,7 @@ ga('send', 'pageview');
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -711,7 +709,7 @@ ga('send', 'pageview');
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/MongoDB/" style="font-size: 12.5px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 15px;">Node.js</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/front-end/" style="font-size: 11.25px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.75px;">heroku</a> <a href="/tags/ios/" style="font-size: 17.5px;">ios</a> <a href="/tags/javascript/" style="font-size: 16.25px;">javascript</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.25px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.75px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 11.25px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.5px;">讀書筆記</a>
+      <a href="/tags/MongoDB/" style="font-size: 12.86px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 15.71px;">Node.js</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/front-end/" style="font-size: 11.43px;">front-end</a> <a href="/tags/heroku/" style="font-size: 14.29px;">heroku</a> <a href="/tags/ios/" style="font-size: 17.14px;">ios</a> <a href="/tags/javascript/" style="font-size: 15.71px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.43px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.57px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 11.43px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.86px;">讀書筆記</a>
     </p>
   </div>
 
@@ -719,7 +717,7 @@ ga('send', 'pageview');
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
   </div>
 
 
@@ -728,6 +726,10 @@ ga('send', 'pageview');
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/Koa-使用koa-joi-router驗證API參數及其測試/">Koa--使用koa-joi-router驗證API參數及其測試</a>
+        </li>
       
         <li>
           <a href="/使用jschardet偵測網頁編碼/">使用jschardet偵測網頁編碼</a>
@@ -743,10 +745,6 @@ ga('send', 'pageview');
       
         <li>
           <a href="/Node-js爬蟲實戰：如何query動態網頁資料/">Node.js爬蟲實戰：如何query動態網頁資料</a>
-        </li>
-      
-        <li>
-          <a href="/MongoDB初探及CRUD筆記/">MongoDB初探及CRUD筆記</a>
         </li>
       
     </ul>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2017-06-26T14:43:16.000Z</updated>
+  <updated>2017-07-30T14:24:12.000Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -16,13 +16,56 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Koa--使用koa-joi-router驗證API參數及其測試</title>
+    <link href="https://kuroro0718.github.io/Koa-%E4%BD%BF%E7%94%A8koa-joi-router%E9%A9%97%E8%AD%89API%E5%8F%83%E6%95%B8%E5%8F%8A%E5%85%B6%E6%B8%AC%E8%A9%A6/"/>
+    <id>https://kuroro0718.github.io/Koa-使用koa-joi-router驗證API參數及其測試/</id>
+    <published>2017-07-30T13:17:59.000Z</published>
+    <updated>2017-07-30T14:24:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近公司新的專案想用koa2來實作API服務，除了一般的post data外還會有第三方傳來的multipart-post data。我們使用koa-joi-router這個套件驗證傳進來的資料，同時使用supertest做測試。</p>
+<a id="more"></a>
+<p>首先說明koa-joi-router跟其它套件有什麼不同，它使用joi這個物件描述語言定義javascript object的schema，我們能限制輸入參數的型態、字元個數及是不是必要欄位。<br>而<a href="https://github.com/hapijs/joi" target="_blank" rel="external">joi</a>這個套件也能用在一般的javascript object</p>
+<p>由於koa-joi-router己內建co-body及await-busboy這二套body-parser，我們不需要再另外裝body-parser。</p>
+<p>以下是一個post API的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</div><div class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">'koa-joi-router'</span>);</div><div class="line"><span class="keyword">const</span> Joi = router.Joi;</div><div class="line"></div><div class="line"><span class="keyword">const</span> public = router();</div><div class="line"></div><div class="line">public.route(&#123;</div><div class="line">  method: <span class="string">'post'</span>,</div><div class="line">  path: <span class="string">'/comments'</span>,</div><div class="line">  validate: &#123;</div><div class="line">    type: <span class="string">'json'</span>,</div><div class="line">    body: &#123;</div><div class="line">      title: Joi.string().max(<span class="number">100</span>).required,</div><div class="line">      content: Joi.string().required</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  handler: <span class="keyword">async</span> (ctx) =&gt; &#123;</div><div class="line">    <span class="comment">// create article</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</div><div class="line">app.use(public.middleware());</div><div class="line">app.listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<p>我們必須指定傳進來的資料類型及body要檢查的參數，koa-joi-router有三種type可以使用：json, form和multipart。要注意的是，如果傳進來資料型態和宣告的不同，會直接return 400. 要檢查的參數如果條件不符也會直接回400</p>
+<p>而測試程式碼如下（使用mocha和supertest)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> superagent = <span class="built_in">require</span>(<span class="string">'supertest'</span>);</div><div class="line"></div><div class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">'src/app'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> superagent(app.listen());</div><div class="line">&#125;</div><div class="line"></div><div class="line">describe(<span class="string">'API Test /1/comments'</span>, () =&gt; &#123;</div><div class="line">	it(<span class="string">'Create a new comment'</span>, (done) =&gt; &#123;</div><div class="line">	   <span class="keyword">const</span> testData = &#123;</div><div class="line">	     title: <span class="string">'Test'</span>,</div><div class="line">	     content: <span class="string">'This is a test comment'</span></div><div class="line">	   &#125;;</div><div class="line">	   </div><div class="line">	   request()</div><div class="line">	     .post(<span class="string">'/1/comments'</span>)</div><div class="line">	     .send(testData)</div><div class="line">	     .expect(<span class="number">200</span>)</div><div class="line">	     .end(done);</div><div class="line">	&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>假如API傳進來的資料為form data，則validate的type設定要改為form</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public.route(&#123;</div><div class="line">  method: <span class="string">'post'</span>,</div><div class="line">  path: <span class="string">'/blog'</span>,</div><div class="line">  validate: &#123;</div><div class="line">    type: <span class="string">'form'</span>,</div><div class="line">    body: &#123;</div><div class="line">      title: Joi.string().max(<span class="number">100</span>).required,</div><div class="line">      content: Joi.string().required</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  handler: <span class="keyword">async</span> (ctx) =&gt; &#123;</div><div class="line">    <span class="comment">// create blog post</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>測試如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">describe(<span class="string">'API Test /1/blog'</span>, () =&gt; &#123;</div><div class="line">	it(<span class="string">'Create a new blog post'</span>, (done) =&gt; &#123;</div><div class="line">	   <span class="keyword">const</span> testData = &#123;</div><div class="line">	     title: <span class="string">'Blog Test'</span>,</div><div class="line">	     content: <span class="string">'This is a test post'</span></div><div class="line">	   &#125;;</div><div class="line">	   </div><div class="line">	   request()</div><div class="line">	     .post(<span class="string">'/1/blog'</span>)</div><div class="line">	     .type(<span class="string">'form'</span>)</div><div class="line">	     .send(testData)</div><div class="line">	     .expect(<span class="number">200</span>)</div><div class="line">	     .end(done);</div><div class="line">	&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>最後則是multipart的資料，此種資料一般為上傳檔案或是stream會用到。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">public.route(&#123;</div><div class="line">  method: <span class="string">'post'</span>,</div><div class="line">  path: <span class="string">'/files'</span>,</div><div class="line">  validate: &#123;</div><div class="line">    type: <span class="string">'multipart'</span>,</div><div class="line">  &#125;,</div><div class="line">  handler: <span class="keyword">async</span> (ctx) =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> parts = ctx.request.parts;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> part;</div><div class="line">    </div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      <span class="keyword">while</span> ((part = <span class="keyword">await</span> parts)) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">`Receive stream key: <span class="subst">$&#123;part[0]&#125;</span>, value: <span class="subst">$&#123;part[1]&#125;</span>);</span></div><div class="line">      &#125;</div><div class="line">    &#125; catch (err) &#123;</div><div class="line">      throw new Error(err);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    const fileContent = parts.field.File;</div><div class="line">    // upload file</div><div class="line">    ...</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>Test code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">describe(<span class="string">'API Test /1/files'</span>, () =&gt; &#123;</div><div class="line">	it(<span class="string">'Upload a file'</span>, (done) =&gt; &#123;</div><div class="line">	   <span class="keyword">const</span> testData = &#123;</div><div class="line">	     File: <span class="string">'file content'</span></div><div class="line">	   &#125;;</div><div class="line">	   </div><div class="line">	   request()</div><div class="line">	     .post(<span class="string">'/1/blog'</span>)</div><div class="line">		  .field(<span class="string">'File'</span>, testData)</div><div class="line">	     .expect(<span class="number">200</span>)</div><div class="line">	     .end(done);</div><div class="line">	&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>如果本地端使用postman測試的話，<a href="https://stackoverflow.com/questions/16015548/tool-for-sending-multipart-form-data-request" target="_blank" rel="external">這篇文章</a>的答案對於設定會有幫助。</p>
+<p>參考資料：<br><a href="https://github.com/koajs/joi-router" target="_blank" rel="external">koa-joi-router github</a><br><a href="https://github.com/visionmedia/supertest" target="_blank" rel="external">supertest github</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近公司新的專案想用koa2來實作API服務，除了一般的post data外還會有第三方傳來的multipart-post data。我們使用koa-joi-router這個套件驗證傳進來的資料，同時使用supertest做測試。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+    
+      <category term="koa" scheme="https://kuroro0718.github.io/tags/koa/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用jschardet偵測網頁編碼</title>
     <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8jschardet%E5%81%B5%E6%B8%AC%E7%B6%B2%E9%A0%81%E7%B7%A8%E7%A2%BC/"/>
     <id>https://kuroro0718.github.io/使用jschardet偵測網頁編碼/</id>
     <published>2017-06-26T14:18:09.000Z</published>
-    <updated>2017-06-26T14:43:16.000Z</updated>
+    <updated>2017-06-26T14:45:07.000Z</updated>
     
-    <content type="html"><![CDATA[<p>寫爬蟲的過程中需要對網頁選擇適當的編碼。今天找到一個jschardet能自動檢測網頁編碼</p>
+    <content type="html"><![CDATA[<p>寫爬蟲的過程中常需要對網頁選擇適當的編碼。</p>
+<p>今天介紹一個jschardet module能自動檢測網頁編碼</p>
+<a id="more"></a>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> iconv     = <span class="built_in">require</span>(<span class="string">'iconv-lite'</span>);</div><div class="line"><span class="keyword">const</span> jschardet = <span class="built_in">require</span>(<span class="string">'jschardet'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchRawHtml</span>(<span class="params">linkURL, callback</span>) </span>&#123;	</div><div class="line">	request.get(&#123;</div><div class="line">      url:       linkURL,</div><div class="line">      encoding:  <span class="literal">null</span>,</div><div class="line">    &#125;, (error, response, body) =&gt; &#123;</div><div class="line">      <span class="keyword">if</span> (error) &#123;</div><div class="line">        <span class="built_in">console</span>.error(error);</div><div class="line">        callback(error);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (response.statusCode !== <span class="number">200</span>) &#123;</div><div class="line">        callback(<span class="string">`Status code: <span class="subst">$&#123;response.statusCode&#125;</span>`</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">const</span> buf = iconv.decode(<span class="keyword">new</span> Buffer(body), jschardet.detect(body).encoding);</div><div class="line"></div><div class="line">      callback(<span class="literal">null</span>, buf);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>jschardet.detect(body).encoding會回傳該網頁的編碼，對module實作有興趣的人可以參考原始碼，基本上是列出該編碼常用字元，算出網頁使用編碼的機率有多高</p>
 <p>如此一來，以後遇到big5或其它語系的編碼不用另外記錄，可以直接取得正確的raw data</p>
@@ -31,8 +74,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;寫爬蟲的過程中需要對網頁選擇適當的編碼。今天找到一個jschardet能自動檢測網頁編碼&lt;/p&gt;
-&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line
+      &lt;p&gt;寫爬蟲的過程中常需要對網頁選擇適當的編碼。&lt;/p&gt;
+&lt;p&gt;今天介紹一個jschardet module能自動檢測網頁編碼&lt;/p&gt;
     
     </summary>
     
@@ -760,46 +803,6 @@
     
       &lt;p&gt;使用facebook登入是會員系統基本的功能（不論是web或mobile app)&lt;/p&gt;
 &lt;p&gt;由於官方文件不夠清楚，且過程中有許多需要注意的地方，特別將此記錄下來&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用StackView包裝不同寛高的同類型元件</title>
-    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8StackView%E5%8C%85%E8%A3%9D%E4%B8%8D%E5%90%8C%E5%AF%9B%E9%AB%98%E7%9A%84%E5%90%8C%E9%A1%9E%E5%9E%8B%E5%85%83%E4%BB%B6/"/>
-    <id>https://kuroro0718.github.io/使用StackView包裝不同寛高的同類型元件/</id>
-    <published>2016-08-13T06:32:24.000Z</published>
-    <updated>2016-08-13T07:40:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>iOS 9加入了stackview這個新元件幫助工程師更快打造UI，盡量減少使用auto layout</p>
-<p>今年的<a href="http://web.stanford.edu/class/cs193p/cgi-bin/drupal/" target="_blank" rel="external">CS193P課程</a>的第一個範例－－計算機就改用stackview實作</p>
-<p>練習時我不想照它的layout來做，想比照iPhone內建的計算機，將0的按鈕寛度設定其它按鈕的二倍，這個問題請教了老師，花了幾天才試出來</p>
-<a id="more"></a>
-<p>下圖是我想呈現的結果，該如何用stackview刻出來呢？</p>
-<p><img src="calculator-result.png" alt="計算機"></p>
-<p>Step1. 先把button拉進view controller，並複製其它三個<br><img src="step1.png" alt="創建按鈕"></p>
-<p>Step2. 選取4個button並加入stackview</p>
-<p>方法1: 點選最左邊的stack<br><img src="stackview-1.png" alt="stackview 1"></p>
-<p>方法2: 從選單 (Editor-&gt; Embed In-&gt; Stack View)<br><img src="stackview-2.png" alt="stackview 2"></p>
-<p>Step3. 修改stackview裡面元件的間隔<br><img src="stackview-setting.png" alt="stackview setting"></p>
-<p>Step4. 重複上述2個步驟，完成剩下的計算機按鈕<br><img src="4x4buttons.png" alt="4x4按鈕"></p>
-<p>Step5. 將4個stackview再包成一個stackview，垂直間隔也要修改</p>
-<p>Step6. 選取最下面一排的stackview，砍掉最左邊的button<br><img src="delete-button.png" alt="刪除按鈕"></p>
-<p>Step7. 將最右邊二個button的寛度設成和上一排任一button一樣</p>
-<p>Step8. 最後再設定整個stackview的auto layout，這裡是置於右下角<br><img src="autolayout-1.png" alt="auto layout"></p>
-<p><img src="autolayout-2.png" alt="constraints"></p>
-<p>對照之前的教學，使用stackview的確能為工程師省下不少時間，可設計出整齊的介面。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;iOS 9加入了stackview這個新元件幫助工程師更快打造UI，盡量減少使用auto layout&lt;/p&gt;
-&lt;p&gt;今年的&lt;a href=&quot;http://web.stanford.edu/class/cs193p/cgi-bin/drupal/&quot;&gt;CS193P課程&lt;/a&gt;的第一個範例－－計算機就改用stackview實作&lt;/p&gt;
-&lt;p&gt;練習時我不想照它的layout來做，想比照iPhone內建的計算機，將0的按鈕寛度設定其它按鈕的二倍，這個問題請教了老師，花了幾天才試出來&lt;/p&gt;
     
     </summary>
     
