@@ -3,20 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[Rails] HAML介紹 | Alex Liang</title>
+  <title>Tag: backend | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
-<meta name="keywords" content="rails">
-<meta property="og:type" content="article">
-<meta property="og:title" content="[Rails] HAML介紹">
-<meta property="og:url" content="https://kuroro0718.github.io/rails-haml/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Alex Liang">
+<meta property="og:url" content="https://kuroro0718.github.io/tags/backend/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:29:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Rails] HAML介紹">
-<meta name="twitter:description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
+<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -94,101 +89,41 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-rails-haml" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
+          
+  
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <header class="archive-article-header">
     
   
-    <h1 class="article-title" itemprop="name">
-      [Rails] HAML介紹
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/Restful-API-檢查清單/">Restful API 檢查清單 </a>
     </h1>
   
 
 
-  </header>
-
-  <div class="article-meta">
     <div class="article-datetime">
-  <a href="/rails-haml/" class="article-date"><time datetime="2016-03-15T19:52:00.000Z" itemprop="datePublished">2016-03-16</time></a>
+  <a href="/Restful-API-檢查清單/" class="archive-article-date"><time datetime="2018-04-09T23:59:04.000Z" itemprop="datePublished">四月 10日</time></a>
 </div>
 
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template</p>
-<p>以下做個整理</p>
-<a id="more"></a>
-<p>首先得安裝gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gem &quot;haml&quot;</span><br><span class="line"></span><br><span class="line">&gt; bundle install</span><br></pre></td></tr></table></figure></p>
-<p>HAML必須將.erb檔案改為.haml，如app/views/docs/index.html.erb改為app/views/docs/index.html.haml</p>
-<p>基本的轉換規則如下：</p>
-<pre><code>1. html的tag改用％代替，例如&lt;header&gt;改為％header，不需要close tage
-2. class attribute改用.，例如&lt;div class=&quot;nav&quot;&gt;改為.nav
-3. id attribute改用＃，例如&lt;div class=&quot;banner&quot; id=&quot;message&quot;&gt;改為.banner#message
-4. 遇到&lt;%= ...&gt;的代碼改用＝，例如&lt;= f.input&gt;改為= f.input
-</code></pre><p>舉例：</p>
-<figure class="highlight ruby"><figcaption><span>show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class="wrapper_with_padding&gt;</span><br><span class="line">	&lt;div id=<span class="string">"doc_show"</span>&gt;</span><br><span class="line">		&lt;h1&gt;&lt;%= @doc.title %&gt;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    	&lt;p&gt;&lt;%= simple_format(@doc.content) %&gt;</span></span><br><span class="line"><span class="regexp">    </span></span><br><span class="line"><span class="regexp">    	&lt;div class="buttons"&gt;</span></span><br><span class="line"><span class="regexp">    		&lt;%= link_to "Fix Doc", edit_doc_path(@doc), class: "button" %&gt;</span></span><br><span class="line"><span class="regexp">    	  &lt;%= link_to "Delete Doc", doc_path(@doc), method: :delete, data: &#123;confirm: "Are you sure?"&#125;, class: "button" %&gt;</span></span><br><span class="line"><span class="regexp">   	 	&lt;/div</span>&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/div</span>&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight ruby"><figcaption><span>show.html.haml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.wrapper_with_padding</span><br><span class="line">  <span class="comment">#doc_show</span></span><br><span class="line">    %h1= @doc.title</span><br><span class="line">    %p= simple_format(@doc.content)</span><br><span class="line"></span><br><span class="line">    .buttons</span><br><span class="line">      = link_to <span class="string">"Fix Doc"</span>, edit_doc_path(@doc), <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></span><br><span class="line">      = link_to <span class="string">"Delete It"</span>, doc_path(@doc), <span class="symbol">method:</span> <span class="symbol">:delete</span>, <span class="symbol">data:</span> &#123;<span class="symbol">confirm:</span> <span class="string">"Are you sure?"</span>&#125;, <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></span><br></pre></td></tr></table></figure>
-<p>參考資料：<br><a href="http://haml.info/tutorial.html" target="_blank" rel="noopener">haml官網教材</a><br><a href="http://haml.info/docs/yardoc/file.REFERENCE.html" target="_blank" rel="noopener">haml refrence</a></p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/rails-haml/" data-id="cjfzcwuty001ezjcaud6nbm36" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="https://kuroro0718.github.io/rails-haml/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-    
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/front-end-note-concept-of-html-css-finishing/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[前端筆記］ html/CSS觀念記錄</span>
-    </a>
-  </li>
-  
-  
-  <li role="presentation">
-    <a href="/rails-paperclip-upload-files-and-images/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Rails] paperclip上傳檔案及圖片</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
-  
-</ul>
-
-
-  
+  </header>
 </article>
 
+  
+  
+    </div></section>
+  
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
 
 
 
@@ -274,13 +209,11 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/rails-haml/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

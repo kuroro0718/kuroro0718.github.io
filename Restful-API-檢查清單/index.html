@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[Rails] HAML介紹 | Alex Liang</title>
+  <title>Restful API 檢查清單  | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
-<meta name="keywords" content="rails">
+  <meta name="description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
+<meta name="keywords" content="backend">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Rails] HAML介紹">
-<meta property="og:url" content="https://kuroro0718.github.io/rails-haml/index.html">
+<meta property="og:title" content="Restful API 檢查清單 ">
+<meta property="og:url" content="https://kuroro0718.github.io/Restful-API-檢查清單/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
+<meta property="og:description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:29:43.000Z">
+<meta property="og:updated_time" content="2018-05-21T14:04:25.017Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Rails] HAML介紹">
-<meta name="twitter:description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
+<meta name="twitter:title" content="Restful API 檢查清單 ">
+<meta name="twitter:description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -94,13 +94,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-rails-haml" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-Restful-API-檢查清單" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [Rails] HAML介紹
+      Restful API 檢查清單 
     </h1>
   
 
@@ -109,7 +109,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/rails-haml/" class="article-date"><time datetime="2016-03-15T19:52:00.000Z" itemprop="datePublished">2016-03-16</time></a>
+  <a href="/Restful-API-檢查清單/" class="article-date"><time datetime="2018-04-09T23:59:04.000Z" itemprop="datePublished">2018-04-10</time></a>
 </div>
 
     
@@ -120,20 +120,33 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template</p>
-<p>以下做個整理</p>
+        <p>後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項</p>
 <a id="more"></a>
-<p>首先得安裝gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gem &quot;haml&quot;</span><br><span class="line"></span><br><span class="line">&gt; bundle install</span><br></pre></td></tr></table></figure></p>
-<p>HAML必須將.erb檔案改為.haml，如app/views/docs/index.html.erb改為app/views/docs/index.html.haml</p>
-<p>基本的轉換規則如下：</p>
-<pre><code>1. html的tag改用％代替，例如&lt;header&gt;改為％header，不需要close tage
-2. class attribute改用.，例如&lt;div class=&quot;nav&quot;&gt;改為.nav
-3. id attribute改用＃，例如&lt;div class=&quot;banner&quot; id=&quot;message&quot;&gt;改為.banner#message
-4. 遇到&lt;%= ...&gt;的代碼改用＝，例如&lt;= f.input&gt;改為= f.input
-</code></pre><p>舉例：</p>
-<figure class="highlight ruby"><figcaption><span>show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class="wrapper_with_padding&gt;</span><br><span class="line">	&lt;div id=<span class="string">"doc_show"</span>&gt;</span><br><span class="line">		&lt;h1&gt;&lt;%= @doc.title %&gt;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    	&lt;p&gt;&lt;%= simple_format(@doc.content) %&gt;</span></span><br><span class="line"><span class="regexp">    </span></span><br><span class="line"><span class="regexp">    	&lt;div class="buttons"&gt;</span></span><br><span class="line"><span class="regexp">    		&lt;%= link_to "Fix Doc", edit_doc_path(@doc), class: "button" %&gt;</span></span><br><span class="line"><span class="regexp">    	  &lt;%= link_to "Delete Doc", doc_path(@doc), method: :delete, data: &#123;confirm: "Are you sure?"&#125;, class: "button" %&gt;</span></span><br><span class="line"><span class="regexp">   	 	&lt;/div</span>&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/div</span>&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight ruby"><figcaption><span>show.html.haml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.wrapper_with_padding</span><br><span class="line">  <span class="comment">#doc_show</span></span><br><span class="line">    %h1= @doc.title</span><br><span class="line">    %p= simple_format(@doc.content)</span><br><span class="line"></span><br><span class="line">    .buttons</span><br><span class="line">      = link_to <span class="string">"Fix Doc"</span>, edit_doc_path(@doc), <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></span><br><span class="line">      = link_to <span class="string">"Delete It"</span>, doc_path(@doc), <span class="symbol">method:</span> <span class="symbol">:delete</span>, <span class="symbol">data:</span> &#123;<span class="symbol">confirm:</span> <span class="string">"Are you sure?"</span>&#125;, <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></span><br></pre></td></tr></table></figure>
-<p>參考資料：<br><a href="http://haml.info/tutorial.html" target="_blank" rel="noopener">haml官網教材</a><br><a href="http://haml.info/docs/yardoc/file.REFERENCE.html" target="_blank" rel="noopener">haml refrence</a></p>
+<h3 id="在API設計之前"><a href="#在API設計之前" class="headerlink" title="在API設計之前"></a>在API設計之前</h3><p>提供給前端的API請先和前端工程師及UI/UX 討論流程和需要的功能。一般來說，UI/UX會先出圖，再來才是前後端工程師討論，此時要從用戶(前端和UI/UX)的角度思考：</p>
+<ol>
+<li>為什麼他們需要這個功能</li>
+<li>此功能要完成什麼工作，如果讓後端邏輯變複雜，有沒有其它替代方案？</li>
+<li>之後會不會擴展API功能（如增加第三方支付廠商，或是為其它客戶做客製化）</li>
+</ol>
+<p>這個階段得具體和詳細的討論，在流程和功能沒結果前不動手寫code<br>如果此API只是單純後端的需要，那只是討論的對象不同，其思考方式一樣。</p>
+<h3 id="API設計"><a href="#API設計" class="headerlink" title="API設計"></a>API設計</h3><p>與用戶討論完API的功能後，下一步就要設計介面<br><a href="https://tw.twincl.com/programming/*641y" target="_blank" rel="noopener">這篇文章</a>談到Restful API在設計需注意的事。先分清楚此API是跟資源有關還是utility的功能，這會影響到URI的設計</p>
+<p>跟資源相關的就是CRUD操作，例如註冊會員或刪除文章</p>
+<p>而utility的API可能不特別針對哪個資源，例如 background job</p>
+<p>至於使用哪個http動詞就看該行為了，例如註冊一個會員帳號你可能會使用 POST /1/members<br>一切先以用戶的角度看待介面的合理性。</p>
+<p>設計時需要針對各操作構思後端的邏輯，列出該操作所有的選項，思考使用的DB資源，此時對於整個API應該有清楚的規劃。</p>
+<h3 id="API實作之前"><a href="#API實作之前" class="headerlink" title="API實作之前"></a>API實作之前</h3><p>在API實作之前還需要 </p>
+<ol>
+<li>寫unit test </li>
+<li>撰寫API文件，讓前端人員參考</li>
+</ol>
+<p>單元測試有幾點須注意： </p>
+<ol>
+<li>測試應涵蓋設計階段討論的 corner case </li>
+<li>測試資料應盡可能簡明</li>
+<li>API上線後如果遇到當初沒討論的狀況，先寫測試再解bug</li>
+</ol>
+<p>在撰寫文件方面，我們團隊使用<a href="http://apidocjs.com/" target="_blank" rel="noopener">API Doc</a>幫助產出document。不用另外存放文件，用註解的方式就能產出文件，對於前後端人員都是很方便的作法。</p>
+<p>以上是這陣子和同事討論API到實作的心得，這篇記錄將來還會一整更新，讓每次的工作都能更順利。</p>
 
       
     </div>
@@ -144,16 +157,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/rails-haml/" data-id="cjfzcwuty001ezjcaud6nbm36" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/Restful-API-檢查清單/" data-id="cjfzcwuvz004ezjcad7mtfzfp" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/rails-haml/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/Restful-API-檢查清單/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backend/">backend</a></li></ul>
 
 
     </footer>
@@ -163,19 +176,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/front-end-note-concept-of-html-css-finishing/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/React初探-以Todo-app為例/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[前端筆記］ html/CSS觀念記錄</span>
+      <span class="article-nav-link-title">React初探 以Todo app為例 </span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/rails-paperclip-upload-files-and-images/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Rails] paperclip上傳檔案及圖片</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -274,7 +280,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/rails-haml/';
+  var disqus_url = 'https://kuroro0718.github.io/Restful-API-檢查清單/';
   
   (function(){
     var dsq = document.createElement('script');
