@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2018-05-21T14:04:25.017Z</updated>
+  <updated>2018-06-08T00:22:49.478Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -17,13 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Mongoose Schema 設計:如何讓 array 能被移除</title>
+    <link href="https://kuroro0718.github.io/MongoDB-Schema-%E8%A8%AD%E8%A8%88-%E5%A6%82%E4%BD%95%E8%AE%93-array-%E8%83%BD%E8%A2%AB%E7%A7%BB%E9%99%A4/"/>
+    <id>https://kuroro0718.github.io/MongoDB-Schema-設計-如何讓-array-能被移除/</id>
+    <published>2018-06-07T23:57:19.000Z</published>
+    <updated>2018-06-08T00:22:49.478Z</updated>
+    
+    <content type="html"><![CDATA[<p>在MongoDB的操作裡，如果要清除某個欄位，我們可以用 $unset。而日前對著文件裡的 array 做此動作時，array只被清空但還是留下該欄位。</p><p>要解決此問題，在定義schema時，將array的default value設為undefined即可</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CarSchema = <span class="keyword">new</span> Schema(&#123;</span><br><span class="line">  cars: &#123;</span><br><span class="line">    type: <span class="built_in">Array</span>,</span><br><span class="line">    <span class="keyword">default</span>: <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>參考資料： <a href="http://mongoosejs.com/docs/schematypes.html#arrays" target="_blank" rel="noopener">Mongoose文件</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在MongoDB的操作裡，如果要清除某個欄位，我們可以用 $unset。而日前對著文件裡的 array 做此動作時，array只被清空但還是留下該欄位。&lt;/p&gt;
+&lt;p&gt;要解決此問題，在定義schema時，將array的default value設為undefined即可&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Restful API 檢查清單 </title>
     <link href="https://kuroro0718.github.io/Restful-API-%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE/"/>
     <id>https://kuroro0718.github.io/Restful-API-檢查清單/</id>
     <published>2018-04-09T23:59:04.000Z</published>
-    <updated>2018-05-21T14:04:25.017Z</updated>
+    <updated>2018-05-21T14:07:40.418Z</updated>
     
-    <content type="html"><![CDATA[<p>後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項</p><a id="more"></a><h3 id="在API設計之前"><a href="#在API設計之前" class="headerlink" title="在API設計之前"></a>在API設計之前</h3><p>提供給前端的API請先和前端工程師及UI/UX 討論流程和需要的功能。一般來說，UI/UX會先出圖，再來才是前後端工程師討論，此時要從用戶(前端和UI/UX)的角度思考：</p><ol><li>為什麼他們需要這個功能</li><li>此功能要完成什麼工作，如果讓後端邏輯變複雜，有沒有其它替代方案？</li><li>之後會不會擴展API功能（如增加第三方支付廠商，或是為其它客戶做客製化）</li></ol><p>這個階段得具體和詳細的討論，在流程和功能沒結果前不動手寫code<br>如果此API只是單純後端的需要，那只是討論的對象不同，其思考方式一樣。</p><h3 id="API設計"><a href="#API設計" class="headerlink" title="API設計"></a>API設計</h3><p>與用戶討論完API的功能後，下一步就要設計介面<br><a href="https://tw.twincl.com/programming/*641y" target="_blank" rel="noopener">這篇文章</a>談到Restful API在設計需注意的事。先分清楚此API是跟資源有關還是utility的功能，這會影響到URI的設計</p><p>跟資源相關的就是CRUD操作，例如註冊會員或刪除文章</p><p>而utility的API可能不特別針對哪個資源，例如 background job</p><p>至於使用哪個http動詞就看該行為了，例如註冊一個會員帳號你可能會使用 POST /1/members<br>一切先以用戶的角度看待介面的合理性。</p><p>設計時需要針對各操作構思後端的邏輯，列出該操作所有的選項，思考使用的DB資源，此時對於整個API應該有清楚的規劃。</p><h3 id="API實作之前"><a href="#API實作之前" class="headerlink" title="API實作之前"></a>API實作之前</h3><p>在API實作之前還需要 </p><ol><li>寫unit test </li><li>撰寫API文件，讓前端人員參考</li></ol><p>單元測試有幾點須注意： </p><ol><li>測試應涵蓋設計階段討論的 corner case </li><li>測試資料應盡可能簡明</li><li>API上線後如果遇到當初沒討論的狀況，先寫測試再解bug</li></ol><p>在撰寫文件方面，我們團隊使用<a href="http://apidocjs.com/" target="_blank" rel="noopener">API Doc</a>幫助產出document。不用另外存放文件，用註解的方式就能產出文件，對於前後端人員都是很方便的作法。</p><p>以上是這陣子和同事討論API到實作的心得，這篇記錄將來還會一整更新，讓每次的工作都能更順利。</p>]]></content>
+    <content type="html"><![CDATA[<p>後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項</p><a id="more"></a><h3 id="在API設計之前"><a href="#在API設計之前" class="headerlink" title="在API設計之前"></a>在API設計之前</h3><p>提供給前端的API請先和前端工程師及UI/UX 討論流程和需要的功能。一般來說，UI/UX會先出圖，再來才是前後端工程師討論，此時要從用戶(前端和UI/UX)的角度思考：</p><ol><li>為什麼他們需要這個功能</li><li>此功能要完成什麼工作，如果讓後端邏輯變複雜，有沒有其它替代方案？</li><li>之後會不會擴展API功能（如增加第三方支付廠商，或是為其它客戶做客製化）</li></ol><p>這個階段得具體和詳細的討論，在流程和功能沒結果前不動手寫code<br>如果此API只是單純後端的需要，那只是討論的對象不同，其思考方式一樣。</p><h3 id="API設計"><a href="#API設計" class="headerlink" title="API設計"></a>API設計</h3><p>與用戶討論完API的功能後，下一步就要設計介面<br><a href="https://tw.twincl.com/programming/*641y" target="_blank" rel="noopener">這篇文章</a>談到Restful API在設計需注意的事。先分清楚此API是跟資源有關還是utility的功能，這會影響到URI的設計</p><p>跟資源相關的就是CRUD操作，例如註冊會員或刪除文章</p><p>而utility的API可能不特別針對哪個資源，例如 background job</p><p>至於使用哪個http動詞就看該行為了，例如註冊一個會員帳號你可能會使用 POST /1/members<br>一切先以用戶的角度看待介面的合理性。</p><p>設計時需要針對各操作構思後端的邏輯，列出該操作所有的選項，思考使用的DB資源，此時對於整個API應該有清楚的規劃。</p><h3 id="API實作之前"><a href="#API實作之前" class="headerlink" title="API實作之前"></a>API實作之前</h3><p>在API實作之前還需要 </p><ol><li>寫unit test </li><li>撰寫API文件，讓前端人員參考</li></ol><p>單元測試有幾點須注意： </p><ol><li>測試應涵蓋設計階段討論的 corner case </li><li>測試資料應盡可能簡明</li><li>API上線後如果遇到當初沒討論的狀況，先寫測試再解bug</li></ol><p>在撰寫文件方面，我們團隊使用<a href="http://apidocjs.com/" target="_blank" rel="noopener">API Doc</a>幫助產出document。不用另外存放文件，用註解的方式就能產出文件，對於前後端人員都是很方便的作法。</p><p>以上是這陣子和同事討論API到實作的心得，這篇記錄將來還會持續更新，讓每次的工作都能更順利。</p>]]></content>
     
     <summary type="html">
     
@@ -334,9 +358,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -357,9 +381,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -380,9 +404,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -424,32 +448,6 @@
     
     
       <category term="讀書筆記" scheme="https://kuroro0718.github.io/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>寄物便開發週記: 從idea到MVP</title>
-    <link href="https://kuroro0718.github.io/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98-%E5%BE%9Eidea%E5%88%B0MVP/"/>
-    <id>https://kuroro0718.github.io/寄物便開發週記-從idea到MVP/</id>
-    <published>2016-10-01T13:20:11.000Z</published>
-    <updated>2016-10-05T09:47:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>更新訂單和商家model 2016-10-05</li></ul><p>把腦中的想法從無到有實現出來，相信是工程師們最有成就感的時候<br>雖然現代的軟體開發哲學強調deliver fast。<br>但如果沒做好溝通和協調，做出來的產品歪掉也會讓工程師們充滿挫折感</p><p>我們把開發的過程記錄下來，以後回顧時能知道當初的決策過程。<br>在快速迭代中最重要的目的是能早點修正偏差並得到經驗</p><a id="more"></a><p><a href="http://www.bagkeeper.co" target="_blank" rel="noopener">寄物便 BagKeeper</a>的服務對象是需要在不同地點移動的人，提供寄物地點的媒合以省去身上大包小包的累贅。</p><p>概念上與Airbnb類似。對於MVP來說，我們需要展示使用者和店家的的操作平台，也就是APP和Web後台。</p><p>使用情境如下: </p><ol><li>使用者打開寄物便APP輸入寄物件數和時間</li><li>APP顯示地圖標出使用者附近符合條件的店家</li><li>使用者也能在地圖頁面搜尋指定的地點</li><li>找到店家後送出訂單並完成預約</li><li>商家在Web後台能看到訂單</li><li>使用者前往商家寄物，此時商家可以開始計時</li><li>使用者前往商家取物，商家結束計時並完成扣款 </li></ol><p>對於二個平台的開發者來說光有user story還不夠清楚<br>服務的二端最重要的資訊是訂單和商家資料</p><p>第一次討論完後在白板畫下簡單的系統方塊圖，並且寫出各功能的開發比重<br><img src="whiteboard.jpg" alt="white board"><br>由Web端送出商家的資料給APP顯示在地圖上<br>APP能送出訂單給Web完成預約</p><p>搭配圖形和user story，工程師腦中對於整個流程有了大方向<br>剩下的就是訂單和商家這二個model所需要的資料有哪些</p><p>第二次討論時，我們針對訂單和商家model的細項做溝通<br>以下是討論結果:<br>訂單model: </p><ol><li>物件大小 （背包或行李箱）</li><li>寄物件數</li><li>日期，時數</li><li>店家id</li><li>使用者電話號碼</li></ol><p>商家model </p><ol><li>店名</li><li>地址</li><li>id</li><li>空間照片</li><li>營業時間</li><li>評價 （用星等）</li></ol><p>再來是地圖的頁面，這方面很多APP都有範例可以參考，我使用EZTable的畫面<br><img src="map.jpg" alt="map"><br>上方是search bar，畫面中間是使用者附近的地圖並標示商家，下方是商家資訊<br>有了圖片，product designer和工程師比較容易達成共識<br>對於刻前端的人來說也不會浪費時間</p><p>剩不到一個月就要demo了，希望開發過程能順利，打造出理想的產品。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;更新訂單和商家model 2016-10-05&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;把腦中的想法從無到有實現出來，相信是工程師們最有成就感的時候&lt;br&gt;雖然現代的軟體開發哲學強調deliver fast。&lt;br&gt;但如果沒做好溝通和協調，做出來的產品歪掉也會讓工程師們充滿挫折感&lt;/p&gt;
-&lt;p&gt;我們把開發的過程記錄下來，以後回顧時能知道當初的決策過程。&lt;br&gt;在快速迭代中最重要的目的是能早點修正偏差並得到經驗&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
-      <category term="soft skill" scheme="https://kuroro0718.github.io/tags/soft-skill/"/>
     
   </entry>
   
