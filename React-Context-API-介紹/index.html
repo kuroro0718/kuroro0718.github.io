@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Swift Error Handling | Alex Liang</title>
+  <title>React Context API 介紹 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error type結合，產出可讀性高的程式碼">
-<meta name="keywords" content="swift">
+  <meta name="description" content="在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。而Context API便是用來解決資料傳遞的問題。">
+<meta name="keywords" content="javascript,front-end,React">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift Error Handling">
-<meta property="og:url" content="https://kuroro0718.github.io/Swift-Error-Handling/index.html">
+<meta property="og:title" content="React Context API 介紹">
+<meta property="og:url" content="https://kuroro0718.github.io/React-Context-API-介紹/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error type結合，產出可讀性高的程式碼">
+<meta property="og:description" content="在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。而Context API便是用來解決資料傳遞的問題。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-23T07:59:33.000Z">
+<meta property="og:updated_time" content="2018-06-24T09:16:25.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift Error Handling">
-<meta name="twitter:description" content="撰寫程式過程中，免不了需要處理錯誤情形。如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來Swift特別的是enum能和error type結合，產出可讀性高的程式碼">
+<meta name="twitter:title" content="React Context API 介紹">
+<meta name="twitter:description" content="在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。而Context API便是用來解決資料傳遞的問題。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -94,13 +94,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-Swift-Error-Handling" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-React-Context-API-介紹" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      Swift Error Handling
+      React Context API 介紹
     </h1>
   
 
@@ -109,7 +109,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/Swift-Error-Handling/" class="article-date"><time datetime="2016-07-21T02:17:39.000Z" itemprop="datePublished">2016-07-21</time></a>
+  <a href="/React-Context-API-介紹/" class="article-date"><time datetime="2018-06-13T14:06:02.000Z" itemprop="datePublished">2018-06-13</time></a>
 </div>
 
     
@@ -120,14 +120,23 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>撰寫程式過程中，免不了需要處理錯誤情形。<br>如果希望程式碼好維護，會將錯誤偵測和錯誤處理分開來<br>Swift特別的是enum能和error type結合，產出可讀性高的程式碼</p>
+        <p>在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。<br>而Context API便是用來解決資料傳遞的問題。</p>
 <a id="more"></a>
-<h2 id="Error-Type"><a href="#Error-Type" class="headerlink" title="Error Type"></a>Error Type</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Error</span>: <span class="title">ErrorType</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">InvalidName</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">InsufficientFund</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">throw</span> <span class="type">Error</span>.<span class="type">InvalidName</span></span><br></pre></td></tr></table></figure>
-<p>將enum繼承ErrorType，在抛出例外時有較高的可讀性</p>
-<h2 id="Propagating-Errors-Using-Throwing-Functions"><a href="#Propagating-Errors-Using-Throwing-Functions" class="headerlink" title="Propagating Errors Using Throwing Functions"></a>Propagating Errors Using Throwing Functions</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> memberList = [<span class="string">"John"</span>, <span class="string">"Joe"</span>, <span class="string">"Bob"</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeMember</span><span class="params">(name: String)</span></span> <span class="keyword">throws</span> &#123;</span><br><span class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> index = memberList.indexOf(name) <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throws</span> <span class="type">Error</span>.<span class="type">InvalidName</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>函式加上throws表示可抛出例外，如果名字不在成員清單中則抛出例外</p>
-<h2 id="Handling-Errors-Using-Do-Catch"><a href="#Handling-Errors-Using-Do-Catch" class="headerlink" title="Handling Errors Using Do-Catch"></a>Handling Errors Using Do-Catch</h2><p>如同其它語言，Swift也提供do-catch的block處理抛出的例外<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> memberList = [<span class="string">"John"</span>, <span class="string">"Joe"</span>, <span class="string">"Bob"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> removeMember(<span class="string">"Alex"</span>)  </span><br><span class="line">&#125; <span class="keyword">catch</span> <span class="type">Error</span>.<span class="type">InvalidName</span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"There isn't any member named Alex"</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span> <span class="type">Error</span>.<span class="type">InsufficientFund</span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"Not enough funds"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>參考來源：<br><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html" target="_blank" rel="noopener">官方文件</a></p>
+<p>在React 16.3之前，context API的使用較為不便，得在parent component class定義若干函式，</p>
+<p>而新的context API只要定義: </p>
+<ol>
+<li>context provider，提供要傳遞的data</li>
+<li>context consumer，接收data</li>
+</ol>
+<p>下面是一個簡單的範例，假如頁面上有三個component，分別為書藉清單、書的簡介和內容試閱，它們為階層式架構，最底層的試閱得拿到書名。</p>
+<p>在使用context前，必須先建立實體，createContext可傳入data的預設值。接著引入context至component</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BookContext = React.createContext();</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookList</span> <span class="keyword">extends</span> <span class="title">Componet</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">     bookName: <span class="string">'Javascript the good part'</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 傳遞資料的Component使用Provider</span></span><br><span class="line">  render() &#123;</span><br><span class="line">   <span class="keyword">return</span> (</span><br><span class="line">    &lt;BookContext.Provider value=&#123;<span class="keyword">this</span>.state&#125;&gt;</span><br><span class="line">  	  &lt;BookBrief /&gt;</span><br><span class="line">  	 &lt;<span class="regexp">/BookContext.Provider&gt;  	  </span></span><br><span class="line"><span class="regexp">  	);</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 中間這一層不需要傳context下去</span></span><br><span class="line"><span class="regexp">function BookBrief (props) &#123;</span></span><br><span class="line"><span class="regexp"> return (</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;ContentFragment /</span>&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"> );  </span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 要用到context這層使用Consumer接收資料</span></span><br><span class="line"><span class="regexp">function ContentFragment(props) &#123;</span></span><br><span class="line"><span class="regexp"> return (</span></span><br><span class="line"><span class="regexp">   &lt;BookContext.Consumer&gt;</span></span><br><span class="line"><span class="regexp">    &#123;context =&gt; context.bookName&#125;</span></span><br><span class="line"><span class="regexp">   &lt;/</span>BookContext.Consumer&gt;</span><br><span class="line"> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如此一來即可從BookList直接傳遞資料至底層的ContentFragment<br>不只是資料，我們也能傳函式下去，可以更方便的由Child Component呼叫Parent的函式。</p>
+<p>參考資料: </p>
+<ol>
+<li><a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener">官方文件</a></li>
+<li><a href="https://hackernoon.com/how-to-use-the-new-react-context-api-fce011e7d87" target="_blank" rel="noopener">How to use the new react contenxt API</a></li>
+</ol>
 
       
     </div>
@@ -138,16 +147,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/Swift-Error-Handling/" data-id="cjisk8ec6002sbucazw5qzxjr" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/React-Context-API-介紹/" data-id="cjisk8eff004mbucavakulnvw" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/Swift-Error-Handling/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/React-Context-API-介紹/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/">front-end</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
 
     </footer>
@@ -157,19 +166,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/765290/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/MongoDB-Schema-設計-如何讓-array-能被移除/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">iOS APP Develop Cheat Sheet</span>
+      <span class="article-nav-link-title">Mongoose Schema 設計:如何讓 array 能被移除</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/How-to-Pitch上課心得/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">How to Pitch上課心得</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -268,7 +270,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/Swift-Error-Handling/';
+  var disqus_url = 'https://kuroro0718.github.io/React-Context-API-介紹/';
   
   (function(){
     var dsq = document.createElement('script');

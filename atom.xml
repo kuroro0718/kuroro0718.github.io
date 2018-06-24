@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2018-06-08T00:22:49.478Z</updated>
+  <updated>2018-06-24T09:16:25.557Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>React Context API 介紹</title>
+    <link href="https://kuroro0718.github.io/React-Context-API-%E4%BB%8B%E7%B4%B9/"/>
+    <id>https://kuroro0718.github.io/React-Context-API-介紹/</id>
+    <published>2018-06-13T14:06:02.000Z</published>
+    <updated>2018-06-24T09:16:25.557Z</updated>
+    
+    <content type="html"><![CDATA[<p>在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。<br>而Context API便是用來解決資料傳遞的問題。</p><a id="more"></a><p>在React 16.3之前，context API的使用較為不便，得在parent component class定義若干函式，</p><p>而新的context API只要定義: </p><ol><li>context provider，提供要傳遞的data</li><li>context consumer，接收data</li></ol><p>下面是一個簡單的範例，假如頁面上有三個component，分別為書藉清單、書的簡介和內容試閱，它們為階層式架構，最底層的試閱得拿到書名。</p><p>在使用context前，必須先建立實體，createContext可傳入data的預設值。接著引入context至component</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BookContext = React.createContext();</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookList</span> <span class="keyword">extends</span> <span class="title">Componet</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">     bookName: <span class="string">'Javascript the good part'</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 傳遞資料的Component使用Provider</span></span><br><span class="line">  render() &#123;</span><br><span class="line">   <span class="keyword">return</span> (</span><br><span class="line">    &lt;BookContext.Provider value=&#123;<span class="keyword">this</span>.state&#125;&gt;</span><br><span class="line">    &lt;BookBrief /&gt;</span><br><span class="line">   &lt;<span class="regexp">/BookContext.Provider&gt;    </span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 中間這一層不需要傳context下去</span></span><br><span class="line"><span class="regexp">function BookBrief (props) &#123;</span></span><br><span class="line"><span class="regexp"> return (</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;ContentFragment /</span>&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"> );  </span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 要用到context這層使用Consumer接收資料</span></span><br><span class="line"><span class="regexp">function ContentFragment(props) &#123;</span></span><br><span class="line"><span class="regexp"> return (</span></span><br><span class="line"><span class="regexp">   &lt;BookContext.Consumer&gt;</span></span><br><span class="line"><span class="regexp">    &#123;context =&gt; context.bookName&#125;</span></span><br><span class="line"><span class="regexp">   &lt;/</span>BookContext.Consumer&gt;</span><br><span class="line"> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如此一來即可從BookList直接傳遞資料至底層的ContentFragment<br>不只是資料，我們也能傳函式下去，可以更方便的由Child Component呼叫Parent的函式。</p><p>參考資料: </p><ol><li><a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener">官方文件</a></li><li><a href="https://hackernoon.com/how-to-use-the-new-react-context-api-fce011e7d87" target="_blank" rel="noopener">How to use the new react contenxt API</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。&lt;br&gt;而Context API便是用來解決資料傳遞的問題。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+    
+      <category term="front-end" scheme="https://kuroro0718.github.io/tags/front-end/"/>
+    
+      <category term="React" scheme="https://kuroro0718.github.io/tags/React/"/>
+    
+  </entry>
   
   <entry>
     <title>Mongoose Schema 設計:如何讓 array 能被移除</title>
@@ -358,9 +382,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -381,9 +405,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -404,9 +428,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+    
+      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
     
   </entry>
   
@@ -428,26 +452,6 @@
     
     
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何建立專注的mind set</title>
-    <link href="https://kuroro0718.github.io/%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B%E5%B0%88%E6%B3%A8%E7%9A%84mind-set/"/>
-    <id>https://kuroro0718.github.io/如何建立專注的mind-set/</id>
-    <published>2016-10-02T14:36:26.000Z</published>
-    <updated>2016-10-02T15:11:21.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近看了<a href="http://www.books.com.tw/products/0010712988" target="_blank" rel="noopener">為何這樣工作會快、準、好</a>，”專注”那一章給我帶來很大的啟發。</p><a id="more"></a><p>一開始作者以法航四四七班機失事的案例說明人在危急情況下，是如何容易被外界雜訊干擾而忘記基本的操作法則。</p><p>當飛機出現故障時，駕駛艙會出現各種警示音、螢幕不斷地跳出指令。此時正副機長該怎麼排除問題呢？ 讀到這個故事搭配前陣子看的<a href="https://www.youtube.com/watch?v=NGe7NmYbXo0" target="_blank" rel="noopener">薩利機長</a>，會有很深刻的印象。</p><p>當我們從熟悉的情境突然發生狀況，如下雨天車子失控打滑。假如沒有正確的觀念，駕駛可能會猛踩煞車進而導致意外。</p><p>於是，這本書提到我們該建立”心智模型”。也就是對可能發生的情況事先在腦中演練應對措施。當危急發生時，可以迅速排除雜訊，專注在解決問題本身。</p><p>這種在腦中演練的方式可以在許多領域見到: 賽車手會邊模擬開在賽道上每一個進彎出彎的動作、體育選手會想像比賽時和對手攻守的畫面。</p><p>以我自己的經驗來說。在前往景點拍照時，會先想像我要呈現的畫面，到當地時便能專心”找”心中的場景。</p><p>書中也提到另一場飛安事故，結局卻大不相同。原因是機長和副機長們平時建立心智模型，並在危急發生時把過去的經驗用在解決問題上;這也讓我想到一開始學打球時，教練對我說的一句話: 「比賽時你是不可能打出平常練習打不出來的球路」。</p><p>所以，要提升專注的方法在於平常對生活或工作建立”演練”的概念。當狀況來臨時，我們不只是靠本能反應在解決問題，而是清楚該怎麼做才能渡過危機。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近看了&lt;a href=&quot;http://www.books.com.tw/products/0010712988&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;為何這樣工作會快、準、好&lt;/a&gt;，”專注”那一章給我帶來很大的啟發。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="讀書筆記" scheme="https://kuroro0718.github.io/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
