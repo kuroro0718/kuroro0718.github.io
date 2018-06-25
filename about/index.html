@@ -3,20 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Restful API 檢查清單  | Alex Liang</title>
+  <title>about | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
-<meta name="keywords" content="backend">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Restful API 檢查清單 ">
-<meta property="og:url" content="https://kuroro0718.github.io/Restful-API-檢查清單/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="about">
+<meta property="og:url" content="https://kuroro0718.github.io/about/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2018-05-21T14:07:40.418Z">
+<meta property="og:updated_time" content="2018-06-25T23:18:20.016Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Restful API 檢查清單 ">
-<meta name="twitter:description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
+<meta name="twitter:title" content="about">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -94,13 +90,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-Restful-API-檢查清單" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      Restful API 檢查清單 
+      about
     </h1>
   
 
@@ -109,7 +105,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/Restful-API-檢查清單/" class="article-date"><time datetime="2018-04-09T23:59:04.000Z" itemprop="datePublished">2018-04-10</time></a>
+  <a href="/about/index.html" class="article-date"><time datetime="2018-06-25T23:18:20.000Z" itemprop="datePublished">2018-06-26</time></a>
 </div>
 
     
@@ -120,34 +116,7 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項</p>
-<a id="more"></a>
-<h3 id="在API設計之前"><a href="#在API設計之前" class="headerlink" title="在API設計之前"></a>在API設計之前</h3><p>提供給前端的API請先和前端工程師及UI/UX 討論流程和需要的功能。一般來說，UI/UX會先出圖，再來才是前後端工程師討論，此時要從用戶(前端和UI/UX)的角度思考：</p>
-<ol>
-<li>為什麼他們需要這個功能</li>
-<li>此功能要完成什麼工作，如果讓後端邏輯變複雜，有沒有其它替代方案？</li>
-<li>之後會不會擴展API功能（如增加第三方支付廠商，或是為其它客戶做客製化）</li>
-</ol>
-<p>這個階段得具體和詳細的討論，在流程和功能沒結果前不動手寫code<br>如果此API只是單純後端的需要，那只是討論的對象不同，其思考方式一樣。</p>
-<h3 id="API設計"><a href="#API設計" class="headerlink" title="API設計"></a>API設計</h3><p>與用戶討論完API的功能後，下一步就要設計介面<br><a href="https://tw.twincl.com/programming/*641y" target="_blank" rel="noopener">這篇文章</a>談到Restful API在設計需注意的事。先分清楚此API是跟資源有關還是utility的功能，這會影響到URI的設計</p>
-<p>跟資源相關的就是CRUD操作，例如註冊會員或刪除文章</p>
-<p>而utility的API可能不特別針對哪個資源，例如 background job</p>
-<p>至於使用哪個http動詞就看該行為了，例如註冊一個會員帳號你可能會使用 POST /1/members<br>一切先以用戶的角度看待介面的合理性。</p>
-<p>設計時需要針對各操作構思後端的邏輯，列出該操作所有的選項，思考使用的DB資源，此時對於整個API應該有清楚的規劃。</p>
-<h3 id="API實作之前"><a href="#API實作之前" class="headerlink" title="API實作之前"></a>API實作之前</h3><p>在API實作之前還需要 </p>
-<ol>
-<li>寫unit test </li>
-<li>撰寫API文件，讓前端人員參考</li>
-</ol>
-<p>單元測試有幾點須注意： </p>
-<ol>
-<li>測試應涵蓋設計階段討論的 corner case </li>
-<li>測試資料應盡可能簡明</li>
-<li>API上線後如果遇到當初沒討論的狀況，先寫測試再解bug</li>
-</ol>
-<p>在撰寫文件方面，我們團隊使用<a href="http://apidocjs.com/" target="_blank" rel="noopener">API Doc</a>幫助產出document。不用另外存放文件，用註解的方式就能產出文件，對於前後端人員都是很方便的作法。</p>
-<p>以上是這陣子和同事討論API到實作的心得，這篇記錄將來還會持續更新，讓每次的工作都能更順利。</p>
-
+        
       
     </div>
 
@@ -157,41 +126,20 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/Restful-API-檢查清單/" data-id="cjiuw2ldm004c0fcasn4tao31" class="article-share-link">
+      <a data-url="https://kuroro0718.github.io/about/index.html" data-id="cjiuw2la700030fca59dkus1n" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/Restful-API-檢查清單/#disqus_thread" class="article-comment-link">
+        <a href="https://kuroro0718.github.io/about/index.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backend/">backend</a></li></ul>
-
 
     </footer>
   </div>
   
     
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/React初探-以Todo-app為例/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">React初探 以Todo app為例 </span>
-    </a>
-  </li>
-  
-  
-  <li role="presentation">
-    <a href="/MongoDB-Schema-設計-如何讓-array-能被移除/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Mongoose Schema 設計:如何讓 array 能被移除</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
-  
-</ul>
-
 
   
 </article>
@@ -288,7 +236,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/Restful-API-檢查清單/';
+  var disqus_url = 'https://kuroro0718.github.io/about/index.html';
   
   (function(){
     var dsq = document.createElement('script');
