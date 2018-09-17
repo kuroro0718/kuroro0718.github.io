@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kuroro0718.github.io/"/>
-  <updated>2018-06-24T09:16:25.557Z</updated>
+  <updated>2018-06-25T23:45:04.644Z</updated>
   <id>https://kuroro0718.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用shouldComponentUpdate提高React效能</title>
+    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8shouldComponent%E6%8F%90%E9%AB%98React%E6%95%88%E8%83%BD/"/>
+    <id>https://kuroro0718.github.io/使用shouldComponent提高React效能/</id>
+    <published>2018-06-25T23:27:10.000Z</published>
+    <updated>2018-06-25T23:45:04.644Z</updated>
+    
+    <content type="html"><![CDATA[<p>前陣子遇到一個React效能調教問題，一個後端API花不到一秒完成request，但整個畫面要5秒左右才會render完成。<br>後來發現每次只有一個項目需要更新，而全部重render的結果就是卡在browser，我們改用shouldComponentUpdate來改善此問題。</p><a id="more"></a><p>// 簡短介紹 react life cycle<br>在React life cycle中，</p><p>// 如何使用shouldComponentUpdate及注意事項</p><p>// etc</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前陣子遇到一個React效能調教問題，一個後端API花不到一秒完成request，但整個畫面要5秒左右才會render完成。&lt;br&gt;後來發現每次只有一個項目需要更新，而全部重render的結果就是卡在browser，我們改用shouldComponentUpdate來改善此問題。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+    
+      <category term="front-end" scheme="https://kuroro0718.github.io/tags/front-end/"/>
+    
+      <category term="React" scheme="https://kuroro0718.github.io/tags/React/"/>
+    
+  </entry>
   
   <entry>
     <title>React Context API 介紹</title>
@@ -382,9 +406,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -405,9 +429,9 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+    
+      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     
   </entry>
   
@@ -428,28 +452,7 @@
     </summary>
     
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
-    
       <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>讓APP在iOS 10能存取照相機</title>
-    <link href="https://kuroro0718.github.io/%E8%AE%93APP%E5%9C%A8iOS-10%E8%83%BD%E5%AD%98%E5%8F%96%E7%85%A7%E7%9B%B8%E6%A9%9F/"/>
-    <id>https://kuroro0718.github.io/讓APP在iOS-10能存取照相機/</id>
-    <published>2016-10-05T15:23:43.000Z</published>
-    <updated>2016-10-05T15:35:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>APP如果要在iOS 10的環境使用照相機，必須取得使用者同意(還有其它功能也需要，細節請參考<a href="http://useyourloaf.com/blog/privacy-settings-in-ios-10/" target="_blank" rel="noopener">連結</a>)</p><p>在寫mini project時，因為xcode 8需要手動加入設定，否則會出現錯誤訊息<br><a id="more"></a></p><blockquote><p>This app has crashed because it attempted to access privacy-sensitive data without a usage description. The app’s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</p></blockquote><p>log要我們加入NSCameraUsageDescription key到Info.plist</p><p>在專案的info.plist加上Privacy Camera Usage Description<br>並給它一個值</p><p><img src="info.png" alt="Info.plist"></p><p>完成後APP在iOS 10環境下執行時便會詢問使用者允不允許APP存取相機。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;APP如果要在iOS 10的環境使用照相機，必須取得使用者同意(還有其它功能也需要，細節請參考&lt;a href=&quot;http://useyourloaf.com/blog/privacy-settings-in-ios-10/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;連結&lt;/a&gt;)&lt;/p&gt;
-&lt;p&gt;在寫mini project時，因為xcode 8需要手動加入設定，否則會出現錯誤訊息&lt;br&gt;
-    
-    </summary>
-    
     
       <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
     

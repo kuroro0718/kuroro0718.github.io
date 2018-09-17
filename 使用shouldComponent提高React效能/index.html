@@ -3,15 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: swift | Alex Liang</title>
+  <title>使用shouldComponentUpdate提高React效能 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Alex Liang">
-<meta property="og:url" content="https://kuroro0718.github.io/tags/swift/index.html">
+  <meta name="description" content="前陣子遇到一個React效能調教問題，一個後端API花不到一秒完成request，但整個畫面要5秒左右才會render完成。後來發現每次只有一個項目需要更新，而全部重render的結果就是卡在browser，我們改用shouldComponentUpdate來改善此問題。">
+<meta name="keywords" content="javascript,front-end,React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用shouldComponentUpdate提高React效能">
+<meta property="og:url" content="https://kuroro0718.github.io/使用shouldComponent提高React效能/index.html">
 <meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="前陣子遇到一個React效能調教問題，一個後端API花不到一秒完成request，但整個畫面要5秒左右才會render完成。後來發現每次只有一個項目需要更新，而全部重render的結果就是卡在browser，我們改用shouldComponentUpdate來改善此問題。">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2018-06-25T23:45:04.644Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alex Liang">
+<meta name="twitter:title" content="使用shouldComponentUpdate提高React效能">
+<meta name="twitter:description" content="前陣子遇到一個React效能調教問題，一個後端API花不到一秒完成request，但整個畫面要5秒左右才會render完成。後來發現每次只有一個項目需要更新，而全部重render的結果就是卡在browser，我們改用shouldComponentUpdate來改善此問題。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -89,225 +94,85 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
+          <article id="post-使用shouldComponent提高React效能" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
     
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/Retain-cycle-and-capture-list-in-Swift/">Retain cycle and capture list in Swift</a>
+    <h1 class="article-title" itemprop="name">
+      使用shouldComponentUpdate提高React效能
     </h1>
   
 
 
+  </header>
+
+  <div class="article-meta">
     <div class="article-datetime">
-  <a href="/Retain-cycle-and-capture-list-in-Swift/" class="archive-article-date"><time datetime="2016-11-14T14:27:27.000Z" itemprop="datePublished">十一月 14日</time></a>
+  <a href="/使用shouldComponent提高React效能/" class="article-date"><time datetime="2018-06-25T23:27:10.000Z" itemprop="datePublished">2018-06-26</time></a>
 </div>
 
-  </header>
-</article>
-
-  
     
     
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/寄物便開發週記W3-完成初版/">寄物便開發週記W3: 完成初版</a>
-    </h1>
-  
 
-
-    <div class="article-datetime">
-  <a href="/寄物便開發週記W3-完成初版/" class="archive-article-date"><time datetime="2016-10-23T13:33:35.000Z" itemprop="datePublished">十月 23日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/寄物便開發週記W2-開始動工/">寄物便開發週記W2: 開始動工</a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/寄物便開發週記W2-開始動工/" class="archive-article-date"><time datetime="2016-10-12T15:44:05.000Z" itemprop="datePublished">十月 12日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/Swift-Error-Handling/">Swift Error Handling</a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/Swift-Error-Handling/" class="archive-article-date"><time datetime="2016-07-21T02:17:39.000Z" itemprop="datePublished">七月 21日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/765290/">iOS APP Develop Cheat Sheet</a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/765290/" class="archive-article-date"><time datetime="2016-07-06T19:44:00.000Z" itemprop="datePublished">七月 7日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/swift-closure-introduced/">Swift Closure 介紹</a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/swift-closure-introduced/" class="archive-article-date"><time datetime="2016-06-16T22:57:00.000Z" itemprop="datePublished">六月 17日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/swift-and/">Swift的？與！</a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/swift-and/" class="archive-article-date"><time datetime="2016-06-06T23:17:00.000Z" itemprop="datePublished">六月 7日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/swift-enumerations/">Swift Enumerations </a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/swift-enumerations/" class="archive-article-date"><time datetime="2016-05-28T23:02:00.000Z" itemprop="datePublished">五月 29日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/swift-protocol-oriented-programming/">Swift Protocol Oriented Programming</a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/swift-protocol-oriented-programming/" class="archive-article-date"><time datetime="2016-05-26T17:28:00.000Z" itemprop="datePublished">五月 27日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/swift-value-and-reference-types/">Swift Value and Reference Types</a>
-    </h1>
-  
-
-
-    <div class="article-datetime">
-  <a href="/swift-value-and-reference-types/" class="archive-article-date"><time datetime="2016-05-25T18:32:00.000Z" itemprop="datePublished">五月 26日</time></a>
-</div>
-
-  </header>
-</article>
-
-  
-  
-    </div></section>
-  
-
-
-  <div id="page-nav">
-    <nav><ul class="pagination"><li class="disabled"><span class="page-prev"><i class="fa fa-chevron-left"></i> Prev</a></li><li class="active"><span class="page-number">1</span></li><li><a class="page-number" href="/tags/swift/page/2/">2</a></li><li><a class="page-next" rel="next" href="/tags/swift/page/2/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前陣子遇到一個React效能調教問題，一個後端API花不到一秒完成request，但整個畫面要5秒左右才會render完成。<br>後來發現每次只有一個項目需要更新，而全部重render的結果就是卡在browser，我們改用shouldComponentUpdate來改善此問題。</p>
+<a id="more"></a>
+<p>// 簡短介紹 react life cycle<br>在React life cycle中，</p>
+<p>// 如何使用shouldComponentUpdate及注意事項</p>
+<p>// etc</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://kuroro0718.github.io/使用shouldComponent提高React效能/" data-id="cjiuwqtrd0043wscaixfq59b3" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+        <a href="https://kuroro0718.github.io/使用shouldComponent提高React效能/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/">front-end</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/React-Context-API-介紹/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">React Context API 介紹</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
 
 
@@ -394,11 +259,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
+  var disqus_url = 'https://kuroro0718.github.io/使用shouldComponent提高React效能/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
