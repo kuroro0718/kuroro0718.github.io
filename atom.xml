@@ -5,9 +5,9 @@
   <subtitle>在新創公司擔任全端工程師，記錄我的學習歷程</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://kuroro0718.github.io/"/>
+  <link href="http://alexliang.me/"/>
   <updated>2018-06-25T23:45:04.644Z</updated>
-  <id>https://kuroro0718.github.io/</id>
+  <id>http://alexliang.me/</id>
   
   <author>
     <name>Alex Liang</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>使用shouldComponentUpdate提高React效能</title>
-    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8shouldComponent%E6%8F%90%E9%AB%98React%E6%95%88%E8%83%BD/"/>
-    <id>https://kuroro0718.github.io/使用shouldComponent提高React效能/</id>
+    <link href="http://alexliang.me/%E4%BD%BF%E7%94%A8shouldComponent%E6%8F%90%E9%AB%98React%E6%95%88%E8%83%BD/"/>
+    <id>http://alexliang.me/使用shouldComponent提高React效能/</id>
     <published>2018-06-25T23:27:10.000Z</published>
     <updated>2018-06-25T23:45:04.644Z</updated>
     
@@ -32,18 +32,18 @@
     </summary>
     
     
-      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
-      <category term="front-end" scheme="https://kuroro0718.github.io/tags/front-end/"/>
+      <category term="front-end" scheme="http://alexliang.me/tags/front-end/"/>
     
-      <category term="React" scheme="https://kuroro0718.github.io/tags/React/"/>
+      <category term="React" scheme="http://alexliang.me/tags/React/"/>
     
   </entry>
   
   <entry>
     <title>React Context API 介紹</title>
-    <link href="https://kuroro0718.github.io/React-Context-API-%E4%BB%8B%E7%B4%B9/"/>
-    <id>https://kuroro0718.github.io/React-Context-API-介紹/</id>
+    <link href="http://alexliang.me/React-Context-API-%E4%BB%8B%E7%B4%B9/"/>
+    <id>http://alexliang.me/React-Context-API-介紹/</id>
     <published>2018-06-13T14:06:02.000Z</published>
     <updated>2018-06-24T09:16:25.557Z</updated>
     
@@ -56,18 +56,18 @@
     </summary>
     
     
-      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
-      <category term="front-end" scheme="https://kuroro0718.github.io/tags/front-end/"/>
+      <category term="front-end" scheme="http://alexliang.me/tags/front-end/"/>
     
-      <category term="React" scheme="https://kuroro0718.github.io/tags/React/"/>
+      <category term="React" scheme="http://alexliang.me/tags/React/"/>
     
   </entry>
   
   <entry>
     <title>Mongoose Schema 設計:如何讓 array 能被移除</title>
-    <link href="https://kuroro0718.github.io/MongoDB-Schema-%E8%A8%AD%E8%A8%88-%E5%A6%82%E4%BD%95%E8%AE%93-array-%E8%83%BD%E8%A2%AB%E7%A7%BB%E9%99%A4/"/>
-    <id>https://kuroro0718.github.io/MongoDB-Schema-設計-如何讓-array-能被移除/</id>
+    <link href="http://alexliang.me/MongoDB-Schema-%E8%A8%AD%E8%A8%88-%E5%A6%82%E4%BD%95%E8%AE%93-array-%E8%83%BD%E8%A2%AB%E7%A7%BB%E9%99%A4/"/>
+    <id>http://alexliang.me/MongoDB-Schema-設計-如何讓-array-能被移除/</id>
     <published>2018-06-07T23:57:19.000Z</published>
     <updated>2018-06-08T00:22:49.478Z</updated>
     
@@ -84,14 +84,14 @@
     </summary>
     
     
-      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
+      <category term="MongoDB" scheme="http://alexliang.me/tags/MongoDB/"/>
     
   </entry>
   
   <entry>
     <title>Restful API 檢查清單 </title>
-    <link href="https://kuroro0718.github.io/Restful-API-%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE/"/>
-    <id>https://kuroro0718.github.io/Restful-API-檢查清單/</id>
+    <link href="http://alexliang.me/Restful-API-%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE/"/>
+    <id>http://alexliang.me/Restful-API-檢查清單/</id>
     <published>2018-04-09T23:59:04.000Z</published>
     <updated>2018-05-21T14:07:40.418Z</updated>
     
@@ -104,14 +104,14 @@
     </summary>
     
     
-      <category term="backend" scheme="https://kuroro0718.github.io/tags/backend/"/>
+      <category term="backend" scheme="http://alexliang.me/tags/backend/"/>
     
   </entry>
   
   <entry>
     <title>React初探 以Todo app為例 </title>
-    <link href="https://kuroro0718.github.io/React%E5%88%9D%E6%8E%A2-%E4%BB%A5Todo-app%E7%82%BA%E4%BE%8B/"/>
-    <id>https://kuroro0718.github.io/React初探-以Todo-app為例/</id>
+    <link href="http://alexliang.me/React%E5%88%9D%E6%8E%A2-%E4%BB%A5Todo-app%E7%82%BA%E4%BE%8B/"/>
+    <id>http://alexliang.me/React初探-以Todo-app為例/</id>
     <published>2018-04-05T02:17:28.000Z</published>
     <updated>2018-04-05T04:21:56.387Z</updated>
     
@@ -124,18 +124,18 @@
     </summary>
     
     
-      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
-      <category term="front-end" scheme="https://kuroro0718.github.io/tags/front-end/"/>
+      <category term="front-end" scheme="http://alexliang.me/tags/front-end/"/>
     
-      <category term="React" scheme="https://kuroro0718.github.io/tags/React/"/>
+      <category term="React" scheme="http://alexliang.me/tags/React/"/>
     
   </entry>
   
   <entry>
     <title>Koa--使用koa-joi-router驗證API參數及其測試</title>
-    <link href="https://kuroro0718.github.io/Koa-%E4%BD%BF%E7%94%A8koa-joi-router%E9%A9%97%E8%AD%89API%E5%8F%83%E6%95%B8%E5%8F%8A%E5%85%B6%E6%B8%AC%E8%A9%A6/"/>
-    <id>https://kuroro0718.github.io/Koa-使用koa-joi-router驗證API參數及其測試/</id>
+    <link href="http://alexliang.me/Koa-%E4%BD%BF%E7%94%A8koa-joi-router%E9%A9%97%E8%AD%89API%E5%8F%83%E6%95%B8%E5%8F%8A%E5%85%B6%E6%B8%AC%E8%A9%A6/"/>
+    <id>http://alexliang.me/Koa-使用koa-joi-router驗證API參數及其測試/</id>
     <published>2017-07-30T13:17:59.000Z</published>
     <updated>2017-07-31T01:07:31.000Z</updated>
     
@@ -148,16 +148,16 @@
     </summary>
     
     
-      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
     
-      <category term="koa" scheme="https://kuroro0718.github.io/tags/koa/"/>
+      <category term="koa" scheme="http://alexliang.me/tags/koa/"/>
     
   </entry>
   
   <entry>
     <title>使用jschardet偵測網頁編碼</title>
-    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8jschardet%E5%81%B5%E6%B8%AC%E7%B6%B2%E9%A0%81%E7%B7%A8%E7%A2%BC/"/>
-    <id>https://kuroro0718.github.io/使用jschardet偵測網頁編碼/</id>
+    <link href="http://alexliang.me/%E4%BD%BF%E7%94%A8jschardet%E5%81%B5%E6%B8%AC%E7%B6%B2%E9%A0%81%E7%B7%A8%E7%A2%BC/"/>
+    <id>http://alexliang.me/使用jschardet偵測網頁編碼/</id>
     <published>2017-06-26T14:18:09.000Z</published>
     <updated>2017-06-26T14:45:07.000Z</updated>
     
@@ -171,16 +171,16 @@
     </summary>
     
     
-      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
-      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>使用MongoHub執行aggregate數量錯誤問題</title>
-    <link href="https://kuroro0718.github.io/%E4%BD%BF%E7%94%A8MongoHub%E5%9F%B7%E8%A1%8Caggregate%E6%95%B8%E9%87%8F%E9%8C%AF%E8%AA%A4%E5%95%8F%E9%A1%8C/"/>
-    <id>https://kuroro0718.github.io/使用MongoHub執行aggregate數量錯誤問題/</id>
+    <link href="http://alexliang.me/%E4%BD%BF%E7%94%A8MongoHub%E5%9F%B7%E8%A1%8Caggregate%E6%95%B8%E9%87%8F%E9%8C%AF%E8%AA%A4%E5%95%8F%E9%A1%8C/"/>
+    <id>http://alexliang.me/使用MongoHub執行aggregate數量錯誤問題/</id>
     <published>2017-04-10T14:57:35.000Z</published>
     <updated>2017-04-10T15:23:32.000Z</updated>
     
@@ -197,14 +197,14 @@
     </summary>
     
     
-      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
+      <category term="MongoDB" scheme="http://alexliang.me/tags/MongoDB/"/>
     
   </entry>
   
   <entry>
     <title>MongoDB Aggregation介紹</title>
-    <link href="https://kuroro0718.github.io/MongoDB-Aggregation%E4%BB%8B%E7%B4%B9/"/>
-    <id>https://kuroro0718.github.io/MongoDB-Aggregation介紹/</id>
+    <link href="http://alexliang.me/MongoDB-Aggregation%E4%BB%8B%E7%B4%B9/"/>
+    <id>http://alexliang.me/MongoDB-Aggregation介紹/</id>
     <published>2017-02-19T05:10:50.000Z</published>
     <updated>2017-02-19T05:53:14.000Z</updated>
     
@@ -217,14 +217,14 @@
     </summary>
     
     
-      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
+      <category term="MongoDB" scheme="http://alexliang.me/tags/MongoDB/"/>
     
   </entry>
   
   <entry>
     <title>Node.js爬蟲實戰：如何query動態網頁資料</title>
-    <link href="https://kuroro0718.github.io/Node-js%E7%88%AC%E8%9F%B2%E5%AF%A6%E6%88%B0%EF%BC%9A%E5%A6%82%E4%BD%95query%E5%8B%95%E6%85%8B%E7%B6%B2%E9%A0%81%E8%B3%87%E6%96%99/"/>
-    <id>https://kuroro0718.github.io/Node-js爬蟲實戰：如何query動態網頁資料/</id>
+    <link href="http://alexliang.me/Node-js%E7%88%AC%E8%9F%B2%E5%AF%A6%E6%88%B0%EF%BC%9A%E5%A6%82%E4%BD%95query%E5%8B%95%E6%85%8B%E7%B6%B2%E9%A0%81%E8%B3%87%E6%96%99/"/>
+    <id>http://alexliang.me/Node-js爬蟲實戰：如何query動態網頁資料/</id>
     <published>2017-02-05T12:00:49.000Z</published>
     <updated>2017-02-05T13:09:00.000Z</updated>
     
@@ -238,14 +238,14 @@
     </summary>
     
     
-      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>MongoDB初探及CRUD筆記</title>
-    <link href="https://kuroro0718.github.io/MongoDB%E5%88%9D%E6%8E%A2%E5%8F%8ACRUD%E7%AD%86%E8%A8%98/"/>
-    <id>https://kuroro0718.github.io/MongoDB初探及CRUD筆記/</id>
+    <link href="http://alexliang.me/MongoDB%E5%88%9D%E6%8E%A2%E5%8F%8ACRUD%E7%AD%86%E8%A8%98/"/>
+    <id>http://alexliang.me/MongoDB初探及CRUD筆記/</id>
     <published>2017-01-23T13:40:58.000Z</published>
     <updated>2017-02-05T07:08:16.000Z</updated>
     
@@ -258,16 +258,16 @@
     </summary>
     
     
-      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
     
-      <category term="MongoDB" scheme="https://kuroro0718.github.io/tags/MongoDB/"/>
+      <category term="MongoDB" scheme="http://alexliang.me/tags/MongoDB/"/>
     
   </entry>
   
   <entry>
     <title>The Effective Engineer讀書筆記-Optimize for Learning</title>
-    <link href="https://kuroro0718.github.io/The-Effective-Engineer%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98-Optimize-for-Learning/"/>
-    <id>https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Optimize-for-Learning/</id>
+    <link href="http://alexliang.me/The-Effective-Engineer%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98-Optimize-for-Learning/"/>
+    <id>http://alexliang.me/The-Effective-Engineer讀書筆記-Optimize-for-Learning/</id>
     <published>2016-12-13T14:55:04.000Z</published>
     <updated>2016-12-13T14:59:44.000Z</updated>
     
@@ -283,14 +283,14 @@
     </summary>
     
     
-      <category term="讀書筆記" scheme="https://kuroro0718.github.io/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
+      <category term="讀書筆記" scheme="http://alexliang.me/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
   <entry>
     <title>The Effective Engineer讀書筆記-Focus on High-Leverage Activities</title>
-    <link href="https://kuroro0718.github.io/The-Effective-Engineer%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98-Focus-on-High-Leverage-Activities/"/>
-    <id>https://kuroro0718.github.io/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/</id>
+    <link href="http://alexliang.me/The-Effective-Engineer%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98-Focus-on-High-Leverage-Activities/"/>
+    <id>http://alexliang.me/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/</id>
     <published>2016-12-06T13:36:48.000Z</published>
     <updated>2016-12-06T14:05:02.000Z</updated>
     
@@ -304,14 +304,14 @@
     </summary>
     
     
-      <category term="讀書筆記" scheme="https://kuroro0718.github.io/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
+      <category term="讀書筆記" scheme="http://alexliang.me/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
   <entry>
     <title>NodeJS Event Emitter介紹</title>
-    <link href="https://kuroro0718.github.io/NodeJS-Event-Emitter%E4%BB%8B%E7%B4%B9/"/>
-    <id>https://kuroro0718.github.io/NodeJS-Event-Emitter介紹/</id>
+    <link href="http://alexliang.me/NodeJS-Event-Emitter%E4%BB%8B%E7%B4%B9/"/>
+    <id>http://alexliang.me/NodeJS-Event-Emitter介紹/</id>
     <published>2016-12-04T04:54:02.000Z</published>
     <updated>2017-02-05T07:05:40.000Z</updated>
     
@@ -324,16 +324,16 @@
     </summary>
     
     
-      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
-      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>一天搞懂深度學習課後心得</title>
-    <link href="https://kuroro0718.github.io/%E4%B8%80%E5%A4%A9%E6%90%9E%E6%87%82%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E8%AA%B2%E5%BE%8C%E5%BF%83%E5%BE%97/"/>
-    <id>https://kuroro0718.github.io/一天搞懂深度學習課後心得/</id>
+    <link href="http://alexliang.me/%E4%B8%80%E5%A4%A9%E6%90%9E%E6%87%82%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E8%AA%B2%E5%BE%8C%E5%BF%83%E5%BE%97/"/>
+    <id>http://alexliang.me/一天搞懂深度學習課後心得/</id>
     <published>2016-11-27T01:11:58.000Z</published>
     <updated>2016-12-04T04:49:10.000Z</updated>
     
@@ -346,36 +346,36 @@
     </summary>
     
     
-      <category term="演講筆記" scheme="https://kuroro0718.github.io/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/"/>
+      <category term="演講筆記" scheme="http://alexliang.me/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
   <entry>
     <title>NodeJS - 初探Module (2)</title>
-    <link href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-2/"/>
-    <id>https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/</id>
+    <link href="http://alexliang.me/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-2/"/>
+    <id>http://alexliang.me/NodeJS初探-Module-Exports-2/</id>
     <published>2016-11-25T05:12:51.000Z</published>
     <updated>2017-02-05T07:06:06.000Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p><a id="more"></a><h3 id="引入整個資料夾"><a href="#引入整個資料夾" class="headerlink" title="引入整個資料夾"></a>引入整個資料夾</h3><p>我們可以將一個module拆成數個js檔案，利用一個index.js便可將整個資料夾打包給其它檔案使用</p><figure class="highlight javascript"><figcaption><span>payment/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> creditCard = <span class="built_in">require</span>(<span class="string">'credit_card'</span>);</span><br><span class="line"><span class="keyword">var</span> atmTransfer = <span class="built_in">require</span>(<span class="string">'atm'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line">creditCard: creditCard,</span><br><span class="line">atmTransfer: atmTransfer</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">'by credit card");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>payment/atm.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">'by ATM transfer");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="built_in">require</span>(<span class="string">'./payment'</span>);</span><br><span class="line"></span><br><span class="line">payment.creditCard();</span><br><span class="line">payment.atmTransfer();</span><br></pre></td></tr></table></figure><p>上例將payment底下二種不同的付款方式包在index.js檔案給外部使用</p><h3 id="利用json檔將設定包裝起來"><a href="#利用json檔將設定包裝起來" class="headerlink" title="利用json檔將設定包裝起來"></a>利用json檔將設定包裝起來</h3><figure class="highlight javascript"><figcaption><span>currency.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"tw"</span>: <span class="string">"NTD"</span>,</span><br><span class="line"><span class="string">"us"</span>: <span class="string">"USD"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> currency = <span class="built_in">require</span>(<span class="string">'./currency.json'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">' '</span> + currency.us + <span class="string">'by credit card");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure><p>用這個方式可將設定值包裝成json檔，增加source code的可讀性</p><h3 id="原生module"><a href="#原生module" class="headerlink" title="原生module"></a>原生module</h3><p>NodeJS內建許多原生module，這裡是<a href="https://nodejs.org/dist/latest-v6.x/docs/api/" target="_blank" rel="noopener">api ducuments</a>。我們以util為例</p><figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> price = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">var</span> statement = util.format(<span class="string">'The price is %s'</span>, price);</span><br><span class="line">util.log(statement);</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 28 Nov 14:54:32 - The price is 100</span><br></pre></td></tr></table></figure><p>原生module己提供一些方便的功能，遇到問題時上官網查文件說不定己有解決方案</p>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/" target="_blank" rel="noopener">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p><a id="more"></a><h3 id="引入整個資料夾"><a href="#引入整個資料夾" class="headerlink" title="引入整個資料夾"></a>引入整個資料夾</h3><p>我們可以將一個module拆成數個js檔案，利用一個index.js便可將整個資料夾打包給其它檔案使用</p><figure class="highlight javascript"><figcaption><span>payment/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> creditCard = <span class="built_in">require</span>(<span class="string">'credit_card'</span>);</span><br><span class="line"><span class="keyword">var</span> atmTransfer = <span class="built_in">require</span>(<span class="string">'atm'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line">creditCard: creditCard,</span><br><span class="line">atmTransfer: atmTransfer</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">'by credit card");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>payment/atm.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">'by ATM transfer");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="built_in">require</span>(<span class="string">'./payment'</span>);</span><br><span class="line"></span><br><span class="line">payment.creditCard();</span><br><span class="line">payment.atmTransfer();</span><br></pre></td></tr></table></figure><p>上例將payment底下二種不同的付款方式包在index.js檔案給外部使用</p><h3 id="利用json檔將設定包裝起來"><a href="#利用json檔將設定包裝起來" class="headerlink" title="利用json檔將設定包裝起來"></a>利用json檔將設定包裝起來</h3><figure class="highlight javascript"><figcaption><span>currency.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"tw"</span>: <span class="string">"NTD"</span>,</span><br><span class="line"><span class="string">"us"</span>: <span class="string">"USD"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight javascript"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> currency = <span class="built_in">require</span>(<span class="string">'./currency.json'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">' '</span> + currency.us + <span class="string">'by credit card");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure><p>用這個方式可將設定值包裝成json檔，增加source code的可讀性</p><h3 id="原生module"><a href="#原生module" class="headerlink" title="原生module"></a>原生module</h3><p>NodeJS內建許多原生module，這裡是<a href="https://nodejs.org/dist/latest-v6.x/docs/api/" target="_blank" rel="noopener">api ducuments</a>。我們以util為例</p><figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> price = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">var</span> statement = util.format(<span class="string">'The price is %s'</span>, price);</span><br><span class="line">util.log(statement);</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 28 Nov 14:54:32 - The price is 100</span><br></pre></td></tr></table></figure><p>原生module己提供一些方便的功能，遇到問題時上官網查文件說不定己有解決方案</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;a href=&quot;https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/&quot;&gt;上一篇&lt;/a&gt;介紹module.export的使用方式，這一篇介紹它的底層和其它用法&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;上一篇&lt;/a&gt;介紹module.export的使用方式，這一篇介紹它的底層和其它用法&lt;/p&gt;
     
     </summary>
     
     
-      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
-      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>NodeJS - 初探Module (1)</title>
-    <link href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/"/>
-    <id>https://kuroro0718.github.io/NodeJS初探-Module-Exports-1/</id>
+    <link href="http://alexliang.me/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/"/>
+    <id>http://alexliang.me/NodeJS初探-Module-Exports-1/</id>
     <published>2016-11-22T06:13:19.000Z</published>
     <updated>2017-02-05T07:06:19.000Z</updated>
     
@@ -388,16 +388,16 @@
     </summary>
     
     
-      <category term="javascript" scheme="https://kuroro0718.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
-      <category term="Node.js" scheme="https://kuroro0718.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>Retain cycle and capture list in Swift</title>
-    <link href="https://kuroro0718.github.io/Retain-cycle-and-capture-list-in-Swift/"/>
-    <id>https://kuroro0718.github.io/Retain-cycle-and-capture-list-in-Swift/</id>
+    <link href="http://alexliang.me/Retain-cycle-and-capture-list-in-Swift/"/>
+    <id>http://alexliang.me/Retain-cycle-and-capture-list-in-Swift/</id>
     <published>2016-11-14T14:27:27.000Z</published>
     <updated>2016-11-14T14:28:18.000Z</updated>
     
@@ -406,39 +406,39 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+      <category term="ios" scheme="http://alexliang.me/tags/ios/"/>
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+      <category term="swift" scheme="http://alexliang.me/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>寄物便開發週記W3: 完成初版</title>
-    <link href="https://kuroro0718.github.io/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W3-%E5%AE%8C%E6%88%90%E5%88%9D%E7%89%88/"/>
-    <id>https://kuroro0718.github.io/寄物便開發週記W3-完成初版/</id>
+    <link href="http://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W3-%E5%AE%8C%E6%88%90%E5%88%9D%E7%89%88/"/>
+    <id>http://alexliang.me/寄物便開發週記W3-完成初版/</id>
     <published>2016-10-23T13:33:35.000Z</published>
     <updated>2016-10-23T14:21:04.000Z</updated>
     
-    <content type="html"><![CDATA[<p>在<a href="https://kuroro0718.github.io/寄物便開發週記W2-開始動工">上一篇</a>提到開發商家地圖和簡介的部分。</p><p>本週則是完成畫面最複雜的頁面。</p><a id="more"></a><p>依照設計師的初稿，第一個頁面要能讓使用者選擇寄物件數和寄/取物的時間</p><p>我第一版的畫面如下</p><p><img src="first-snapshot.png" alt="first-snapshot"><br>構想是使用者點選件數或時間文字時，會跑出數字picker或date picker</p><p>不囉嗦，先看完成品的操作畫面<br><img src="bagkeeper.gif" alt="Bagkeeper 操作畫面"></p><p>為了讓使用者能以最少的動作完成工作，我們將數字或時間選擇的部分做自動收合</p><p>時間的部分是參考apple內建的行事曆，更改寄物時間時，上方的時間文字和下方的取物時間會跟著變動;連取物時間的picker也有連動。</p><p>整個畫面使用tableview controller完成。使用5個section（包含最下面的送出按鈕），除了最後一個section外，其餘都有2個row，也就是picker的部分。</p><p>預設每個section只顯示一個row。當使用者點選某一個section時，會判斷該section的row number，接著改變其值，便能夠做到收合的效果。</p><p>而date picker的部分，由於寄物時間的picker會影響到其它三個元件。所以這裡使用notification來通知其它元件。</p><p>接下來就是demo day了。這三週比之前上班還累，但也蠻充實的。<br>希望demo day能夠順利介紹寄物便，為這10週畫下美好的句點！</p>]]></content>
+    <content type="html"><![CDATA[<p>在<a href="https://kuroro0718.github.io/寄物便開發週記W2-開始動工" target="_blank" rel="noopener">上一篇</a>提到開發商家地圖和簡介的部分。</p><p>本週則是完成畫面最複雜的頁面。</p><a id="more"></a><p>依照設計師的初稿，第一個頁面要能讓使用者選擇寄物件數和寄/取物的時間</p><p>我第一版的畫面如下</p><p><img src="first-snapshot.png" alt="first-snapshot"><br>構想是使用者點選件數或時間文字時，會跑出數字picker或date picker</p><p>不囉嗦，先看完成品的操作畫面<br><img src="bagkeeper.gif" alt="Bagkeeper 操作畫面"></p><p>為了讓使用者能以最少的動作完成工作，我們將數字或時間選擇的部分做自動收合</p><p>時間的部分是參考apple內建的行事曆，更改寄物時間時，上方的時間文字和下方的取物時間會跟著變動;連取物時間的picker也有連動。</p><p>整個畫面使用tableview controller完成。使用5個section（包含最下面的送出按鈕），除了最後一個section外，其餘都有2個row，也就是picker的部分。</p><p>預設每個section只顯示一個row。當使用者點選某一個section時，會判斷該section的row number，接著改變其值，便能夠做到收合的效果。</p><p>而date picker的部分，由於寄物時間的picker會影響到其它三個元件。所以這裡使用notification來通知其它元件。</p><p>接下來就是demo day了。這三週比之前上班還累，但也蠻充實的。<br>希望demo day能夠順利介紹寄物便，為這10週畫下美好的句點！</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;在&lt;a href=&quot;https://kuroro0718.github.io/寄物便開發週記W2-開始動工&quot;&gt;上一篇&lt;/a&gt;提到開發商家地圖和簡介的部分。&lt;/p&gt;
+      &lt;p&gt;在&lt;a href=&quot;https://kuroro0718.github.io/寄物便開發週記W2-開始動工&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;上一篇&lt;/a&gt;提到開發商家地圖和簡介的部分。&lt;/p&gt;
 &lt;p&gt;本週則是完成畫面最複雜的頁面。&lt;/p&gt;
     
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+      <category term="ios" scheme="http://alexliang.me/tags/ios/"/>
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+      <category term="swift" scheme="http://alexliang.me/tags/swift/"/>
     
   </entry>
   
   <entry>
     <title>寄物便開發週記W2: 開始動工</title>
-    <link href="https://kuroro0718.github.io/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/"/>
-    <id>https://kuroro0718.github.io/寄物便開發週記W2-開始動工/</id>
+    <link href="http://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/"/>
+    <id>http://alexliang.me/寄物便開發週記W2-開始動工/</id>
     <published>2016-10-12T15:44:05.000Z</published>
     <updated>2016-10-13T00:43:30.000Z</updated>
     
@@ -452,9 +452,9 @@
     </summary>
     
     
-      <category term="swift" scheme="https://kuroro0718.github.io/tags/swift/"/>
+      <category term="ios" scheme="http://alexliang.me/tags/ios/"/>
     
-      <category term="ios" scheme="https://kuroro0718.github.io/tags/ios/"/>
+      <category term="swift" scheme="http://alexliang.me/tags/swift/"/>
     
   </entry>
   

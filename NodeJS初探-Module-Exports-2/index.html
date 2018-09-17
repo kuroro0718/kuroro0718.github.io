@@ -9,7 +9,7 @@
 <meta name="keywords" content="javascript,Node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NodeJS - 初探Module (2)">
-<meta property="og:url" content="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/index.html">
+<meta property="og:url" content="http://alexliang.me/NodeJS初探-Module-Exports-2/index.html">
 <meta property="og:site_name" content="Alex Liang">
 <meta property="og:description" content="上一篇介紹module.export的使用方式，這一篇介紹它的底層和其它用法">
 <meta property="og:locale" content="zh-tw">
@@ -120,7 +120,7 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p>
+        <p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/" target="_blank" rel="noopener">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p>
 <a id="more"></a>
 <h3 id="引入整個資料夾"><a href="#引入整個資料夾" class="headerlink" title="引入整個資料夾"></a>引入整個資料夾</h3><p>我們可以將一個module拆成數個js檔案，利用一個index.js便可將整個資料夾打包給其它檔案使用</p>
 <figure class="highlight javascript"><figcaption><span>payment/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> creditCard = <span class="built_in">require</span>(<span class="string">'credit_card'</span>);</span><br><span class="line"><span class="keyword">var</span> atmTransfer = <span class="built_in">require</span>(<span class="string">'atm'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line">	creditCard: creditCard,</span><br><span class="line">	atmTransfer: atmTransfer</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -145,11 +145,11 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/" data-id="cjiuwqtqq0033wsca1s9mqoyx" class="article-share-link">
+      <a data-url="http://alexliang.me/NodeJS初探-Module-Exports-2/" data-id="cjm6b7ve6003pmxp4f79xnwcr" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/NodeJS初探-Module-Exports-2/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
@@ -276,7 +276,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'https://kuroro0718.github.io/NodeJS初探-Module-Exports-2/';
+  var disqus_url = 'http://alexliang.me/NodeJS初探-Module-Exports-2/';
   
   (function(){
     var dsq = document.createElement('script');
