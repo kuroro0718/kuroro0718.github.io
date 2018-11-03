@@ -3,20 +3,20 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>[Ruby筆記] .each v.s. for | Alex Liang</title>
+  <title>JavaScript: Understaning the Weird Parts上課筆記 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="練習Learn Ruby the Hardway時，習題32講到迴圈和陣列。 其中存取陣列時有二種不同的方式：.each和for 這二種方式看起來差不多，但對於程式碼執行結果會讓人有”驚喜”的感覺">
-<meta name="keywords" content="rails">
+  <meta name="description" content="這篇記錄我在Udemy的JS課程上課筆記 (不斷更新)">
+<meta name="keywords" content="javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Ruby筆記] .each v.s. for">
-<meta property="og:url" content="http://alexliang.me/ruby-notes-eachdo-vs-forin/index.html">
+<meta property="og:title" content="JavaScript: Understaning the Weird Parts上課筆記">
+<meta property="og:url" content="http://alexliang.me/JavaScript-Understaning-the-Weird-Parts上課筆記/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="練習Learn Ruby the Hardway時，習題32講到迴圈和陣列。 其中存取陣列時有二種不同的方式：.each和for 這二種方式看起來差不多，但對於程式碼執行結果會讓人有”驚喜”的感覺">
+<meta property="og:description" content="這篇記錄我在Udemy的JS課程上課筆記 (不斷更新)">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:27:03.000Z">
+<meta property="og:updated_time" content="2018-11-03T14:57:14.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Ruby筆記] .each v.s. for">
-<meta name="twitter:description" content="練習Learn Ruby the Hardway時，習題32講到迴圈和陣列。 其中存取陣列時有二種不同的方式：.each和for 這二種方式看起來差不多，但對於程式碼執行結果會讓人有”驚喜”的感覺">
+<meta name="twitter:title" content="JavaScript: Understaning the Weird Parts上課筆記">
+<meta name="twitter:description" content="這篇記錄我在Udemy的JS課程上課筆記 (不斷更新)">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -92,13 +92,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-ruby-notes-eachdo-vs-forin" class="article article-type-post" itemscope="" itemprop="blogPost">
+          <article id="post-JavaScript-Understaning-the-Weird-Parts上課筆記" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [Ruby筆記] .each v.s. for
+      JavaScript: Understaning the Weird Parts上課筆記
     </h1>
   
 
@@ -107,7 +107,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/ruby-notes-eachdo-vs-forin/" class="article-date"><time datetime="2016-03-04T01:22:00.000Z" itemprop="datePublished">2016-03-04</time></a>
+  <a href="/JavaScript-Understaning-the-Weird-Parts上課筆記/" class="article-date"><time datetime="2018-10-28T23:49:03.000Z" itemprop="datePublished">2018-10-29</time></a>
 </div>
 
     
@@ -118,15 +118,39 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>練習Learn Ruby the Hardway時，習題32講到迴圈和陣列。 其中存取陣列時有二種不同的方式：.each和for</p>
-<p>這二種方式看起來差不多，但對於程式碼執行結果會讓人有”驚喜”的感覺</p>
+        <p>這篇記錄我在<a href="https://www.udemy.com/understand-javascript/" target="_blank" rel="noopener">Udemy的JS課程</a>上課筆記 (不斷更新)</p>
 <a id="more"></a>
-<p>二者的差異在於scope，對C/C++或Java等靜態語言來說，在｛｝內或function內的變數只在local有效</p>
-<p>而javascript或ruby對變數的scope則略有不同</p>
-<p>如以下的程式碼，for不會建立新的scope;而each會建立新的scope</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">count = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span> number <span class="keyword">in</span> count</span><br><span class="line">  z = number</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">puts z		<span class="comment"># 5</span></span><br><span class="line">puts number	<span class="comment"># 5</span></span><br><span class="line"></span><br><span class="line">count.each <span class="keyword">do</span> <span class="params">|y|</span></span><br><span class="line"> a = y</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">puts a 		<span class="comment"># undefined local variable</span></span><br><span class="line">puts y		<span class="comment"># undefined local variable</span></span><br></pre></td></tr></table></figure>
-<p>我們在使用each時得小心這個特性，以免造成莫名其妙的bug。</p>
-<p>參考資料：<br><a href="http://stackoverflow.com/questions/5112014/difference-between-each-do-or-for-in-loops-in-rails" target="_blank" rel="noopener">stack overflow討論</a></p>
+<h3 id="call-by-value-amp-call-by-reference"><a href="#call-by-value-amp-call-by-reference" class="headerlink" title="call by value &amp; call by reference"></a>call by value &amp; call by reference</h3><p>在js中，任何基本型別的變數皆為call by value，而object或是函式的參數則是call by reference</p>
+<p>call by value: 當一個變數使用 = 指向另一個變數時，二者在記憶體存放的位址是分開的，也就是說變數b改變了並不會影響變數a</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line">b = <span class="number">4</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>call by reference: 二個物件皆放在同一個記憶體位址，當一個物件改變也會影響到另一個物件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123; <span class="attr">greeting</span>: <span class="string">'Hi'</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> b = a;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// &#123; greeting: 'Hi' &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// &#123; greeting: 'Hi' &#125;</span></span><br><span class="line"></span><br><span class="line">b.greeting = <span class="string">'Hello'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// &#123; greeting: 'Hello' &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// &#123; greeting: 'Hello' &#125;</span></span><br></pre></td></tr></table></figure>
+<p>有了這個觀念之後，之後操作物件或傳參數至function時就要注意會不會動到原來的值。</p>
+<h3 id="object-function-and-this"><a href="#object-function-and-this" class="headerlink" title="object, function and this"></a>object, function and this</h3><p>javascript的this常讓人感到困惑，先看個例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a();</span><br></pre></td></tr></table></figure>
+<p>當呼叫a時會印出window object</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">  name: <span class="string">'Object'</span>,</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.log();</span><br></pre></td></tr></table></figure>
+<p>上面這個例子，this印出來會是b object的內容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">  name: <span class="string">'Object'</span>,</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> setName = <span class="function"><span class="params">newName</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.name = newName;</span><br><span class="line">    &#125;</span><br><span class="line">    setName(<span class="string">'Updated object'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.log();</span><br></pre></td></tr></table></figure>
+<p>這次加入setName函式至log method中，並且該函式會改變this.name，此時結果會如何呢？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object &#123; name: 'Object', log: function &#125;</span><br><span class="line">Object &#123; name: 'Object', log: function &#125;</span><br></pre></td></tr></table></figure>
+<p>setName並沒有改變b object，而是改到window object</p>
+<p>這也是js原始設計的小缺點，如果我們要讓setName改變b object，則需要加個變數:</p>
+<pre><code class="javascript"><span class="keyword">const</span> b = {
+  name: <span class="string">'Object'</span>,
+  log: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+       <span class="keyword">const</span> self = <span class="keyword">this</span>;
+    <span class="built_in">console</span>.log(self);
+
+    <span class="keyword">const</span> setName = <span class="function"><span class="params">newName</span> =&gt;</span> {
+      self.name = newName;
+    }
+    setName(<span class="string">'Updated object'</span>);
+    <span class="built_in">console</span>.log(self);
+  }
+}
+</code></pre>
+<p>透過self指向b的記憶體位址，在setName函式裡即可正確的更動name。</p>
 
       
     </div>
@@ -137,16 +161,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/ruby-notes-eachdo-vs-forin/" data-id="cjo1knhys0010jap4kenpmknk" class="article-share-link">
+      <a data-url="http://alexliang.me/JavaScript-Understaning-the-Weird-Parts上課筆記/" data-id="cjo1kni1x0054jap4dw1b5pvz" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/ruby-notes-eachdo-vs-forin/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/JavaScript-Understaning-the-Weird-Parts上課筆記/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
 
     </footer>
@@ -156,19 +180,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/javascript-notes-hoisting/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/使用shouldComponent提高React效能/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Javascript筆記] Hoisting</span>
+      <span class="article-nav-link-title">使用shouldComponentUpdate提高React效能</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/javascript-notes-object-and-prototype/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Javascript筆記] Object介紹</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -268,7 +285,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'http://alexliang.me/ruby-notes-eachdo-vs-forin/';
+  var disqus_url = 'http://alexliang.me/JavaScript-Understaning-the-Weird-Parts上課筆記/';
   
   (function(){
     var dsq = document.createElement('script');
