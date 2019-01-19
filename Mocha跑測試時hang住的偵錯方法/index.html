@@ -3,16 +3,20 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>about | Alex Liang</title>
+  <title>Mocha跑測試時hang住的偵錯方法 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://alexliang.me/about/index.html">
+  <meta name="description" content="前陣子同事改完API server，local跑完測試沒問題後便推上CI/CD，沒想到mocha跑完測項卻沒正常結束而hang住。 檢查了環境(node版本,package)都沒差異後，另一位同事找到async hooks來偵錯">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mocha跑測試時hang住的偵錯方法">
+<meta property="og:url" content="http://alexliang.me/Mocha跑測試時hang住的偵錯方法/index.html">
 <meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="前陣子同事改完API server，local跑完測試沒問題後便推上CI/CD，沒想到mocha跑完測項卻沒正常結束而hang住。 檢查了環境(node版本,package)都沒差異後，另一位同事找到async hooks來偵錯">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2018-06-25T23:18:20.016Z">
+<meta property="og:updated_time" content="2019-01-19T03:15:15.671Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
+<meta name="twitter:title" content="Mocha跑測試時hang住的偵錯方法">
+<meta name="twitter:description" content="前陣子同事改完API server，local跑完測試沒問題後便推上CI/CD，沒想到mocha跑完測項卻沒正常結束而hang住。 檢查了環境(node版本,package)都沒差異後，另一位同事找到async hooks來偵錯">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -88,13 +92,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+          <article id="post-Mocha跑測試時hang住的偵錯方法" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      about
+      Mocha跑測試時hang住的偵錯方法
     </h1>
   
 
@@ -103,7 +107,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/about/index.html" class="article-date"><time datetime="2018-06-25T23:18:20.000Z" itemprop="datePublished">2018-06-26</time></a>
+  <a href="/Mocha跑測試時hang住的偵錯方法/" class="article-date"><time datetime="2019-01-16T00:29:16.000Z" itemprop="datePublished">2019-01-16</time></a>
 </div>
 
     
@@ -114,7 +118,15 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>前陣子同事改完API server，local跑完測試沒問題後便推上CI/CD，沒想到mocha跑完測項卻沒正常結束而hang住。</p>
+<p>檢查了環境(node版本,package)都沒差異後，另一位同事找到<a href="https://gist.github.com/boneskull/7fe75b63d613fa940db7ec990a5f5843" target="_blank" rel="noopener">async hooks</a>來偵錯</p>
+<a id="more"></a>
+<p>此手法利用<code>async_hooks</code>建立hook監聽非同步事件的生命週期</p>
+<p>在範例中，將async hook抓到的error log放在mocha的<code>after</code> block印出來。可以發現是該程式碼連上server server開始監聽某個port之後卻沒結束連線，造成測試過了卻停住。</p>
+<p>同事遇到的情況也是如此，API service的測試因某些原因造成Kibana的連線沒有結束，導致測試停住。</p>
+<p><code>async_hooks</code>在node 8以後才支援，如果要監聽非同步事件可以參考。</p>
+<p>參考資料: <a href="https://nodejs.org/api/async_hooks.html" target="_blank" rel="noopener">NodeJS Async Hooks官方文件</a></p>
+
       
     </div>
 
@@ -124,20 +136,34 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/about/index.html" data-id="cjr2wf4jp000477p4s90ekktf" class="article-share-link">
+      <a data-url="http://alexliang.me/Mocha跑測試時hang住的偵錯方法/" data-id="cjr2wf4mc004577p4pi6xhqpt" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/about/index.html#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/Mocha跑測試時hang住的偵錯方法/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
 
     </footer>
   </div>
   
     
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/JavaScript-Understaning-the-Weird-Parts上課筆記/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">JavaScript: Understaning the Weird Parts上課筆記</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
 
   
 </article>
@@ -234,7 +260,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'http://alexliang.me/about/index.html';
+  var disqus_url = 'http://alexliang.me/Mocha跑測試時hang住的偵錯方法/';
   
   (function(){
     var dsq = document.createElement('script');
