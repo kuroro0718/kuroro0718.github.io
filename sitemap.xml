@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://alexliang.me/%E4%BD%BF%E7%94%A8ELK%E7%9B%A3%E6%8E%A7MongoDB%E6%95%88%E8%83%BD/</loc>
+    <loc>http://alexliang.me/%E4%BD%BF%E7%94%A8ELK%E7%9B%A3%E6%8E%A7MongoDB-service-%E4%B8%8B/</loc>
     
-    <lastmod>2019-01-30T07:27:25.002Z</lastmod>
+    <lastmod>2019-02-01T12:23:01.732Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alexliang.me/%E4%BD%BF%E7%94%A8ELK-Metricbeat%E6%94%B6%E9%9B%86MongoDB-Log/</loc>
+    
+    <lastmod>2019-02-01T10:46:08.318Z</lastmod>
     
   </url>
   
