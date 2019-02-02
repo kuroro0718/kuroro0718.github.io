@@ -6,7 +6,7 @@
   <title>使用ELK監控MongoDB service | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="上一篇提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。">
-<meta name="keywords" content="mongodb,ELK,devops">
+<meta name="keywords" content="ELK,mongodb,devops">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用ELK監控MongoDB service">
 <meta property="og:url" content="http://alexliang.me/使用ELK監控MongoDB-service-下/index.html">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service-下/action.png">
 <meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service-下/system_total.png">
 <meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service-下/advanced_watcher.png">
-<meta property="og:updated_time" content="2019-02-01T12:23:01.732Z">
+<meta property="og:updated_time" content="2019-02-02T00:25:11.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用ELK監控MongoDB service">
 <meta name="twitter:description" content="上一篇提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。">
@@ -145,7 +145,7 @@ ga('send', 'pageview');
 <p><img src="watcher_wizard.png" alt="watcher_wizard"></p>
 <p>設定完可以看到下方出現折線圖</p>
 <p><img src="chart.png" alt="chart"></p>
-<p>這裡就看你需要針對哪個指標做監控，可以設定觸發條件。</p>
+<p>可以針對內建指標做監控並設定觸發條件。</p>
 <p>接下來是設定通知的動作，這裡以email為例，可設定寄件人(也就是在<code>kibana.yml</code>設定的user email)和收件人及訊息內容</p>
 <p><img src="action.png" alt="action"></p>
 <h2 id="設定特殊條件的Watcher"><a href="#設定特殊條件的Watcher" class="headerlink" title="設定特殊條件的Watcher"></a>設定特殊條件的Watcher</h2><p>當你要監控的指標需要自行計算時(如磯碟己用空間的百分比，該數值在dashboard是由磁碟空間和己用空間計算出來)便需要自行修改query語法</p>
@@ -166,7 +166,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/使用ELK監控MongoDB-service-下/" data-id="cjrk5yb5o004e01p410vwtohy" class="article-share-link">
+      <a data-url="http://alexliang.me/使用ELK監控MongoDB-service-下/" data-id="cjrmqlf2f004bbnp44p9h4uct" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
