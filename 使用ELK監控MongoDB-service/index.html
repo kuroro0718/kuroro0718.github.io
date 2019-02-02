@@ -3,16 +3,28 @@
 <head>
   <meta charset="utf-8">
   
-  <title>about | Alex Liang</title>
+  <title>使用ELK監控MongoDB service | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://alexliang.me/about/index-2.html">
+  <meta name="description" content="上一篇提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。">
+<meta name="keywords" content="ELK,mongodb,devops">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用ELK監控MongoDB service">
+<meta property="og:url" content="http://alexliang.me/使用ELK監控MongoDB-service/index.html">
 <meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="上一篇提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2018-06-25T23:25:23.849Z">
+<meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service/sentinl.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service/sentinl_setting.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service/watcher_wizard.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service/chart.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service/action.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service/system_total.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK監控MongoDB-service/advanced_watcher.png">
+<meta property="og:updated_time" content="2019-02-02T00:25:11.593Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
+<meta name="twitter:title" content="使用ELK監控MongoDB service">
+<meta name="twitter:description" content="上一篇提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。">
+<meta name="twitter:image" content="http://alexliang.me/使用ELK監控MongoDB-service/sentinl.png">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -90,13 +102,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+          <article id="post-使用ELK監控MongoDB-service" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      about
+      使用ELK監控MongoDB service
     </h1>
   
 
@@ -105,7 +117,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/about/index-2.html" class="article-date"><time datetime="2018-06-25T23:25:23.000Z" itemprop="datePublished">2018-06-26</time></a>
+  <a href="/使用ELK監控MongoDB-service/" class="article-date"><time datetime="2019-01-31T03:26:14.000Z" itemprop="datePublished">2019-01-31</time></a>
 </div>
 
     
@@ -116,7 +128,35 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p><a href="https://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log">上一篇</a>提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。</p>
+<a id="more"></a>
+<h2 id="安裝SENTINL-Plugin"><a href="#安裝SENTINL-Plugin" class="headerlink" title="安裝SENTINL Plugin"></a>安裝SENTINL Plugin</h2><p>Kibana需要安裝<a href="https://sentinl.readthedocs.io/en/latest/" target="_blank" rel="noopener">SENTINL</a>這套plugin才能加上watcher的功能</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -d docker-elk_kibana_1 ./bin/kibana-plugin install https://github.com/sirensolutions/sentinl/releases/download/tag-6.5.0-0/sentinl-v6.5.4.zip</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart docker-elk_kibana_1</span><br></pre></td></tr></table></figure>
+<p>SENTINL的版本建議和ELK一致，<a href="https://github.com/sirensolutions/sentinl/releases" target="_blank" rel="noopener">這裡</a>可以找到所有版本的release</p>
+<h2 id="設定SENTINL"><a href="#設定SENTINL" class="headerlink" title="設定SENTINL"></a>設定SENTINL</h2><p>為了讓事件發生時能發出通知，需要設定如email、slack等平台的存取權限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">## Default Kibana configuration from kibana-docker.</span><br><span class="line">## from https://github.com/elastic/kibana-docker/blob/master/build/kibana/config/kibana.yml</span><br><span class="line">#</span><br><span class="line">server.name: kibana</span><br><span class="line">server.host: &quot;0&quot;</span><br><span class="line">elasticsearch.url: elasticsearch:9200</span><br><span class="line">sentinl:</span><br><span class="line">  settings:</span><br><span class="line">    email:</span><br><span class="line">      active: true</span><br><span class="line">      host: &quot;smtp.gmail.com&quot;</span><br><span class="line">      user: &quot;user@gmail.com&quot;</span><br><span class="line">      port: 587</span><br><span class="line">      password: password</span><br><span class="line">      tls: true</span><br><span class="line">      timeout: 20000  # mail server connection timeout</span><br><span class="line">    slack:</span><br><span class="line">      active: true</span><br><span class="line">      token: [your token]</span><br></pre></td></tr></table></figure>
+<p>這裡以GMAIL和slack做為通知平台，<a href="https://sentinl.readthedocs.io/en/latest/Config-Example/#kibana-config-for-sentinl-v6" target="_blank" rel="noopener">官網</a>有其它範例。</p>
+<p>設定完再重啓kibana，連上管理介面應該能看到左側多了SENTINL的欄位如下:</p>
+<p><img src="sentinl.png" alt="sentinl"></p>
+<h2 id="設定Watcher"><a href="#設定Watcher" class="headerlink" title="設定Watcher"></a>設定Watcher</h2><p>進入SENTINL的頁面，在右上角點選<code>New</code>新增watcher</p>
+<p><img src="sentinl_setting.png" alt="sentinl_setting"></p>
+<p>使用watcher wizard設定watcher的名稱和使用的index</p>
+<p><img src="watcher_wizard.png" alt="watcher_wizard"></p>
+<p>設定完可以看到下方出現折線圖</p>
+<p><img src="chart.png" alt="chart"></p>
+<p>可以針對內建指標做監控並設定觸發條件。</p>
+<p>接下來是設定通知的動作，這裡以email為例，可設定寄件人(也就是在<code>kibana.yml</code>設定的user email)和收件人及訊息內容</p>
+<p><img src="action.png" alt="action"></p>
+<h2 id="設定特殊條件的Watcher"><a href="#設定特殊條件的Watcher" class="headerlink" title="設定特殊條件的Watcher"></a>設定特殊條件的Watcher</h2><p>當你要監控的指標需要自行計算時(如磯碟己用空間的百分比，該數值在dashboard是由磁碟空間和己用空間計算出來)便需要自行修改query語法</p>
+<p>我們使用wizard新增watcher，<strong>WHEN</strong>選擇max，此時可看到<strong>AGG</strong>多了一個field，選擇<code>system.ffstat.total_size.total</code></p>
+<p><img src="system_total.png" alt="system_total"></p>
+<p>點選<strong>Watcher Query</strong>，然後conver to advanced，開始修改query條件。此時畫面會回到watcher清單，再點選剛才建立的watcher，會發現看到類似DSL語法的畫面</p>
+<p>在<code>metricAgg</code>下可看到剛才設定的<code>system.ffstat.total_size.total</code>。我們新增一項指標並修改<code>condition</code>的script在磁碟空間己用80%時發通知</p>
+<p><img src="advanced_watcher.png" alt="advanced_watcher"></p>
+<p>修改後別忘了儲存，可以回到watcher清單列表，在<strong>Alarms</strong>可以看到通知有無正確的發出。</p>
+<p>這個機制可用在其它後端服務上，對於管理機器是個方便的工具。</p>
+
       
     </div>
 
@@ -126,20 +166,34 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/about/index-2.html" data-id="cjrmumd3q000u2lp4sf09ibr7" class="article-share-link">
+      <a data-url="http://alexliang.me/使用ELK監控MongoDB-service/" data-id="cjrmumd6y004v2lp4pkmbdb8x" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/about/index-2.html#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/使用ELK監控MongoDB-service/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELK/">ELK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devops/">devops</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li></ul>
+
 
     </footer>
   </div>
   
     
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/使用ELK-Metricbeat收集MongoDB-Log/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">使用ELK + Metricbeat收集MongoDB Log</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
 
   
 </article>
@@ -236,7 +290,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'http://alexliang.me/about/index-2.html';
+  var disqus_url = 'http://alexliang.me/使用ELK監控MongoDB-service/';
   
   (function(){
     var dsq = document.createElement('script');
