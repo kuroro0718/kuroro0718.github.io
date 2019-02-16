@@ -9,17 +9,18 @@
 <meta name="keywords" content="mongodb,elk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用ELK + Metricbeat收集MongoDB Log">
-<meta property="og:url" content="http://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log/index.html">
+<meta property="og:url" content="http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/index.html">
 <meta property="og:site_name" content="Alex Liang">
 <meta property="og:description" content="最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="http://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log/mongodb.png">
-<meta property="og:image" content="http://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log/system.png">
-<meta property="og:updated_time" content="2019-02-01T10:46:08.318Z">
+<meta property="og:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/sentinl.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/mongodb.png">
+<meta property="og:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/system.png">
+<meta property="og:updated_time" content="2019-02-16T09:52:08.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用ELK + Metricbeat收集MongoDB Log">
 <meta name="twitter:description" content="最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。">
-<meta name="twitter:image" content="http://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log/mongodb.png">
+<meta name="twitter:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/sentinl.png">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -97,7 +98,7 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-使用ELK-Metricbeat收集MongoDB-Log" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-使用ELK + Metricbeat收集MongoDB Log" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
@@ -112,7 +113,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/使用ELK-Metricbeat收集MongoDB-Log/" class="article-date"><time datetime="2019-01-26T08:14:12.000Z" itemprop="datePublished">2019-01-26</time></a>
+  <a href="/使用ELK + Metricbeat收集MongoDB Log/" class="article-date"><time datetime="2019-01-26T08:14:12.000Z" itemprop="datePublished">2019-01-26</time></a>
 </div>
 
     
@@ -126,12 +127,21 @@ ga('send', 'pageview');
         <p>最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。<br><a id="more"></a></p>
 <h2 id="安裝ELK"><a href="#安裝ELK" class="headerlink" title="安裝ELK"></a>安裝ELK</h2><p>我們使用<a href="https://github.com/deviantony/docker-elk" target="_blank" rel="noopener">docker-elk</a>安裝ELK stack</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:deviantony/docker-elk.git</span><br></pre></td></tr></table></figure>
+<h2 id="安裝SENTINL-Plugin"><a href="#安裝SENTINL-Plugin" class="headerlink" title="安裝SENTINL Plugin"></a>安裝SENTINL Plugin</h2><p>Kibana需要安裝<a href="https://sentinl.readthedocs.io/en/latest/" target="_blank" rel="noopener">SENTINL</a>這套plugin才能加上watcher的功能</p>
+<p>修改kibana資料夾的Dockerfile，讓docker-compose在build的時候能安裝plugin</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARG</span> ELK_VERSION</span><br><span class="line"></span><br><span class="line"><span class="comment"># https://github.com/elastic/kibana-docker</span></span><br><span class="line"><span class="keyword">FROM</span> docker.elastic.co/kibana/kibana-oss:$&#123;ELK_VERSION&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add your kibana plugins setup here</span></span><br><span class="line"><span class="comment"># Example: RUN kibana-plugin install &lt;name|url&gt;</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> kibana-plugin install https://github.com/sirensolutions/sentinl/releases/download/tag-6.5.0-0/sentinl-v6.5.4.zip</span></span><br></pre></td></tr></table></figure>
+<p>SENTINL的版本建議和ELK一致，<a href="https://github.com/sirensolutions/sentinl/releases" target="_blank" rel="noopener">這裡</a>可以找到所有版本的release</p>
+<h2 id="設定SENTINL"><a href="#設定SENTINL" class="headerlink" title="設定SENTINL"></a>設定SENTINL</h2><p>為了讓事件發生時能發出通知，需要設定如email、slack等平台的存取權限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">## Default Kibana configuration from kibana-docker.</span><br><span class="line">## from https://github.com/elastic/kibana-docker/blob/master/build/kibana/config/kibana.yml</span><br><span class="line">#</span><br><span class="line">server.name: kibana</span><br><span class="line">server.host: &quot;0&quot;</span><br><span class="line">elasticsearch.url: elasticsearch:9200</span><br><span class="line">sentinl:</span><br><span class="line">  settings:</span><br><span class="line">    email:</span><br><span class="line">      active: true</span><br><span class="line">      host: &quot;smtp.gmail.com&quot;</span><br><span class="line">      user: &quot;user@gmail.com&quot;</span><br><span class="line">      port: 587</span><br><span class="line">      password: password</span><br><span class="line">      tls: true</span><br><span class="line">      timeout: 20000  # mail server connection timeout</span><br><span class="line">    slack:</span><br><span class="line">      active: true</span><br><span class="line">      token: [your token]</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build</span><br><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
+<p>這裡以GMAIL和slack做為通知平台，<a href="https://sentinl.readthedocs.io/en/latest/Config-Example/#kibana-config-for-sentinl-v6" target="_blank" rel="noopener">官網</a>有其它範例。</p>
+<p>連上管理介面應該能看到左側多了SENTINL的欄位如下:</p>
+<p><img src="sentinl.png" alt="sentinl"></p>
 <h2 id="使用Metricbeat收集log"><a href="#使用Metricbeat收集log" class="headerlink" title="使用Metricbeat收集log"></a>使用Metricbeat收集log</h2><p><a href="https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html" target="_blank" rel="noopener">Metricbeat</a>用來收集後端服務的log，舉凡MongoDB, Apache, Docker和Kubernetes都有相關的模組可以使用</p>
 <ul>
 <li>安裝Metricbeat，一樣使用docker image</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">docker stop metricbeat</span><br><span class="line">docker rm -v metricbeat</span><br><span class="line">docker run -d \</span><br><span class="line">  --name=metricbeat \</span><br><span class="line">  --volume=&quot;$(pwd)/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro&quot; \</span><br><span class="line">  --volume=&quot;/var/run/docker.sock:/var/run/docker.sock:ro&quot; \</span><br><span class="line">  --volume=&quot;/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro&quot; \</span><br><span class="line">  --volume=&quot;/proc:/hostfs/proc:ro&quot; \</span><br><span class="line">  --volume=&quot;/:/hostfs:ro&quot; \</span><br><span class="line">  docker.elastic.co/beats/metricbeat:6.5.4 metricbeat -e -c metricbeat.yml</span><br><span class="line">docker exec -d metricbeat metricbeat setup</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">docker stop metricbeat</span><br><span class="line">docker rm -v metricbeat</span><br><span class="line">docker run -d \</span><br><span class="line">  --name=metricbeat \</span><br><span class="line">  --hostname=</span><br><span class="line">  --volume=&quot;$(pwd)/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro&quot; \</span><br><span class="line">  --volume=&quot;/var/run/docker.sock:/var/run/docker.sock:ro&quot; \</span><br><span class="line">  --volume=&quot;/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro&quot; \</span><br><span class="line">  --volume=&quot;/proc:/hostfs/proc:ro&quot; \</span><br><span class="line">  --volume=&quot;/:/hostfs:ro&quot; \</span><br><span class="line">  docker.elastic.co/beats/metricbeat:6.5.4 metricbeat -e -c metricbeat.yml</span><br><span class="line">docker exec -d metricbeat metricbeat setup</span><br></pre></td></tr></table></figure>
 <ul>
 <li>修改metricbeat config<br>進入docker image環境，根目錄有<code>metricbeat.reference.yml</code>和<code>metricbeat.yml</code>二個檔案，前者為各種服務的設定參考；後者為乾淨的設定檔。我們在<code>metricbeat.yml</code>加入mongodb和system的設定(你也可以自訂檔名)</li>
 </ul>
@@ -159,11 +169,11 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log/" data-id="cjrmumd70004x2lp4gbrlcbcq" class="article-share-link">
+      <a data-url="http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/" data-id="cjs7b1x5n0000ijp43idojoej" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
@@ -254,7 +264,7 @@ ga('send', 'pageview');
         </li>
       
         <li>
-          <a href="/使用ELK-Metricbeat收集MongoDB-Log/">使用ELK + Metricbeat收集MongoDB Log</a>
+          <a href="/使用ELK + Metricbeat收集MongoDB Log/">使用ELK + Metricbeat收集MongoDB Log</a>
         </li>
       
         <li>
@@ -290,7 +300,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'http://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log/';
+  var disqus_url = 'http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/';
   
   (function(){
     var dsq = document.createElement('script');
