@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Alex Liang</title>
   
-  <subtitle>在新創公司擔任全端工程師，記錄我的學習歷程</subtitle>
+  <subtitle>在新創公司擔任軟體工程師，記錄我的學習歷程</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://alexliang.me/"/>
