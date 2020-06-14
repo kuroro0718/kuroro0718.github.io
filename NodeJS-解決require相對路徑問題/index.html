@@ -3,20 +3,20 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>[Javascript筆記] Hoisting | Alex Liang</title>
+  <title>NodeJS 解決require相對路徑問題 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。">
-<meta name="keywords" content="javascript">
+  <meta name="description" content="Node.JS目前有二種方式載入module: CommonJS(也就是本文會介紹的方式)及ES6的import/export。 CommonJS是預設的module載入方式，其使用方式為 require &amp;amp; module.exports funcA.js12345function funcA() &amp;#123;  // ...&amp;#125;module.exports = funcA; in">
+<meta name="keywords" content="Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Javascript筆記] Hoisting">
-<meta property="og:url" content="http://alexliang.me/javascript-notes-hoisting/index.html">
+<meta property="og:title" content="NodeJS 解決require相對路徑問題">
+<meta property="og:url" content="http://alexliang.me/NodeJS-解決require相對路徑問題/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。">
+<meta property="og:description" content="Node.JS目前有二種方式載入module: CommonJS(也就是本文會介紹的方式)及ES6的import/export。 CommonJS是預設的module載入方式，其使用方式為 require &amp;amp; module.exports funcA.js12345function funcA() &amp;#123;  // ...&amp;#125;module.exports = funcA; in">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:26:54.000Z">
+<meta property="og:updated_time" content="2020-06-14T12:57:28.956Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Javascript筆記] Hoisting">
-<meta name="twitter:description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。">
+<meta name="twitter:title" content="NodeJS 解決require相對路徑問題">
+<meta name="twitter:description" content="Node.JS目前有二種方式載入module: CommonJS(也就是本文會介紹的方式)及ES6的import/export。 CommonJS是預設的module載入方式，其使用方式為 require &amp;amp; module.exports funcA.js12345function funcA() &amp;#123;  // ...&amp;#125;module.exports = funcA; in">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -92,13 +92,13 @@ ga('send', 'pageview');
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-javascript-notes-hoisting" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-NodeJS-解決require相對路徑問題" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      [Javascript筆記] Hoisting
+      NodeJS 解決require相對路徑問題
     </h1>
   
 
@@ -107,7 +107,7 @@ ga('send', 'pageview');
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/javascript-notes-hoisting/" class="article-date"><time datetime="2016-03-03T18:30:00.000Z" itemprop="datePublished">2016-03-04</time></a>
+  <a href="/NodeJS-解決require相對路徑問題/" class="article-date"><time datetime="2020-06-14T11:35:02.000Z" itemprop="datePublished">2020-06-14</time></a>
 </div>
 
     
@@ -118,16 +118,24 @@ ga('send', 'pageview');
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。</p>
+        <p>Node.JS目前有二種方式載入module: CommonJS(也就是本文會介紹的方式)及<a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/import" target="_blank" rel="noopener">ES6的import/export</a>。</p>
+<p>CommonJS是預設的module載入方式，其使用方式為 require &amp; module.exports</p>
+<figure class="highlight javascript"><figcaption><span>funcA.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = funcA;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> funcA = <span class="built_in">require</span>(<span class="string">'funcA'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  funcA();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相信大家對此都不陌生，然而此方法最大的問題是module如果是專案的source file，其require的路徑為相對路徑。假如專案結構有許多階層，在使用上會相當不便</p>
 <a id="more"></a>
-<p>以下的範例會印出10</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
-<p>實際上javascript interpreter會將x的宣告移到上方，也就是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x ＝ <span class="literal">undefined</span>;</span><br><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure></p>
-<p>hositing也會影響function expression的執行，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	foo();	<span class="comment">// 錯誤</span></span><br><span class="line">  bar();</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">"foo"</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">"bar"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>這段程式碼對javascript來說是長這樣：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="literal">undefined</span>;</span><br><span class="line">  foo();		<span class="comment">// 此時foo為一undefined的變數</span></span><br><span class="line">  foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">"foo"</span>);  </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Javascript雖然語法上是c-like，但在作用域（scope)的觀念有差別，這也會影響程式執行結果。</p>
-<p>參考資料：<br><a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank" rel="noopener">Javascript Scoping and Hoisting</a><br><a href="http://www.w3schools.com/js/js_hoisting.asp" target="_blank" rel="noopener">Hoisting基本解說</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">|- src</span><br><span class="line">|--utils</span><br><span class="line">|---moduleA.js</span><br><span class="line">|--routes</span><br><span class="line">|---v1</span><br><span class="line">|----admin</span><br><span class="line">|-----singIn.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// singIn.js</span></span><br><span class="line"><span class="keyword">const</span> moduleA = <span class="built_in">require</span>(<span class="string">'../../../utils/moduleA'</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>今天介紹在npm script使用symlink解決此問題</p>
+<p>在package.json 加入 <code>&quot;postinstall&quot; : &quot;node -e \&quot;var s=&#39;../src&#39;,d=&#39;node_modules/src&#39;,fs=require(&#39;fs&#39;);fs.exists(d,function(e){e||fs.symlinkSync(s,d,&#39;dir&#39;)});\&quot;&quot;</code>並且 npm install</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// singIn.js</span></span><br><span class="line"><span class="keyword">const</span> moduleA = <span class="built_in">require</span>(<span class="string">'src/utils/moduleA'</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>是不是好看很多？</p>
+<p>此方法建立一個symlink連結到專案的source folder，讓CommonJS在node_module下找到要載入的module</p>
+<p>但是這樣設定有另一個副作用，如果專案有裝eslint的話，它會跳出<a href="https://github.com/benmosher/eslint-plugin-import/blob/v2.21.2/docs/rules/no-extraneous-dependencies.md" target="_blank" rel="noopener">import/no-extraneous-dependencies</a>的錯誤。eslint預設禁止載入不在package.json的dependencies, devDependencies,  optionalDependencies, peerDependencies或bundledDependencies的模組</p>
+<p>如果想忽略此警告，在.eslintrc加上 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&quot;rules&quot;: &#123;</span><br><span class="line">    &quot;import/no-extraneous-dependencies&quot;: [0]</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>以上是修正require不能使用絕對路徑的問題，如果覺得此方式太hack，下一篇介紹import/export來載入module</p>
+<p>參考資料: <a href="https://gist.github.com/branneman/8048520#3-the-module" target="_blank" rel="noopener">Better local require() paths for Node.js</a></p>
 
       
     </div>
@@ -138,16 +146,16 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/javascript-notes-hoisting/" data-id="ckbf2ql1e000hrxp476wtvzli" class="article-share-link">
+      <a data-url="http://alexliang.me/NodeJS-解決require相對路徑問題/" data-id="ckbf2ql3r004hrxp4ve5jrtsb" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/javascript-notes-hoisting/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/NodeJS-解決require相對路徑問題/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
 
 
     </footer>
@@ -157,19 +165,12 @@ ga('send', 'pageview');
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/javascript-anonymous-function/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/使用ELK監控MongoDB-service/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Javascript筆記] Anonymous Function</span>
+      <span class="article-nav-link-title">使用ELK監控MongoDB service</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/ruby-notes-eachdo-vs-forin/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Ruby筆記] .each v.s. for</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -269,7 +270,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'alexsplayground';
   
-  var disqus_url = 'http://alexliang.me/javascript-notes-hoisting/';
+  var disqus_url = 'http://alexliang.me/NodeJS-解決require相對路徑問題/';
   
   (function(){
     var dsq = document.createElement('script');
