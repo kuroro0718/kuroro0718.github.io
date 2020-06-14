@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>NodeJS - 初探Module (2) | Alex Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上一篇介紹module.export的使用方式，這一篇介紹它的底層和其它用法">
+<meta name="keywords" content="javascript,Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJS - 初探Module (2)">
+<meta property="og:url" content="http://alexliang.me/NodeJS初探-Module-Exports-2/index.html">
+<meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="上一篇介紹module.export的使用方式，這一篇介紹它的底層和其它用法">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2017-02-05T07:06:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NodeJS - 初探Module (2)">
+<meta name="twitter:description" content="上一篇介紹module.export的使用方式，這一篇介紹它的底層和其它用法">
+  
+    <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-81216364-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class href="/index.html">Home</a></li>
+        
+          <li><a class href="/archives/">Archives</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">Alex Liang</h1>
+  
+    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-NodeJS初探-Module-Exports-2" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      NodeJS - 初探Module (2)
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/NodeJS初探-Module-Exports-2/" class="article-date"><time datetime="2016-11-25T05:12:51.000Z" itemprop="datePublished">2016-11-25</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://kuroro0718.github.io/NodeJS%E5%88%9D%E6%8E%A2-Module-Exports-1/" target="_blank" rel="noopener">上一篇</a>介紹module.export的使用方式，這一篇介紹它的底層和其它用法</p>
+<a id="more"></a>
+<h3 id="引入整個資料夾"><a href="#引入整個資料夾" class="headerlink" title="引入整個資料夾"></a>引入整個資料夾</h3><p>我們可以將一個module拆成數個js檔案，利用一個index.js便可將整個資料夾打包給其它檔案使用</p>
+<figure class="highlight javascript"><figcaption><span>payment/index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> creditCard = <span class="built_in">require</span>(<span class="string">'credit_card'</span>);</span><br><span class="line"><span class="keyword">var</span> atmTransfer = <span class="built_in">require</span>(<span class="string">'atm'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.export = &#123;</span><br><span class="line">	creditCard: creditCard,</span><br><span class="line">	atmTransfer: atmTransfer</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line"> 	<span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">'by credit card");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>payment/atm.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">'by ATM transfer");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> payment = <span class="built_in">require</span>(<span class="string">'./payment'</span>);</span><br><span class="line"></span><br><span class="line">payment.creditCard();</span><br><span class="line">payment.atmTransfer();</span><br></pre></td></tr></table></figure>
+<p>上例將payment底下二種不同的付款方式包在index.js檔案給外部使用</p>
+<h3 id="利用json檔將設定包裝起來"><a href="#利用json檔將設定包裝起來" class="headerlink" title="利用json檔將設定包裝起來"></a>利用json檔將設定包裝起來</h3><figure class="highlight javascript"><figcaption><span>currency.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"tw"</span>: <span class="string">"NTD"</span>,</span><br><span class="line">	<span class="string">"us"</span>: <span class="string">"USD"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>payment/credit_card.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> currency = <span class="built_in">require</span>(<span class="string">'./currency.json'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> payment = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'Pay $'</span> + price + <span class="string">' '</span> + currency.us + <span class="string">'by credit card");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">module.export = payment;</span></span><br></pre></td></tr></table></figure>
+<p>用這個方式可將設定值包裝成json檔，增加source code的可讀性</p>
+<h3 id="原生module"><a href="#原生module" class="headerlink" title="原生module"></a>原生module</h3><p>NodeJS內建許多原生module，這裡是<a href="https://nodejs.org/dist/latest-v6.x/docs/api/" target="_blank" rel="noopener">api ducuments</a>。我們以util為例</p>
+<figure class="highlight javascript"><figcaption><span>app.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> price = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">var</span> statement = util.format(<span class="string">'The price is %s'</span>, price);</span><br><span class="line">util.log(statement);</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 28 Nov 14:54:32 - The price is 100</span><br></pre></td></tr></table></figure>
+<p>原生module己提供一些方便的功能，遇到問題時上官網查文件說不定己有解決方案</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="http://alexliang.me/NodeJS初探-Module-Exports-2/" data-id="ckbf2ql2u0033rxp40awjawfg" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/NodeJS初探-Module-Exports-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">NodeJS - 初探Module (1)</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/一天搞懂深度學習課後心得/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">一天搞懂深度學習課後心得</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section class="comments" id="comments">
+  <h2>留言版</h2>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+
+<span class="comments-count">
+  <span class="post-meta-item-icon">
+    <i class="fas fa-comment"></i>
+  </span>
+  <a href="http://alexliang.me/NodeJS初探-Module-Exports-2/#disqus_thread" class="article-comment-count" data-disqus-identifier="NodeJS初探-Module-Exports-2/" itemprop="discussionUrl">
+  </a>
+</span>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  <h4>About</h4>
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href="mailto:alex.ycliang@gmail.com">連絡我</a></p>
+  
+</div>
+
+
+  
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 15.56px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/ios/" style="font-size: 16.67px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 11.11px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/06/">六月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/06/">六月 2018</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/04/">四月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/NodeJS-解決require相對路徑問題/">NodeJS 解決require相對路徑問題</a>
+        </li>
+      
+        <li>
+          <a href="/使用ELK監控MongoDB-service/">使用ELK監控MongoDB service</a>
+        </li>
+      
+        <li>
+          <a href="/使用ELK + Metricbeat收集MongoDB Log/">使用ELK + Metricbeat收集MongoDB Log</a>
+        </li>
+      
+        <li>
+          <a href="/Mocha跑測試時hang住的偵錯方法/">Mocha跑測試時hang住的偵錯方法</a>
+        </li>
+      
+        <li>
+          <a href="/JavaScript-Understaning-the-Weird-Parts上課筆記/">JavaScript: Understaning the Weird Parts上課筆記</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Alex Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

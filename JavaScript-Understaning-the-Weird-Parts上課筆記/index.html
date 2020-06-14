@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>JavaScript: Understaning the Weird Parts上課筆記 | Alex Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="這篇記錄我在Udemy的JS課程上課筆記 (不斷更新)">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript: Understaning the Weird Parts上課筆記">
+<meta property="og:url" content="http://alexliang.me/JavaScript-Understaning-the-Weird-Parts上課筆記/index.html">
+<meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="這篇記錄我在Udemy的JS課程上課筆記 (不斷更新)">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2018-11-24T09:52:02.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript: Understaning the Weird Parts上課筆記">
+<meta name="twitter:description" content="這篇記錄我在Udemy的JS課程上課筆記 (不斷更新)">
+  
+    <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-81216364-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class href="/index.html">Home</a></li>
+        
+          <li><a class href="/archives/">Archives</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">Alex Liang</h1>
+  
+    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-JavaScript-Understaning-the-Weird-Parts上課筆記" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript: Understaning the Weird Parts上課筆記
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/JavaScript-Understaning-the-Weird-Parts上課筆記/" class="article-date"><time datetime="2018-10-28T23:49:03.000Z" itemprop="datePublished">2018-10-29</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這篇記錄我在<a href="https://www.udemy.com/understand-javascript/" target="_blank" rel="noopener">Udemy的JS課程</a>上課筆記 (不斷更新)</p>
+<a id="more"></a>
+<h3 id="call-by-value-amp-call-by-reference"><a href="#call-by-value-amp-call-by-reference" class="headerlink" title="call by value &amp; call by reference"></a>call by value &amp; call by reference</h3><p>在js中，任何基本型別的變數皆為call by value，而object或是函式的參數則是call by reference</p>
+<p>call by value: 當一個變數使用 = 指向另一個變數時，二者在記憶體存放的位址是分開的，也就是說變數b改變了並不會影響變數a</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line">b = <span class="number">4</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>call by reference: 二個物件皆放在同一個記憶體位址，當一個物件改變也會影響到另一個物件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123; <span class="attr">greeting</span>: <span class="string">'Hi'</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> b = a;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// &#123; greeting: 'Hi' &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// &#123; greeting: 'Hi' &#125;</span></span><br><span class="line"></span><br><span class="line">b.greeting = <span class="string">'Hello'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);	<span class="comment">// &#123; greeting: 'Hello' &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(b);	<span class="comment">// &#123; greeting: 'Hello' &#125;</span></span><br></pre></td></tr></table></figure>
+<p>有了這個觀念之後，之後操作物件或傳參數至function時就要注意會不會動到原來的值。</p>
+<h3 id="object-function-and-this"><a href="#object-function-and-this" class="headerlink" title="object, function and this"></a>object, function and this</h3><p>javascript的this常讓人感到困惑，先看個例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a();</span><br></pre></td></tr></table></figure>
+<p>當呼叫a時會印出window object</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">  name: <span class="string">'Object'</span>,</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.log();</span><br></pre></td></tr></table></figure>
+<p>上面這個例子，this印出來會是b object的內容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">  name: <span class="string">'Object'</span>,</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> setName = <span class="function"><span class="params">newName</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.name = newName;</span><br><span class="line">    &#125;</span><br><span class="line">    setName(<span class="string">'Updated object'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.log();</span><br></pre></td></tr></table></figure>
+<p>這次加入setName函式至log method中，並且該函式會改變this.name，此時結果會如何呢？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object &#123; name: 'Object', log: function &#125;</span><br><span class="line">Object &#123; name: 'Object', log: function &#125;</span><br></pre></td></tr></table></figure>
+<p>setName並沒有改變b object，而是改到window object</p>
+<p>這也是js原始設計的小缺點，如果我們要讓setName改變b object，則需要加個變數:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">  name: <span class="string">'Object'</span>,</span><br><span class="line">  log: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	 <span class="keyword">const</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(self);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> setName = <span class="function"><span class="params">newName</span> =&gt;</span> &#123;</span><br><span class="line">      self.name = newName;</span><br><span class="line">    &#125;</span><br><span class="line">    setName(<span class="string">'Updated object'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(self);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">透過self指向b的記憶體位址，在setName函式裡即可正確的更動name。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">### call(), apply() and bind()</span></span><br><span class="line"><span class="string">11/24更新</span></span><br><span class="line"><span class="string">在Javascript裡Function是一種特殊的object，它有可執行的程式碼(CODE property),NAME(可為空，即是匿名著函式)以及這裡要介紹的call, apply和bind</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> javascript</span><br><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  firstName: <span class="string">'Alex'</span>,</span><br><span class="line">  lastName: <span class="string">'Liang'</span>,</span><br><span class="line">  getFullName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.lastName&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接呼叫此函式,this會是undefined</span></span><br><span class="line"><span class="keyword">const</span> logName = <span class="function">(<span class="params">lang1, lang2</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.info(<span class="string">`Logged: <span class="subst">$&#123;<span class="keyword">this</span>.getFullName()&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> logPersonName = logName.bind(person);</span><br><span class="line"></span><br><span class="line">logPersonName(); <span class="comment">// Logged: Alex Liang</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用call達成一樣的效果</span></span><br><span class="line">logName.call(person, <span class="string">'en'</span>, <span class="string">'cht'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// apply則是將參數放在array裡</span></span><br><span class="line">logName.apply(person, [<span class="string">'en'</span>, <span class="string">'cht'</span>]);</span><br></pre></td></tr></table></figure>
+<p>此段程式碼使用bind將logName函式和person物件結合並產生新的函式logPersonName<br>這也表示透過bind能改變函式內this的對象</p>
+<p>而call不需要做出一個新的函式，直接將person傳入也能達成一樣的效果；apply和call不同之處在於傳入的參數放在array裡，其效果也是一樣。</p>
+<p>這三個函式的應用可以參考下列程式碼</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接續上一段</span></span><br><span class="line"><span class="comment">// function borrowing</span></span><br><span class="line"><span class="keyword">const</span> person2 = &#123;</span><br><span class="line">  firstName: <span class="string">'Ben'</span>,</span><br><span class="line">  lastName: <span class="string">'Simmons'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">person.getFullName.apply(person2); <span class="comment">// Logged: Ben Simmons</span></span><br></pre></td></tr></table></figure>
+<p>透過apply，我們讓person2使用getFullName </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function currying</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a*b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> multipleByTwo = multiply.bind(<span class="keyword">this</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.info(multipleByTwo(<span class="number">4</span>)); <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+<p>透過事先設定的參數，我們可以建立許多函式做組合，這也是functional programming的基礎。 </p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="http://alexliang.me/JavaScript-Understaning-the-Weird-Parts上課筆記/" data-id="ckbf2ql3o004arxp4fhkd953q" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/使用shouldComponent提高React效能/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">使用shouldComponentUpdate提高React效能</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/Mocha跑測試時hang住的偵錯方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">Mocha跑測試時hang住的偵錯方法</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section class="comments" id="comments">
+  <h2>留言版</h2>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+
+<span class="comments-count">
+  <span class="post-meta-item-icon">
+    <i class="fas fa-comment"></i>
+  </span>
+  <a href="http://alexliang.me/JavaScript-Understaning-the-Weird-Parts上課筆記/#disqus_thread" class="article-comment-count" data-disqus-identifier="JavaScript-Understaning-the-Weird-Parts上課筆記/" itemprop="discussionUrl">
+  </a>
+</span>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  <h4>About</h4>
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href="mailto:alex.ycliang@gmail.com">連絡我</a></p>
+  
+</div>
+
+
+  
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 15.56px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/ios/" style="font-size: 16.67px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 11.11px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/06/">六月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/06/">六月 2018</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/04/">四月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/NodeJS-解決require相對路徑問題/">NodeJS 解決require相對路徑問題</a>
+        </li>
+      
+        <li>
+          <a href="/使用ELK監控MongoDB-service/">使用ELK監控MongoDB service</a>
+        </li>
+      
+        <li>
+          <a href="/使用ELK + Metricbeat收集MongoDB Log/">使用ELK + Metricbeat收集MongoDB Log</a>
+        </li>
+      
+        <li>
+          <a href="/Mocha跑測試時hang住的偵錯方法/">Mocha跑測試時hang住的偵錯方法</a>
+        </li>
+      
+        <li>
+          <a href="/JavaScript-Understaning-the-Weird-Parts上課筆記/">JavaScript: Understaning the Weird Parts上課筆記</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Alex Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

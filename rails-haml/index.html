@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>[Rails] HAML介紹 | Alex Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
+<meta name="keywords" content="rails">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Rails] HAML介紹">
+<meta property="og:url" content="http://alexliang.me/rails-haml/index.html">
+<meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2016-07-18T14:29:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Rails] HAML介紹">
+<meta name="twitter:description" content="這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template 以下做個整理">
+  
+    <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-81216364-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class href="/index.html">Home</a></li>
+        
+          <li><a class href="/archives/">Archives</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">Alex Liang</h1>
+  
+    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-rails-haml" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      [Rails] HAML介紹
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/rails-haml/" class="article-date"><time datetime="2016-03-15T19:52:00.000Z" itemprop="datePublished">2016-03-16</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template</p>
+<p>以下做個整理</p>
+<a id="more"></a>
+<p>首先得安裝gem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gem &quot;haml&quot;</span><br><span class="line"></span><br><span class="line">&gt; bundle install</span><br></pre></td></tr></table></figure></p>
+<p>HAML必須將.erb檔案改為.haml，如app/views/docs/index.html.erb改為app/views/docs/index.html.haml</p>
+<p>基本的轉換規則如下：</p>
+<pre><code>1. html的tag改用％代替，例如&lt;header&gt;改為％header，不需要close tage
+2. class attribute改用.，例如&lt;div class=&quot;nav&quot;&gt;改為.nav
+3. id attribute改用＃，例如&lt;div class=&quot;banner&quot; id=&quot;message&quot;&gt;改為.banner#message
+4. 遇到&lt;%= ...&gt;的代碼改用＝，例如&lt;= f.input&gt;改為= f.input
+</code></pre><p>舉例：</p>
+<figure class="highlight ruby"><figcaption><span>show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class="wrapper_with_padding&gt;</span><br><span class="line">	&lt;div id=<span class="string">"doc_show"</span>&gt;</span><br><span class="line">		&lt;h1&gt;&lt;%= @doc.title %&gt;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    	&lt;p&gt;&lt;%= simple_format(@doc.content) %&gt;</span></span><br><span class="line"><span class="regexp">    </span></span><br><span class="line"><span class="regexp">    	&lt;div class="buttons"&gt;</span></span><br><span class="line"><span class="regexp">    		&lt;%= link_to "Fix Doc", edit_doc_path(@doc), class: "button" %&gt;</span></span><br><span class="line"><span class="regexp">    	  &lt;%= link_to "Delete Doc", doc_path(@doc), method: :delete, data: &#123;confirm: "Are you sure?"&#125;, class: "button" %&gt;</span></span><br><span class="line"><span class="regexp">   	 	&lt;/div</span>&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/div</span>&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>show.html.haml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.wrapper_with_padding</span><br><span class="line">  <span class="comment">#doc_show</span></span><br><span class="line">    %h1= @doc.title</span><br><span class="line">    %p= simple_format(@doc.content)</span><br><span class="line"></span><br><span class="line">    .buttons</span><br><span class="line">      = link_to <span class="string">"Fix Doc"</span>, edit_doc_path(@doc), <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></span><br><span class="line">      = link_to <span class="string">"Delete It"</span>, doc_path(@doc), <span class="symbol">method:</span> <span class="symbol">:delete</span>, <span class="symbol">data:</span> &#123;<span class="symbol">confirm:</span> <span class="string">"Are you sure?"</span>&#125;, <span class="class"><span class="keyword">class</span>: "<span class="title">button</span>"</span></span><br></pre></td></tr></table></figure>
+<p>參考資料：<br><a href="http://haml.info/tutorial.html" target="_blank" rel="noopener">haml官網教材</a><br><a href="http://haml.info/docs/yardoc/file.REFERENCE.html" target="_blank" rel="noopener">haml refrence</a></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="http://alexliang.me/rails-haml/" data-id="ckbf2ql1l000rrxp49ocoqt66" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/front-end-note-concept-of-html-css-finishing/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">[前端筆記］ html/CSS觀念記錄</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/rails-paperclip-upload-files-and-images/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">[Rails] paperclip上傳檔案及圖片</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section class="comments" id="comments">
+  <h2>留言版</h2>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+
+<span class="comments-count">
+  <span class="post-meta-item-icon">
+    <i class="fas fa-comment"></i>
+  </span>
+  <a href="http://alexliang.me/rails-haml/#disqus_thread" class="article-comment-count" data-disqus-identifier="rails-haml/" itemprop="discussionUrl">
+  </a>
+</span>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  <h4>About</h4>
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href="mailto:alex.ycliang@gmail.com">連絡我</a></p>
+  
+</div>
+
+
+  
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 15.56px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/ios/" style="font-size: 16.67px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 11.11px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/06/">六月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/06/">六月 2018</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/04/">四月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/NodeJS-解決require相對路徑問題/">NodeJS 解決require相對路徑問題</a>
+        </li>
+      
+        <li>
+          <a href="/使用ELK監控MongoDB-service/">使用ELK監控MongoDB service</a>
+        </li>
+      
+        <li>
+          <a href="/使用ELK + Metricbeat收集MongoDB Log/">使用ELK + Metricbeat收集MongoDB Log</a>
+        </li>
+      
+        <li>
+          <a href="/Mocha跑測試時hang住的偵錯方法/">Mocha跑測試時hang住的偵錯方法</a>
+        </li>
+      
+        <li>
+          <a href="/JavaScript-Understaning-the-Weird-Parts上課筆記/">JavaScript: Understaning the Weird Parts上課筆記</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Alex Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
