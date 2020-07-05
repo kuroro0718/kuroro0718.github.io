@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <title>[Code School] Rails API  Routing Note | Alex Liang</title>
@@ -31,22 +31,9 @@
 
   <link rel="stylesheet" href="/css/styles.css">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-81216364-1', 'auto');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
-
 
 </head>
-</html>
+
 <body>
   <nav class="navbar navbar-inverse">
   <div class="container">
@@ -65,9 +52,11 @@ ga('send', 'pageview');
     <div class="collapse navbar-collapse" id="main-menu-navbar">
       <ul class="nav navbar-nav">
         
-          <li><a class href="/index.html">Home</a></li>
+          <li><a class=""
+                 href="/index.html">Home</a></li>
         
-          <li><a class href="/archives/">Archives</a></li>
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
         
       </ul>
 
@@ -82,7 +71,6 @@ ga('send', 'pageview');
   </div><!-- /.container-fluid -->
 </nav>
 
-  
   <div class="container">
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
@@ -134,20 +122,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/code-school-rails-api-note/" data-id="ckbf2ql26001orxp4d4fu509h" class="article-share-link">
+      <a data-url="http://alexliang.me/code-school-rails-api-note/" data-id="ckc927jjc001zxfp4070ru36s" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/code-school-rails-api-note/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
 
@@ -180,6 +162,12 @@ ga('send', 'pageview');
 </article>
 
 
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
 
 
         </div>
@@ -187,12 +175,18 @@ ga('send', 'pageview');
           
   <div class="sidebar-module sidebar-module-inset">
   <h4>About</h4>
-  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href="mailto:alex.ycliang@gmail.com">連絡我</a></p>
-  
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href='mailto:alex.ycliang@gmail.com'>連絡我</a></p>
+
 </div>
 
 
   
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"></ul>
+  </div>
+
+
 
   
   <div class="sidebar-module">
@@ -262,6 +256,20 @@ ga('send', 'pageview');
 </footer>
 
   
+<script>
+  var disqus_shortname = 'alexliang-blog';
+  
+  var disqus_url = 'http://alexliang.me/code-school-rails-api-note/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 

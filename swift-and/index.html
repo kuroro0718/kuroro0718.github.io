@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <title>Swift的？與！ | Alex Liang</title>
@@ -31,22 +31,9 @@
 
   <link rel="stylesheet" href="/css/styles.css">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-81216364-1', 'auto');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
-
 
 </head>
-</html>
+
 <body>
   <nav class="navbar navbar-inverse">
   <div class="container">
@@ -65,9 +52,11 @@ ga('send', 'pageview');
     <div class="collapse navbar-collapse" id="main-menu-navbar">
       <ul class="nav navbar-nav">
         
-          <li><a class href="/index.html">Home</a></li>
+          <li><a class=""
+                 href="/index.html">Home</a></li>
         
-          <li><a class href="/archives/">Archives</a></li>
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
         
       </ul>
 
@@ -82,7 +71,6 @@ ga('send', 'pageview');
   </div><!-- /.container-fluid -->
 </nav>
 
-  
   <div class="container">
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
@@ -120,9 +108,9 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <p>在靜態語言中，nil or null的判斷是件重要卻常被忽略的事<br>當一個object或變數為null而沒被排除時，程式很有可能crash或出現莫明其妙的bug<br>Swift增加了optional幫助程式設計師避掉可能的crash，語法雖然簡單卻需要時間理解觀念<br><a id="more"></a></p>
-<h2 id="Optionals"><a href="#Optionals" class="headerlink" title="Optionals"></a>Optionals</h2><p>當資料可能為nil時，我們在宣告變數時加入？。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> customerName: <span class="type">String?</span> 		<span class="comment">// nil</span></span><br><span class="line"><span class="keyword">var</span> regards = <span class="string">"Thank you! "</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> name = customerName &#123;		<span class="comment">// skip</span></span><br><span class="line">	regards += name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Optionals"><a href="#Optionals" class="headerlink" title="Optionals"></a>Optionals</h2><p>當資料可能為nil時，我們在宣告變數時加入？。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> customerName: <span class="type">String</span>? 		<span class="comment">// nil</span></span><br><span class="line"><span class="keyword">var</span> regards = <span class="string">"Thank you! "</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> name = customerName &#123;		<span class="comment">// skip</span></span><br><span class="line">	regards += name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>當執行到if let時，因為customerName為nil而判斷式不會成立<br>沒有給定初始值的變數最好加上optional，在程式剛執行時還未給予值的情況下可避免crash</p>
-<p>另一種情況是function的回傳值可能為nil時，使用optional會是合理的選擇<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findStore</span><span class="params">(storeName: String)</span></span> -&gt; <span class="type">String?</span> &#123;</span><br><span class="line">	storeList = [<span class="string">"7-11"</span>, <span class="string">"FamilyMarket"</span>, <span class="string">"Hi-life"</span>]</span><br><span class="line">	<span class="keyword">for</span> store <span class="keyword">in</span> storeList &#123;</span><br><span class="line">		<span class="keyword">if</span> store == storeName &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="string">"Find \(storeName)!"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> result = findStore(<span class="string">"Poya"</span>) &#123;</span><br><span class="line">	<span class="built_in">print</span>(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另一種情況是function的回傳值可能為nil時，使用optional會是合理的選擇<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findStore</span><span class="params">(storeName: String)</span></span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">	storeList = [<span class="string">"7-11"</span>, <span class="string">"FamilyMarket"</span>, <span class="string">"Hi-life"</span>]</span><br><span class="line">	<span class="keyword">for</span> store <span class="keyword">in</span> storeList &#123;</span><br><span class="line">		<span class="keyword">if</span> store == storeName &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="string">"Find \(storeName)!"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> result = findStore(<span class="string">"Poya"</span>) &#123;</span><br><span class="line">	<span class="built_in">print</span>(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>findStore的回傳值為optionals，當storeList沒有符合的字串時則回傳nil<br>上例中result為nil，所以不會印出任何值</p>
 <h2 id="Unwrap"><a href="#Unwrap" class="headerlink" title="Unwrap"></a>Unwrap</h2><p>變數為optional時，使用！可以強制unwrap並存取資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result = findStore(<span class="string">"7-11"</span>)			</span><br><span class="line">result!															<span class="comment">// Find 7-11!</span></span><br></pre></td></tr></table></figure></p>
 <p>如上例，但此操作不符合官方的建議用法，同時也失去安全性</p>
@@ -139,20 +127,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-and/" data-id="ckbf2ql2f0027rxp4lx21o9w9" class="article-share-link">
+      <a data-url="http://alexliang.me/swift-and/" data-id="ckc927jjn002mxfp4p2imqxkl" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/swift-and/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 
@@ -185,6 +167,12 @@ ga('send', 'pageview');
 </article>
 
 
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
 
 
         </div>
@@ -192,12 +180,18 @@ ga('send', 'pageview');
           
   <div class="sidebar-module sidebar-module-inset">
   <h4>About</h4>
-  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href="mailto:alex.ycliang@gmail.com">連絡我</a></p>
-  
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href='mailto:alex.ycliang@gmail.com'>連絡我</a></p>
+
 </div>
 
 
   
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"></ul>
+  </div>
+
+
 
   
   <div class="sidebar-module">
@@ -267,6 +261,20 @@ ga('send', 'pageview');
 </footer>
 
   
+<script>
+  var disqus_shortname = 'alexliang-blog';
+  
+  var disqus_url = 'http://alexliang.me/swift-and/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 

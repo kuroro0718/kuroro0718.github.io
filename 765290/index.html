@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <title>iOS APP Develop Cheat Sheet | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="2016-07-21 新增使用程式碼刻UI元件2016-07-22 新增使用segue2016-08-10 新增Switch button和Segmented Control, 修改segue用法*2016-08-23 新增UIPickerView和UISearchController">
-<meta name="keywords" content="swift,ios">
+<meta name="keywords" content="ios,swift">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS APP Develop Cheat Sheet">
 <meta property="og:url" content="http://alexliang.me/765290/index.html">
@@ -31,22 +31,9 @@
 
   <link rel="stylesheet" href="/css/styles.css">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-81216364-1', 'auto');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
-
 
 </head>
-</html>
+
 <body>
   <nav class="navbar navbar-inverse">
   <div class="container">
@@ -65,9 +52,11 @@ ga('send', 'pageview');
     <div class="collapse navbar-collapse" id="main-menu-navbar">
       <ul class="nav navbar-nav">
         
-          <li><a class href="/index.html">Home</a></li>
+          <li><a class=""
+                 href="/index.html">Home</a></li>
         
-          <li><a class href="/archives/">Archives</a></li>
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
         
       </ul>
 
@@ -82,7 +71,6 @@ ga('send', 'pageview');
   </div><!-- /.container-fluid -->
 </nav>
 
-  
   <div class="container">
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
@@ -134,7 +122,7 @@ ga('send', 'pageview');
 <ol>
 <li>修改section title </li>
 </ol>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, titleForHeaderInSection section: Int)</span></span> -&gt; <span class="type">String?</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Section \(section)"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, titleForHeaderInSection section: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Section \(section)"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="使用程式碼新增UI元件"><a href="#使用程式碼新增UI元件" class="headerlink" title="使用程式碼新增UI元件"></a>使用程式碼新增UI元件</h2><p>以UIImageView為例</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> image = <span class="type">UIImageView</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLayoutSubviews</span><span class="params">()</span></span> &#123;</span><br><span class="line">  view.addSubview(image)</span><br><span class="line">  image.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">  <span class="type">NSLayoutConstraint</span>.activateConstraints([</span><br><span class="line">    artwork.topAnchor.constraintEqualToAnchor(view.topAnchor),</span><br><span class="line">    artwork.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor),</span><br><span class="line">    artwork.rightAnchor.constraintEqualToAnchor(view.rightAnchor),</span><br><span class="line">    artwork.leftAnchor.constraintEqualToAnchor(view.leftAnchor)</span><br><span class="line">  ])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="使用segue"><a href="#使用segue" class="headerlink" title="使用segue"></a>使用segue</h2><p>在storyboard建立segue後。在Attribute inspector中，修改Identifier（例如命名為showMessageIdentifier)，假如轉換到名為ImageViewController的ViewController</p>
@@ -146,7 +134,7 @@ ga('send', 'pageview');
 <li>拉UIPickerView的outlet至ViewController</li>
 <li>設定並實作delegate及dataSource</li>
 </ol>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> locationPicker: <span class="type">UIPickerView!</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> taipeiDistrictArray = [<span class="string">"中正區"</span>, <span class="string">"中山區"</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line">      </span><br><span class="line">        locationPicker.delegate = <span class="keyword">self</span></span><br><span class="line">        locationPicker.dataSource = <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: UIPickerViewDataSource</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UIPickerViewDataSource</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfComponentsInPickerView</span><span class="params">(pickerView: UIPickerView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(pickerView: UIPickerView, numberOfRowsInComponent component: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> taipeiDistrictArray.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: UIPickerViewDelegate</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UIPickerViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)</span></span> -&gt; <span class="type">String?</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> taipeiDistrictArray[row]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> locationPicker: <span class="type">UIPickerView</span>!</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> taipeiDistrictArray = [<span class="string">"中正區"</span>, <span class="string">"中山區"</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line">      </span><br><span class="line">        locationPicker.delegate = <span class="keyword">self</span></span><br><span class="line">        locationPicker.dataSource = <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: UIPickerViewDataSource</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UIPickerViewDataSource</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfComponentsInPickerView</span><span class="params">(pickerView: UIPickerView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(pickerView: UIPickerView, numberOfRowsInComponent component: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> taipeiDistrictArray.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: UIPickerViewDelegate</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UIPickerViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pickerView</span><span class="params">(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)</span></span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">        <span class="keyword">return</span> taipeiDistrictArray[row]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>參考來源：<br><a href="https://www.ralfebert.de/tutorials/ios-swift-uitableviewcontroller/#storyboard_table_contents" target="_blank" rel="noopener">iOS &amp; Swift Tutorial: UITableViewController</a></p>
 
       
@@ -158,20 +146,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/765290/" data-id="ckbf2ql2g0029rxp49lrrkq3c" class="article-share-link">
+      <a data-url="http://alexliang.me/765290/" data-id="ckc927jjm002jxfp4o6vrci7f" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/765290/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 
@@ -204,6 +186,12 @@ ga('send', 'pageview');
 </article>
 
 
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
 
 
         </div>
@@ -211,12 +199,18 @@ ga('send', 'pageview');
           
   <div class="sidebar-module sidebar-module-inset">
   <h4>About</h4>
-  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href="mailto:alex.ycliang@gmail.com">連絡我</a></p>
-  
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href='mailto:alex.ycliang@gmail.com'>連絡我</a></p>
+
 </div>
 
 
   
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"></ul>
+  </div>
+
+
 
   
   <div class="sidebar-module">
@@ -286,6 +280,20 @@ ga('send', 'pageview');
 </footer>
 
   
+<script>
+  var disqus_shortname = 'alexliang-blog';
+  
+  var disqus_url = 'http://alexliang.me/765290/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 

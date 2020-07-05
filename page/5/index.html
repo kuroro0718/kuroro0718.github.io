@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <title>Alex Liang</title>
@@ -26,22 +26,9 @@
 
   <link rel="stylesheet" href="/css/styles.css">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-81216364-1', 'auto');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
-
 
 </head>
-</html>
+
 <body>
   <nav class="navbar navbar-inverse">
   <div class="container">
@@ -60,9 +47,11 @@ ga('send', 'pageview');
     <div class="collapse navbar-collapse" id="main-menu-navbar">
       <ul class="nav navbar-nav">
         
-          <li><a class href="/index.html">Home</a></li>
+          <li><a class=""
+                 href="/index.html">Home</a></li>
         
-          <li><a class href="/archives/">Archives</a></li>
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
         
       </ul>
 
@@ -77,7 +66,6 @@ ga('send', 'pageview');
   </div><!-- /.container-fluid -->
 </nav>
 
-  
   <div class="container">
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
@@ -118,7 +106,7 @@ ga('send', 'pageview');
       
         <p>在objective-c當中，如果method需要回傳二個以上的值，則可以使用帶有二個property的object或dictionary<br>而Swift新增tuples此資料型態，可一次回傳多個值<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/swift-tuples-introduction/#more">Read More</a>
           </p>
         
@@ -128,20 +116,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-tuples-introduction/" data-id="ckbf2ql2a001xrxp4wxw9redz" class="article-share-link">
+      <a data-url="http://alexliang.me/swift-tuples-introduction/" data-id="ckc927jjl002hxfp4jel25g3h" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/swift-tuples-introduction/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 
@@ -183,7 +165,7 @@ ga('send', 'pageview');
         <h2 id="Class-宣告"><a href="#Class-宣告" class="headerlink" title="Class 宣告"></a>Class 宣告</h2><p>Swift宣告class相當簡單，只要使用class這個關鍵字和class名稱<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>跟objective-c的宣告方式比較，不需要繼承NSObject或?生的類別。<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/swift-class-introduction/#more">Read More</a>
           </p>
         
@@ -193,20 +175,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-class-introduction/" data-id="ckbf2ql28001srxp4i3rygznb" class="article-share-link">
+      <a data-url="http://alexliang.me/swift-class-introduction/" data-id="ckc927jje0022xfp4uvxozm8m" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/swift-class-introduction/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 
@@ -247,7 +223,7 @@ ga('send', 'pageview');
       
         <h2 id="let-vs-var"><a href="#let-vs-var" class="headerlink" title="let vs. var"></a>let vs. var</h2><p>一開始接觸新語言時，首先會碰到各種資料型態的用法。<br>在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事<br>特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/basic-patterns-of-swift-notes/#more">Read More</a>
           </p>
         
@@ -257,20 +233,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/basic-patterns-of-swift-notes/" data-id="ckbf2ql27001qrxp4ppc2z358" class="article-share-link">
+      <a data-url="http://alexliang.me/basic-patterns-of-swift-notes/" data-id="ckc927jjf0024xfp4u4u2oc1e" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/basic-patterns-of-swift-notes/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 
@@ -321,20 +291,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/code-school-rails-api-note/" data-id="ckbf2ql26001orxp4d4fu509h" class="article-share-link">
+      <a data-url="http://alexliang.me/code-school-rails-api-note/" data-id="ckc927jjc001zxfp4070ru36s" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/code-school-rails-api-note/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
 
@@ -375,7 +339,7 @@ ga('send', 'pageview');
       
         <p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/upload-image-to-aws-s3-with-paperclip/#more">Read More</a>
           </p>
         
@@ -385,20 +349,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/" data-id="ckbf2ql25001mrxp457p54ceg" class="article-share-link">
+      <a data-url="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/" data-id="ckc927jjv0031xfp4rnautgzf" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
 
@@ -439,7 +397,7 @@ ga('send', 'pageview');
       
         <p>在deploy到Heroku前，應該檢查的事：<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/check-list-of-heroku-deployment/#more">Read More</a>
           </p>
         
@@ -449,20 +407,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/check-list-of-heroku-deployment/" data-id="ckbf2ql23001irxp456e5wtbm" class="article-share-link">
+      <a data-url="http://alexliang.me/check-list-of-heroku-deployment/" data-id="ckc927jjb001xxfp41fy1lfhg" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/check-list-of-heroku-deployment/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
 
@@ -503,7 +455,7 @@ ga('send', 'pageview');
       
         <p>在預設的routing和URL中，每筆資料皆以id做查詢及顯示。<br>例如網站有個post model及controller，則第一則post id為1，其URL為/posts/1。<br>這對網站SEO及可讀性來說是很糟糕的做法。<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/rails-use-friendly-id-increase-the-readability-url/#more">Read More</a>
           </p>
         
@@ -513,20 +465,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-use-friendly-id-increase-the-readability-url/" data-id="ckbf2ql24001krxp4ig0hzmjy" class="article-share-link">
+      <a data-url="http://alexliang.me/rails-use-friendly-id-increase-the-readability-url/" data-id="ckc927jja001uxfp42q8u473i" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/rails-use-friendly-id-increase-the-readability-url/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
 
@@ -567,7 +513,7 @@ ga('send', 'pageview');
       
         <p>新專案需要將地址放在google map顯示，於是使用gmaps4rails實作<br>經過一陣鬼打牆的debug後才搞定這個功能，這裡記錄下來，也提醒自己別再犯錯。<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/rails-use-of-gmaps4rails-google-map/#more">Read More</a>
           </p>
         
@@ -577,20 +523,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-use-of-gmaps4rails-google-map/" data-id="ckbf2ql22001frxp4cezc2vfd" class="article-share-link">
+      <a data-url="http://alexliang.me/rails-use-of-gmaps4rails-google-map/" data-id="ckc927jj9001sxfp4gwnb2u1a" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/rails-use-of-gmaps4rails-google-map/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
 
@@ -631,7 +571,7 @@ ga('send', 'pageview');
       
         <p>在<a href="http://alexliang-blog.logdown.com/posts/713401-rails-i18n-translation-chinese" target="_blank" rel="noopener">上一篇</a>搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）<br>藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/rails-calculated-meetup-date-and-use-a-helper-organize-views/#more">Read More</a>
           </p>
         
@@ -641,20 +581,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/" data-id="ckbf2ql20001arxp42hcrbu31" class="article-share-link">
+      <a data-url="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/" data-id="ckc927jj7001nxfp4ydquznt8" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
 
@@ -695,7 +629,7 @@ ga('send', 'pageview');
       
         <p>網站的頁面需要提供下拉式選單供使用者選擇星期幾<br>一開始使用Date::DAYNAMES取得一週的詞彙：<br>
         
-          </p><p class="article-more-link">
+          <p class="article-more-link">
             <a class="btn btn-primary" href="/rails-i18n-translation-chinese/#more">Read More</a>
           </p>
         
@@ -705,20 +639,14 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-i18n-translation-chinese/" data-id="ckbf2ql21001drxp4hcdfjfk4" class="article-share-link">
+      <a data-url="http://alexliang.me/rails-i18n-translation-chinese/" data-id="ckc927jj8001pxfp48sww65nx" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-<section class="comments" id="comments">
-  <h2>留言版</h2>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-
-  
+        <a href="http://alexliang.me/rails-i18n-translation-chinese/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
 
@@ -744,12 +672,18 @@ ga('send', 'pageview');
           
   <div class="sidebar-module sidebar-module-inset">
   <h4>About</h4>
-  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href="mailto:alex.ycliang@gmail.com">連絡我</a></p>
-  
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href='mailto:alex.ycliang@gmail.com'>連絡我</a></p>
+
 </div>
 
 
   
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"></ul>
+  </div>
+
+
 
   
   <div class="sidebar-module">
@@ -819,6 +753,18 @@ ga('send', 'pageview');
 </footer>
 
   
+<script>
+  var disqus_shortname = 'alexliang-blog';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
 
