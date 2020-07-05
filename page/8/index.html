@@ -3,20 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Swift 基本型態筆記 | Alex Liang</title>
+  <title>Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="let vs. var一開始接觸新語言時，首先會碰到各種資料型態的用法。在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug">
-<meta name="keywords" content="swift">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Swift 基本型態筆記">
-<meta property="og:url" content="http://alexliang.me/basic-patterns-of-swift-notes/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Alex Liang">
+<meta property="og:url" content="http://alexliang.me/page/8/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="let vs. var一開始接觸新語言時，首先會碰到各種資料型態的用法。在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:35:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 基本型態筆記">
-<meta name="twitter:description" content="let vs. var一開始接觸新語言時，首先會碰到各種資料型態的用法。在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug">
+<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -81,13 +76,15 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-basic-patterns-of-swift-notes" class="article article-type-post" itemscope itemprop="blogPost">
+          
+  
+    <article id="post-379369" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
-    <h1 class="article-title" itemprop="name">
-      Swift 基本型態筆記
+    <h1 itemprop="name">
+      <a class="article-title" href="/379369/">開發工具及設定</a>
     </h1>
   
 
@@ -96,7 +93,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/basic-patterns-of-swift-notes/" class="article-date"><time datetime="2016-05-19T21:44:00.000Z" itemprop="datePublished">2016-05-20</time></a>
+  <a href="/379369/" class="article-date"><time datetime="2015-12-20T05:05:00.000Z" itemprop="datePublished">2015-12-20</time></a>
 </div>
 
     
@@ -107,13 +104,7 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="let-vs-var"><a href="#let-vs-var" class="headerlink" title="let vs. var"></a>let vs. var</h2><p>一開始接觸新語言時，首先會碰到各種資料型態的用法。<br>在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事<br>特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug<br><a id="more"></a></p>
-<p>Swift為變數宣告提供二種方式： let和var<br>前者為constant，也就是不可變動的值；後者則是一般的宣告<br>一般是建議能使用let就使用，complier會自動做最佳化的動作</p>
-<p>如果想特別指定資料型態，也可用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> total : <span class="type">Int</span> = <span class="number">0</span>  <span class="comment">// 強制宣告total為Int</span></span><br><span class="line"><span class="keyword">let</span> taxRate = <span class="number">0.13</span>   <span class="comment">// 一般的宣告方式</span></span><br></pre></td></tr></table></figure></p>
-<p>但如果沒特殊理由，使用預設的宣告方式以加強可讀性</p>
-<h2 id="Array-and-Dictionaries"><a href="#Array-and-Dictionaries" class="headerlink" title="Array and Dictionaries"></a>Array and Dictionaries</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> taxRate = [<span class="number">0.15</span>, <span class="number">0.18</span>, <span class="number">0.20</span>]		<span class="comment">// array</span></span><br><span class="line"><span class="keyword">let</span> emptyArray = [<span class="type">String</span>]()					<span class="comment">// create an empty array with String type</span></span><br><span class="line"><span class="keyword">var</span> arr = [[<span class="type">Int</span>]]()									<span class="comment">// 2 dimensional array of arrays of Ints</span></span><br></pre></td></tr></table></figure>
-<p>另一個資料型態為dictionary，這個在Python、Ruby都有類似的型態。<br>基本上就是一個key搭配value，可供建表及查循<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Double</span>]()					<span class="comment">// dictionary</span></span><br></pre></td></tr></table></figure></p>
-<p>參考來源：<br><a href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start" target="_blank" rel="noopener">Swift 2 Tutorial</a></p>
+        <h2 id="讓rails-console變好看"><a href="#讓rails-console變好看" class="headerlink" title="讓rails console變好看"></a>讓rails console變好看</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Gemfile</span><br><span class="line">gem &quot;awesome_rails_console&quot;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -124,51 +115,29 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/basic-patterns-of-swift-notes/" data-id="ckc94l1af00220mp4j27d4i51" class="article-share-link">
+      <a data-url="http://alexliang.me/379369/" data-id="ckc94l19n000k0mp49uicjgnu" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/basic-patterns-of-swift-notes/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/379369/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
-
 
     </footer>
   </div>
   
-    
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/code-school-rails-api-note/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Code School] Rails API  Routing Note</span>
-    </a>
-  </li>
-  
-  
-  <li role="presentation">
-    <a href="/swift-class-introduction/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Swift Class 介紹</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
-  
-</ul>
-
-
-  
 </article>
 
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/7/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/6/">6</a></li><li><a class="page-number" href="/page/7/">7</a></li><li class="active"><span class="page-number">8</span></li><li class="disabled"><span class="page-next">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
-</section>
 
 
 
@@ -261,13 +230,11 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/basic-patterns-of-swift-notes/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

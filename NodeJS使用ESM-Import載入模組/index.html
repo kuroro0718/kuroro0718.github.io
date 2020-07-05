@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Swift 基本型態筆記 | Alex Liang</title>
+  <title>NodeJS使用ESM Import載入模組 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="let vs. var一開始接觸新語言時，首先會碰到各種資料型態的用法。在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug">
-<meta name="keywords" content="swift">
+  <meta name="description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。">
+<meta name="keywords" content="Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift 基本型態筆記">
-<meta property="og:url" content="http://alexliang.me/basic-patterns-of-swift-notes/index.html">
+<meta property="og:title" content="NodeJS使用ESM Import載入模組">
+<meta property="og:url" content="http://alexliang.me/NodeJS使用ESM-Import載入模組/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="let vs. var一開始接觸新語言時，首先會碰到各種資料型態的用法。在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug">
+<meta property="og:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:35:31.000Z">
+<meta property="og:updated_time" content="2020-07-05T13:41:31.619Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 基本型態筆記">
-<meta name="twitter:description" content="let vs. var一開始接觸新語言時，首先會碰到各種資料型態的用法。在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug">
+<meta name="twitter:title" content="NodeJS使用ESM Import載入模組">
+<meta name="twitter:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -81,13 +81,13 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-basic-patterns-of-swift-notes" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-NodeJS使用ESM-Import載入模組" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      Swift 基本型態筆記
+      NodeJS使用ESM Import載入模組
     </h1>
   
 
@@ -96,7 +96,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/basic-patterns-of-swift-notes/" class="article-date"><time datetime="2016-05-19T21:44:00.000Z" itemprop="datePublished">2016-05-20</time></a>
+  <a href="/NodeJS使用ESM-Import載入模組/" class="article-date"><time datetime="2020-07-05T13:26:48.000Z" itemprop="datePublished">2020-07-05</time></a>
 </div>
 
     
@@ -107,13 +107,15 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="let-vs-var"><a href="#let-vs-var" class="headerlink" title="let vs. var"></a>let vs. var</h2><p>一開始接觸新語言時，首先會碰到各種資料型態的用法。<br>在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事<br>特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug<br><a id="more"></a></p>
-<p>Swift為變數宣告提供二種方式： let和var<br>前者為constant，也就是不可變動的值；後者則是一般的宣告<br>一般是建議能使用let就使用，complier會自動做最佳化的動作</p>
-<p>如果想特別指定資料型態，也可用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> total : <span class="type">Int</span> = <span class="number">0</span>  <span class="comment">// 強制宣告total為Int</span></span><br><span class="line"><span class="keyword">let</span> taxRate = <span class="number">0.13</span>   <span class="comment">// 一般的宣告方式</span></span><br></pre></td></tr></table></figure></p>
-<p>但如果沒特殊理由，使用預設的宣告方式以加強可讀性</p>
-<h2 id="Array-and-Dictionaries"><a href="#Array-and-Dictionaries" class="headerlink" title="Array and Dictionaries"></a>Array and Dictionaries</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> taxRate = [<span class="number">0.15</span>, <span class="number">0.18</span>, <span class="number">0.20</span>]		<span class="comment">// array</span></span><br><span class="line"><span class="keyword">let</span> emptyArray = [<span class="type">String</span>]()					<span class="comment">// create an empty array with String type</span></span><br><span class="line"><span class="keyword">var</span> arr = [[<span class="type">Int</span>]]()									<span class="comment">// 2 dimensional array of arrays of Ints</span></span><br></pre></td></tr></table></figure>
-<p>另一個資料型態為dictionary，這個在Python、Ruby都有類似的型態。<br>基本上就是一個key搭配value，可供建表及查循<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Double</span>]()					<span class="comment">// dictionary</span></span><br></pre></td></tr></table></figure></p>
-<p>參考來源：<br><a href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start" target="_blank" rel="noopener">Swift 2 Tutorial</a></p>
+        <p><a href="https://alexliang.me/NodeJS-%E8%A7%A3%E6%B1%BArequire%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91%E5%95%8F%E9%A1%8C/">上一篇</a>介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。</p>
+<a id="more"></a>
+<p>二個地方需要修改:</p>
+<ol>
+<li>package.json 加入 <code>&quot;type&quot;: &quot;module&quot;</code></li>
+<li>執行程式時加入 <code>--experimental-modules</code> 或修改package.json的start script</li>
+</ol>
+<p>以上是不用修改副檔名的方式，否則NodeJS預設只認<code>.mjs</code>的檔案能使用exports/import</p>
+<p>使用exports/import最大的好處是引入模組時，可選擇哪些方法、變數要載入以節省</p>
 
       
     </div>
@@ -124,16 +126,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/basic-patterns-of-swift-notes/" data-id="ckc94l1af00220mp4j27d4i51" class="article-share-link">
+      <a data-url="http://alexliang.me/NodeJS使用ESM-Import載入模組/" data-id="ckc94l1c500500mp44w3stg3p" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/basic-patterns-of-swift-notes/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/NodeJS使用ESM-Import載入模組/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
 
 
     </footer>
@@ -143,19 +145,12 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/code-school-rails-api-note/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/NodeJS-解決require相對路徑問題/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Code School] Rails API  Routing Note</span>
+      <span class="article-nav-link-title">NodeJS 解決require相對路徑問題</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/swift-class-introduction/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Swift Class 介紹</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -261,7 +256,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/basic-patterns-of-swift-notes/';
+  var disqus_url = 'http://alexliang.me/NodeJS使用ESM-Import載入模組/';
   
   (function(){
     var dsq = document.createElement('script');

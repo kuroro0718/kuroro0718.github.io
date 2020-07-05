@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://alexliang.me/"/>
-  <updated>2020-06-14T12:57:28.956Z</updated>
+  <updated>2020-07-05T13:41:31.619Z</updated>
   <id>http://alexliang.me/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NodeJS使用ESM Import載入模組</title>
+    <link href="http://alexliang.me/NodeJS%E4%BD%BF%E7%94%A8ESM-Import%E8%BC%89%E5%85%A5%E6%A8%A1%E7%B5%84/"/>
+    <id>http://alexliang.me/NodeJS使用ESM-Import載入模組/</id>
+    <published>2020-07-05T13:26:48.000Z</published>
+    <updated>2020-07-05T13:41:31.619Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://alexliang.me/NodeJS-%E8%A7%A3%E6%B1%BArequire%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91%E5%95%8F%E9%A1%8C/">上一篇</a>介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。</p><a id="more"></a><p>二個地方需要修改:</p><ol><li>package.json 加入 <code>&quot;type&quot;: &quot;module&quot;</code></li><li>執行程式時加入 <code>--experimental-modules</code> 或修改package.json的start script</li></ol><p>以上是不用修改副檔名的方式，否則NodeJS預設只認<code>.mjs</code>的檔案能使用exports/import</p><p>使用exports/import最大的好處是引入模組時，可選擇哪些方法、變數要載入以節省</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://alexliang.me/NodeJS-%E8%A7%A3%E6%B1%BArequire%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91%E5%95%8F%E9%A1%8C/&quot;&gt;上一篇&lt;/a&gt;介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
+    
+  </entry>
   
   <entry>
     <title>NodeJS 解決require相對路徑問題</title>
@@ -58,9 +78,9 @@
     
       <category term="devops" scheme="http://alexliang.me/tags/devops/"/>
     
-      <category term="ELK" scheme="http://alexliang.me/tags/ELK/"/>
-    
       <category term="mongodb" scheme="http://alexliang.me/tags/mongodb/"/>
+    
+      <category term="ELK" scheme="http://alexliang.me/tags/ELK/"/>
     
   </entry>
   
@@ -438,26 +458,6 @@
       <category term="javascript" scheme="http://alexliang.me/tags/javascript/"/>
     
       <category term="Node.js" scheme="http://alexliang.me/tags/Node-js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一天搞懂深度學習課後心得</title>
-    <link href="http://alexliang.me/%E4%B8%80%E5%A4%A9%E6%90%9E%E6%87%82%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92%E8%AA%B2%E5%BE%8C%E5%BF%83%E5%BE%97/"/>
-    <id>http://alexliang.me/一天搞懂深度學習課後心得/</id>
-    <published>2016-11-27T01:11:58.000Z</published>
-    <updated>2016-12-04T04:49:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。<br>碩班曾接觸過機器學習，學習SVM,hMM和KNN等方法做分類和辯識，也使用matlab寫程式實作演算法。<br>那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。</p><a id="more"></a><h2 id="Introduction-of-Deep-Learning"><a href="#Introduction-of-Deep-Learning" class="headerlink" title="Introduction of Deep Learning"></a>Introduction of Deep Learning</h2><p>一開始先介紹machine learning，它的目的是找出一個function可以辯識聲音，影像的內容；或是指導電腦在特定情境下做出回應，如下圍棋。<br>做過machine learning的人都知道，最大的挑戰在於針對問題找出合適的feature，然後建構function來解決特定問題。</p><p>也就是說，今天我要分辯影像中有沒有狗，那第一步得先研究狗的影像特徵是什麼？ 是形狀？顏色？或是其它空間的特徵？<br>有了特徵就能進一步建立數學式或是套用機器學習的模型，在餵給系統夠多的training data之後，丟給它一組testing data看結果如何</p><p>這個過程在deep learning就不太一樣了，我們一樣需要準備training data和testing data，但”訓練”的過程是調整deep learning的model和參數。</p><p>deep learning是由<a href="https://en.wikipedia.org/wiki/Artificial_neural_network" target="_blank" rel="noopener">Neural Network</a>建構。基本單位是neuron，是一個input * weights + bias再經過activation function的model。</p><p>Neural Network正是許多neuron所建立的網絡，將網絡決定好後也就得到一組function set。</p><p>這裡老師特別講解為何是”deep”而不是”fat”，其原因和電子電路一樣，我們可以使用簡單的邏輯閘（and,or,not)去組成複雜的電路。優點是參數的量會減少，也就是更有效率。</p><p>有了function set，便要估算它的效果。這裡會計算output和ground truth(上課是用target，在碩班時我們都習慣稱ground truth)之間的落差，也就是loss</p><p>老師用了一個非常有趣的例子說明為何找不到全域中最小的loss，在各種數學式的課程裡加進實際的例子會讓學生比較有感覺，效果也更好。</p><p>live demo使用<a href="https://keras.io/" target="_blank" rel="noopener">Keras</a>分辯手寫數字影像，在GPU和各種tuning parameter的手法下，不用一分鐘就能達到95%的正確率，心裡想如果以前有這個工具，做研究也能快上許多。</p><p>在QA時間，老師也說明遇到未知問題時，不見得要用deep learning的手法來解決，可以試著先用SVM。</p><h2 id="Deep-Learning-Model"><a href="#Deep-Learning-Model" class="headerlink" title="Deep Learning Model"></a>Deep Learning Model</h2><p>這個session介紹二種learning model: CNN和RNN<br>CNN將問題拆解成各種子問題，特別適合用在影像處理上。例如我們能建立第一層layer處理顏色；第二層處理紋路材質。<br>透過downsampling便很適合餵給CNN處理</p><p>CNN的另一種應用是套用style，網路上常有人分享使用deep learning將某種風格的畫作套用在照片上，便是使用此手法。</p><p>另一種model是RNN，擁有記憶功能，適合用在文字和語音等長度不一及前後文相關的問題上。<br>舉例來說，好棒和好棒棒這個二詞只差一個字但意思差很多的問題，便很適合用RNN來解決</p><h2 id="Beyond-Supervised-Learning"><a href="#Beyond-Supervised-Learning" class="headerlink" title="Beyond Supervised Learning"></a>Beyond Supervised Learning</h2><p>這節是我覺得deep learning最神奇的地方。</p><p>這個手法的重點是將encoder和decoder的輸出輸入接起來，讓encoder的輸入和decoder的輸出越接近越好，由此可得到一個auto-encoder<br>而auto-encoder也可以拿來當neural network的pre-train<br>最後我們能餵給大量training data情況下自動完成分類</p><p>另一種auto-encoder，Variational Auto Encoder(VAE)可幫助RNN提升正確率，而且它能透過演化讓結果越來越好</p><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>今天的演講充滿各種鄉民梗，也讓本來生硬的內容活潑易懂。<br>最後老師也以成為武林高手的條件來勉勵大家，要內外兼修才能達到高手的境界，也就是具備運算環境和解決問題的技巧。<br>一整天下來有點累，但也蠻多收獲的，知道現在的技術能達到什麼程度，以及該如何使用。<br>至於做的好不好就要看經驗啦 XD</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;11/26參加台灣資料科學年會辦的”一天搞懂深度學習”，由台大李宏毅老師主講。&lt;br&gt;碩班曾接觸過機器學習，學習SVM,hMM和KNN等方法做分類和辯識，也使用matlab寫程式實作演算法。&lt;br&gt;那個時候才知道線性代數和機率如何應用在機器學習。而近年來深度學習的竄起，也讓我對這個題目感到好奇，所以報名這次的講座。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="演講筆記" scheme="http://alexliang.me/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/"/>
     
   </entry>
   
