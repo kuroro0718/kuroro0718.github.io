@@ -5,18 +5,18 @@
   
   <title>NodeJS使用ESM Import載入模組 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。">
+  <meta name="description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
 <meta name="keywords" content="Node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NodeJS使用ESM Import載入模組">
 <meta property="og:url" content="http://alexliang.me/NodeJS使用ESM-Import載入模組/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。">
+<meta property="og:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2020-07-05T13:41:31.619Z">
+<meta property="og:updated_time" content="2020-09-21T13:09:15.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NodeJS使用ESM Import載入模組">
-<meta name="twitter:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。">
+<meta name="twitter:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -107,15 +107,29 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://alexliang.me/NodeJS-%E8%A7%A3%E6%B1%BArequire%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91%E5%95%8F%E9%A1%8C/">上一篇</a>介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的exports/import，從NodeJS 12開始支援實驗性質的解決方法。</p>
+        <p><a href="https://alexliang.me/NodeJS-%E8%A7%A3%E6%B1%BArequire%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91%E5%95%8F%E9%A1%8C/">上一篇</a>介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。</p>
 <a id="more"></a>
 <p>二個地方需要修改:</p>
 <ol>
 <li>package.json 加入 <code>&quot;type&quot;: &quot;module&quot;</code></li>
 <li>執行程式時加入 <code>--experimental-modules</code> 或修改package.json的start script</li>
 </ol>
-<p>以上是不用修改副檔名的方式，否則NodeJS預設只認<code>.mjs</code>的檔案能使用exports/import</p>
-<p>使用exports/import最大的好處是引入模組時，可選擇哪些方法、變數要載入以節省</p>
+<p>以上是不用修改副檔名的方式，否則NodeJS預設只認<code>.mjs</code>的檔案能使用export/import</p>
+<ul>
+<li>使用exports/import最大的好處是引入模組時，可選擇哪些方法、變數要載入以節省時間？</li>
+</ul>
+<p>接下來介紹 export/import 的基本語法</p>
+<p>有二種 export 方式: <strong>named</strong> 和 <strong>default</strong>, 一個檔案可以有許多 named export, 但只能有一個 default export</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是 named export</span></span><br><span class="line"><span class="keyword">export</span> funcA = <span class="function"><span class="params">val</span> =&gt;</span> <span class="built_in">Math</span>.sqrt(val);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> seed = <span class="built_in">Math</span>.random();</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是 default export, 注意結尾不加分號</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>named export 會強制使用同樣的名稱 import, 而 default export 可用任意名稱輸入, 例如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> str = <span class="string">'default'</span>; <span class="comment">// module1.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./module1'</span>;</span><br><span class="line"><span class="built_in">console</span>.info(a); <span class="comment">// 'default'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果一個檔案有許多 named export, 如果要選擇部分物件, 則:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// constant.js</span></span><br><span class="line"><span class="keyword">export</span> VALID_TYPES = [...];</span><br><span class="line"><span class="keyword">export</span> VALID_STATUS = [...];</span><br><span class="line"></span><br><span class="line"><span class="comment">// app.js, 只輸入 VALID_TYPES</span></span><br><span class="line"><span class="keyword">import</span> &#123; VALID_TYPES &#125; <span class="keyword">from</span> <span class="string">'./constant'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app2.js, 將 VALID_STATUS 改名</span></span><br><span class="line"><span class="keyword">import</span> &#123; VALID_STATUS <span class="keyword">as</span> ALERT_STATUS &#125; <span class="keyword">from</span> <span class="string">'./constant'</span></span><br></pre></td></tr></table></figure>
+<p>reference:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/import" target="_blank" rel="noopener">import document</a></li>
+<li><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/export" target="_blank" rel="noopener">export document</a></li>
+</ol>
 
       
     </div>
@@ -126,7 +140,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/NodeJS使用ESM-Import載入模組/" data-id="ckc94l1c500500mp44w3stg3p" class="article-share-link">
+      <a data-url="http://alexliang.me/NodeJS使用ESM-Import載入模組/" data-id="ckfcjqz2p0052cqp4ukuc27mq" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
