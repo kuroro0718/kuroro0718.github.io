@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Alex Liang">
 <meta property="og:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2020-09-21T13:09:15.185Z">
+<meta property="og:updated_time" content="2020-09-21T13:11:59.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NodeJS使用ESM Import載入模組">
 <meta name="twitter:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
@@ -115,9 +115,6 @@
 <li>執行程式時加入 <code>--experimental-modules</code> 或修改package.json的start script</li>
 </ol>
 <p>以上是不用修改副檔名的方式，否則NodeJS預設只認<code>.mjs</code>的檔案能使用export/import</p>
-<ul>
-<li>使用exports/import最大的好處是引入模組時，可選擇哪些方法、變數要載入以節省時間？</li>
-</ul>
 <p>接下來介紹 export/import 的基本語法</p>
 <p>有二種 export 方式: <strong>named</strong> 和 <strong>default</strong>, 一個檔案可以有許多 named export, 但只能有一個 default export</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是 named export</span></span><br><span class="line"><span class="keyword">export</span> funcA = <span class="function"><span class="params">val</span> =&gt;</span> <span class="built_in">Math</span>.sqrt(val);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> seed = <span class="built_in">Math</span>.random();</span><br></pre></td></tr></table></figure>
@@ -140,7 +137,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/NodeJS使用ESM-Import載入模組/" data-id="ckfcjqz2p0052cqp4ukuc27mq" class="article-share-link">
+      <a data-url="http://alexliang.me/NodeJS使用ESM-Import載入模組/" data-id="ckfcju41i004yepp4gt26osvo" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
