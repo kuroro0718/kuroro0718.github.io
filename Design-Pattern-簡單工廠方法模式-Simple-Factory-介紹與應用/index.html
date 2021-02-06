@@ -3,16 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>about | Alex Liang</title>
+  <title>[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用  | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://alexliang.me/about/index-1.html">
+  <meta name="description" content="最近重溫大話設計模式，對各個design pattern有更深的了解，試著介紹常用的幾種模式並說明適合的場景。 第一篇要介紹的是簡單工廠方法模式。">
+<meta name="keywords" content="design pattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 ">
+<meta property="og:url" content="http://alexliang.me/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/index.html">
 <meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="最近重溫大話設計模式，對各個design pattern有更深的了解，試著介紹常用的幾種模式並說明適合的場景。 第一篇要介紹的是簡單工廠方法模式。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2018-06-25T23:24:09.717Z">
+<meta property="og:updated_time" content="2021-02-06T06:09:49.063Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
+<meta name="twitter:title" content="[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 ">
+<meta name="twitter:description" content="最近重溫大話設計模式，對各個design pattern有更深的了解，試著介紹常用的幾種模式並說明適合的場景。 第一篇要介紹的是簡單工廠方法模式。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -77,13 +81,13 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+          <article id="post-Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      about
+      [Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 
     </h1>
   
 
@@ -92,7 +96,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/about/index-1.html" class="article-date"><time datetime="2018-06-25T23:24:09.000Z" itemprop="datePublished">2018-06-26</time></a>
+  <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/" class="article-date"><time datetime="2020-10-26T13:38:16.000Z" itemprop="datePublished">2020-10-26</time></a>
 </div>
 
     
@@ -103,7 +107,27 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>最近重溫<a href="https://www.tenlong.com.tw/products/9789866761799" target="_blank" rel="noopener">大話設計模式</a>，對各個design pattern有更深的了解，試著介紹常用的幾種模式並說明適合的場景。</p>
+<p>第一篇要介紹的是簡單工廠方法模式。</p>
+<a id="more"></a>
+<h3 id="適合場景"><a href="#適合場景" class="headerlink" title="適合場景"></a>適合場景</h3><p>有二個以上、功能相近但細節稍有不同的資料結構或實作，適合用工廠方法模式。如薪資計算(正職、工讀生)、電商平台的寄件方式(宅急便、超商或郵局)。</p>
+<p>以電商平台的寄件舉例，其共通的屬性有: </p>
+<ol>
+<li>收件地址 (一般地址/超商門市)</li>
+<li>運費</li>
+<li>免運門檻</li>
+<li>物流追蹤碼</li>
+</ol>
+<p>若平台增加新的寄件方式，專案中有關寄件的程式碼都要新增條件才能避免錯誤。</p>
+<h3 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">ConvenienceStoreDelivery</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(shipAddress) &#123;</span><br><span class="line">      <span class="keyword">this</span>.shipAddress = shipAddress;</span><br><span class="line">      <span class="keyword">this</span>.shippingRate = <span class="number">100</span>;</span><br><span class="line">      <span class="keyword">this</span>.freeShipmentThreshold = <span class="number">2000</span>;</span><br><span class="line">    	<span class="keyword">this</span>.traceNumber = <span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    get shippingRate() &#123; </span><br><span class="line">   	<span class="keyword">return</span> <span class="keyword">this</span>.shippingRate; </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"> 	get freeShipmentThreshold() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.freeShipmentThreshold;</span><br><span class="line"> 	&#125;</span><br><span class="line"> </span><br><span class="line">set traceNumber() &#123;&#125;</span><br><span class="line"> </span><br><span class="line">get traceNumber() &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">this</span>.traceNumber;</span><br><span class="line">&#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">DeliveryFactory</span>(<span class="params">provider, address</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> deliveryProvider = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">switch</span> (provider) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'convenience store'</span>:</span><br><span class="line">        deliveryProvider = <span class="keyword">new</span> ConvenienceStoreDelivery(address);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'post office'</span></span><br><span class="line">        deliveryProvider = <span class="keyword">new</span> PostOfficeDelivery(address);  </span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`Cannot recongize delivery provider <span class="subst">$&#123;provider&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> 	 <span class="keyword">return</span> deliveryProvider</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用戶端</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> deliveryProvider = DeliveryFactory(provider, address);</span><br><span class="line"><span class="comment">// 其餘操作</span></span><br></pre></td></tr></table></figure>
+<h3 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h3><ul>
+<li>假如實作端會隨著業務、流程不斷增加數量，則此方法每新增實作類別就必須增加case的分支。這會破壞開放-封閉原則。此時可考慮改用工廠方法 </li>
+<li>此方法只針對物件建立問題，若實作類別的函式經常更動(如免運、折價)，可考慮使用策略模式封裝實作。</li>
+</ul>
+
       
     </div>
 
@@ -113,20 +137,34 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/about/index-1.html" data-id="ckktbm83f0001n7p49bfw370x" class="article-share-link">
+      <a data-url="http://alexliang.me/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/" data-id="ckktbm8bi004yn7p4ufvv3ayz" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/about/index-1.html#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">design pattern</a></li></ul>
+
 
     </footer>
   </div>
   
     
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/NodeJS使用ESM-Import載入模組/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">NodeJS使用ESM Import載入模組</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
 
   
 </article>
@@ -229,7 +267,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/about/index-1.html';
+  var disqus_url = 'http://alexliang.me/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/';
   
   (function(){
     var dsq = document.createElement('script');
