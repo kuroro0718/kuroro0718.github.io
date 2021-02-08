@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://alexliang.me/"/>
-  <updated>2021-02-06T06:09:49.063Z</updated>
+  <updated>2021-02-08T14:06:44.597Z</updated>
   <id>http://alexliang.me/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[商業思維學院] Ant-技術人的職涯規劃心得</title>
+    <link href="http://alexliang.me/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/"/>
+    <id>http://alexliang.me/商業思維學院-技術人的職涯規劃心得/</id>
+    <published>2021-02-07T14:19:19.000Z</published>
+    <updated>2021-02-08T14:06:44.597Z</updated>
+    
+    <content type="html"><![CDATA[<p>週四參加商業思維學院的線上講座，𨘋請到<a href="https://www.facebook.com/yftzeng.tw" target="_blank" rel="noopener">Ant 曾義峰</a>分享技術人的職涯規劃。Ant是我有在追蹤的技術人，對於這位橫跨技術、法律、資安和商業的高手只有敬佩。</p><a id="more"></a><p>管理職 vs. 技術職一直是技術人熱衷討論的話題。在台灣，大多數公司給予管理職較高的薪水和權責。但某些技術人對於管理團隊又興趣缺缺，深怕自己的技術力不斷退步而被時代淘汰。</p><p>Ant提出一個概念: <code>升遷體系 不等於 職涯發展</code>。升遷體系隨著外在環境變化；而職涯發展要配適內在自我</p><p>不同於要求技術工作者一路往公司的階梯上爬，這個框架是同時注意外在和內在的發展。在獲得升遷、加薪的同時，也要顧好成就感及發揮最大潛力。對技術人來說，最浪費的莫過於給予高薪但被放在無法發揮實力的地方，這也是Ant要大家關注的點。</p><p>演講中最讓我受到啟發的是Ant把技術職和管理職視為二個互為關聯的階梯。你不必一直在單一軌道往上爬，而是能夠在二者之間轉換。對於職涯規劃來說是更靈活的手段和方法。</p><p>接下來Ant說明如何避免技術人最害怕的事: <code>跟不上新技術、手中的工具已經落伍了。</code></p><p>這裡的心法我覺得和Amazon的Jeff Bazos在2012年re.invent大會所講的話類似:</p><blockquote><p>我常被問一個問題：「在接下來的10年裡，會有什麼樣的變化？」……但我很少被問到「在接下來的10年裡，什麼是不變的？」我認為第二個問題比第一個問題更加重要，因為你需要將你的戰略建立在不變的事物上。</p></blockquote><p>在軟體開發來說，不變的事物便是design pattern, refactor和其它各種新技術底層的理論。像最近幾年引領AI的深度學習，其底層是1980年代就出現的類神經網路，只不過當時的環境和技術沒辦法有突破性的應用。</p><p>這幾年下來有一個體會，當程式語言或碰過的技術到一定的程度時，你能辨識出它設計的哲學及適合的場景。將來用到類似的新工具時，能很快上手並且知道它的限制。</p><p>從OOP的角度來看，我們關注的是全局及結構；而不是細節。對於新技術/工具，能儘快掌握特性和應用場景才是技術人生存之道。</p><p>Ant也分享幾個面試可以請教對方的問題，例如:</p><ul><li>最近離職者離開的原因？開除員工的原因？</li><li>最近的升遷/加薪情況，週期/幅度</li><li>測試覆蓋率、流程自動化和指導文化</li></ul><p>還有一個take away question: </p><blockquote><p>如果有人拿一百萬鎂請你組一個團隊，在一年內推出產品，你有這個能力嗎？ 或是說你該如何做到？ </p></blockquote><p>這是一個很棒的練習，讓我們思考自己在業界的高度和人脈是否達到一個水準。</p><p>最後，我在QA時問了一題： 如果嚮往的工作有某項條件/經驗(例如碰過 DAU &gt; 100K的系統)，面試時該怎麼回答？ 老師給的答案是: 可以先問做過的人，並且在面試時誠實說出，重點是讓對方感受到自己是能解決問題的人。</p><p>期許自己也能成為厲害的技術人</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;週四參加商業思維學院的線上講座，𨘋請到&lt;a href=&quot;https://www.facebook.com/yftzeng.tw&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Ant 曾義峰&lt;/a&gt;分享技術人的職涯規劃。Ant是我有在追蹤的技術人，對於這位橫跨技術、法律、資安和商業的高手只有敬佩。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="演講筆記" scheme="http://alexliang.me/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/"/>
+    
+  </entry>
   
   <entry>
     <title>[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </title>
@@ -99,9 +119,9 @@
     
       <category term="devops" scheme="http://alexliang.me/tags/devops/"/>
     
-      <category term="mongodb" scheme="http://alexliang.me/tags/mongodb/"/>
-    
       <category term="ELK" scheme="http://alexliang.me/tags/ELK/"/>
+    
+      <category term="mongodb" scheme="http://alexliang.me/tags/mongodb/"/>
     
   </entry>
   
@@ -431,27 +451,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;最佳化學習是high leverage的項目 找到適合成長的環境&lt;/p&gt;
 &lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="讀書筆記" scheme="http://alexliang.me/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>The Effective Engineer讀書筆記-Focus on High-Leverage Activities</title>
-    <link href="http://alexliang.me/The-Effective-Engineer%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98-Focus-on-High-Leverage-Activities/"/>
-    <id>http://alexliang.me/The-Effective-Engineer讀書筆記-Focus-on-High-Leverage-Activities/</id>
-    <published>2016-12-06T13:36:48.000Z</published>
-    <updated>2016-12-06T14:05:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>今年7月我參加一個雲端讀書會，主題為這本<a href="https://www.amazon.com/Effective-Engineer-Engineering-Disproportionate-Meaningful/dp/0996128107" target="_blank" rel="noopener">The Effective Engineer</a>。這本書由一位前google工程師撰寫，整本書圍繞在一個中心思想：如何讓工程師在有限的時間內產出最多的價值。</p><p>在讀這本書不僅學到一流人才的思考邏輯，同時也認識一群努力學習的好夥伴。我將這十週的讀書筆記整理在這系列的文章。</p><a id="more"></a><p>本書前言裡作者提出一個問題：是什麼原因讓那些最有效率的工程師與一般工程師的產出有很大的差距？<br>他使用leverage（槓桿）這個詞來檢視工程師的績效，意即好的工程師會將時間花在對工作和團隊最有效益的地方，工作項目leverage越高表示產出越大。</p><p>作者在章節裡提出幾項檢視的問題：</p><h2 id="3個自我檢視問題："><a href="#3個自我檢視問題：" class="headerlink" title="3個自我檢視問題："></a>3個自我檢視問題：</h2><ol><li>How can I complete this activity in a shorter amount of time?</li><li>How can I increase the value produced by this activity?</li><li>Is there something else that I could spend my time on that would produce more value?</li></ol><h2 id="提高leverage的方法："><a href="#提高leverage的方法：" class="headerlink" title="提高leverage的方法："></a>提高leverage的方法：</h2><ol><li>從縮短開會時間著手（先定義會議的目的，不要為了開會而開會）</li><li>減少開發或測試手動的比例（導入CI）</li><li>針對工作排出優先順序，找出最大價值的項目</li><li>找出客戶最大的痛點（網站裝線上客服，想辦法收集客戶的feedback）</li><li>使用profiling tool找出系統的bottleneck （或是找出客戶使用app卡住的地方）</li><li>建立onboarding flow（可設計像treehouse或其它線上程式教學網站的內容）</li></ol><h2 id="ORID練習"><a href="#ORID練習" class="headerlink" title="ORID練習"></a>ORID練習</h2><p>在讀書會中，organizer提倡使用ORID來討論事情。ORID為四個層次的問題，分別為Objective(客觀性層次)、Reflective(反應性層次)、Interpretive(詮釋性層次)、Decisional(決定性層次)。</p><ul><li>O: 作者在Quora建立onboarding flow，幫助新進工程師快速進入狀況<br>   之前待過的公司，不管團隊人數(200人或10人)，缺乏訓練規劃讓新進工程師容易犯錯</li><li>R:  新成員不敢更動code base，對產品和流程一知半解。還是得由資深RD指導</li><li>I:   如果建立onboarding flow，公司能節省training的總成本，新加入的工程師能很快就戰鬥位置</li><li>D:  在選擇公司時，將訓練這一環列入考慮(對新手來說); 公司的資深人員可討論如何建立onboarding flow</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今年7月我參加一個雲端讀書會，主題為這本&lt;a href=&quot;https://www.amazon.com/Effective-Engineer-Engineering-Disproportionate-Meaningful/dp/0996128107&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The Effective Engineer&lt;/a&gt;。這本書由一位前google工程師撰寫，整本書圍繞在一個中心思想：如何讓工程師在有限的時間內產出最多的價值。&lt;/p&gt;
-&lt;p&gt;在讀這本書不僅學到一流人才的思考邏輯，同時也認識一群努力學習的好夥伴。我將這十週的讀書筆記整理在這系列的文章。&lt;/p&gt;
     
     </summary>
     
