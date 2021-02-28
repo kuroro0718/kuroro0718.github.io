@@ -3,23 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>寄物便開發週記W3: 完成初版 | Alex Liang</title>
+  <title>[Design Pattern] 工廠方法模式(Factory)介紹與應用 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在上一篇提到開發商家地圖和簡介的部分。 本週則是完成畫面最複雜的頁面。">
-<meta name="keywords" content="ios,swift">
+  <meta name="description" content="上一篇講到簡單工廠方法，這篇文章介紹它的延申: 工廠方法">
+<meta name="keywords" content="design pattern">
 <meta property="og:type" content="article">
-<meta property="og:title" content="寄物便開發週記W3: 完成初版">
-<meta property="og:url" content="http://alexliang.me/寄物便開發週記W3-完成初版/index.html">
+<meta property="og:title" content="[Design Pattern] 工廠方法模式(Factory)介紹與應用">
+<meta property="og:url" content="http://alexliang.me/Design-Pattern-工廠方法模式-Factory-介紹與應用/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="在上一篇提到開發商家地圖和簡介的部分。 本週則是完成畫面最複雜的頁面。">
+<meta property="og:description" content="上一篇講到簡單工廠方法，這篇文章介紹它的延申: 工廠方法">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="http://alexliang.me/寄物便開發週記W3-完成初版/first-snapshot.png">
-<meta property="og:image" content="http://alexliang.me/寄物便開發週記W3-完成初版/bagkeeper.gif">
-<meta property="og:updated_time" content="2016-10-23T14:21:04.000Z">
+<meta property="og:updated_time" content="2021-02-28T02:34:08.285Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="寄物便開發週記W3: 完成初版">
-<meta name="twitter:description" content="在上一篇提到開發商家地圖和簡介的部分。 本週則是完成畫面最複雜的頁面。">
-<meta name="twitter:image" content="http://alexliang.me/寄物便開發週記W3-完成初版/first-snapshot.png">
+<meta name="twitter:title" content="[Design Pattern] 工廠方法模式(Factory)介紹與應用">
+<meta name="twitter:description" content="上一篇講到簡單工廠方法，這篇文章介紹它的延申: 工廠方法">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -84,13 +81,13 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-寄物便開發週記W3-完成初版" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-Design-Pattern-工廠方法模式-Factory-介紹與應用" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      寄物便開發週記W3: 完成初版
+      [Design Pattern] 工廠方法模式(Factory)介紹與應用
     </h1>
   
 
@@ -99,7 +96,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/寄物便開發週記W3-完成初版/" class="article-date"><time datetime="2016-10-23T13:33:35.000Z" itemprop="datePublished">2016-10-23</time></a>
+  <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/" class="article-date"><time datetime="2021-02-28T01:35:15.000Z" itemprop="datePublished">2021-02-28</time></a>
 </div>
 
     
@@ -110,19 +107,20 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="https://kuroro0718.github.io/寄物便開發週記W2-開始動工" target="_blank" rel="noopener">上一篇</a>提到開發商家地圖和簡介的部分。</p>
-<p>本週則是完成畫面最複雜的頁面。</p>
+        <p><a href="http://alexliang.me/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">上一篇</a>講到簡單工廠方法，這篇文章介紹它的延申: 工廠方法</p>
 <a id="more"></a>
-<p>依照設計師的初稿，第一個頁面要能讓使用者選擇寄物件數和寄/取物的時間</p>
-<p>我第一版的畫面如下</p>
-<p><img src="first-snapshot.png" alt="first-snapshot"><br>構想是使用者點選件數或時間文字時，會跑出數字picker或date picker</p>
-<p>不囉嗦，先看完成品的操作畫面<br><img src="bagkeeper.gif" alt="Bagkeeper 操作畫面"></p>
-<p>為了讓使用者能以最少的動作完成工作，我們將數字或時間選擇的部分做自動收合</p>
-<p>時間的部分是參考apple內建的行事曆，更改寄物時間時，上方的時間文字和下方的取物時間會跟著變動;連取物時間的picker也有連動。</p>
-<p>整個畫面使用tableview controller完成。使用5個section（包含最下面的送出按鈕），除了最後一個section外，其餘都有2個row，也就是picker的部分。</p>
-<p>預設每個section只顯示一個row。當使用者點選某一個section時，會判斷該section的row number，接著改變其值，便能夠做到收合的效果。</p>
-<p>而date picker的部分，由於寄物時間的picker會影響到其它三個元件。所以這裡使用notification來通知其它元件。</p>
-<p>接下來就是demo day了。這三週比之前上班還累，但也蠻充實的。<br>希望demo day能夠順利介紹寄物便，為這10週畫下美好的句點！</p>
+<h3 id="適合場景"><a href="#適合場景" class="headerlink" title="適合場景"></a>適合場景</h3><p>有二個以上、功能相近但細節稍有不同的資料結構或實作，且隨著業務增長會不斷增加實作的情況。例如本來只服務台灣的電商平台，需要擴展到海外，其寄送方式和服務商會大幅增加。</p>
+<h3 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h3><p>一樣以電商的物流為例，如何使用工廠模式解決不斷增加的寄送方式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 宣告基本的物流類別</span></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Delivery</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(shipAddress) &#123;</span><br><span class="line">      <span class="keyword">this</span>.shipAddress = shipAddress;</span><br><span class="line">      <span class="keyword">this</span>.shippingRate = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">this</span>.freeShipmentThreshold = <span class="number">0</span>;</span><br><span class="line">    	 <span class="keyword">this</span>.traceNumber = <span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    get shippingRate() &#123; </span><br><span class="line">   	<span class="keyword">return</span> <span class="keyword">this</span>.shippingRate; </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"> 	get freeShipmentThreshold() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.freeShipmentThreshold;</span><br><span class="line"> 	&#125;</span><br><span class="line"> </span><br><span class="line">set traceNumber() &#123;&#125;</span><br><span class="line"> </span><br><span class="line">get traceNumber() &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">this</span>.traceNumber;</span><br><span class="line">&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 宣告超商取貨</span></span><br><span class="line">   class ConvenienceStoreDelivery : Delivery &#123;</span><br><span class="line">      <span class="keyword">constructor</span>(shipAddress) &#123;</span><br><span class="line">        <span class="keyword">this</span>.shipAddress = shipAddress;</span><br><span class="line">        <span class="keyword">this</span>.shippingRate = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">this</span>.freeShipmentThreshold = <span class="number">2000</span>;</span><br><span class="line">    	   <span class="keyword">this</span>.traceNumber = <span class="string">''</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">     set traceNumber() &#123;&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 宣告郵局寄送</span></span><br><span class="line">   class PostOfficeDelivery : Delivery &#123;</span><br><span class="line">      <span class="keyword">constructor</span>(shipAddress) &#123;</span><br><span class="line">         <span class="keyword">this</span>.shipAddress = shipAddress;</span><br><span class="line">         <span class="keyword">this</span>.shippingRate = <span class="number">80</span>;</span><br><span class="line">         <span class="keyword">this</span>.freeShipmentThreshold = <span class="number">1000</span>;</span><br><span class="line">    	    <span class="keyword">this</span>.traceNumber = <span class="string">''</span>;</span><br><span class="line">      &#125;</span><br><span class="line">            </span><br><span class="line">      set traceNumber() &#123;&#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>宣告各物流服務後，接下來是建立工廠類別介面和實作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 宣告工廠類別介面</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IDeliveryFactory</span> </span>&#123;</span><br><span class="line">   createDeliveryService(shipAddress) &#123;</span><br><span class="line">     <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Implement me!'</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// 宣告超商取貨工廠</span></span><br><span class="line"> class ConvenienceStoreDeliveryFactory : IDeliveryFactory &#123;</span><br><span class="line">   createDeliveryService(shipAddress) &#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> ConvenienceStoreDelivery(shipAddress);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// 宣告郵局寄送工廠</span></span><br><span class="line"> class PostOfficeDeliveryFactory : IDeliveryFactory &#123;</span><br><span class="line">   createDeliveryService(shipAddress) &#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> PostOfficeDelivery(shipAddress);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>用戶端</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果要換其它物流方式，修改這裡即可</span></span><br><span class="line"><span class="keyword">const</span> factory = <span class="keyword">new</span> ConvenienceStoreDeliveryFactory();</span><br><span class="line"><span class="keyword">const</span> convenienceStoreDelivery = factory.createDeliveryService(shipAddress);</span><br></pre></td></tr></table></figure>
+<p>乍看之下多了不少程式碼，但工廠方法的優點在於新增實作不會違反開放-封閉原則，不用每次都要修改switch case，將判斷拉到用戶端。 </p>
+<h3 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h3><ul>
+<li>不建議一開始就使用工廠方法，也許簡單工廠方法就能應付，等到業務需求大增再改就好</li>
+<li>此方法對用戶端有額外的判斷，若太多用戶端都需要使用會造成負擔，要靠其它方法解決</li>
+</ul>
 
       
     </div>
@@ -133,16 +131,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/寄物便開發週記W3-完成初版/" data-id="ckloji50v003cg9p45fh8y6z1" class="article-share-link">
+      <a data-url="http://alexliang.me/Design-Pattern-工廠方法模式-Factory-介紹與應用/" data-id="ckloji52n0055g9p490nwzzje" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/寄物便開發週記W3-完成初版/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/Design-Pattern-工廠方法模式-Factory-介紹與應用/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">design pattern</a></li></ul>
 
 
     </footer>
@@ -152,19 +150,12 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/寄物便開發週記W2-開始動工/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/商業思維學院-技術人的職涯規劃心得/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">寄物便開發週記W2: 開始動工</span>
+      <span class="article-nav-link-title">[商業思維學院] Ant-技術人的職涯規劃心得</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/Retain-cycle-and-capture-list-in-Swift/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Retain cycle and capture list in Swift</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -270,7 +261,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/寄物便開發週記W3-完成初版/';
+  var disqus_url = 'http://alexliang.me/Design-Pattern-工廠方法模式-Factory-介紹與應用/';
   
   (function(){
     var dsq = document.createElement('script');
