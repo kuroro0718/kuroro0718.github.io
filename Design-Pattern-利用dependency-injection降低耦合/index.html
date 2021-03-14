@@ -3,25 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archetecture the Lost Years by Uncle Bob演講筆記 | Alex Liang</title>
+  <title>[Design Pattern] 利用dependency injection降低耦合 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近看了Uncle Bob在Ruby Midwest 2011的演講（影片連結）介紹軟體架構。">
-<meta name="keywords" content="演講筆記">
+  <meta name="description" content="前一篇文章介紹如何使用工廠方法。本篇介紹另一種技巧能切開商業邏輯和資料存取的程式碼。">
+<meta name="keywords" content="Node.js,design pattern">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Archetecture the Lost Years by Uncle Bob演講筆記">
-<meta property="og:url" content="http://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/index.html">
+<meta property="og:title" content="[Design Pattern] 利用dependency injection降低耦合">
+<meta property="og:url" content="http://alexliang.me/Design-Pattern-利用dependency-injection降低耦合/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="最近看了Uncle Bob在Ruby Midwest 2011的演講（影片連結）介紹軟體架構。">
+<meta property="og:description" content="前一篇文章介紹如何使用工廠方法。本篇介紹另一種技巧能切開商業邏輯和資料存取的程式碼。">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wVKfwcrEQO2FVYwXNMAd_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%884.44.26.png">
-<meta property="og:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wxVl3bRZSX63THFRtV6d_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%882.27.14.png">
-<meta property="og:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/692308/UYnWHAPQkSOdj6leELrD_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.06.06.png">
-<meta property="og:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/692308/mKseKRgTWeCgK3GK6yg6_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.30.17.png">
-<meta property="og:updated_time" content="2016-07-18T14:31:25.000Z">
+<meta property="og:updated_time" content="2021-03-14T12:35:08.795Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Archetecture the Lost Years by Uncle Bob演講筆記">
-<meta name="twitter:description" content="最近看了Uncle Bob在Ruby Midwest 2011的演講（影片連結）介紹軟體架構。">
-<meta name="twitter:image" content="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wVKfwcrEQO2FVYwXNMAd_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%884.44.26.png">
+<meta name="twitter:title" content="[Design Pattern] 利用dependency injection降低耦合">
+<meta name="twitter:description" content="前一篇文章介紹如何使用工廠方法。本篇介紹另一種技巧能切開商業邏輯和資料存取的程式碼。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -86,13 +81,13 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-archetecture-the-lost-years-by-uncle-bob-lecture-notes" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-Design-Pattern-利用dependency-injection降低耦合" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      Archetecture the Lost Years by Uncle Bob演講筆記
+      [Design Pattern] 利用dependency injection降低耦合
     </h1>
   
 
@@ -101,7 +96,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" class="article-date"><time datetime="2016-04-01T00:05:00.000Z" itemprop="datePublished">2016-04-01</time></a>
+  <a href="/Design-Pattern-利用dependency-injection降低耦合/" class="article-date"><time datetime="2021-03-14T02:23:38.000Z" itemprop="datePublished">2021-03-14</time></a>
 </div>
 
     
@@ -112,21 +107,22 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近看了Uncle Bob在Ruby Midwest 2011的演講（<a href="https://www.youtube.com/watch?v=WpkDN78P884&amp;list=LLvUp_IPqUJMajFn1HI2PYgw&amp;index=1" target="_blank" rel="noopener">影片連結</a>）介紹軟體架構。<br><a id="more"></a></p>
-<h3 id="Archetecture-is-about-intent"><a href="#Archetecture-is-about-intent" class="headerlink" title="Archetecture is about intent"></a>Archetecture is about intent</h3><p>一開始Uncle Bob列出幾種建築物的結構圖，藉此比喻好的架構設計能讓工程師迅速了解系統<br>從這裡再帶出web framework常採用的MVC架構<br>為何會有MVC的出現？ 為了讓系統耦合度降低 讓前端的設計不需要跟後端的資料庫或商業邏輯綁在一起</p>
-<p>演講從一個user case講起，再畫一個UML圖解釋架構。<br>他使用類似MVC架構的系統(interactor, entity, boundary)來處理這個問題<br>例如： interactor負責application特有的商業邏輯，並且和entity有連結的關係，可以視為controller<br>entity則是處理資料庫存取，屬於一般application共有的行為<br>boundary把interactor產生的資訊秀出來給使用者，整體架構如下圖所示：<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wVKfwcrEQO2FVYwXNMAd_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%884.44.26.png" alt="螢幕快照 2016-04-01 下午4.44.26.png"><br>Uncle Bob解釋這種設計能將商業邏輯和使用者介面切開，二者之間少了相依性<br>而右半邊的interactor和entity可封裝成gem或dll(看是哪種application)<br>最左邊的delivery machanism負責將user input分配給boundary，可封裝成plug-in的型態，方便測試</p>
-<h3 id="What-about-MVC"><a href="#What-about-MVC" class="headerlink" title="What about MVC?"></a>What about MVC?</h3><p>講到MVC這章，先從發明人<a href="https://en.wikipedia.org/wiki/Trygve_Reenskaug" target="_blank" rel="noopener">Trygve Reenskaug</a>開始介紹<br>延申到web application時會出現view和controller相依model的現象，如下圖<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wxVl3bRZSX63THFRtV6d_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%882.27.14.png" alt="螢幕快照 2016-04-04 下午2.27.14.png"><br>從測試的角度來看，view只要把資訊編排顯示正確即可，不需要關心後端的資料如何產生<br>對於商業邏輯的正確才是每次測試的重點，這點他比較偏好<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter" target="_blank" rel="noopener">Model-View-Presenter</a><br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/UYnWHAPQkSOdj6leELrD_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.06.06.png" alt="螢幕快照 2016-04-04 下午3.06.06.png"></p>
-<p>接下來Uncle Bob問觀眾做一次測試要多久？測了幾項？</p>
-<blockquote>
-<p>4分半測1000多項 –&gt; That’s good<br> 1小時半 –&gt; That’s bad &gt;”&lt;</p>
-</blockquote>
-<p>對工程師來說，測試如果花太久的時間，之後每次修改都會猶豫要不要測試。<br>這也增加專案爆炸的機率…</p>
-<h3 id="Good-Architeture"><a href="#Good-Architeture" class="headerlink" title="Good Architeture"></a>Good Architeture</h3><p>Uncle Bob最後提到早期一個wiki-like project。<br>從一開始他們就決定晚一點連結資料庫，先把application實作完<br>為了滅少測試時間，把wiki page存在memory中，雖然不能存檔，但至少能測試整個專案<br>後來他的同事實作FileSystemPage測試persistence，架構如下<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/mKseKRgTWeCgK3GK6yg6_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.30.17.png" alt="螢幕快照 2016-04-04 下午3.30.17.png"><br>而這時專案還沒有真正的database</p>
-<blockquote>
-<p>A good architecture allows major decisions to be deferred<br>A good architecture maximizes the number of decisions not made</p>
-</blockquote>
-<p>到最後客戶要求需要database，而他們只需要一天就把專案完成了</p>
-<p>好的架構可推遲重大的決定；好的架構能滅少做決定的次數。</p>
+        <p><a href="http://alexliang.me/Design-Pattern-工廠方法模式-Factory-介紹與應用/">前一篇文章</a>介紹如何使用工廠方法。本篇介紹另一種技巧能切開商業邏輯和資料存取的程式碼。</p>
+<a id="more"></a>
+<p>以之前電商平台的物流系統為例，假如此專案是外包的需求，A客戶指定用MySQL;而B客戶習慣PostgreSQL。在實作部分一開始為：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const db = require(&apos;./db&apos;);</span><br><span class="line"></span><br><span class="line">// 宣告超商取貨</span><br><span class="line">class ConvenienceStoreDelivery : Delivery &#123;</span><br><span class="line">   constructor(shipAddress) &#123;</span><br><span class="line">     // 略</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"> get shippingRate() &#123; </span><br><span class="line">	return (async() =&gt; </span><br><span class="line">		db.query(&apos;SELECT rate FROM tbl_shipment_info WHERE type = convenience_store&apos;);  </span><br><span class="line">	)(); 	</span><br><span class="line"> &#125;</span><br><span class="line">  </span><br><span class="line">  get freeShipmentThreshold() &#123;</span><br><span class="line">    return (async() =&gt; </span><br><span class="line">    	db.query(&apos;SELECT free_shipment_threshold FROM tbl_shipment_info WHERE type = convenience_store&apos;);</span><br><span class="line">    )();     </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上例中，我們依賴 db 這個檔案建立連線和設定。而這也帶來缺點: 寫測試時必須依賴實體的 database、不同的實作要使用另一個連線時要給額外的參數。</p>
+<p>此時可以應用 dependency injection。在 Node.js 裡有三種方式可以達成</p>
+<ol>
+<li>constructor</li>
+<li>setter</li>
+<li>bind</li>
+</ol>
+<p>本文使用 constructor 當範例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">class ConvenienceStoreDelivery : Delivery &#123;</span><br><span class="line">   constructor(shipAddress, db) &#123;</span><br><span class="line">     this.db = db;</span><br><span class="line">     this.shipAddress = shipAddress;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"> get shippingRate() &#123; </span><br><span class="line">	return (async() =&gt; </span><br><span class="line">		this.db.query(&apos;SELECT rate FROM tbl_shipment_info WHERE type = convenience_store&apos;);  </span><br><span class="line">	)(); 	</span><br><span class="line"> &#125;</span><br><span class="line">  </span><br><span class="line">  get freeShipmentThreshold() &#123;</span><br><span class="line">    return (async() =&gt; </span><br><span class="line">    	this.db.query(&apos;SELECT free_shipment_threshold FROM tbl_shipment_info WHERE type = convenience_store&apos;);</span><br><span class="line">    )();     </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// database.js</span><br><span class="line">class Database &#123;</span><br><span class="line">  constructor(config) &#123;</span><br><span class="line">     this._config = config;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  connect() &#123; // connect db &#125;</span><br><span class="line">  </span><br><span class="line">  query() &#123; // 略 &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// config.js</span><br><span class="line">const config = &#123;</span><br><span class="line">  MYSQL_CONFIG: &#123;</span><br><span class="line">    server: process.env.DB_SERVER,</span><br><span class="line">    database: process.env.DB_NAME,</span><br><span class="line">    user: process.env.DB_USER,</span><br><span class="line">    password: process.env.DB_PW</span><br><span class="line">  &#125;,</span><br><span class="line">  POSTGRES_CONFIG: &#123;</span><br><span class="line">    // 略</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 用戶端</span><br><span class="line">const config = require(&apos;./config&apos;);</span><br><span class="line">const Database = require(&apos;./database&apos;);</span><br><span class="line"></span><br><span class="line">const db = new Database(config.MYSQL_CONFIG);</span><br><span class="line">db.connect();</span><br><span class="line"></span><br><span class="line">const factory = new ConvenienceStoreDeliveryFactory();</span><br><span class="line">const convenienceStoreDelivery = factory.createDeliveryService(shipAddress, db);</span><br></pre></td></tr></table></figure>
+<p>這樣就能把 database 和實作隔開，如果專案要換其它的 db，只要改設定值 (或用環境變數) 即可。<br>應用此技巧能把二個不必要的耦合分開來，讓之後的修改更有彈性，<a href="https://nestjs.com/" target="_blank" rel="noopener">nest.js</a>也採用這種方式設計框架。</p>
+<p>ref: <a href="https://medium.com/@magnusjt/dependency-injection-in-nodejs-9601a19c1f36" target="_blank" rel="noopener">Dependency Injection in nodejs
+</a></p>
 
       
     </div>
@@ -137,16 +133,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" data-id="ckm954xtr000q79p4z2lo6a7z" class="article-share-link">
+      <a data-url="http://alexliang.me/Design-Pattern-利用dependency-injection降低耦合/" data-id="ckm954xyd005779p4hsun8vpj" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/#disqus_thread" class="article-comment-link">
+        <a href="http://alexliang.me/Design-Pattern-利用dependency-injection降低耦合/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/演講筆記/">演講筆記</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">design pattern</a></li></ul>
 
 
     </footer>
@@ -156,19 +152,12 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/679354/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[前端筆記] CSS3 Cross Country筆記</span>
+      <span class="article-nav-link-title">[Design Pattern] 工廠方法模式(Factory)介紹與應用</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/rails-dynamic-resolution-tracker-released-simple-form-field/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Rails] 使用nested_form動態新增輸入欄位</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -274,7 +263,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/';
+  var disqus_url = 'http://alexliang.me/Design-Pattern-利用dependency-injection降低耦合/';
   
   (function(){
     var dsq = document.createElement('script');
