@@ -5,18 +5,18 @@
   
   <title>NodeJS使用ESM Import載入模組 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
-<meta name="keywords" content="Node.js">
+  <meta name="description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export&#x2F;import，從NodeJS 12開始支援實驗性質的解決方法。  二個地方需要修改:  package.json 加入 &quot;type&quot;: &quot;module&quot; 執行程式時加入 --experimental-modules 或修改package.json的start script  以上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NodeJS使用ESM Import載入模組">
-<meta property="og:url" content="http://alexliang.me/NodeJS使用ESM-Import載入模組/index.html">
+<meta property="og:url" content="https://alexliang.me/NodeJS%E4%BD%BF%E7%94%A8ESM-Import%E8%BC%89%E5%85%A5%E6%A8%A1%E7%B5%84/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
-<meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2020-09-21T13:11:59.000Z">
+<meta property="og:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export&#x2F;import，從NodeJS 12開始支援實驗性質的解決方法。  二個地方需要修改:  package.json 加入 &quot;type&quot;: &quot;module&quot; 執行程式時加入 --experimental-modules 或修改package.json的start script  以上">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-07-05T13:26:48.000Z">
+<meta property="article:modified_time" content="2020-09-21T13:11:59.000Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="Node.js">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NodeJS使用ESM Import載入模組">
-<meta name="twitter:description" content="上一篇介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -29,10 +29,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -75,8 +77,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -96,7 +96,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/NodeJS使用ESM-Import載入模組/" class="article-date"><time datetime="2020-07-05T13:26:48.000Z" itemprop="datePublished">2020-07-05</time></a>
+  <a href="/NodeJS%E4%BD%BF%E7%94%A8ESM-Import%E8%BC%89%E5%85%A5%E6%A8%A1%E7%B5%84/" class="article-date"><time datetime="2020-07-05T13:26:48.000Z" itemprop="datePublished">2020-07-05</time></a>
 </div>
 
     
@@ -108,7 +108,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><a href="https://alexliang.me/NodeJS-%E8%A7%A3%E6%B1%BArequire%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91%E5%95%8F%E9%A1%8C/">上一篇</a>介紹如何解決CommonJS相對路徑問題。假如你偏好ES6的export/import，從NodeJS 12開始支援實驗性質的解決方法。</p>
-<a id="more"></a>
+<!-- more  -->
 <p>二個地方需要修改:</p>
 <ol>
 <li>package.json 加入 <code>&quot;type&quot;: &quot;module&quot;</code></li>
@@ -119,13 +119,13 @@
 <p>有二種 export 方式: <strong>named</strong> 和 <strong>default</strong>, 一個檔案可以有許多 named export, 但只能有一個 default export</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是 named export</span></span><br><span class="line"><span class="keyword">export</span> funcA = <span class="function"><span class="params">val</span> =&gt;</span> <span class="built_in">Math</span>.sqrt(val);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> seed = <span class="built_in">Math</span>.random();</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下是 default export, 注意結尾不加分號</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<p>named export 會強制使用同樣的名稱 import, 而 default export 可用任意名稱輸入, 例如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> str = <span class="string">'default'</span>; <span class="comment">// module1.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./module1'</span>;</span><br><span class="line"><span class="built_in">console</span>.info(a); <span class="comment">// 'default'</span></span><br></pre></td></tr></table></figure></p>
+<p>named export 會強制使用同樣的名稱 import, 而 default export 可用任意名稱輸入, 例如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> str = <span class="string">&#x27;default&#x27;</span>; <span class="comment">// module1.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">&#x27;./module1&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.info(a); <span class="comment">// &#x27;default&#x27;</span></span><br></pre></td></tr></table></figure></p>
 <p>如果一個檔案有許多 named export, 如果要選擇部分物件, 則:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// constant.js</span></span><br><span class="line"><span class="keyword">export</span> VALID_TYPES = [...];</span><br><span class="line"><span class="keyword">export</span> VALID_STATUS = [...];</span><br><span class="line"></span><br><span class="line"><span class="comment">// app.js, 只輸入 VALID_TYPES</span></span><br><span class="line"><span class="keyword">import</span> &#123; VALID_TYPES &#125; <span class="keyword">from</span> <span class="string">'./constant'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app2.js, 將 VALID_STATUS 改名</span></span><br><span class="line"><span class="keyword">import</span> &#123; VALID_STATUS <span class="keyword">as</span> ALERT_STATUS &#125; <span class="keyword">from</span> <span class="string">'./constant'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// constant.js</span></span><br><span class="line"><span class="keyword">export</span> VALID_TYPES = [...];</span><br><span class="line"><span class="keyword">export</span> VALID_STATUS = [...];</span><br><span class="line"></span><br><span class="line"><span class="comment">// app.js, 只輸入 VALID_TYPES</span></span><br><span class="line"><span class="keyword">import</span> &#123; VALID_TYPES &#125; <span class="keyword">from</span> <span class="string">&#x27;./constant&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app2.js, 將 VALID_STATUS 改名</span></span><br><span class="line"><span class="keyword">import</span> &#123; VALID_STATUS <span class="keyword">as</span> ALERT_STATUS &#125; <span class="keyword">from</span> <span class="string">&#x27;./constant&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>reference:</p>
 <ol>
-<li><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/import" target="_blank" rel="noopener">import document</a></li>
-<li><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/export" target="_blank" rel="noopener">export document</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/import">import document</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Statements/export">export document</a></li>
 </ol>
 
       
@@ -137,16 +137,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/NodeJS使用ESM-Import載入模組/" data-id="cktip5uzq00534mp4ivr1ojha" class="article-share-link">
+      <a data-url="https://alexliang.me/NodeJS%E4%BD%BF%E7%94%A8ESM-Import%E8%BC%89%E5%85%A5%E6%A8%A1%E7%B5%84/" data-id="cktu63033005359p422onbr36" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/NodeJS使用ESM-Import載入模組/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/NodeJS%E4%BD%BF%E7%94%A8ESM-Import%E8%BC%89%E5%85%A5%E6%A8%A1%E7%B5%84/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li></ul>
 
 
     </footer>
@@ -156,7 +156,7 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/NodeJS-解決require相對路徑問題/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/NodeJS-%E8%A7%A3%E6%B1%BArequire%E7%9B%B8%E5%B0%8D%E8%B7%AF%E5%BE%91%E5%95%8F%E9%A1%8C/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
       <span class="article-nav-link-title">NodeJS 解決require相對路徑問題</span>
     </a>
@@ -164,7 +164,7 @@
   
   
   <li role="presentation">
-    <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
       <span class="article-nav-link-title">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </span>
       <i class="fa fa-chevron-right pull-right"></i>
     </a>
@@ -179,7 +179,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -196,17 +196,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -215,7 +210,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -234,23 +229,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -274,7 +269,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/NodeJS使用ESM-Import載入模組/';
+  var disqus_url = 'https://alexliang.me/NodeJS%E4%BD%BF%E7%94%A8ESM-Import%E8%BC%89%E5%85%A5%E6%A8%A1%E7%B5%84/';
   
   (function(){
     var dsq = document.createElement('script');
@@ -292,7 +287,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

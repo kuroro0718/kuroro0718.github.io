@@ -5,18 +5,18 @@
   
   <title>[Javascript筆記] Hoisting | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。">
-<meta name="keywords" content="javascript">
+  <meta name="description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。  以下的範例會印出10 123x &#x3D; 10;var x;console.log(x); 實際上javascript interpreter會將x的宣告移到上方，也就是：123var x ＝ undefined;x &#x3D; 10;console.log(x); hositing也會影響fun">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Javascript筆記] Hoisting">
-<meta property="og:url" content="http://alexliang.me/javascript-notes-hoisting/index.html">
+<meta property="og:url" content="https://alexliang.me/javascript-notes-hoisting/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。">
-<meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:26:54.000Z">
+<meta property="og:description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。  以下的範例會印出10 123x &#x3D; 10;var x;console.log(x); 實際上javascript interpreter會將x的宣告移到上方，也就是：123var x ＝ undefined;x &#x3D; 10;console.log(x); hositing也會影響fun">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2016-03-03T18:30:00.000Z">
+<meta property="article:modified_time" content="2016-07-18T14:26:54.000Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Javascript筆記] Hoisting">
-<meta name="twitter:description" content="在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -29,10 +29,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -75,8 +77,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -108,15 +108,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。</p>
-<a id="more"></a>
+<!--  more  -->
 <p>以下的範例會印出10</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
 <p>實際上javascript interpreter會將x的宣告移到上方，也就是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x ＝ <span class="literal">undefined</span>;</span><br><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure></p>
 <p>hositing也會影響function expression的執行，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	foo();	<span class="comment">// 錯誤</span></span><br><span class="line">  bar();</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">"foo"</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">"bar"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>這段程式碼對javascript來說是長這樣：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="literal">undefined</span>;</span><br><span class="line">  foo();		<span class="comment">// 此時foo為一undefined的變數</span></span><br><span class="line">  foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">"foo"</span>);  </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	foo();	<span class="comment">// 錯誤</span></span><br><span class="line">  bar();</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這段程式碼對javascript來說是長這樣：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="literal">undefined</span>;</span><br><span class="line">  foo();		<span class="comment">// 此時foo為一undefined的變數</span></span><br><span class="line">  foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">&quot;foo&quot;</span>);  </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>Javascript雖然語法上是c-like，但在作用域（scope)的觀念有差別，這也會影響程式執行結果。</p>
-<p>參考資料：<br><a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank" rel="noopener">Javascript Scoping and Hoisting</a><br><a href="http://www.w3schools.com/js/js_hoisting.asp" target="_blank" rel="noopener">Hoisting基本解說</a></p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html">Javascript Scoping and Hoisting</a><br><a target="_blank" rel="noopener" href="http://www.w3schools.com/js/js_hoisting.asp">Hoisting基本解說</a></p>
 
       
     </div>
@@ -127,16 +127,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/javascript-notes-hoisting/" data-id="cktip5uwt000v4mp4l4q2sdbj" class="article-share-link">
+      <a data-url="https://alexliang.me/javascript-notes-hoisting/" data-id="cktu6300e000x59p415h84f8g" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/javascript-notes-hoisting/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/javascript-notes-hoisting/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
 
 
     </footer>
@@ -169,7 +169,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -186,17 +186,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -205,7 +200,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -224,23 +219,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -264,7 +259,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/javascript-notes-hoisting/';
+  var disqus_url = 'https://alexliang.me/javascript-notes-hoisting/';
   
   (function(){
     var dsq = document.createElement('script');
@@ -282,7 +277,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Alex Liang">
-<meta property="og:url" content="http://alexliang.me/page/5/index.html">
+<meta property="og:url" content="https://alexliang.me/page/5/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:locale" content="zh-tw">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="Alex Liang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -24,10 +24,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -69,8 +71,6 @@
   <div class="container">
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
-  
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
   
 </div>
 
@@ -117,16 +117,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-closure-introduced/" data-id="cktip5uy6002m4mp44kwb57g0" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-closure-introduced/" data-id="cktu6301q002o59p4gi2w0u92" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-closure-introduced/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-closure-introduced/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -163,28 +163,32 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在靜態語言中，nil or null的判斷是件重要卻常被忽略的事<br>當一個object或變數為null而沒被排除時，程式很有可能crash或出現莫明其妙的bug<br>Swift增加了optional幫助程式設計師避掉可能的crash，語法雖然簡單卻需要時間理解觀念<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/swift-and/#more">Read More</a>
-          </p>
-        
+        <p>在靜態語言中，nil or null的判斷是件重要卻常被忽略的事<br>當一個object或變數為null而沒被排除時，程式很有可能crash或出現莫明其妙的bug<br>Swift增加了optional幫助程式設計師避掉可能的crash，語法雖然簡單卻需要時間理解觀念<br><!--  more  --></p>
+<h2 id="Optionals"><a href="#Optionals" class="headerlink" title="Optionals"></a>Optionals</h2><p>當資料可能為nil時，我們在宣告變數時加入？。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> customerName: <span class="type">String</span>? 		<span class="comment">// nil</span></span><br><span class="line"><span class="keyword">var</span> regards <span class="operator">=</span> <span class="string">&quot;Thank you! &quot;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> name <span class="operator">=</span> customerName &#123;		<span class="comment">// skip</span></span><br><span class="line">	regards <span class="operator">+=</span> name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>當執行到if let時，因為customerName為nil而判斷式不會成立<br>沒有給定初始值的變數最好加上optional，在程式剛執行時還未給予值的情況下可避免crash</p>
+<p>另一種情況是function的回傳值可能為nil時，使用optional會是合理的選擇<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findStore</span>(<span class="params">storeName</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">	storeList <span class="operator">=</span> [<span class="string">&quot;7-11&quot;</span>, <span class="string">&quot;FamilyMarket&quot;</span>, <span class="string">&quot;Hi-life&quot;</span>]</span><br><span class="line">	<span class="keyword">for</span> store <span class="keyword">in</span> storeList &#123;</span><br><span class="line">		<span class="keyword">if</span> store <span class="operator">==</span> storeName &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="string">&quot;Find <span class="subst">\(storeName)</span>!&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> result <span class="operator">=</span> findStore(<span class="string">&quot;Poya&quot;</span>) &#123;</span><br><span class="line">	<span class="built_in">print</span>(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>findStore的回傳值為optionals，當storeList沒有符合的字串時則回傳nil<br>上例中result為nil，所以不會印出任何值</p>
+<h2 id="Unwrap"><a href="#Unwrap" class="headerlink" title="Unwrap"></a>Unwrap</h2><p>變數為optional時，使用！可以強制unwrap並存取資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> findStore(<span class="string">&quot;7-11&quot;</span>)			</span><br><span class="line">result<span class="operator">!</span>															<span class="comment">// Find 7-11!</span></span><br></pre></td></tr></table></figure><br>如上例，但此操作不符合官方的建議用法，同時也失去安全性</p>
+<h2 id="Downcast"><a href="#Downcast" class="headerlink" title="Downcast"></a>Downcast</h2><p>當使用某些資料型態的值做為變數時，需要資料型態轉換。<br>如果不確定轉換是否成功，使用as?會回傳optional，如此可避免nil帶來的問題<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> playlistDictionary <span class="operator">=</span> [</span><br><span class="line">	[</span><br><span class="line">  	<span class="string">&quot;title&quot;</span>: <span class="string">&quot;Native&quot;</span>,</span><br><span class="line">    <span class="string">&quot;artist&quot;</span>: <span class="string">&quot;OneRepublic&quot;</span></span><br><span class="line">  ]											</span><br><span class="line">  [</span><br><span class="line">  	<span class="string">&quot;title&quot;</span>: <span class="string">&quot;V&quot;</span>,</span><br><span class="line">    <span class="string">&quot;artist&quot;</span>: <span class="string">&quot;Maroon 5&quot;</span></span><br><span class="line">  ]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> playlist <span class="operator">=</span> playlistDictionary[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">let</span> title <span class="operator">=</span> playlist[<span class="string">&quot;title&quot;</span>] <span class="keyword">as?</span> <span class="type">String</span></span><br></pre></td></tr></table></figure><br>當我們存取playlist的title時，由於不確定回傳的值是否為nil，所以使用as?做型態轉換</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TypeCasting.html">Type Casting官方文件</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-and/" data-id="cktip5uy1002e4mp46537e6y9" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-and/" data-id="cktu6301o002m59p47pmz35k2" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-and/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-and/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -221,28 +225,35 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在C/C++中, 使用enum可提升程式碼的可讀性<br>而Swift的enum擴充原本的功能,使用上有更多的彈性<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/swift-enumerations/#more">Read More</a>
-          </p>
-        
+        <p>在C/C++中, 使用enum可提升程式碼的可讀性<br>而Swift的enum擴充原本的功能,使用上有更多的彈性<br><!--  more  --></p>
+<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">ProgrammingLanguage</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">C</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">CPP</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">Objective</span><span class="operator">-</span><span class="type">C</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">Swift</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> firstLanguage <span class="operator">=</span> <span class="type">ProgrammingLanguage</span>.<span class="type">Swift</span></span><br><span class="line"><span class="keyword">let</span> secondLanguage <span class="operator">=</span> .<span class="type">CPP</span></span><br></pre></td></tr></table></figure>
+<p>不同於數C和Objetive-C,Swift的enum並沒有預設的整數值,也就是說case C並不隱含整數0的概念<br>使用時除了第一個比較傳統的寫法外;你也可以省略enum的型別名稱,這也是Swift的syntax sugar</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> secondLanguage <span class="operator">=</span> .<span class="type">CPP</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">selectLanguage</span>(<span class="params">language</span>: <span class="type">ProgrammingLanguage</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> language &#123;</span><br><span class="line">	<span class="keyword">case</span> .<span class="type">C</span>: <span class="built_in">print</span>(<span class="string">&quot;You chose C language&quot;</span>)</span><br><span class="line">	<span class="keyword">case</span> .<span class="type">CPP</span>: <span class="built_in">print</span>(<span class="string">&quot;You chose C++ language&quot;</span>)</span><br><span class="line">	<span class="keyword">case</span> .<span class="type">Objective</span><span class="operator">-</span><span class="type">C</span>: <span class="built_in">print</span>(<span class="string">&quot;You chose Objective-C language&quot;</span>)</span><br><span class="line">	<span class="keyword">case</span> .<span class="type">Swift</span>: <span class="built_in">print</span>(<span class="string">&quot;You chose Swift language&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用switch做判斷時一樣能用簡短的表示法。因為使為enum當參數,compiler會檢查型別,switch也能省去default的值</p>
+<h2 id="Associated-Values"><a href="#Associated-Values" class="headerlink" title="Associated Values"></a>Associated Values</h2><p>這是Swift的enum和其它語言不一樣的地方,我們能為enum創造關聯性的值<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">CurrencyType</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">USD</span>(<span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">case</span> <span class="type">TWD</span>(<span class="type">Int</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> price <span class="operator">=</span> <span class="type">CurrencyType</span>.<span class="type">USD</span>(<span class="number">33.99</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">payCheck</span>(<span class="params">price</span>: <span class="type">CurrencyType</span>)</span> &#123;  </span><br><span class="line">  <span class="keyword">switch</span> price &#123;</span><br><span class="line">  <span class="keyword">case</span> .<span class="type">USD</span>(<span class="keyword">let</span> usDollar): </span><br><span class="line">  	<span class="keyword">let</span> ntDollar <span class="operator">=</span> usDollar <span class="operator">*</span> <span class="number">33</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;總共為: <span class="subst">\(ntDollar)</span> NTD&quot;</span>)</span><br><span class="line">  <span class="keyword">case</span> .<span class="type">NTD</span>(<span class="keyword">let</span> ntDollar):</span><br><span class="line">  	<span class="built_in">print</span>(<span class="string">&quot;總共為: <span class="subst">\(ntDollar)</span> NTD&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>CurrencyType包含二種貨幣,美金和新台幣. 而前者需要Double來表示;後者則是Int<br>在宣告price時,我們給予一個Double的值表示美金的價錢;而switch case需要加上對應的參數<br>這項特性讓我們使用enum時除了表示狀態,還能給予相對應的值</p>
+<h2 id="Raw-Values"><a href="#Raw-Values" class="headerlink" title="Raw Values"></a>Raw Values</h2><p>除了上述的Associated Values, Swift的enum也有C/C++給予初值的特性<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">HTTPResponse</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">Continue</span> <span class="operator">=</span> <span class="number">100</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">Success</span> <span class="operator">=</span> <span class="number">200</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">MultipleChoices</span> <span class="operator">=</span> <span class="number">300</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">NotFound</span> <span class="operator">=</span> <span class="number">404</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>這個例子中,HTTPResponse一開始就給予raw value. 而raw value只能為字串,字元,浮點數或整數,並且不能重複</p>
+<h2 id="Initializing-from-a-Raw-Value"><a href="#Initializing-from-a-Raw-Value" class="headerlink" title="Initializing from a Raw Value"></a>Initializing from a Raw Value</h2><p>假如定義了一組enum含有raw value,則我們能使用raw value查循狀態<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">HTTPResponse</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">Continue</span> <span class="operator">=</span> <span class="number">100</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">Success</span> <span class="operator">=</span> <span class="number">200</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">MultipleChoices</span> <span class="operator">=</span> <span class="number">300</span></span><br><span class="line">  <span class="keyword">case</span> <span class="type">NotFound</span> <span class="operator">=</span> <span class="number">404</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> statusCode <span class="operator">=</span> <span class="number">300</span></span><br><span class="line"><span class="keyword">let</span> httpResponse <span class="operator">=</span> <span class="type">HTTPResponse</span>(rawValue: statusCode)		<span class="comment">// MultipleChoices</span></span><br></pre></td></tr></table></figure><br>將外界傳來status code回應HTTPResponse相對應的狀態;假如沒找到則回傳nil<br>rawValue回傳的值為optional,即使沒找到也不會讓程式hang住<br>下一篇接著介紹optional</p>
+<p>參考來源:<br><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Enumerations.html#//apple_ref/doc/uid/TP40014097-CH12-ID145">官方文件</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-enumerations/" data-id="cktip5uya002v4mp4fa4wgcpi" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-enumerations/" data-id="cktu6301n002j59p4e4503x21" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-enumerations/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-enumerations/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -279,28 +290,38 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="http://alexliang-blog.logdown.com/posts/734169-swift-protocol-introduction" target="_blank" rel="noopener">上一篇</a>介紹Swift Protocol基本的用法和優點。<br>這篇接著討論Swift使用protocol帶來的設計觀念：Protocol Oriented Programming<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/swift-protocol-oriented-programming/#more">Read More</a>
-          </p>
-        
+        <p>在<a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/734169-swift-protocol-introduction">上一篇</a>介紹Swift Protocol基本的用法和優點。<br>這篇接著討論Swift使用protocol帶來的設計觀念：Protocol Oriented Programming<br><!--  more  --></p>
+<h2 id="Composition"><a href="#Composition" class="headerlink" title="Composition"></a>Composition</h2><p>在物件導向設計中，繼承(inheritance)是常被誤用的觀念。<br>當二個”看起來”類似的類別套入繼承的關係後，有些操作便不適合<br>例如：圓形和橢圓形適合使用繼承的關係嗎？  前者有半徑；後者有長軸和短軸<br>如果將橢圓形繼承圓形，則初始化時，半徑為無意義的值</p>
+<p>所以在重構時，很重要的一點是分㦚二個類別是”Is A”或”Has A”的關係<br>如同前例，橢圓形並”不是”一種圓形；相反的，跑車”是”車子的一種<br>於是討論這類問題時，組合(composition)是一個更適合的pattern</p>
+<h2 id="Protocol-Inheritance"><a href="#Protocol-Inheritance" class="headerlink" title="Protocol Inheritance"></a>Protocol Inheritance</h2><p>由於Swift的class只能繼承單一class，但class能擁有多個protocol<br>所以在設計class時，我們傾向將各特性分為各種protocol<br>而protocol能繼承另一個protocol，可以組合各種小功能的protocol完成有彈性的設計<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Movable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">move</span>()</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">FastMovable</span>: <span class="title">Movable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">move</span>()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Standard-Library-Protocols"><a href="#Standard-Library-Protocols" class="headerlink" title="Standard Library Protocols"></a>Standard Library Protocols</h2><p>Swift語言包含各種protocol，可分為三種類別：”Can Do”, “Is A”, “Can Be”<br>這三種protocol的命名方式也是Swift的慣例</p>
+<ol>
+<li>Can Do: 表示object可以做什麼，例如Standard Library中Equatable表示物件能判斷是否相等</li>
+<li>Is A: 表示object是某種形態，例如IntegerType</li>
+<li>Can Be: 表示object可以轉化成某種形態，例如ArrayLiteralConvertible表示物件能轉成array形態</li>
+</ol>
+<h2 id="Protocol-Oriented-Programming"><a href="#Protocol-Oriented-Programming" class="headerlink" title="Protocol Oriented Programming"></a>Protocol Oriented Programming</h2><p>假如有個class為Car，我們可以利用protocol組合該類別的基本行為<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Direction</span> </span>&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="type">Up</span>, <span class="type">Down</span>, <span class="type">Left</span>, <span class="type">Right</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Position</span> </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> x: <span class="type">Int</span></span><br><span class="line">  <span class="keyword">let</span> y: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Movable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">move</span>(<span class="params">direction</span>: <span class="type">Direction</span>, <span class="params">distance</span>: <span class="type">Int</span>)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">VehicleType</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> hoursePower: <span class="type">Int</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> price: <span class="type">Double</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">init</span>(<span class="params">position</span>: <span class="type">Position</span>)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span>: <span class="title">VehicleType</span>, <span class="title">Movable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> hoursePower: <span class="type">Int</span> <span class="operator">=</span> <span class="number">200</span></span><br><span class="line">  <span class="keyword">var</span> price: <span class="type">Double</span> <span class="operator">=</span> <span class="number">4000.25</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">required</span> <span class="function"><span class="keyword">init</span>(<span class="params">position</span>: <span class="type">Position</span>)</span> &#123;</span><br><span class="line">  	<span class="keyword">self</span>.position <span class="operator">=</span> position</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">move</span>(<span class="params">direction</span>: <span class="type">Direction</span>, <span class="params">distance</span>: <span class="type">Int</span>)</span> &#123;</span><br><span class="line">  	<span class="keyword">switch</span> direction &#123;</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">Up</span>: position.y <span class="operator">+=</span> distance</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">Down</span>: position.y <span class="operator">-=</span> distance</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">Left</span>: position.x <span class="operator">-=</span> distance</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">Right</span>: position.x <span class="operator">+=</span> distance</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>使用protocol的組合可以讓class的可讀性增加，並且更有彈性。</p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://www.skilled.io/gregheo/what-the-55-swift-standard-library-protocols-taught-me">What the 55 Swift Protocols taught me</a><br><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html">官方文件</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-protocol-oriented-programming/" data-id="cktip5uxz00294mp4sey2h5v1" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-protocol-oriented-programming/" data-id="cktu6301j002h59p4a8xb3eku" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-protocol-oriented-programming/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-protocol-oriented-programming/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -337,28 +358,42 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>初次接觸Swift時，少了pointer的機制，讓人好奇過去function call的call by value, call by reference是否有所不同<br>而Swift除了class外，其餘資料型態皆為value type。<br>這篇文章整理Swift Value and Reference type的差異<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/swift-value-and-reference-types/#more">Read More</a>
-          </p>
-        
+        <p>初次接觸Swift時，少了pointer的機制，讓人好奇過去function call的call by value, call by reference是否有所不同<br>而Swift除了class外，其餘資料型態皆為value type。<br>這篇文章整理Swift Value and Reference type的差異<br><!--  more  --></p>
+<h2 id="Value-Type"><a href="#Value-Type" class="headerlink" title="Value Type"></a>Value Type</h2><p>當copy value type資料時，Swift其實是創造一份獨立的”拷貝”，任何改變原本變數的值不會影響拷貝的資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123; <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Alex&quot;</span> &#125;</span><br><span class="line"><span class="keyword">let</span> somePerson <span class="operator">=</span> <span class="type">Person</span>()</span><br><span class="line"><span class="keyword">let</span> otherPerson <span class="operator">=</span> somePerson</span><br><span class="line">somePerson <span class="operator">=</span> <span class="string">&quot;John&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(somePerson.name)</span>, <span class="subst">\(otherPerson.name)</span>) 	// print John, Alex</span></span><br></pre></td></tr></table></figure><br>當somePerson的name被改變時，otherPerson並不受影響</p>
+<h2 id="Reference-Type"><a href="#Reference-Type" class="headerlink" title="Reference Type"></a>Reference Type</h2><p>當copy reference type資料時，Swift只是增加一個reference指向原本的資料<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Alex&quot;</span> &#125;</span><br><span class="line"><span class="keyword">let</span> somePerson <span class="operator">=</span> <span class="type">Person</span>()</span><br><span class="line"><span class="keyword">let</span> otherPerson <span class="operator">=</span> somePerson</span><br><span class="line">somePerson <span class="operator">=</span> <span class="string">&quot;John&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;<span class="subst">\(somePerson.name)</span>, <span class="subst">\(otherPerson.name)</span>) 	// print Alex, Alex</span></span><br></pre></td></tr></table></figure></p>
+<p>由以上例子可知，在使用function時要注意是否需要改變傳入的值<br>因為大多數的資料型態為value type，傳入function後無法修改原本的值<br>在multi-thread的環境中，這也一定確保資料的完整性，降低debug的困難度</p>
+<h2 id="如何選擇？"><a href="#如何選擇？" class="headerlink" title="如何選擇？"></a>如何選擇？</h2><p>使用value type:</p>
+<ol>
+<li>比較拷貝的資料(==)是合理行為</li>
+<li>拷貝的複本有獨立的狀態</li>
+<li>資料可能會被多個執行緒使用</li>
+</ol>
+<p>使用reference type:</p>
+<ol>
+<li>比較拷貝的識別(===)是合理的行為</li>
+<li>想創造可共享和改變的狀態</li>
+</ol>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://developer.apple.com/swift/blog/?id=10">Apple官方文件</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-value-and-reference-types/" data-id="cktip5uxt00224mp4w85yfdws" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-value-and-reference-types/" data-id="cktu6301g002e59p425le2m42" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-value-and-reference-types/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-value-and-reference-types/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -395,28 +430,33 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在design pattern中，interface是一個重要的概念。<br>它能夠將class之間共通但些許不同的行為提升到更高的層次，解決物件導向裡容易誤用繼承的問題<br>而Swift提供protocol做為interface和資料型態，讓物件導向設計變得更直觀<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/swift-protocol-introduction/#more">Read More</a>
-          </p>
-        
+        <p>在design pattern中，interface是一個重要的概念。<br>它能夠將class之間共通但些許不同的行為提升到更高的層次，解決物件導向裡容易誤用繼承的問題<br>而Swift提供protocol做為interface和資料型態，讓物件導向設計變得更直觀<br><!--  more  --></p>
+<h2 id="Declare"><a href="#Declare" class="headerlink" title="Declare"></a>Declare</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ExampleProtocol</span> </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> someProperty: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;				<span class="comment">// someProperty is gettable</span></span><br><span class="line">    <span class="keyword">var</span> otherProperty: <span class="type">String</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span>&#125;		<span class="comment">// otherProperty is gettable and settable    </span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">concatenate</span>(<span class="params">x</span>: <span class="type">String</span>, <span class="params">y</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span>: <span class="title">ExampleProtocol</span> </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> someProperty: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;A test class&quot;</span></span><br><span class="line">    <span class="keyword">var</span> otherProperty: <span class="type">String</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">concatenate</span>(<span class="params">x</span>: <span class="type">String</span>, <span class="params">y</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    		<span class="keyword">return</span> <span class="string">&quot;<span class="subst">\(x)</span> <span class="subst">\(y)</span>&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>protocol的property可宣告為gettable或settable，後者同時也可使用get<br>而function只需要宣告輸入參數和回傳型態，不需要實作</p>
+<p>class一旦使用protocol，就必須提供其property和function的實作。</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>使用protocol在實務上有什麼好處呢？<br>假如我們有二個class，Employee和HourlyEmployee，分別為正職和計時人員。 以及計算員工薪資的function<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> address: <span class="type">String</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>, <span class="params">address</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">    	<span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="keyword">self</span>.address <span class="operator">=</span> address</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">pay</span>()</span> -&gt; (salary: <span class="type">Double</span>, bonus: <span class="type">Double</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> (<span class="number">3000</span>, <span class="number">400</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HourlyEmployee</span>: <span class="title">Employ</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> hourlyWage: <span class="type">Double</span> <span class="operator">=</span> <span class="number">15.00</span></span><br><span class="line">    <span class="keyword">var</span> hoursWorked: <span class="type">Double</span> <span class="operator">=</span> <span class="number">8</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> pay() -&gt; (salary: <span class="type">Double</span>, bonus: <span class="type">Double</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> (hourlyWage <span class="operator">*</span> hoursWorked, <span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">payEmployee</span>(<span class="params">employee</span>: <span class="type">Employee</span>)</span> &#123;</span><br><span class="line">	<span class="keyword">let</span> paycheck <span class="operator">=</span> employee.pay()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>假如之後程式修改時，不小心將HourlyEmployee的pay刪除，則呼叫payEmployee時會回傳Employee的結果<br>這在程式碼增長的情況下是很容易出現的bug</p>
+<p>使用protocol可減少此類bug的發生<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Payable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">pay</span>()</span> -&gt; (salary: <span class="type">Double</span>, bonus: <span class="type">Double</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span>: <span class="title">Payable</span> </span>&#123;</span><br><span class="line">	<span class="comment">//略</span></span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">pay</span>()</span> -&gt; (salary: <span class="type">Double</span>, bonus: <span class="type">Double</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> (<span class="number">3000</span>, <span class="number">400</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HourlyEmployee</span>: <span class="title">Payable</span> </span>&#123;</span><br><span class="line">	<span class="comment">//略</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">override</span> pay() -&gt; (salary: <span class="type">Double</span>, bonus: <span class="type">Double</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> (hourlyWage <span class="operator">*</span> hoursWorked, <span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">payEmployee</span>(<span class="params">employee</span>: <span class="type">Employee</span>)</span> &#123;</span><br><span class="line">	<span class="keyword">let</span> paycheck <span class="operator">=</span> employee.pay()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>假如HourlyEmployee的pay function被刪，complier會提示error。</p>
+<h2 id="Types"><a href="#Types" class="headerlink" title="Types"></a>Types</h2><p>protocol不只能當interface使用，也能做type結合array、dictionary使用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Flyable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">fly</span>()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird</span>: <span class="title">Flyable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">  </span><br><span class="line">	<span class="function"><span class="keyword">func</span> <span class="title">fly</span>()</span> &#123;</span><br><span class="line">  	<span class="built_in">print</span>(<span class="string">&quot;I believe I can fly!&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">makeActions</span>(<span class="params">action</span>: [<span class="type">Flyable</span>])</span> &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> human <span class="operator">=</span> <span class="type">Human</span>(name: <span class="string">&quot;John&quot;</span>)</span><br><span class="line"><span class="keyword">let</span> sparrow <span class="operator">=</span> <span class="type">Bird</span>(name: <span class="string">&quot;GOT&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> animals: [<span class="type">Flyable</span>] <span class="operator">=</span> [human, sparrow]		<span class="comment">// Error, human is not Flyable</span></span><br></pre></td></tr></table></figure><br>指定animals為Flyable的array時，compiler會檢查array的值是否符合<br>這也類似有經驗的C/C++ programmer會將使用enum當function的參數，否則各參數都是int時，容易讓使用者誤用<br>protocol能幫我們減少無謂的bug及提高程式碼的可讀性</p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-protocol-introduction/" data-id="cktip5uxr001z4mp4fgxnybqv" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-protocol-introduction/" data-id="cktu6301d002959p4ci1fg6gf" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-protocol-introduction/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-protocol-introduction/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -453,28 +493,30 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在objective-c當中，如果method需要回傳二個以上的值，則可以使用帶有二個property的object或dictionary<br>而Swift新增tuples此資料型態，可一次回傳多個值<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/swift-tuples-introduction/#more">Read More</a>
-          </p>
-        
+        <p>在objective-c當中，如果method需要回傳二個以上的值，則可以使用帶有二個property的object或dictionary<br>而Swift新增tuples此資料型態，可一次回傳多個值<br><!--  more  --></p>
+<h2 id="Unnamed-Tuples"><a href="#Unnamed-Tuples" class="headerlink" title="Unnamed Tuples"></a>Unnamed Tuples</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stockProfolio <span class="operator">=</span> (<span class="number">3000</span>, <span class="number">3.4</span>)</span><br><span class="line"></span><br><span class="line">stockProfolio.<span class="number">0</span>		<span class="comment">// 3000</span></span><br><span class="line">stockProfolio.<span class="number">1</span>		<span class="comment">// 3.4</span></span><br></pre></td></tr></table></figure>
+<p>此為無識別字的tuple，在存取時不方便使用。<br>我們可透過以下方式給予識別<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> (share, price) <span class="operator">=</span> stockProfolio</span><br><span class="line">share				<span class="comment">// 3000</span></span><br><span class="line">price				<span class="comment">// 3.4</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Named-Tuples"><a href="#Named-Tuples" class="headerlink" title="Named Tuples"></a>Named Tuples</h2><p>上述的使用方式不夠直觀，建議使用named tuples增加可讀性<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stockProfolio <span class="operator">=</span> (share: <span class="number">3000</span>, price: <span class="number">3.4</span>)</span><br><span class="line">stockProfolio.share			<span class="comment">// 3000</span></span><br><span class="line">stockProfolio.price			<span class="comment">// 3.4</span></span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-tuples-introduction/" data-id="cktip5uy0002c4mp4vnqf3oh8" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-tuples-introduction/" data-id="cktu6301f002c59p4brxahm0j" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-tuples-introduction/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-tuples-introduction/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -511,29 +553,32 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Class-宣告"><a href="#Class-宣告" class="headerlink" title="Class 宣告"></a>Class 宣告</h2><p>Swift宣告class相當簡單，只要使用class這個關鍵字和class名稱<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>跟objective-c的宣告方式比較，不需要繼承NSObject或?生的類別。<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/swift-class-introduction/#more">Read More</a>
-          </p>
-        
+        <h2 id="Class-宣告"><a href="#Class-宣告" class="headerlink" title="Class 宣告"></a>Class 宣告</h2><p>Swift宣告class相當簡單，只要使用class這個關鍵字和class名稱<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>跟objective-c的宣告方式比較，不需要繼承NSObject或?生的類別。<br><!--  more  --></p>
+<h2 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h2><p>class的property則需要賦與初始值或使用init做初始化<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> salary: <span class="type">Int</span></span><br><span class="line">  <span class="keyword">let</span> taxRate: <span class="type">Double</span></span><br><span class="line">  <span class="keyword">var</span> tax: <span class="type">Int</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">init</span>(<span class="params">salary</span>: <span class="type">Int</span>, <span class="params">taxRate</span>: <span class="type">Double</span>)</span> &#123;</span><br><span class="line">  	<span class="keyword">self</span>.salary <span class="operator">=</span> salary</span><br><span class="line">    <span class="keyword">self</span>.taxRate <span class="operator">=</span> taxRate</span><br><span class="line">    tax <span class="operator">=</span> <span class="type">Int</span>(salary <span class="operator">*</span> taxRate)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>由於init的參數和property名稱一樣，所以使用self來區別<br>另一個要注意的是，class可以有多個init函式，但使用的參數必須不同 （和c的overloading function一樣）</p>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaxCalculator</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 略</span></span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">calcSalary</span>(<span class="params">tax</span>: <span class="type">Int</span>, <span class="params">taxRate</span>: <span class="type">Double</span>)</span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">Int</span>(tax <span class="operator">/</span> taxRate)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>method的宣告需要加上回傳值的資料型態，若無回傳值可省略。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> taxCalc <span class="operator">=</span> <span class="type">TaxCalculator</span>(salary: <span class="number">55000</span>, taxRate: <span class="number">0.15</span>)</span><br><span class="line">taxCalc.calcSalary(tax: <span class="number">2000</span>, taxRate: <span class="number">0.15</span>)</span><br></pre></td></tr></table></figure>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start">Swift 2 Tutorial</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/swift-class-introduction/" data-id="cktip5uxt00244mp4glzb0vlc" class="article-share-link">
+      <a data-url="https://alexliang.me/swift-class-introduction/" data-id="cktu6301c002759p4gyaq8xkk" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/swift-class-introduction/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/swift-class-introduction/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -570,28 +615,32 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="let-vs-var"><a href="#let-vs-var" class="headerlink" title="let vs. var"></a>let vs. var</h2><p>一開始接觸新語言時，首先會碰到各種資料型態的用法。<br>在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事<br>特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/basic-patterns-of-swift-notes/#more">Read More</a>
-          </p>
-        
+        <h2 id="let-vs-var"><a href="#let-vs-var" class="headerlink" title="let vs. var"></a>let vs. var</h2><p>一開始接觸新語言時，首先會碰到各種資料型態的用法。<br>在c/c++ java這些較早的靜態語言，資料型態的宣告是一件需要斤斤計較的事<br>特別是資源有限的平台，變數如果佔太大的記憶體會是潛在的問題，更別說因裝入超過表示範圍的值產生的bug<br><!--  more  --></p>
+<p>Swift為變數宣告提供二種方式： let和var<br>前者為constant，也就是不可變動的值；後者則是一般的宣告<br>一般是建議能使用let就使用，complier會自動做最佳化的動作</p>
+<p>如果想特別指定資料型態，也可用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> total : <span class="type">Int</span> <span class="operator">=</span> <span class="number">0</span>  <span class="comment">// 強制宣告total為Int</span></span><br><span class="line"><span class="keyword">let</span> taxRate <span class="operator">=</span> <span class="number">0.13</span>   <span class="comment">// 一般的宣告方式</span></span><br></pre></td></tr></table></figure><br>但如果沒特殊理由，使用預設的宣告方式以加強可讀性</p>
+<h2 id="Array-and-Dictionaries"><a href="#Array-and-Dictionaries" class="headerlink" title="Array and Dictionaries"></a>Array and Dictionaries</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> taxRate <span class="operator">=</span> [<span class="number">0.15</span>, <span class="number">0.18</span>, <span class="number">0.20</span>]		<span class="comment">// array</span></span><br><span class="line"><span class="keyword">let</span> emptyArray <span class="operator">=</span> [<span class="type">String</span>]()					<span class="comment">// create an empty array with String type</span></span><br><span class="line"><span class="keyword">var</span> arr <span class="operator">=</span> [[<span class="type">Int</span>]]()									<span class="comment">// 2 dimensional array of arrays of Ints </span></span><br></pre></td></tr></table></figure>
+<p>另一個資料型態為dictionary，這個在Python、Ruby都有類似的型態。<br>基本上就是一個key搭配value，可供建表及查循<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dict <span class="operator">=</span> [<span class="type">Int</span>: <span class="type">Double</span>]()					<span class="comment">// dictionary</span></span><br></pre></td></tr></table></figure></p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://www.raywenderlich.com/115253/swift-2-tutorial-a-quick-start">Swift 2 Tutorial</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/basic-patterns-of-swift-notes/" data-id="cktip5uxv00274mp4joxjehk8" class="article-share-link">
+      <a data-url="https://alexliang.me/basic-patterns-of-swift-notes/" data-id="cktu6301b002459p40cqq7jc8" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/basic-patterns-of-swift-notes/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/basic-patterns-of-swift-notes/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -628,28 +677,30 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>假如web application需要提供API時，為了讓routing有效率及提升routing table的可讀性<br>原本的routes.rb如下<br><figure class="highlight ruby"><figcaption><span>routes.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span>	</span><br><span class="line">	resources <span class="symbol">:posts</span>					<span class="comment"># http://your-domain/posts</span></span><br><span class="line">	</span><br><span class="line">	constraints <span class="symbol">subdomain:</span> <span class="string">'api'</span> <span class="keyword">do</span></span><br><span class="line">		resources <span class="symbol">:contents</span>			<span class="comment"># http://api.your-domain/contents</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/code-school-rails-api-note/#more">Read More</a>
-          </p>
-        
+        <p>假如web application需要提供API時，為了讓routing有效率及提升routing table的可讀性<br>原本的routes.rb如下<br><figure class="highlight ruby"><figcaption><span>routes.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span>	</span><br><span class="line">	resources <span class="symbol">:posts</span>					<span class="comment"># http://your-domain/posts</span></span><br><span class="line">	</span><br><span class="line">	constraints <span class="symbol">subdomain:</span> <span class="string">&#x27;api&#x27;</span> <span class="keyword">do</span></span><br><span class="line">		resources <span class="symbol">:contents</span>			<span class="comment"># http://api.your-domain/contents</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>  </span><br></pre></td></tr></table></figure><br><!--  more  --></p>
+<p>為了讓controller的目錄更有組織性，可以加上namespace<br><figure class="highlight ruby"><figcaption><span>routes.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span>	</span><br><span class="line">	resources <span class="symbol">:posts</span>					</span><br><span class="line">	</span><br><span class="line">	constraints <span class="symbol">subdomain:</span> <span class="string">&#x27;api&#x27;</span> <span class="keyword">do</span></span><br><span class="line">		namespace <span class="symbol">:api</span> <span class="keyword">do</span> </span><br><span class="line">			resources <span class="symbol">:contents</span>				<span class="comment"># http://api.your-domain/api/contents</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>  </span><br></pre></td></tr></table></figure></p>
+<p>雖然controller目錄變乾淨，但URL卻多出個api/contents。<br>加入path<br><figure class="highlight ruby"><figcaption><span>routes.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span>	</span><br><span class="line">	resources <span class="symbol">:posts</span>					</span><br><span class="line">	</span><br><span class="line">	constraints <span class="symbol">subdomain:</span> <span class="string">&#x27;api&#x27;</span> <span class="keyword">do</span></span><br><span class="line">		namespace <span class="symbol">:api</span>, <span class="symbol">path:</span> <span class="string">&#x27;/&#x27;</span> <span class="keyword">do</span> </span><br><span class="line">			resources <span class="symbol">:contents</span>				<span class="comment"># http://api.your-domain/contents</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>  </span><br></pre></td></tr></table></figure></p>
+<p>最後用一行搞定<br><figure class="highlight ruby"><figcaption><span>routes.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span>	</span><br><span class="line">	resources <span class="symbol">:posts</span>					</span><br><span class="line">	</span><br><span class="line">	namespace <span class="symbol">:api</span>, <span class="symbol">path:</span> <span class="string">&#x27;/&#x27;</span>, <span class="symbol">constraints:</span> &#123; <span class="symbol">subdomain:</span> <span class="string">&#x27;api&#x27;</span> &#125; <span class="keyword">do</span> </span><br><span class="line">		resources <span class="symbol">:contents</span>		 </span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>  </span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/code-school-rails-api-note/" data-id="cktip5uxq001x4mp4848wq7wh" class="article-share-link">
+      <a data-url="https://alexliang.me/code-school-rails-api-note/" data-id="cktu6301a002259p4gvgwdeb5" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/code-school-rails-api-note/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/code-school-rails-api-note/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -679,17 +730,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -698,7 +744,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -717,23 +763,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -773,7 +819,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

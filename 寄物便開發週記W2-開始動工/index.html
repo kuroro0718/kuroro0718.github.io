@@ -6,23 +6,24 @@
   <title>寄物便開發週記W2: 開始動工 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面 與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整">
-<meta name="keywords" content="ios,swift">
 <meta property="og:type" content="article">
 <meta property="og:title" content="寄物便開發週記W2: 開始動工">
-<meta property="og:url" content="http://alexliang.me/寄物便開發週記W2-開始動工/index.html">
+<meta property="og:url" content="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/index.html">
 <meta property="og:site_name" content="Alex Liang">
 <meta property="og:description" content="這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面 與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整">
-<meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="http://alexliang.me/寄物便開發週記W2-開始動工/mapview.png">
-<meta property="og:image" content="http://alexliang.me/寄物便開發週記W2-開始動工/store-detail.png">
-<meta property="og:image" content="http://alexliang.me/寄物便開發週記W2-開始動工/store-detail-v1.jpg">
-<meta property="og:image" content="http://alexliang.me/寄物便開發週記W2-開始動工/store-detail-v2.jpg">
-<meta property="og:image" content="http://alexliang.me/寄物便開發週記W2-開始動工/store-detail-v3.jpg">
-<meta property="og:updated_time" content="2016-10-13T00:43:30.000Z">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/mapview.png">
+<meta property="og:image" content="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/store-detail.png">
+<meta property="og:image" content="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/store-detail-v1.jpg">
+<meta property="og:image" content="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/store-detail-v2.jpg">
+<meta property="og:image" content="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/store-detail-v3.jpg">
+<meta property="article:published_time" content="2016-10-12T15:44:05.000Z">
+<meta property="article:modified_time" content="2016-10-13T00:43:30.000Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="ios">
+<meta property="article:tag" content="swift">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="寄物便開發週記W2: 開始動工">
-<meta name="twitter:description" content="這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面 與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整">
-<meta name="twitter:image" content="http://alexliang.me/寄物便開發週記W2-開始動工/mapview.png">
+<meta name="twitter:image" content="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/mapview.png">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -35,10 +36,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -81,8 +84,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -102,7 +103,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/寄物便開發週記W2-開始動工/" class="article-date"><time datetime="2016-10-12T15:44:05.000Z" itemprop="datePublished">2016-10-12</time></a>
+  <a href="/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/" class="article-date"><time datetime="2016-10-12T15:44:05.000Z" itemprop="datePublished">2016-10-12</time></a>
 </div>
 
     
@@ -115,12 +116,12 @@
       
         <p>這週開始動工，因為地圖的部分較為複雜，所以先從它開始弄畫面</p>
 <p>與後端串API的部分是先用postman發request，後端能正確新增訂單即可，剩下的細節等流程串起來再調整</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>一開始product designer給二張wireframe</p>
 <p><img src="mapview.png" alt="Map"><br><img src="store-detail.png" alt="Store detail"></p>
 <p>第一張比較麻煩的是下半部的商店簡介，這裡應該要能左右滑動且地圖中心點要移到商店座標</p>
 <p>我使用一個隱藏的collection view，上面排好元件<br>使用者點選商家時，由商家名稱找出商家陣列中符合的index，再reload collection view的資料</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MapViewDelegate</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mapView</span><span class="params">(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView)</span></span> &#123;</span><br><span class="line">       selectedAnnoView = storeList.indexOf &#123; (store) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></span><br><span class="line">           store.name! == (view.annotation?.title)!</span><br><span class="line">       &#125;!</span><br><span class="line">       storeCollectionView.reloadData()</span><br><span class="line">       storeCollectionView.hidden = <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   <span class="comment">// UICollectionViewDelegate</span></span><br><span class="line">   <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</span><br><span class="line">       <span class="keyword">let</span> indexToDisplay = <span class="type">NSIndexPath</span>(forRow: selectedAnnoView, inSection: <span class="number">0</span>)</span><br><span class="line">       <span class="keyword">self</span>.storeCollectionView.scrollToItemAtIndexPath(indexToDisplay, atScrollPosition: .<span class="type">None</span>, animated: <span class="literal">false</span>)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MapViewDelegate</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mapView</span>(<span class="params">mapView</span>: <span class="type">MKMapView</span>, <span class="params">didSelectAnnotationView</span> <span class="params">view</span>: <span class="type">MKAnnotationView</span>)</span> &#123;</span><br><span class="line">       selectedAnnoView <span class="operator">=</span> storeList.indexOf &#123; (store) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></span><br><span class="line">           store.name<span class="operator">!</span> <span class="operator">==</span> (view.annotation<span class="operator">?</span>.title)<span class="operator">!</span></span><br><span class="line">       &#125;<span class="operator">!</span></span><br><span class="line">       storeCollectionView.reloadData()</span><br><span class="line">       storeCollectionView.hidden <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   <span class="comment">// UICollectionViewDelegate</span></span><br><span class="line">   <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span>(<span class="params">collectionView</span>: <span class="type">UICollectionView</span>, <span class="params">willDisplayCell</span> <span class="params">cell</span>: <span class="type">UICollectionViewCell</span>, <span class="params">forItemAtIndexPath</span> <span class="params">indexPath</span>: <span class="type">NSIndexPath</span>)</span> &#123;</span><br><span class="line">       <span class="keyword">let</span> indexToDisplay <span class="operator">=</span> <span class="type">NSIndexPath</span>(forRow: selectedAnnoView, inSection: <span class="number">0</span>)</span><br><span class="line">       <span class="keyword">self</span>.storeCollectionView.scrollToItemAtIndexPath(indexToDisplay, atScrollPosition: .<span class="type">None</span>, animated: <span class="literal">false</span>)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>使用者點選商家會觸發didSelectAnnotationView事件，找到商家後更新collection view<br>而collection view需要捲到相對應的cell，這裡需要willDisplayCell這個delegate的方法把剛才得到的index使用scrollToItemAtIndexPath捲動cell</p>
 <p>點選collection view cell後可以進到該商家的頁面，這裡花了比較多時間刻出designer想要的畫面</p>
 <p>原本第一版上半部商家圖片和下半部使用者評論都是使用collection view，但考量需要加入page controll後，上半部改用scroll view來做</p>
@@ -128,8 +129,7 @@
 <p>但給其它同學測試，發現下半部的畫面會讓使用者不知道可以滑動<br>所以我把cell的寬度縮減一些</p>
 <p><img src="store-detail-v2.jpg" alt="Store detail v2"><br>發現效果還是平平，改加一個框框後</p>
 <p><img src="store-detail-v3.jpg" alt="Store detail v3"></p>
-<p>CollectionViewCell程式碼<br><figure class="highlight swift"><figcaption><span>StoreCommentsCollectionViewCell</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StoreCommentsCollectionViewCell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.userImageView.clipsToBounds = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">self</span>.userImageView.layer.cornerRadius = userImageView.frame.size.width / <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">drawRect</span><span class="params">(rect: CGRect)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.layer.borderWidth = <span class="number">0.5</span></span><br><span class="line">        <span class="keyword">self</span>.layer.borderColor = <span class="type">UIColor</span>.blackColor().<span class="type">CGColor</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>這效果讓designer點頭，於是第一版的畫面就先定下來。</p>
+<p>CollectionViewCell程式碼<br><figure class="highlight swift"><figcaption><span>StoreCommentsCollectionViewCell</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StoreCommentsCollectionViewCell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.userImageView.clipsToBounds <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        <span class="keyword">self</span>.userImageView.layer.cornerRadius <span class="operator">=</span> userImageView.frame.size.width <span class="operator">/</span> <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">required</span> <span class="function"><span class="keyword">init?</span>(<span class="params">coder</span> <span class="params">aDecoder</span>: <span class="type">NSCoder</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">init</span>(<span class="params">frame</span>: <span class="type">CGRect</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">drawRect</span>(<span class="params">rect</span>: <span class="type">CGRect</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.layer.borderWidth <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line">        <span class="keyword">self</span>.layer.borderColor <span class="operator">=</span> <span class="type">UIColor</span>.blackColor().<span class="type">CGColor</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>這效果讓designer點頭，於是第一版的畫面就先定下來。</p>
 <p>這中間討論的過程還算順利，也很慶幸自己沒有偷懶，看到wireframe先不要急著打搶，想辦法找答案做出來才是該有的態度。</p>
 
       
@@ -141,16 +141,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/寄物便開發週記W2-開始動工/" data-id="cktip5uyl003f4mp4vyaormi8" class="article-share-link">
+      <a data-url="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/" data-id="cktu63020003a59p45nxke3h5" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/寄物便開發週記W2-開始動工/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/" rel="tag">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/" rel="tag">swift</a></li></ul>
 
 
     </footer>
@@ -160,7 +160,7 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/讓APP在iOS-10能存取照相機/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/%E8%AE%93APP%E5%9C%A8iOS-10%E8%83%BD%E5%AD%98%E5%8F%96%E7%85%A7%E7%9B%B8%E6%A9%9F/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
       <span class="article-nav-link-title">讓APP在iOS 10能存取照相機</span>
     </a>
@@ -168,7 +168,7 @@
   
   
   <li role="presentation">
-    <a href="/寄物便開發週記W3-完成初版/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W3-%E5%AE%8C%E6%88%90%E5%88%9D%E7%89%88/" id="article-nav-newer" class="article-nav-link-wrap">
       <span class="article-nav-link-title">寄物便開發週記W3: 完成初版</span>
       <i class="fa fa-chevron-right pull-right"></i>
     </a>
@@ -183,7 +183,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -200,17 +200,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -219,7 +214,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -238,23 +233,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -278,7 +273,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/寄物便開發週記W2-開始動工/';
+  var disqus_url = 'https://alexliang.me/%E5%AF%84%E7%89%A9%E4%BE%BF%E9%96%8B%E7%99%BC%E9%80%B1%E8%A8%98W2-%E9%96%8B%E5%A7%8B%E5%8B%95%E5%B7%A5/';
   
   (function(){
     var dsq = document.createElement('script');
@@ -296,7 +291,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Alex Liang">
-<meta property="og:url" content="http://alexliang.me/page/8/index.html">
+<meta property="og:url" content="https://alexliang.me/page/8/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:locale" content="zh-tw">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="Alex Liang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -24,10 +24,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -70,8 +72,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -104,28 +104,47 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="http://alexliang-blog.logdown.com/posts/404856-project-management-on-resolution-tracker" target="_blank" rel="noopener">上一篇</a>解釋這個專案的想法從何而來。這一篇開始寫user story。<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/404906/#more">Read More</a>
-          </p>
-        
+        <p>在<a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/404856-project-management-on-resolution-tracker">上一篇</a>解釋這個專案的想法從何而來。這一篇開始寫user story。<br><!--  more  --><br>Version 1.</p>
+<pre><code>1. 身為使用者，我能夠以email登入網站
+2. 身為使用者，我能夠新增目標和完成時間
+3. 身為使用者，我能夠刪除目標
+4. 身為使用者，我能夠透過email分享目標給朋友
+5. 身為使用者，我能夠設定通知信寄送日期
+6. 身為使用者，我能夠看到目標的進度
+</code></pre><p>Version 2.  update January 14,2016</p>
+<pre><code>1. 身為使用者，我能夠以email登入網站 
+2. 身為使用者，我能夠新增目標和完成時間
+3. 身為使用者，我能夠刪除目標
+4. 身為使用者，我能夠勾選己完成的目標
+5. 身為使用者，我能夠透過email分享目標給朋友 
+         * 身為使用者，我需要登入才能看見朋友的目標
+   * 身為使用者，我能夠設定要分享權限
+    6. 身為使用者，我能夠設定通知信寄送日期
+7. 身為使用者，我能夠看到目標的進度
+     * 進度會以百分比顯示    
+    8. 身為管理者，我能管理一般使用者的帳號
+     * 身為管理者，我能停權一般使用者的帳號
+   * 身為管理者，我能恢復一般使用者的帳號
+</code></pre>
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/404906/" data-id="cktip5uwq000s4mp4xxah3uzi" class="article-share-link">
+      <a data-url="https://alexliang.me/404906/" data-id="cktu6300a000p59p4ey8t36x4" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/404906/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/404906/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -164,28 +183,38 @@
       
         <p>前天上完目標設定，對接下來一年有更具體的規劃</p>
 <p>在短期目標中，我寫下要轉職為rails developer。 </p>
-<p>要說服別人，當然得拿出作品來。於是resolution-tracker的想法就產生了⋯⋯<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/project-management-on-resolution-tracker/#more">Read More</a>
-          </p>
-        
+<p>要說服別人，當然得拿出作品來。於是resolution-tracker的想法就產生了⋯⋯<br><!--  more  --></p>
+<p>那天活動結束，老師要我們找3~4人的小組，大家互相督促。 但從過去的經驗來看，這樣還是不夠的</p>
+<p>所以我才想要用rails打造一個小組追蹤目標進度的網站，把目標和時程放上去，接近設定的時間時會自動寄信提醒。</p>
+<p>這個作品就用xdite的專案管理技巧來實作吧（真是一魚三吃 XD）</p>
+<p>首先是規劃時程。我己經昭告組員會在過年時放出beta版，以星期來看：</p>
+<pre><code>1. 1/4~1/10   寫user story，開始實作
+2. 1/11~1/17  實作
+3. 1/18~1/24  release preview version
+4. 1/25~1/31  修改樣式和bug 
+5. 2/1~2/7        release beta version
+</code></pre><p>對我來說，這schedule達成率是60%左右，但我有信心能完成它！　</p>
+<p>2016/1/17<br>激情過後，今天在家實作。發現在view的部分還是不太熟，要做出腦中的畫面還是需要看之前的作業。<br>而且最重要的寄信提醒功能還沒做，要加快腳步了。</p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/project-management-on-resolution-tracker/" data-id="cktip5ux400194mp4wb82azrf" class="article-share-link">
+      <a data-url="https://alexliang.me/project-management-on-resolution-tracker/" data-id="cktu6300b000r59p4bp2adoil" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/project-management-on-resolution-tracker/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/project-management-on-resolution-tracker/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -222,28 +251,39 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images" target="_blank" rel="noopener">上一篇</a>說明如何設定AWS S3。這一篇則是記錄使用carrierwave實作圖片上傳。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/392355/#more">Read More</a>
-          </p>
-        
+        <p><a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images">上一篇</a>說明如何設定AWS S3。這一篇則是記錄使用carrierwave實作圖片上傳。</p>
+<!--  more  -->
+<p>本例我們將建立一個model:Photo 配合carrierwave實現圖片上傳</p>
+<h2 id="安裝gem-carrierwave"><a href="#安裝gem-carrierwave" class="headerlink" title="安裝gem carrierwave"></a>安裝gem carrierwave</h2><figure class="highlight plaintext"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem &quot;carrierwave&quot;</span><br><span class="line">gem &quot;mini_megick&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;bundle install</span><br><span class="line">&gt;&gt;rails g uploader image</span><br></pre></td></tr></table></figure>
+<p>會產生uploaders/image_uploader.rb</p>
+<h2 id="設定autoload-paths"><a href="#設定autoload-paths" class="headerlink" title="設定autoload_paths"></a>設定autoload_paths</h2><figure class="highlight ruby"><figcaption><span>config/application.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Artstore</span></span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Application</span> &lt; Rails::Application</span></span><br><span class="line">...(略)</span><br><span class="line">   config.autoload_paths += <span class="string">%W(<span class="subst">#&#123;config.root&#125;</span>/app/uploaders)</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="建立model-Photo"><a href="#建立model-Photo" class="headerlink" title="建立model:Photo"></a>建立model:Photo</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;rails g model photo product_id:integer image:string</span><br><span class="line">&gt;&gt;rake db:migrate</span><br></pre></td></tr></table></figure>
+<h2 id="假如己有一個product-model，設定product和photo的關聯"><a href="#假如己有一個product-model，設定product和photo的關聯" class="headerlink" title="假如己有一個product model，設定product和photo的關聯"></a>假如己有一個product model，設定product和photo的關聯</h2><figure class="highlight ruby"><figcaption><span>models/photo.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> &lt; ActiveRecord::Base</span></span><br><span class="line">	belongs_to <span class="symbol">:product</span></span><br><span class="line">  </span><br><span class="line">	mount_uploader <span class="symbol">:image</span>, ImageUplader</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>models/product.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> &lt; ActiveRecord::Base</span></span><br><span class="line">	has_one <span class="symbol">:photo</span></span><br><span class="line"></span><br><span class="line"> 	accepts_nested_attributes_for <span class="symbol">:photo</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="新增product時能新增圖片"><a href="#新增product時能新增圖片" class="headerlink" title="新增product時能新增圖片"></a>新增product時能新增圖片</h2><figure class="highlight ruby"><figcaption><span>app/controllers/admin/products_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new</span></span></span><br><span class="line"> 	<span class="variable">@product</span> ＝ Prodcut.new</span><br><span class="line">   <span class="variable">@photo</span> = <span class="variable">@product</span>.build_photo</span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="將upload資料夾加入gitignore"><a href="#將upload資料夾加入gitignore" class="headerlink" title="將upload資料夾加入gitignore"></a>將upload資料夾加入gitignore</h2><figure class="highlight plaintext"><figcaption><span>.gitignore</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public/uploads</span><br></pre></td></tr></table></figure>
+<p>以上是使用carrierwave上傳圖片的流程，下一篇說明使用figaro管理s3密鑰。</p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/392355/" data-id="cktip5uwr000u4mp4gqc08mtx" class="article-share-link">
+      <a data-url="https://alexliang.me/392355/" data-id="cktu63009000n59p4ggsm2xi8" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/392355/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/392355/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -280,28 +320,38 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>假如網站部署到heroku，通常需要另外的空間存放圖片及檔案。這裡記錄AWS S3的設定。<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/aws-uses-s3-for-uploading-images/#more">Read More</a>
-          </p>
-        
+        <p>假如網站部署到heroku，通常需要另外的空間存放圖片及檔案。這裡記錄AWS S3的設定。<br><!--  more  --></p>
+<p>首先，登入AWS後台，選擇帳號設定<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/LZ1plgEcSLmeMlYynupj_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-24%20%E4%B8%8B%E5%8D%8811.09.20.png" alt="螢幕快照 2015-12-24 下午11.09.20.png"></p>
+<p>選擇“Get Started with IAM Users”<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/dv7RnEwaQ0O68xUxiAVx_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-25%20%E4%B8%8B%E5%8D%8810.26.55.png" alt="螢幕快照 2015-12-25 下午10.26.55.png"></p>
+<p>新增user，輸入名稱後，要勾選Generate an access key for each user<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/mHjiHIHKSA2NdASS5cSC_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.24.07.png" alt="螢幕快照 2015-12-27 下午9.24.07.png"></p>
+<p>完成後可下載Access Key。Access Key ID和Secret Access Key之後會用到<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/dHgFjj7KTvezki84n0BT_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.28.25.png" alt="螢幕快照 2015-12-27 下午9.28.25.png"></p>
+<p>回到User頁面，點選剛才建立的user<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/f7t4npdUT6C0Yukmqy15_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.39.12.png" alt="螢幕快照 2015-12-27 下午9.39.12.png"></p>
+<p>點選”Attach Policy”<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/8X1t9ETPiJqT0S6ZfyRA_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.42.00.png" alt="螢幕快照 2015-12-27 下午9.42.00.png"></p>
+<p>在policy type填s3，選擇出現的項目，再點Attach Policy<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/9Jb0oRvcSnudIKQUNqOz_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.45.04.png" alt="螢幕快照 2015-12-27 下午9.45.04.png"></p>
+<p>完成權限設定<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/ccerl8ymTKycqQJ2HVP9_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.47.04.png" alt="螢幕快照 2015-12-27 下午9.47.04.png"></p>
+<p>接著回到後台主畫面，點選S3<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/XQSbwHTEQIyTKd9wiZpP_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.01.50.png" alt="螢幕快照 2015-12-27 下午9.01.50.png"></p>
+<p>進入S3後台，新增bucket，Region選擇Northern California<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/385515/ubDJE5fZQfOxHtv0S4Kh_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202015-12-27%20%E4%B8%8B%E5%8D%889.05.26.png" alt="螢幕快照 2015-12-27 下午9.05.26.png"></p>
+<p>以上是S3的設定，下一篇介紹如何透過gem將網站的圖片上傳到S3。</p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/aws-uses-s3-for-uploading-images/" data-id="cktip5uwi000k4mp48ojwhb5f" class="article-share-link">
+      <a data-url="https://alexliang.me/aws-uses-s3-for-uploading-images/" data-id="cktu63008000m59p49zq37uks" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/aws-uses-s3-for-uploading-images/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/aws-uses-s3-for-uploading-images/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aws/">aws</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li></ul>
 
 
     </footer>
@@ -340,28 +390,43 @@
       
         <p>rails是使用MVC架構的framework。學習一段時間後，更能體會這種架構開發web application帶來的方便。</p>
 <p>所謂的MVC，指的是Model（資料操作）、View（前端效果）和Controller（流程控制）。</p>
-<p>剛開始接觸時，對MVC的控制會感到一頭霧水，這裡以rails 101為範本做簡單的流程介紹:<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/380854/#more">Read More</a>
-          </p>
-        
+<p>剛開始接觸時，對MVC的控制會感到一頭霧水，這裡以rails 101為範本做簡單的流程介紹:<br><!--  more  --></p>
+<ol>
+<li><p>設定routing，讓http request到對應的controller action執行</p>
+<figure class="highlight ruby"><figcaption><span>config/routes.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span></span><br><span class="line">  root <span class="string">&quot;groups#index&quot;</span></span><br><span class="line">  resources <span class="symbol">:groups</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="string">``</span><span class="string">`	    </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">2. 在controller新增action，例如討論版的首頁就需要建立index action</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> ruby app/controllers/groups_controller.rb</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GroupsController</span> &lt; ApplicationController</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">index</span></span></span><br><span class="line">  	  <span class="variable">@group</span> = Group.all</span><br><span class="line"> 	<span class="keyword">end</span></span><br><span class="line"> 	...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>設定model，思考需要哪些資料欄位以及和其它資料表的關係。例如group和post有has_many的關係</p>
+<figure class="highlight ruby"><figcaption><span>app/models/group.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Group</span> &lt; ActiveRecord::Base</span></span><br><span class="line">   validates <span class="symbol">:title</span>, <span class="symbol">presence:</span> <span class="literal">true</span>		<span class="comment">#表示title這個欄位必填</span></span><br><span class="line">   has_many <span class="symbol">:posts</span>, <span class="symbol">dependent:</span> <span class="symbol">:delete</span>	<span class="comment">#當group被刪除時，底下的post也得刪除</span></span><br><span class="line">   ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>設定view。如果需要使用URL helper，得思考request要發到哪個action，例如：<br><code>ruby app/views/groups/index.html.erb
+&lt;div class=&quot;col-md-12&quot;&gt;
+&lt;div class=&quot;group&quot;&gt;
+ &lt;%= link_to(&quot;New group&quot;, new_group_path, class: &quot;btn btn-primary pull-right&quot;) %&gt;
+&lt;/div&gt;
+...</code><br>使用者點擊”New group”這個按鈕時，會發一個request至new這個action並將頁面轉到/groups/new.html</p>
+</li>
+</ol>
+<p>以上是簡單的流程。這四個步驟會依功能需要增加複雜度，開始實作前也得思考model間的關係。</p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/380854/" data-id="cktip5uwh000j4mp43jsbzris" class="article-share-link">
+      <a data-url="https://alexliang.me/380854/" data-id="cktu62zzz000j59p4hppu1j0z" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/380854/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/380854/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -398,7 +463,7 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="讓rails-console變好看"><a href="#讓rails-console變好看" class="headerlink" title="讓rails console變好看"></a>讓rails console變好看</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Gemfile</span><br><span class="line">gem &quot;awesome_rails_console&quot;</span><br></pre></td></tr></table></figure>
+        <h2 id="讓rails-console變好看"><a href="#讓rails-console變好看" class="headerlink" title="讓rails console變好看"></a>讓rails console變好看</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Gemfile</span><br><span class="line">gem &quot;awesome_rails_console&quot; </span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -409,11 +474,11 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/379369/" data-id="cktip5uwl000m4mp46tjexhww" class="article-share-link">
+      <a data-url="https://alexliang.me/379369/" data-id="cktu63000000k59p41gnm4ipa" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/379369/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/379369/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
@@ -446,17 +511,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -465,7 +525,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -484,23 +544,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -540,7 +600,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

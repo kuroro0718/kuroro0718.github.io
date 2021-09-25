@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Alex Liang">
-<meta property="og:url" content="http://alexliang.me/page/6/index.html">
+<meta property="og:url" content="https://alexliang.me/page/6/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:locale" content="zh-tw">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="Alex Liang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -24,10 +24,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -70,8 +72,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -104,28 +104,38 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/upload-image-to-aws-s3-with-paperclip/#more">Read More</a>
-          </p>
-        
+        <p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br><!--  more  --></p>
+<p>一開始，照著<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/paperclip-s3">Heroku 官方教學</a>實作。<br>沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗</p>
+<h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><pre><code>1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images)
+2. 己安裝ImageMagick
+3. 己安裝Heroku Toolbelt
+</code></pre><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&quot;paperclip&quot;</span>, <span class="string">&#x27;~&gt; 4.3.6&#x27;</span></span><br><span class="line">gem <span class="string">&#x27;aws-sdk&#x27;</span>, <span class="string">&#x27;&lt; 2.0&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>因為paperclip對新版的aws-sdk尚未支援，aws-sdk採用2.0以前版本；paperclip用穩定版本</p>
+<figure class="highlight ruby"><figcaption><span>config/environments/production.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config.paperclip_defaults = &#123;</span><br><span class="line">  <span class="symbol">:storage</span> =&gt; <span class="symbol">:s3</span>,</span><br><span class="line">  <span class="symbol">:s3_credentials</span> =&gt; &#123;</span><br><span class="line">    <span class="symbol">:bucket</span> =&gt; ENV[<span class="string">&#x27;S3_BUCKET_NAME&#x27;</span>],</span><br><span class="line">    <span class="symbol">:access_key_id</span> =&gt; ENV[<span class="string">&#x27;AWS_ACCESS_KEY_ID&#x27;</span>],</span><br><span class="line">    <span class="symbol">:secret_access_key</span> =&gt; ENV[<span class="string">&#x27;AWS_SECRET_ACCESS_KEY&#x27;</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這裡使用ENV表示機密資訊，你可以在application.yml設定其值（注意此yml檔要加入.gitignore）<br>但heroku不知道這些值，所以要另外設定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ heroku config:<span class="built_in">set</span> S3_BUCKET_NAME=your_bucket_name</span><br><span class="line">$ heroku config:<span class="built_in">set</span> AWS_ACCESS_KEY_ID=your_access_key_id</span><br><span class="line">$ heroku config:<span class="built_in">set</span> AWS_SECRET_ACCESS_KEY=your_secret_access_key</span><br></pre></td></tr></table></figure>
+<p>新增paperclip.rb檔在config/initializers下<br><figure class="highlight ruby"><figcaption><span>config/initializers/paperclip.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> Rails.env.production?</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:url</span>] = your_bucket_url</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:path</span>] = <span class="string">&#x27;/:class/:attachment/:id_partition/:style/:filename&#x27;</span></span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:s3_host_name</span>] = <span class="string">&#x27;s3-us-west-1.amazonaws.com&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>要注意:url的值為’bucket_name’+s3.amazonaws.com，例如bucket取名paperclip-test，則url為paperclip-test.s3.amazonaws.com<br>而:s3_host_name則需參考<a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">AWS文件</a>做相對應的修改。</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/36391871/paperclip-s3-heroku-but-something-went-wrong">Stack Overflow討論文章</a><br><a target="_blank" rel="noopener" href="https://github.com/thoughtbot/paperclip">Paperclip github</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/" data-id="cktip5uy4002j4mp4zdp8lbay" class="article-share-link">
+      <a data-url="https://alexliang.me/upload-image-to-aws-s3-with-paperclip/" data-id="cktu63019001z59p433n00qgy" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/upload-image-to-aws-s3-with-paperclip/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -162,28 +172,32 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在deploy到Heroku前，應該檢查的事：<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/check-list-of-heroku-deployment/#more">Read More</a>
-          </p>
-        
+        <p>在deploy到Heroku前，應該檢查的事：<br><!--  more  --></p>
+<h2 id="開Branch"><a href="#開Branch" class="headerlink" title="開Branch"></a>開Branch</h2><p>因為你永遠不知道deploy後有什麼狀況，修改branch也比較安全<br>事實上，在修改bug、開發沒做過的功能前，你都應該新增branch</p>
+<h2 id="Devise"><a href="#Devise" class="headerlink" title="Devise"></a>Devise</h2><p>如果有裝Devise，記得加上這段<br><figure class="highlight ruby"><figcaption><span>config/initializers/devise.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.secret_key = ENV[<span class="string">&quot;DEVISE_SECRET&quot;</span>]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ heroku config:<span class="built_in">set</span> DEVISE_SECRET=XXX</span><br></pre></td></tr></table></figure>
+<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>因為Heroku不支援sqlite3，production改用postgresql<br><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></span><br><span class="line">  gem <span class="string">&#x27;sqlite3&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">group <span class="symbol">:production</span> <span class="keyword">do</span></span><br><span class="line">  gem <span class="string">&#x27;pg&#x27;</span></span><br><span class="line">en</span><br></pre></td></tr></table></figure><br>記得bundle install</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/18080910/devise-secret-key-was-not-set">Stack Overflow文章</a><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11714336/heroku-push-fails-with-the-error-an-error-occurred-while-installing-sqlite3-rub">設定production database</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/check-list-of-heroku-deployment/" data-id="cktip5uxn001s4mp4bqynqv1g" class="article-share-link">
+      <a data-url="https://alexliang.me/check-list-of-heroku-deployment/" data-id="cktu63018001x59p495u87qut" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/check-list-of-heroku-deployment/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/check-list-of-heroku-deployment/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li></ul>
 
 
     </footer>
@@ -220,28 +234,42 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在預設的routing和URL中，每筆資料皆以id做查詢及顯示。<br>例如網站有個post model及controller，則第一則post id為1，其URL為/posts/1。<br>這對網站SEO及可讀性來說是很糟糕的做法。<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-use-friendly-id-increase-the-readability-url/#more">Read More</a>
-          </p>
-        
+        <p>在預設的routing和URL中，每筆資料皆以id做查詢及顯示。<br>例如網站有個post model及controller，則第一則post id為1，其URL為/posts/1。<br>這對網站SEO及可讀性來說是很糟糕的做法。<br><!--  more  --></p>
+<p>如果要使用有意義的欄位(例如post title)作為URL的一部分，我們可以覆寫to_param並使用parameterize將id加上post title</p>
+<figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">to_param</span></span></span><br><span class="line">		<span class="string">&quot;<span class="subst">#&#123;id&#125;</span>-<span class="subst">#&#123;title&#125;</span>&quot;</span>.parameterize</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>透過此方法，假如第一則post title為rails routing，則本來的//post/1會變成//post/1-rails-routing。<br>但這樣還是有id number在URL。想更進一步去除id，需要在post model加入名為slug的欄位</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; rails g migration AddSlugToPosts slug</span><br><span class="line">&gt;&gt; rake db:migrate</span><br></pre></td></tr></table></figure>
+<p>修改post model<br><figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></span><br><span class="line">	before_save <span class="symbol">:update_slug</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update_slug</span></span></span><br><span class="line">  	<span class="keyword">self</span>.slug =	title.parameterize  <span class="comment"># 在儲存post前，先將title參數化存到slug</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">to_param</span></span></span><br><span class="line">		slug</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>	</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight ruby"><figcaption><span>app/controllers/posts_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsController</span> &lt; ActionController	</span></span><br><span class="line">  ... 略</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_params</span></span></span><br><span class="line">		<span class="variable">@post</span> = Post.find_by_slug(params[<span class="symbol">:id</span>])  <span class="comment"># 由於id在to_param時己改為slug，找資料時得用slug</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>以上介紹的方法最大的問題是當title被更改後(例如rails routing 2)，則URL會成為//posts/rails-routing-2<br>舊的網址將會失效，這對使用者來說會是非常不便的事。</p>
+<p>因此介紹friendly_id這套gem，它能幫我們把URL變美觀，且省下很多力氣</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&#x27;friendly_id&#x27;</span>, <span class="string">&#x27;~&gt; 5.1.0&#x27;</span> <span class="comment"># Note: You MUST use 5.0.0 or greater for Rails 4.0+</span></span><br></pre></td></tr></table></figure>
+<p>接著bundle install以完成安裝</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; rails generate friendly_id</span><br><span class="line">&gt;&gt; rake db:migrate</span><br></pre></td></tr></table></figure>
+<h2 id="Model-and-Controller"><a href="#Model-and-Controller" class="headerlink" title="Model and Controller"></a>Model and Controller</h2><figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></span><br><span class="line">  extend FriendlyId</span><br><span class="line">  friendly_id <span class="symbol">:title</span>, <span class="symbol">use:</span> <span class="symbol">:slugged</span></span><br><span class="line">  ... 略</span><br><span class="line"><span class="keyword">end</span>  </span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>app/controllers/posts_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsController</span> &lt; ActionController	</span></span><br><span class="line">  ... 略</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_params</span></span></span><br><span class="line">		<span class="variable">@post</span> = Post.friendly.find(params[<span class="symbol">:id</span>]) </span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>	</span><br></pre></td></tr></table></figure>
+<p>將本來的find前面加上friendly這個method，才能找到資料。</p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://gorails.com/episodes/pretty-urls-with-friendly-id">Friendly ID介紹影片</a><br><a target="_blank" rel="noopener" href="https://github.com/norman/friendly_id">friendly_id github</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-use-friendly-id-increase-the-readability-url/" data-id="cktip5uxp001u4mp4uk0jfati" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-use-friendly-id-increase-the-readability-url/" data-id="cktu63016001u59p47etx73d2" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-use-friendly-id-increase-the-readability-url/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-use-friendly-id-increase-the-readability-url/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -278,28 +306,41 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>新專案需要將地址放在google map顯示，於是使用gmaps4rails實作<br>經過一陣鬼打牆的debug後才搞定這個功能，這裡記錄下來，也提醒自己別再犯錯。<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-use-of-gmaps4rails-google-map/#more">Read More</a>
-          </p>
-        
+        <p>新專案需要將地址放在google map顯示，於是使用gmaps4rails實作<br>經過一陣鬼打牆的debug後才搞定這個功能，這裡記錄下來，也提醒自己別再犯錯。<br><!--  more  --></p>
+<h2 id="Install-gmaps4rails"><a href="#Install-gmaps4rails" class="headerlink" title="Install gmaps4rails"></a>Install gmaps4rails</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&#x27;gmaps4rails&#x27;</span></span><br><span class="line">gem <span class="string">&#x27;geocoder&#x27;</span>		<span class="comment"># 協助轉助座標</span></span><br></pre></td></tr></table></figure>
+<p>然後bundle 安裝gem</p>
+<h2 id="Javascript-Dependencies"><a href="#Javascript-Dependencies" class="headerlink" title="Javascript Dependencies"></a>Javascript Dependencies</h2><p>這段code需要放在view裡面<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;//maps.google.com/maps/api/js?v=3.18&amp;sensor=false&amp;client=&amp;key=&amp;libraries=geometry&amp;language=&amp;hl=&amp;region=&quot;</span>&gt;&lt;<span class="regexp">/script&gt; </span></span><br><span class="line"><span class="regexp">&lt;script src=&quot;/</span><span class="regexp">/google-maps-utility-library-v3.googlecode.com/svn</span><span class="regexp">/tags/markerclustererplus</span><span class="regexp">/2.0.14/src</span><span class="regexp">/markerclusterer_packed.js&quot;&gt;&lt;/script</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">&#x27;//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js&#x27;</span> type=<span class="string">&#x27;text/javascript&#x27;</span>&gt;&lt;<span class="regexp">/script&gt; &lt;!-- only if you need custom infoboxes --&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>接著在vendor/assets/javascripts底下新增underscore.js<br>並且將<a target="_blank" rel="noopener" href="http://underscorejs.org/underscore-min.js">這段程式碼</a>放入</p>
+<h2 id="Javascript-Source-Code"><a href="#Javascript-Source-Code" class="headerlink" title="Javascript Source Code"></a>Javascript Source Code</h2><figure class="highlight ruby"><figcaption><span>app/assets/javascripts/application.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="regexp">/= require underscore</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/= require gmaps/google</span></span><br></pre></td></tr></table></figure>
+<h2 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h2><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=<span class="string">&#x27;width: 800px;&#x27;</span>&gt;</span><br><span class="line">  &lt;div id=<span class="string">&quot;map&quot;</span> style=<span class="string">&#x27;width: 800px; height: 400px;&#x27;</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/div</span>&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Javascript-Code"><a href="#Javascript-Code" class="headerlink" title="Javascript Code"></a>Javascript Code</h2><p>在view底下加入javascript code，這段會顯示一個標記在經緯度原點的地圖<br><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">  handler = Gmaps.build(<span class="string">&#x27;Google&#x27;</span>);</span><br><span class="line">  handler.buildMap(&#123; <span class="symbol">provider:</span> &#123;&#125;, <span class="symbol">internal:</span> &#123;<span class="symbol">id:</span> <span class="string">&#x27;map&#x27;</span>&#125;&#125;, function()&#123;</span><br><span class="line">    markers = handler.addMarkers([</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;lat&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="string">&quot;lng&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="string">&quot;picture&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png&quot;</span>,</span><br><span class="line">          <span class="string">&quot;width&quot;</span>:  <span class="number">32</span>,</span><br><span class="line">          <span class="string">&quot;height&quot;</span>: <span class="number">32</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;infowindow&quot;</span>: <span class="string">&quot;hello!&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]);</span><br><span class="line">    handler.bounds.extendWith(markers);</span><br><span class="line">    handler.fitMapToBounds();</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>假設我們有一個post controller和model，其中有個欄位是address<br>此欄位需要轉換為經緯度，並且在controller建立一個hash table做為google map標記的資料<br><figure class="highlight ruby"><figcaption><span>app/controllers/posts_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsController</span> &lt; ApplicationController</span></span><br><span class="line">	...略</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">show</span> </span></span><br><span class="line">  	<span class="variable">@post</span> = Post.find(params[<span class="symbol">:id</span>])</span><br><span class="line">    <span class="variable">@hash</span> = Gmaps4rails.build_markers(<span class="variable">@post</span>) <span class="keyword">do</span> <span class="params">|post, marker|</span></span><br><span class="line">      marker.lat post.latitude</span><br><span class="line">      marker.lng post.longitude</span><br><span class="line">    <span class="keyword">end</span>   </span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">end</span>  </span><br></pre></td></tr></table></figure><br><em>這裡要注意的是建立hash這段code要放在相對應的action</em>，本來照著官網的示範做(它是放在index)，一直都失敗<br>才發現是hash沒建出來</p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><figure class="highlight ruby"><figcaption><span>app/models/post.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> &lt; ActiveRecord::Base</span></span><br><span class="line">  validates <span class="symbol">:title</span>, <span class="symbol">:address</span>, <span class="symbol">presence:</span> <span class="literal">true</span></span><br><span class="line">  geocoded_by <span class="symbol">:address</span></span><br><span class="line">  after_validation <span class="symbol">:geocode</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>需要使用geocoded_by才能轉換至經緯度座楆</p>
+<p>以上都設定好後，可以回頭修改script</p>
+<h2 id="Javascript-Code-1"><a href="#Javascript-Code-1" class="headerlink" title="Javascript Code"></a>Javascript Code</h2><p>在view底下加入javascript code，這段會顯示一個標記在經緯度原點的地圖<br><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">  handler = Gmaps.build(<span class="string">&#x27;Google&#x27;</span>);  </span><br><span class="line">  handler.buildMap(&#123; <span class="symbol">provider:</span> &#123;&#125;, <span class="symbol">internal:</span> &#123;<span class="symbol">id:</span> <span class="string">&#x27;map&#x27;</span>&#125;&#125;, function()&#123;</span><br><span class="line">      markers = handler.addMarkers(&lt;%=raw <span class="variable">@hash</span>.to_json %&gt;);  <span class="comment"># 將hash table轉成json格式當標記</span></span><br><span class="line">      handler.bounds.extendWith(markers);</span><br><span class="line">      handler.fitMapToBounds();</span><br><span class="line">      handler.getMap().setZoom(<span class="number">15</span>);		<span class="comment"># 預設zoom為15</span></span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>到這裡就完成google map的顯示了，如果還需要其它功能（畫路徑、客製化圖層）請參考官方說明</p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=oi3yxYs8Y4Q">Youtube教學影片</a><br><a target="_blank" rel="noopener" href="https://github.com/apneadiving/Google-Maps-for-Rails">gmaps4rails github</a><br><a target="_blank" rel="noopener" href="https://github.com/alexreisner/geocoder">geocoder github</a><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/19918942/gmaps4rails-v2-change-default-zoom">“Change default zoom” from Stack Overflow</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-use-of-gmaps4rails-google-map/" data-id="cktip5uy3002h4mp4gtgqlmpw" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-use-of-gmaps4rails-google-map/" data-id="cktu63015001s59p40c3i5qhb" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-use-of-gmaps4rails-google-map/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-use-of-gmaps4rails-google-map/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -336,28 +377,33 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="http://alexliang-blog.logdown.com/posts/713401-rails-i18n-translation-chinese" target="_blank" rel="noopener">上一篇</a>搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）<br>藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-calculated-meetup-date-and-use-a-helper-organize-views/#more">Read More</a>
-          </p>
-        
+        <p>在<a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/713401-rails-i18n-translation-chinese">上一篇</a>搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）<br>藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view<br><!--  more  --></p>
+<p>首先，因為球聚的時間是記錄星期幾，在model裡僅是個數字 (0~6表示週日到週六)<br>下次球聚的日期會根據使用者看到文章的當天計算<br>例如，預計週三聚會，使用者週四才看到文章。此時需顯示下次聚會日期 (也就是下週三)</p>
+<h2 id="Time-Class"><a href="#Time-Class" class="headerlink" title="Time Class"></a>Time Class</h2><p>Ruby的Time class提供wday，可得知日期對應到星期幾，例如<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">2.2.0 :009 &gt;</span> t = Time.now</span><br><span class="line"> =&gt; <span class="number">2016</span>-<span class="number">04</span>-<span class="number">22</span> <span class="number">15</span><span class="symbol">:</span><span class="number">20</span><span class="symbol">:</span><span class="number">42</span> +0800</span><br><span class="line"><span class="meta">2.2.0 :010 &gt;</span> t.wday</span><br><span class="line"> =&gt; <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...略</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  時間：&lt;%= next_meetup_date(<span class="variable">@post</span>.day.to_i) %&gt;</span><br><span class="line">&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Helper"><a href="#Helper" class="headerlink" title="Helper"></a>Helper</h2><p>day_offset是預計週幾聚會，利用Time.now.wday和它之間的關係算出下次聚會日期<br>next_meetup_date除了顯示日期，還加上星期幾<br><figure class="highlight ruby"><figcaption><span>app/helper/posts_helper.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">PostsHelper</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">calculate_date</span><span class="params">(day_offset)</span></span></span><br><span class="line">    meetup_day = day_offset</span><br><span class="line">    current_day = Time.now.wday   </span><br><span class="line">    next_date = DateTime.now + (meetup_day - current_day).days      </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> meetup_day &lt; current_day </span><br><span class="line">      next_date += <span class="number">7</span>.days  <span class="comment"># Next week</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    next_date.strftime(<span class="string">&#x27;%Y/%m/%d&#x27;</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">next_meetup_date</span><span class="params">(day_offset)</span></span></span><br><span class="line">    calculate_date(day_offset) + <span class="string">&#x27; (&#x27;</span> + I18n.t(<span class="symbol">:<span class="string">&quot;date.day_names&quot;</span></span>)[day_offset] + <span class="string">&#x27;)&#x27;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>使用helper的好處是將來如果要改變顯示格式，只要改一個地方就好，其它的view也能使用。</p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="http://ruby-doc.org/core-2.1.1/Time.html">Ruby Time文件</a><br><a target="_blank" rel="noopener" href="http://apidock.com/ruby/DateTime/strftime">strftime 格式化時間的說明</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/" data-id="cktip5uxj001n4mp4layi684k" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/" data-id="cktu63010001n59p4bgp245in" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -394,28 +440,33 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>網站的頁面需要提供下拉式選單供使用者選擇星期幾<br>一開始使用Date::DAYNAMES取得一週的詞彙：<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-i18n-translation-chinese/#more">Read More</a>
-          </p>
-        
+        <p>網站的頁面需要提供下拉式選單供使用者選擇星期幾<br>一開始使用Date::DAYNAMES取得一週的詞彙：<br><!--  more  --></p>
+<figure class="highlight ruby"><figcaption><span>app/views/posts/_form.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= simple_form_for <span class="variable">@post</span> <span class="keyword">do</span> <span class="params">|f|</span> %&gt;</span><br><span class="line">  ...略</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    球聚時間：每週 &lt;%= f.select <span class="symbol">:day</span>, Date::DAYNAMES.zip((<span class="number">0</span>..<span class="number">6</span>).to_a) %&gt;</span><br><span class="line">  &lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;% end %&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然而預設為英文單字<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt; [[<span class="string">&quot;Sunday&quot;</span>, 0], [<span class="string">&quot;Monday&quot;</span>, 1], [<span class="string">&quot;Tuesday&quot;</span>, 2], [<span class="string">&quot;Wednesday&quot;</span>, 3], [<span class="string">&quot;Thursday&quot;</span>, 4], [<span class="string">&quot;Friday&quot;</span>, 5], [<span class="string">&quot;Saturday&quot;</span>, 6]]</span><br></pre></td></tr></table></figure><br>我們想改成中文顯示，於是使用i18n轉換字詞</p>
+<p>首先，在config/locales下新增一個zh-TW.yml檔，裡面建立中文的對應單字<br><figure class="highlight ruby"><figcaption><span>config/locales/zh-TW.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;zh-TW&quot;</span>:</span><br><span class="line">  <span class="symbol">date:</span></span><br><span class="line">    <span class="symbol">day_names:</span></span><br><span class="line">      - 星期日</span><br><span class="line">      - 星期一</span><br><span class="line">      - 星期二</span><br><span class="line">      - 星期三</span><br><span class="line">      - 星期四</span><br><span class="line">      - 星期五</span><br><span class="line">      - 星期六	</span><br></pre></td></tr></table></figure><br>要特別注意的是yml檔裡不能用tab來縮排，必需使用2個空白</p>
+<p>接著設定config<br><figure class="highlight ruby"><figcaption><span>config/application.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.i18n.default_locale = <span class="string">&#x27;zh-TW&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>修改原來的view，即可轉換選單的英文字詞<br><figure class="highlight ruby"><figcaption><span>app/views/posts/_form.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= simple_form_for <span class="variable">@post</span> <span class="keyword">do</span> <span class="params">|f|</span> %&gt;</span><br><span class="line">  ...略</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    球聚時間：每週 &lt;%= f.select <span class="symbol">:day</span>, t(<span class="symbol">:<span class="string">&quot;date.day_names&quot;</span></span>).zip((<span class="number">0</span>..<span class="number">6</span>).to_a) %&gt;</span><br><span class="line">  &lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;% end %&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6590364/ruby-how-to-store-and-display-a-day-of-the-week">“How to store and display a day of the week” from Stack Overflow</a><br><a target="_blank" rel="noopener" href="https://ihower.tw/rails4/i18n.html">ihower介紹i118n</a><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/19326744/cant-i-just-simply-get-the-day-name-i18n-ed">設定yml檔 from Stack Overflow</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-i18n-translation-chinese/" data-id="cktip5uxk001p4mp48w4m1h4x" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-i18n-translation-chinese/" data-id="cktu63011001p59p4ex9w31xa" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-i18n-translation-chinese/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-i18n-translation-chinese/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -453,27 +504,31 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在實作寄信功能時，需要把一維陣列轉成hash，於是思維還沒轉成ruby的我就寫下這段很初學者的code</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-1-d-array-to-hash/#more">Read More</a>
-          </p>
-        
+<!--  more  -->
+<p>原來的code，為了建立mail_list這個hash，花了6行程式碼<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></span><br><span class="line">	...略</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">generate_json_params</span></span></span><br><span class="line">    mail_list = &#123;&#125;</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> email <span class="keyword">in</span> <span class="variable">@goal</span>.shared_mails</span><br><span class="line">      mail_list[count.to_s] = email.mail_addr</span><br><span class="line">      count+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    h = JSON.generate(&#123; <span class="string">&#x27;owner&#x27;</span> =&gt; <span class="variable">@goal</span>.owner.name,</span><br><span class="line">                        <span class="string">&#x27;goal&#x27;</span> =&gt; <span class="variable">@goal</span>.title,</span><br><span class="line">                        <span class="string">&#x27;complete_date&#x27;</span> =&gt; <span class="variable">@goal</span>.complete_date,</span><br><span class="line">                        <span class="string">&#x27;email&#x27;</span> =&gt; mail_list &#125;)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>使用Ruby內建的Hash[]可將陣列轉成Hash，再搭配with_index以index當key，一行搞定！<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController	</span></span><br><span class="line">  ...略</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">generate_json_params</span>    </span></span><br><span class="line">    mail_list = Hash[ <span class="variable">@goal</span>.shared_mails.map.with_index &#123;<span class="params">|x, i|</span> [i, x.mail_addr]&#125;]</span><br><span class="line">    h = JSON.generate(&#123; <span class="string">&#x27;owner&#x27;</span> =&gt; <span class="variable">@goal</span>.owner.name,</span><br><span class="line">                        <span class="string">&#x27;goal&#x27;</span> =&gt; <span class="variable">@goal</span>.title,</span><br><span class="line">                        <span class="string">&#x27;complete_date&#x27;</span> =&gt; <span class="variable">@goal</span>.complete_date,</span><br><span class="line">                        <span class="string">&#x27;email&#x27;</span> =&gt; mail_list &#125;)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>(沒想到重構一個function居然可以寫3篇文章 XD)</p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://ihower.tw/blog/archives/5959">ihower blog文章</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-1-d-array-to-hash/" data-id="cktip5uxh001i4mp47vknpzhi" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-1-d-array-to-hash/" data-id="cktu6300z001k59p47won3wuo" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-1-d-array-to-hash/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-1-d-array-to-hash/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -510,28 +565,30 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="http://alexliang-blog.logdown.com/posts/709982-rails-use-sidekiq-mailer-letter-function" target="_blank" rel="noopener">上一篇</a>我們介紹使用sidekiq和ActionMailer處理寄信功能。<br>原本要寄信時還得手動按下按鈕且controller寫得不夠乾淨，這次選擇重構controller</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-refactoring-controllers/#more">Read More</a>
-          </p>
-        
+        <p>在<a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/709982-rails-use-sidekiq-mailer-letter-function">上一篇</a>我們介紹使用sidekiq和ActionMailer處理寄信功能。<br>原本要寄信時還得手動按下按鈕且controller寫得不夠乾淨，這次選擇重構controller</p>
+<!--  more  -->
+<p>原來的controller<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></span><br><span class="line">	before_action <span class="symbol">:find_params</span>, <span class="symbol">only:</span> [<span class="symbol">:edit</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>, <span class="symbol">:complete</span>, <span class="symbol">:notify_friend</span>]</span><br><span class="line">	...略</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">notify_friend</span> </span></span><br><span class="line">		mail_list = &#123;&#125;</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> email <span class="keyword">in</span> <span class="variable">@goal</span>.shared_mails</span><br><span class="line">      mail_list[count.to_s] = email.mail_addr</span><br><span class="line">      count+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    h = JSON.generate(&#123; <span class="string">&#x27;owner&#x27;</span> =&gt; <span class="variable">@goal</span>.owner.name,</span><br><span class="line">                        <span class="string">&#x27;goal&#x27;</span> =&gt; <span class="variable">@goal</span>.title,</span><br><span class="line">                        <span class="string">&#x27;complete_date&#x27;</span> =&gt; <span class="variable">@goal</span>.complete_date,</span><br><span class="line">                        <span class="string">&#x27;email&#x27;</span> =&gt; mail_list &#125;)  </span><br><span class="line">    SendEmailJob.perform_now(h)</span><br><span class="line">    redirect_to goals_path</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">  private</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_params</span></span></span><br><span class="line">    <span class="variable">@goal</span> = current_user.goals.find(params[<span class="symbol">:id</span>])</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>使用after_action，在更新目標的分享對象後發信。並且將產生json格式分出來讓notify_friend功能單一<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></span><br><span class="line">	before_action <span class="symbol">:authenticate_user!</span>, <span class="symbol">only:</span> [<span class="symbol">:new</span>, <span class="symbol">:edit</span>, <span class="symbol">:create</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>]</span><br><span class="line">	before_action <span class="symbol">:find_params</span>, <span class="symbol">only:</span> [<span class="symbol">:edit</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>, <span class="symbol">:complete</span>]</span><br><span class="line">  +  after_action <span class="symbol">:notify_friend</span>, <span class="symbol">only:</span> [<span class="symbol">:update</span>]</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">notify_friend</span>   </span></span><br><span class="line">    SendEmailJob.perform_now(generate_json_params)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  private</span><br><span class="line">	...略</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">generate_json_params</span></span></span><br><span class="line">    mail_list = &#123;&#125;</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> email <span class="keyword">in</span> <span class="variable">@goal</span>.shared_mails</span><br><span class="line">      mail_list[count.to_s] = email.mail_addr</span><br><span class="line">      count+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    h = JSON.generate(&#123; <span class="string">&#x27;owner&#x27;</span> =&gt; <span class="variable">@goal</span>.owner.name,</span><br><span class="line">                        <span class="string">&#x27;goal&#x27;</span> =&gt; <span class="variable">@goal</span>.title,</span><br><span class="line">                        <span class="string">&#x27;complete_date&#x27;</span> =&gt; <span class="variable">@goal</span>.complete_date,</span><br><span class="line">                        <span class="string">&#x27;email&#x27;</span> =&gt; mail_list &#125;)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-refactoring-controllers/" data-id="cktip5uxi001k4mp4owua26hy" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-refactoring-controllers/" data-id="cktu6300x001i59p44vlq6b80" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-refactoring-controllers/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-refactoring-controllers/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -568,28 +625,44 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="http://alexliang-blog.logdown.com/posts/698281-rails-dynamic-resolution-tracker-released-simple-form-field" target="_blank" rel="noopener">上一篇</a>完成動態新增email欄位後，我們使用sidekiq和mailer完成非同步寄信功能<br>sidekiq官方建議使用JSON作為active job的參數，此篇也記錄將Model的參數轉換成需要的json格式</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-use-sidekiq-mailer-letter-function/#more">Read More</a>
-          </p>
-        
+        <p>在<a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/698281-rails-dynamic-resolution-tracker-released-simple-form-field">上一篇</a>完成動態新增email欄位後，我們使用sidekiq和mailer完成非同步寄信功能<br>sidekiq官方建議使用JSON作為active job的參數，此篇也記錄將Model的參數轉換成需要的json格式</p>
+<!--  more  -->
+<p>先從gem的基本安裝開始，此範例使用’letter_opener’和’sidekiq’<br>letter_opener可讓我們即時檢視信件，而不必真的寄信到信箱裡<br>sidekiq則是幫助我們將寄信的動作放到背景執行</p>
+<h3 id="Gem-Install"><a href="#Gem-Install" class="headerlink" title="Gem Install"></a>Gem Install</h3><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&#x27;letter_opener&#x27;</span>, <span class="symbol">group:</span> <span class="symbol">:development</span></span><br><span class="line">gem <span class="string">&#x27;sidekiq&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>使用bundle安裝gem</p>
+<p>接著安裝Redis，sidekiq需要它才能運行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure></p>
+<h3 id="Mailer"><a href="#Mailer" class="headerlink" title="Mailer"></a>Mailer</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rails g mailer UserMailer</span><br></pre></td></tr></table></figure>
+<p>設定config<br><figure class="highlight ruby"><figcaption><span>config/environments/development.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">config.action_mailer.default_url_options = &#123; <span class="symbol">host:</span> <span class="string">&quot;http://localhost:3000&quot;</span> &#125;</span><br><span class="line">config.action_mailer.delivery_method = <span class="symbol">:letter_opener</span></span><br></pre></td></tr></table></figure></p>
+<p>設定發信的信箱位址<br><figure class="highlight ruby"><figcaption><span>app/mailers/application_mailer.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplicationMailer</span> &lt; ActionMailer::Base</span></span><br><span class="line">  default <span class="symbol">from:</span> <span class="string">&quot;service@resolution-tracker.com&quot;</span></span><br><span class="line">  layout <span class="string">&#x27;mailer&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>設定寄信的收件人和主旨，這裡我們還需要目標的擁有者和目標的標題。share_goal會在之後的ActiveJob使用<br><figure class="highlight ruby"><figcaption><span>app/mailers/user_mailer.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserMailer</span> &lt; ApplicationMailer</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">share_goal</span><span class="params">(owner, goal, complete_date, email)</span></span></span><br><span class="line">    <span class="variable">@owner</span> = owner</span><br><span class="line">    <span class="variable">@goal</span> = goal    </span><br><span class="line">    <span class="variable">@complete_date</span> = complete_date</span><br><span class="line">    <span class="variable">@email</span> = email</span><br><span class="line"></span><br><span class="line">    mail(<span class="symbol">to:</span> <span class="variable">@email</span>, <span class="symbol">subject:</span> <span class="string">&quot;[ResolutionTracker] <span class="subst">#&#123;<span class="variable">@owner</span>&#125;</span>分享目標&quot;</span>)   </span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>接著設定信件的內容，這裡會使用share_goal傳進來的參數<br><figure class="highlight ruby"><figcaption><span>app/views/user_mailer/share_goal.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;ResolutionTracker&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;p&gt;</span></span><br><span class="line"><span class="regexp">  Hi </span></span><br><span class="line"><span class="regexp">&lt;/p</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;</span><br><span class="line">  以下是&lt;%= <span class="variable">@owner</span> %&gt;的目標：</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;目標：&lt;%= <span class="variable">@goal</span>%&gt;&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    &lt;li&gt;預計完成日期：&lt;%= @complete_date %&gt;&lt;/li</span>&gt;</span><br><span class="line">  &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">  目標連結：&lt;%= link_to @goal, &quot;#&quot; %&gt;</span></span><br><span class="line"><span class="regexp">&lt;/p</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;</span><br><span class="line">  請好好督促 &lt;%= <span class="variable">@owner</span> %&gt; 喔！</span><br><span class="line">&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>在controller中需要增加一個action將active record轉成json格式再傳給ActiveJob<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></span><br><span class="line">	before_action <span class="symbol">:find_params</span>, <span class="symbol">only:</span> [<span class="symbol">:edit</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>, <span class="symbol">:complete</span>, <span class="symbol">:notify_friend</span>]</span><br><span class="line">	...略</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">notify_friend</span> </span></span><br><span class="line">		mail_list = &#123;&#125;</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> email <span class="keyword">in</span> <span class="variable">@goal</span>.shared_mails</span><br><span class="line">      mail_list[count.to_s] = email.mail_addr</span><br><span class="line">      count+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    h = JSON.generate(&#123; <span class="string">&#x27;owner&#x27;</span> =&gt; <span class="variable">@goal</span>.owner.name,</span><br><span class="line">                        <span class="string">&#x27;goal&#x27;</span> =&gt; <span class="variable">@goal</span>.title,</span><br><span class="line">                        <span class="string">&#x27;complete_date&#x27;</span> =&gt; <span class="variable">@goal</span>.complete_date,</span><br><span class="line">                        <span class="string">&#x27;email&#x27;</span> =&gt; mail_list &#125;)  </span><br><span class="line">    SendEmailJob.perform_now(h)</span><br><span class="line">    redirect_to goals_path</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">  private</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">find_params</span></span></span><br><span class="line">    <span class="variable">@goal</span> = current_user.goals.find(params[<span class="symbol">:id</span>])</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>由於一個目標可能會分享給多位朋友，我們創立一個空的hash table儲存各email address<br>接著使用ruby的JSON.generate產生active job參數。<br><a target="_blank" rel="noopener" href="https://github.com/mperham/sidekiq/wiki/Best-Practices">這裡</a>提到為什麼使用簡單的格式而不是整個物件當參數，原因是這會讓Redis serializing，加重系統負擔</p>
+<h3 id="Active-Job"><a href="#Active-Job" class="headerlink" title="Active Job"></a>Active Job</h3><p>設定active job初始化<br><figure class="highlight ruby"><figcaption><span>config/initializers/active_job.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> Rails.env.test?</span><br><span class="line">  ActiveJob::Base.queue_adapter = <span class="symbol">:inline</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  ActiveJob::Base.queue_adapter = <span class="symbol">:sidekiq</span></span><br><span class="line"><span class="keyword">end</span>	</span><br></pre></td></tr></table></figure></p>
+<p>在app資料夾底下新增jobs資料夾，並新增send_email_job.rb<br><figure class="highlight ruby"><figcaption><span>app/jobs/send_email_job.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SendEmailJob</span> &lt; ActiveJob::Base</span></span><br><span class="line">  queue_as <span class="symbol">:default</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">perform</span><span class="params">(h)</span></span></span><br><span class="line">    t = JSON.load(h)</span><br><span class="line">    t[<span class="string">&#x27;email&#x27;</span>].each_value &#123;<span class="params">|value|</span> </span><br><span class="line">      UserMailer.share_goal(t[<span class="string">&#x27;owner&#x27;</span>], t[<span class="string">&#x27;goal&#x27;</span>], t[<span class="string">&#x27;complete_date&#x27;</span>], value).deliver&#125; </span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>這裡接收controller傳來的json參數後，將其轉換成hash table，並對每一筆email位址發送信件</p>
+<h3 id="驗證"><a href="#驗證" class="headerlink" title="驗證"></a>驗證</h3><p>要驗證前得分別啟動redis server和sidekiq<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis server</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bundle <span class="built_in">exec</span> sidekiq</span><br></pre></td></tr></table></figure>
+<p><img src="http://user-image.logdown.io/user/15598/blog/14782/post/709982/kZ99h8LTya2PH093CyAL_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-14%20%E4%B8%8B%E5%8D%883.27.10.png" alt="螢幕快照 2016-04-14 下午3.27.10.png"></p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="http://guides.rubyonrails.org/action_mailer_basics.html">Action Mailer Basics</a><br><a target="_blank" rel="noopener" href="https://www.codefellows.org/blog/how-to-set-up-a-rails-4-2-mailer-with-sidekiq">blog參考文章</a><br><a target="_blank" rel="noopener" href="https://github.com/mperham/sidekiq/wiki/Getting-Started">sidekiq github</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-use-sidekiq-mailer-letter-function/" data-id="cktip5ux7001f4mp4a7hwyjeu" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-use-sidekiq-mailer-letter-function/" data-id="cktu6300w001f59p417svf7la" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-use-sidekiq-mailer-letter-function/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-use-sidekiq-mailer-letter-function/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -626,28 +699,35 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>實作專案ResolutionTracker時，想增加分享目標給朋友的功能。<br>在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料<br>這裡介紹<a href="https://github.com/ryanb/nested_form" target="_blank" rel="noopener">nested_form</a>解決問題</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-dynamic-resolution-tracker-released-simple-form-field/#more">Read More</a>
-          </p>
-        
+        <p>實作專案ResolutionTracker時，想增加分享目標給朋友的功能。<br>在填入email的頁面需要動態增加輸入欄位，讓使用者一次存入多筆資料<br>這裡介紹<a target="_blank" rel="noopener" href="https://github.com/ryanb/nested_form">nested_form</a>解決問題</p>
+<!--  more  -->
+<h3 id="Install-Gem"><a href="#Install-Gem" class="headerlink" title="Install Gem"></a>Install Gem</h3><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&#x27;nested_form&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>然後使用bundle install安裝並重開server</p>
+<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>我們有二個model: goal, shared_mail，分別負責處理目標和使用者存入的mail address<br>在goal.rb需要能接受nested_attribute</p>
+<figure class="highlight ruby"><figcaption><span>app/models/goal.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goal</span> &lt; ActiveRecord::Base</span></span><br><span class="line">  validates <span class="symbol">:title</span>, <span class="symbol">presence:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  has_many <span class="symbol">:shared_mails</span></span><br><span class="line">  belongs_to <span class="symbol">:owner</span>, <span class="symbol">class_name:</span> <span class="string">&quot;User&quot;</span>, <span class="symbol">foreign_key:</span> <span class="symbol">:user_id</span></span><br><span class="line">  </span><br><span class="line">  accepts_nested_attributes_for <span class="symbol">:shared_mails</span>, <span class="symbol">allow_destroy:</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>app/models/shared_mail.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SharedMail</span> &lt; ActiveRecord::Base</span></span><br><span class="line">  belongs_to <span class="symbol">:goal</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>controller接受strong parameter時，得允許傳入shared_mails_attribute<br><figure class="highlight ruby"><figcaption><span>app/controllers/goals_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoalsController</span> &lt; ApplicationController</span></span><br><span class="line">  <span class="comment">#略...</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line">    <span class="variable">@goal</span> = current_user.goals.create(goal_params)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="variable">@goal</span>.save</span><br><span class="line">      redirect_to goals_path </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      render <span class="string">&#x27;new&#x27;</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="variable">@goal</span>.update(goal_params)</span><br><span class="line">      redirect_to goal_path </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      render <span class="string">&#x27;edit&#x27;</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  private</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">goal_params</span></span></span><br><span class="line">    params.<span class="keyword">require</span>(<span class="symbol">:goal</span>).permit(<span class="symbol">:title</span>, <span class="symbol">:comment</span>, <span class="symbol">:is_shareable</span>, </span><br><span class="line">      <span class="symbol">:complete_date</span>, </span><br><span class="line">      <span class="symbol">shared_mails_attributes:</span> [<span class="symbol">:id</span>, <span class="symbol">:mail_addr</span>, <span class="symbol">:_destroy</span>])</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><p>view的部分，將原來的form_for(或simple_form_for)改成nested_form_for<br><figure class="highlight ruby"><figcaption><span>app/views/shared_mails/new.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;h2&gt;分享目標&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;%= nested_form_for @goal do |f| %&gt;</span></span><br><span class="line"><span class="regexp">  &lt;%= f.fields_for :shared_mails do |mail_form| %&gt;    </span></span><br><span class="line"><span class="regexp">    &lt;%= mail_form.text_field :mail_addr %&gt;</span></span><br><span class="line"><span class="regexp">    &lt;%= mail_form.link_to_remove &quot;Remove this mail address&quot; %&gt;</span></span><br><span class="line"><span class="regexp">  &lt;% end %&gt;</span></span><br><span class="line"><span class="regexp">  </span></span><br><span class="line"><span class="regexp">  &lt;%= f.link_to_add &quot;Add a mail address&quot;, :shared_mails %&gt;</span></span><br><span class="line"><span class="regexp">  &lt;%= f.submit &quot;提交&quot;, disable_with: &quot;Submiting...&quot;, class: &quot;btn btn-primary&quot; %&gt;</span></span><br><span class="line"><span class="regexp">&lt;% end %&gt;</span></span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-dynamic-resolution-tracker-released-simple-form-field/" data-id="cktip5ux6001e4mp4s50kc1xq" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-dynamic-resolution-tracker-released-simple-form-field/" data-id="cktu6300v001d59p4fwvj80vx" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-dynamic-resolution-tracker-released-simple-form-field/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-dynamic-resolution-tracker-released-simple-form-field/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -677,17 +757,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -696,7 +771,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -715,23 +790,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -771,7 +846,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

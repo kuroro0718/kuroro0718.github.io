@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Alex Liang">
-<meta property="og:url" content="http://alexliang.me/page/7/index.html">
+<meta property="og:url" content="https://alexliang.me/page/7/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:locale" content="zh-tw">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="Alex Liang">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alex Liang">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -24,10 +24,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -70,8 +72,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -104,28 +104,41 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近看了Uncle Bob在Ruby Midwest 2011的演講（<a href="https://www.youtube.com/watch?v=WpkDN78P884&amp;list=LLvUp_IPqUJMajFn1HI2PYgw&amp;index=1" target="_blank" rel="noopener">影片連結</a>）介紹軟體架構。<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/archetecture-the-lost-years-by-uncle-bob-lecture-notes/#more">Read More</a>
-          </p>
-        
+        <p>最近看了Uncle Bob在Ruby Midwest 2011的演講（<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WpkDN78P884&amp;list=LLvUp_IPqUJMajFn1HI2PYgw&amp;index=1">影片連結</a>）介紹軟體架構。<br><!--  more  --></p>
+<h3 id="Archetecture-is-about-intent"><a href="#Archetecture-is-about-intent" class="headerlink" title="Archetecture is about intent"></a>Archetecture is about intent</h3><p>一開始Uncle Bob列出幾種建築物的結構圖，藉此比喻好的架構設計能讓工程師迅速了解系統<br>從這裡再帶出web framework常採用的MVC架構<br>為何會有MVC的出現？ 為了讓系統耦合度降低 讓前端的設計不需要跟後端的資料庫或商業邏輯綁在一起</p>
+<p>演講從一個user case講起，再畫一個UML圖解釋架構。<br>他使用類似MVC架構的系統(interactor, entity, boundary)來處理這個問題<br>例如： interactor負責application特有的商業邏輯，並且和entity有連結的關係，可以視為controller<br>entity則是處理資料庫存取，屬於一般application共有的行為<br>boundary把interactor產生的資訊秀出來給使用者，整體架構如下圖所示：<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wVKfwcrEQO2FVYwXNMAd_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%884.44.26.png" alt="螢幕快照 2016-04-01 下午4.44.26.png"><br>Uncle Bob解釋這種設計能將商業邏輯和使用者介面切開，二者之間少了相依性<br>而右半邊的interactor和entity可封裝成gem或dll(看是哪種application)<br>最左邊的delivery machanism負責將user input分配給boundary，可封裝成plug-in的型態，方便測試</p>
+<h3 id="What-about-MVC"><a href="#What-about-MVC" class="headerlink" title="What about MVC?"></a>What about MVC?</h3><p>講到MVC這章，先從發明人<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Trygve_Reenskaug">Trygve Reenskaug</a>開始介紹<br>延申到web application時會出現view和controller相依model的現象，如下圖<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wxVl3bRZSX63THFRtV6d_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%882.27.14.png" alt="螢幕快照 2016-04-04 下午2.27.14.png"><br>從測試的角度來看，view只要把資訊編排顯示正確即可，不需要關心後端的資料如何產生<br>對於商業邏輯的正確才是每次測試的重點，這點他比較偏好<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter">Model-View-Presenter</a><br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/UYnWHAPQkSOdj6leELrD_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.06.06.png" alt="螢幕快照 2016-04-04 下午3.06.06.png"></p>
+<p>接下來Uncle Bob問觀眾做一次測試要多久？測了幾項？</p>
+<blockquote>
+<p>4分半測1000多項 –&gt; That’s good<br> 1小時半 –&gt; That’s bad &gt;”&lt;</p>
+</blockquote>
+<p>對工程師來說，測試如果花太久的時間，之後每次修改都會猶豫要不要測試。<br>這也增加專案爆炸的機率…</p>
+<h3 id="Good-Architeture"><a href="#Good-Architeture" class="headerlink" title="Good Architeture"></a>Good Architeture</h3><p>Uncle Bob最後提到早期一個wiki-like project。<br>從一開始他們就決定晚一點連結資料庫，先把application實作完<br>為了滅少測試時間，把wiki page存在memory中，雖然不能存檔，但至少能測試整個專案<br>後來他的同事實作FileSystemPage測試persistence，架構如下<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/mKseKRgTWeCgK3GK6yg6_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.30.17.png" alt="螢幕快照 2016-04-04 下午3.30.17.png"><br>而這時專案還沒有真正的database</p>
+<blockquote>
+<p>A good architecture allows major decisions to be deferred<br>A good architecture maximizes the number of decisions not made</p>
+</blockquote>
+<p>到最後客戶要求需要database，而他們只需要一天就把專案完成了</p>
+<p>好的架構可推遲重大的決定；好的架構能滅少做決定的次數。</p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" data-id="cktip5ux100154mp4yfdl3nmy" class="article-share-link">
+      <a data-url="https://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" data-id="cktu6300u001b59p40sg238p1" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/演講筆記/">演講筆記</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a></li></ul>
 
 
     </footer>
@@ -162,28 +175,32 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>把Code School CSS3課程做個筆記<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/679354/#more">Read More</a>
-          </p>
-        
+        <p>把Code School CSS3課程做個筆記<br><!--  more  --></p>
+<h2 id="Inheritance-amp-Specificity"><a href="#Inheritance-amp-Specificity" class="headerlink" title="Inheritance &amp; Specificity"></a>Inheritance &amp; Specificity</h2><p>CSS3對selector和class有優先權的設定<br>有個數列能做參考：</p>
+<p><inline>, <ID>, <Class>, <Element><br>由左至右為權限高到低，舉例來說<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;product&quot;</span>&gt;</span>Coffee brewer<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It&#x27;s the best way to enjoy coffee<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#content</span> <span class="selector-tag">p</span> &#123;		# specificity: <span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span></span><br><span class="line">	color: <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.product</span> &#123;			#	 specificity: <span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>  優先權較低，不會生效</span><br><span class="line">	color: <span class="number">#555</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#content</span> <span class="selector-class">.product</span> &#123;		# specificity: <span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span> 加上ID selector才會生效</span><br><span class="line">	color: <span class="number">#555</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="The-Box-Model"><a href="#The-Box-Model" class="headerlink" title="The Box Model"></a>The Box Model</h2><p>當我們需要計算某個樣式的寬度時，需套入以下公式：<br>total calculated box width = content width + padding width + border width<br>例如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.form</span> &#123;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>此樣式總寬度為： 120(content)＋15(padding)＋10(border)＝145px</p>
+<h2 id="Positioning"><a href="#Positioning" class="headerlink" title="Positioning"></a>Positioning</h2><p>CSS的樣式位置預設是static，總共有4種設定：static/relative/absolute/fixed<br>除了static之外，其它3種設定可分別調整元素上、下、左、右位置，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Alex&#x27;s Playground<span class="tag">&lt;<span class="name">sup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sup</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sup</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">60%</span>;</span><br><span class="line">  <span class="attribute">vertical-align</span>: baseline;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">top</span>: -<span class="number">0.5em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png" alt="螢幕快照 2016-04-01 下午2.17.56.png"></p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="http://www.w3schools.com/cssref/pr_class_position.asp">Positioning</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/679354/" data-id="cktip5uwz00144mp41qtj30eb" class="article-share-link">
+      <a data-url="https://alexliang.me/679354/" data-id="cktu6300t001959p4bz5kaavt" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/679354/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/679354/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/">front-end</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/" rel="tag">front-end</a></li></ul>
 
 
     </footer>
@@ -222,27 +239,36 @@
       
         <p>如果網站需要上傳檔案或圖片的功能，除了carrierwave之外，也可以使用paperclip實現</p>
 <p>以下介紹這個好用的gem</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-paperclip-upload-files-and-images/#more">Read More</a>
-          </p>
-        
+<!--  more  -->
+<h3 id="環境要求"><a href="#環境要求" class="headerlink" title="環境要求"></a>環境要求</h3><p>要使用paperclip，ruby的版本必須是2.0以上，rails則是3.2之後</p>
+<p>imagemagick也得先安裝，在OS X下，使用Homebrew安裝<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install imagemagick</span><br></pre></td></tr></table></figure></p>
+<h3 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h3><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&quot;paperclip&quot;</span>, <span class="string">&quot;~&gt; 4.3&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; bundle install</span><br></pre></td></tr></table></figure>
+<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>設定model，假如有一個Pic model負責管理圖片<br><figure class="highlight ruby"><figcaption><span>pic.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pic</span> &lt; ActiveRecord::Base</span></span><br><span class="line">	has_attached_file <span class="symbol">:avatar</span>, <span class="symbol">styles:</span> &#123; <span class="symbol">medium:</span> <span class="string">&quot;300x300&gt;&quot;</span>, <span class="symbol">thumb:</span> <span class="string">&quot;100x100&gt;&quot;</span> &#125;, <span class="symbol">default_url:</span> <span class="string">&quot;/images/:style/missing.png&quot;</span></span><br><span class="line">	validates_attachment_content_type <span class="symbol">:avatar</span>, <span class="symbol">content_type:</span> /\Aimage\/.*\Z/</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Migration"><a href="#Migration" class="headerlink" title="Migration"></a>Migration</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rails generate paperclip pic avatar</span><br></pre></td></tr></table></figure>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><figure class="highlight ruby"><figcaption><span>pics_controller.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span></span></span><br><span class="line">    <span class="variable">@pic</span> = Pic.create(pic_params)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">private</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pic_params</span></span></span><br><span class="line">  params.<span class="keyword">require</span>(<span class="symbol">:pic</span>).permit(<span class="symbol">:avatar</span>)</span><br><span class="line"><span class="keyword">end</span>	</span><br></pre></td></tr></table></figure>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= image_tag <span class="variable">@pic</span>.avatar.url %&gt;</span><br><span class="line">&lt;%= image_tag <span class="variable">@pic</span>.avatar.url(<span class="symbol">:medium</span>) %&gt;</span><br><span class="line">&lt;%= image_tag <span class="variable">@pic</span>.avatar.url(<span class="symbol">:thumb</span>) %&gt;</span><br></pre></td></tr></table></figure>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://github.com/thoughtbot/paperclip#models">paperclip github repo</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-paperclip-upload-files-and-images/" data-id="cktip5uww000z4mp49eqio0t6" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-paperclip-upload-files-and-images/" data-id="cktu6300s001859p4fmoq0cue" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-paperclip-upload-files-and-images/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-paperclip-upload-files-and-images/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -281,27 +307,38 @@
       
         <p>這二天接觸到haml這個輕量級語言，在嘗試後發覺真的是很方便的語言，可以用更優雅的方式撰寫前端的template</p>
 <p>以下做個整理</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/rails-haml/#more">Read More</a>
-          </p>
-        
+<!--  more  -->
+<p>首先得安裝gem<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gem &quot;haml&quot;</span><br><span class="line"></span><br><span class="line">&gt; bundle install</span><br></pre></td></tr></table></figure></p>
+<p>HAML必須將.erb檔案改為.haml，如app/views/docs/index.html.erb改為app/views/docs/index.html.haml</p>
+<p>基本的轉換規則如下：</p>
+<pre><code>1. html的tag改用％代替，例如&lt;header&gt;改為％header，不需要close tage
+2. class attribute改用.，例如&lt;div class=&quot;nav&quot;&gt;改為.nav
+3. id attribute改用＃，例如&lt;div class=&quot;banner&quot; id=&quot;message&quot;&gt;改為.banner#message
+4. 遇到&lt;%= ...&gt;的代碼改用＝，例如&lt;= f.input&gt;改為= f.input
+</code></pre><p>舉例：</p>
+<figure class="highlight ruby"><figcaption><span>show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span>=&quot;<span class="title">wrapper_with_padding</span>&gt;</span></span><br><span class="line">	&lt;div id=<span class="string">&quot;doc_show&quot;</span>&gt;</span><br><span class="line">		&lt;h1&gt;&lt;%= <span class="variable">@doc</span>.title %&gt;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    	&lt;p&gt;&lt;%= simple_format(@doc.content) %&gt;</span></span><br><span class="line"><span class="regexp">    </span></span><br><span class="line"><span class="regexp">    	&lt;div class=&quot;buttons&quot;&gt;</span></span><br><span class="line"><span class="regexp">    		&lt;%= link_to &quot;Fix Doc&quot;, edit_doc_path(@doc), class: &quot;button&quot; %&gt;</span></span><br><span class="line"><span class="regexp">    	  &lt;%= link_to &quot;Delete Doc&quot;, doc_path(@doc), method: :delete, data: &#123;confirm: &quot;Are you sure?&quot;&#125;, class: &quot;button&quot; %&gt;</span></span><br><span class="line"><span class="regexp">   	 	&lt;/div</span>&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/div</span>&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>show.html.haml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.wrapper_with_padding</span><br><span class="line">  <span class="comment">#doc_show</span></span><br><span class="line">    %h1= <span class="variable">@doc</span>.title</span><br><span class="line">    %p= simple_format(<span class="variable">@doc</span>.content)</span><br><span class="line"></span><br><span class="line">    .buttons</span><br><span class="line">      = link_to <span class="string">&quot;Fix Doc&quot;</span>, edit_doc_path(<span class="variable">@doc</span>), <span class="class"><span class="keyword">class</span>: &quot;<span class="title">button</span>&quot;</span></span><br><span class="line">      = link_to <span class="string">&quot;Delete It&quot;</span>, doc_path(<span class="variable">@doc</span>), <span class="symbol">method:</span> <span class="symbol">:delete</span>, <span class="symbol">data:</span> &#123;<span class="symbol">confirm:</span> <span class="string">&quot;Are you sure?&quot;</span>&#125;, <span class="class"><span class="keyword">class</span>: &quot;<span class="title">button</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://haml.info/tutorial.html">haml官網教材</a><br><a target="_blank" rel="noopener" href="http://haml.info/docs/yardoc/file.REFERENCE.html">haml refrence</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-haml/" data-id="cktip5uwy00114mp4xrno3m6q" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-haml/" data-id="cktu6300o001659p404oidc4g" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-haml/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-haml/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -338,28 +375,42 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>上完code school的javascript課後，回頭再複習前端的基礎-html和CSS<br>對一個網頁來說，html控制文章架構、CSS則決定樣式<br>以下記錄一些觀念:<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/front-end-note-concept-of-html-css-finishing/#more">Read More</a>
-          </p>
-        
+        <p>上完code school的javascript課後，回頭再複習前端的基礎-html和CSS<br>對一個網頁來說，html控制文章架構、CSS則決定樣式<br>以下記錄一些觀念:<br><!--  more  --></p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><pre><code>1. ul是指unordered list，顯示bullet項目
+2. ol是指ordered list，顯示編號項目
+3. 在head中加入CSS的檔案，需使用&lt;link style type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;css file&quot;&gt; 
+    4. 續上，link和img都是empty tag。它們不用加上closing tag 
+</code></pre><h2 id="The-box-model"><a href="#The-box-model" class="headerlink" title="The box model"></a>The box model</h2><p> html的文字採用box model，包含4個項目:</p>
+<pre><code>  1. content area內文
+2. padding 內文四個方向的留白
+3. border 內文四個方向的框線
+4. margin 是border外的留白區域
+</code></pre><p> 圖示如下：<br> <img src="http://user-image.logdown.io/user/15598/blog/14782/post/634054/oJSWMd5vSyCYe8fy6nJw_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-03-14%20%E4%B8%8B%E5%8D%882.21.30.png" alt="box-model"></p>
+<p>當我們需要調整段落間的距離或文字間留白，可調整margin或padding;如果要加框線，則使用border</p>
+<h2 id="CSS-Selector"><a href="#CSS-Selector" class="headerlink" title="CSS Selector"></a>CSS Selector</h2><p>如果我們要微調某部分的html style，可使用html class和CSS selector<br>以下例子是將ul內的項目左邊padding 15pixel：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;nav&quot;</span>&gt;</span></span><br><span class="line">	...</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">	<span class="attribute">padding-left</span>: <span class="number">15px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要注意的是CSS的selector與其它樣式的順序會影響結果，以下這個例子會把nav class設定的padding-left覆寫：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">	<span class="attribute">padding-left</span>: <span class="number">15px</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">	<span class="attribute">padding-left</span>: <span class="number">10px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/front-end-note-concept-of-html-css-finishing/" data-id="cktip5uwu000w4mp447mxeuky" class="article-share-link">
+      <a data-url="https://alexliang.me/front-end-note-concept-of-html-css-finishing/" data-id="cktu6300i001259p48xopazoz" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/front-end-note-concept-of-html-css-finishing/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/front-end-note-concept-of-html-css-finishing/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/">front-end</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/" rel="tag">front-end</a></li></ul>
 
 
     </footer>
@@ -398,27 +449,35 @@
       
         <p>Javascript的object”類似” C++或Java的class (說類似是因為它多了動態語言的特性，以及存取方式)</p>
 <p>object擁有property和method(也可視為property)</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/javascript-notes-object-and-prototype/#more">Read More</a>
-          </p>
-        
+<!--  more  -->
+<p>例如一台車，它有馬力、重量以及啟動、煞車功能。 我們可以用一個object表示：</p>
+<figure class="highlight javascript"><figcaption><span>car.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> car = &#123;			<span class="comment">// object使用&#123;&#125;宣告</span></span><br><span class="line">	<span class="attr">horsePower</span>: <span class="number">200</span>,</span><br><span class="line">  <span class="attr">weight</span>: <span class="number">4000</span>,</span><br><span class="line">  <span class="attr">start</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">&quot;Start engine!&quot;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  <span class="attr">break</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">&quot;Break!&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(car.horsePower);		<span class="comment">// 印出200</span></span><br><span class="line"><span class="built_in">console</span>.log(car[<span class="string">&quot;weight&quot;</span>];			<span class="comment">// 也可以使用[]存取property</span></span><br></pre></td></tr></table></figure>
+<p>Object也可以動態增加property：<br><figure class="highlight javascript"><figcaption><span>car.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">car.brand = <span class="string">&quot;Toyota&quot;</span>;</span><br></pre></td></tr></table></figure></p>
+<p>刪除property:<br><figure class="highlight javascript"><figcaption><span>car.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> car.brand;</span><br></pre></td></tr></table></figure></p>
+<p>Object也可以包含其它的object<br><figure class="highlight javascript"><figcaption><span>vehicle.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vehicle = &#123;</span><br><span class="line"> 	<span class="attr">Car</span>: &#123;<span class="attr">horsePower</span>: <span class="number">300</span>, <span class="attr">weight</span>: <span class="number">2000</span>&#125;,</span><br><span class="line">	<span class="attr">Boat</span>: &#123;<span class="attr">weight</span>: <span class="number">400000</span>, <span class="attr">height</span>: <span class="number">300000</span>&#125;    </span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>增加一method可動態新增object<br><figure class="highlight javascript"><figcaption><span>vehicle.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vehicle = &#123;</span><br><span class="line"> 	<span class="attr">Car</span>: &#123;<span class="attr">horsePower</span>: <span class="number">300</span>, <span class="attr">weight</span>: <span class="number">2000</span>&#125;,</span><br><span class="line">	<span class="attr">Boat</span>: &#123;<span class="attr">horsePower</span>: <span class="number">400000</span>, <span class="attr">weight</span>: <span class="number">300000</span>&#125;,</span><br><span class="line">	<span class="attr">addVehicle</span>: <span class="function"><span class="keyword">function</span>(<span class="params">name, horsePower, weight</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">this</span>[name] = &#123;<span class="attr">horsePower</span>: horsePower, <span class="attr">weight</span>: weight&#125;;	<span class="comment">// 使用this表示vehicle本體</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> </span><br><span class="line"> vehicle.addVehicle(<span class="string">&quot;Plane&quot;</span>, <span class="number">600000</span>, <span class="number">8900000</span>);</span><br></pre></td></tr></table></figure></p>
+<p>假如要計算vehicle內object的個數，需要用for-in loop:<br><figure class="highlight javascript"><figcaption><span>vehicle.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (key <span class="keyword">in</span> vehicle) &#123;		<span class="comment">// key會存取vehicle內每個property</span></span><br><span class="line">	<span class="built_in">console</span>.log(key);				<span class="comment">// 印出Car, Boat, addVehicle, Plane</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://www.w3schools.com/js/js_objects.asp">object介紹</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/javascript-notes-object-and-prototype/" data-id="cktip5ux200174mp4zpw5poiq" class="article-share-link">
+      <a data-url="https://alexliang.me/javascript-notes-object-and-prototype/" data-id="cktu6300l001459p42r7g8wvs" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/javascript-notes-object-and-prototype/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/javascript-notes-object-and-prototype/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
 
 
     </footer>
@@ -457,27 +516,33 @@
       
         <p>練習Learn Ruby the Hardway時，習題32講到迴圈和陣列。 其中存取陣列時有二種不同的方式：.each和for</p>
 <p>這二種方式看起來差不多，但對於程式碼執行結果會讓人有”驚喜”的感覺</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/ruby-notes-eachdo-vs-forin/#more">Read More</a>
-          </p>
-        
+<!--  more  -->
+<p>二者的差異在於scope，對C/C++或Java等靜態語言來說，在｛｝內或function內的變數只在local有效</p>
+<p>而javascript或ruby對變數的scope則略有不同</p>
+<p>如以下的程式碼，for不會建立新的scope;而each會建立新的scope</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">count = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span> number <span class="keyword">in</span> count</span><br><span class="line">  z = number</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">puts z		<span class="comment"># 5</span></span><br><span class="line">puts number	<span class="comment"># 5</span></span><br><span class="line"></span><br><span class="line">count.each <span class="keyword">do</span> <span class="params">|y|</span></span><br><span class="line"> a = y</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">puts a 		<span class="comment"># undefined local variable</span></span><br><span class="line">puts y		<span class="comment"># undefined local variable</span></span><br></pre></td></tr></table></figure>
+<p>我們在使用each時得小心這個特性，以免造成莫名其妙的bug。</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/5112014/difference-between-each-do-or-for-in-loops-in-rails">stack overflow討論</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/ruby-notes-eachdo-vs-forin/" data-id="cktip5ux5001c4mp4fduqdflb" class="article-share-link">
+      <a data-url="https://alexliang.me/ruby-notes-eachdo-vs-forin/" data-id="cktu6300g001059p44s4t5qg1" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/ruby-notes-eachdo-vs-forin/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/ruby-notes-eachdo-vs-forin/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -515,27 +580,35 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在Javascript中對於宣告（declaration)會移到作用域的最上方，此預設行為稱為Hoisting。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/javascript-notes-hoisting/#more">Read More</a>
-          </p>
-        
+<!--  more  -->
+<p>以下的範例會印出10</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
+<p>實際上javascript interpreter會將x的宣告移到上方，也就是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x ＝ <span class="literal">undefined</span>;</span><br><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure></p>
+<p>hositing也會影響function expression的執行，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	foo();	<span class="comment">// 錯誤</span></span><br><span class="line">  bar();</span><br><span class="line">  <span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	alert(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這段程式碼對javascript來說是長這樣：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hoistingTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="literal">undefined</span>;</span><br><span class="line">  foo();		<span class="comment">// 此時foo為一undefined的變數</span></span><br><span class="line">  foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="string">&quot;foo&quot;</span>);  </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Javascript雖然語法上是c-like，但在作用域（scope)的觀念有差別，這也會影響程式執行結果。</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html">Javascript Scoping and Hoisting</a><br><a target="_blank" rel="noopener" href="http://www.w3schools.com/js/js_hoisting.asp">Hoisting基本解說</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/javascript-notes-hoisting/" data-id="cktip5uwt000v4mp4l4q2sdbj" class="article-share-link">
+      <a data-url="https://alexliang.me/javascript-notes-hoisting/" data-id="cktu6300e000x59p415h84f8g" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/javascript-notes-hoisting/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/javascript-notes-hoisting/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
 
 
     </footer>
@@ -572,28 +645,40 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>對一位C/C++ programmer來說，javascript的anonymous function(匿名者函式）是容易讓人困惑的存在。<br>如何使用沒有identifier的function？ 有什麼好處？ 在這裡做個筆記。<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/javascript-anonymous-function/#more">Read More</a>
-          </p>
-        
+        <p>對一位C/C++ programmer來說，javascript的anonymous function(匿名者函式）是容易讓人困惑的存在。<br>如何使用沒有identifier的function？ 有什麼好處？ 在這裡做個筆記。<br><!--  more  --></p>
+<p>javascript提供3種宣告function的作法</p>
+<h2 id="Function-Declarations"><a href="#Function-Declarations" class="headerlink" title="Function Declarations"></a>Function Declarations</h2><p>一般function的作法，需要提供function name，範例如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(multiply(<span class="number">3</span>, <span class="number">4</span>));	<span class="comment">// Print 3 * 4	</span></span><br></pre></td></tr></table></figure>
+<h2 id="The-Function-Constructor"><a href="#The-Function-Constructor" class="headerlink" title="The Function() Constructor"></a>The Function() Constructor</h2><p>類似C++的建構者函式 (constructor)，只不過是用在function上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mulitplyFunc = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;return a * b&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> x = mulitplyFunc(<span class="number">3</span>, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>一般來說不建議用此方式宣告函式</p>
+<h2 id="Function-Expressions"><a href="#Function-Expressions" class="headerlink" title="Function Expressions"></a>Function Expressions</h2><p>也就是這篇的主角，function expression不需要function name，可視為variable</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mulitplyFunc = <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123; <span class="keyword">return</span> a * b; &#125;;</span><br><span class="line"><span class="keyword">var</span> x = multiplyFunc(<span class="number">3</span>, <span class="number">4</span>);  <span class="comment">// Calculate 3 * 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用anonymous-function的好處"><a href="#使用anonymous-function的好處" class="headerlink" title="使用anonymous function的好處"></a>使用anonymous function的好處</h2><ol>
+<li>可用來實做Closure，實現design pattern的工廠方法 </li>
+<li>簡化程式碼，提高易讀性<br>之前要用C++實作工廠方法時，需要dynamic binding的技術，確實要花點心思<br>下一篇討論closure</li>
+</ol>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="http://www.w3schools.com/js/js_function_definition.asp">Javascript function基本教學</a><br><a target="_blank" rel="noopener" href="http://martinfowler.com/bliki/Lambda.html">關於lambda觀念的說明</a><br><a target="_blank" rel="noopener" href="https://robots.thoughtbot.com/back-to-basics-anonymous-functions-and-closures">比較ruby和js的anonymous function</a><br><a target="_blank" rel="noopener" href="http://helephant.com/2012/07/14/javascript-function-declaration-vs-expression/#function-operator-is-an-expression">Javascript function declarations vs function operators</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/javascript-anonymous-function/" data-id="cktip5uwo000r4mp40kt5s53i" class="article-share-link">
+      <a data-url="https://alexliang.me/javascript-anonymous-function/" data-id="cktu6300d000w59p41xzj8ken" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/javascript-anonymous-function/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/javascript-anonymous-function/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/" rel="tag">javascript</a></li></ul>
 
 
     </footer>
@@ -630,28 +715,34 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>figaro是一個管理機密資訊或密碼的gem，以下介紹如何同步資訊到heroku上<br>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/420290/#more">Read More</a>
-          </p>
-        
+        <p>figaro是一個管理機密資訊或密碼的gem，以下介紹如何同步資訊到heroku上<br><!--  more  --></p>
+<h2 id="安裝figaro"><a href="#安裝figaro" class="headerlink" title="安裝figaro"></a>安裝figaro</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&quot;figaro&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bundle install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ figaro install</span><br></pre></td></tr></table></figure>
+<h2 id="管理機密資訊"><a href="#管理機密資訊" class="headerlink" title="管理機密資訊"></a>管理機密資訊</h2><p>假如有一組key不希望公開至github，則我們先把資訊存在yml檔，再使用ENV存取<br><figure class="highlight ruby"><figcaption><span>config/application.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">product_app_id:</span> <span class="string">&quot;2924&quot;</span></span><br><span class="line"><span class="symbol">product_key:</span> <span class="string">&quot;7ad1a978f7dd7f9a1117&quot;</span></span><br><span class="line"><span class="symbol">product_secret:</span> <span class="string">&quot;11dcb896a0ffb85d373&quot;</span></span><br></pre></td></tr></table></figure><br>在initializer中存取資訊<br><figure class="highlight ruby"><figcaption><span>config/initializers/pusher.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Product.app_id = ENV[<span class="string">&quot;product_app_id&quot;</span>]</span><br><span class="line">Product.key    = ENV[<span class="string">&quot;product_key&quot;</span>]</span><br><span class="line">Product.secret = ENV[<span class="string">&quot;product_secret&quot;</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="佈署至HEROKU"><a href="#佈署至HEROKU" class="headerlink" title="佈署至HEROKU"></a>佈署至HEROKU</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ figaro heroku:set -e production</span><br></pre></td></tr></table></figure>
+<p>查循目前設定<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ heroku:config</span><br></pre></td></tr></table></figure></p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="https://github.com/laserlemon/figaro">figaro github</a></p>
+
       
     </div>
 
     
+      
+
+    
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/420290/" data-id="cktip5uwm000o4mp4xkdxkrf7" class="article-share-link">
+      <a data-url="https://alexliang.me/420290/" data-id="cktu6300c000u59p411t4c6pd" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/420290/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/420290/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -681,17 +772,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -700,7 +786,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -719,23 +805,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -775,7 +861,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

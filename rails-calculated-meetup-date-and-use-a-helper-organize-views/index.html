@@ -5,18 +5,18 @@
   
   <title>[Rails]  KH Badminton Map計算聚會時間及使用helper整理views | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在上一篇搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view">
-<meta name="keywords" content="rails">
+  <meta name="description" content="在上一篇搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view 首先，因為球聚的時間是記錄星期幾，在model裡僅是個數字 (0~6表示週日到週六)下次球聚的日期會根據使用者看到文章的當天計算例如，預計週三聚會，使用者週四才看到文章。此時需顯示下次聚會日">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Rails]  KH Badminton Map計算聚會時間及使用helper整理views">
-<meta property="og:url" content="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/index.html">
+<meta property="og:url" content="https://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="在上一篇搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view">
-<meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:33:39.000Z">
+<meta property="og:description" content="在上一篇搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view 首先，因為球聚的時間是記錄星期幾，在model裡僅是個數字 (0~6表示週日到週六)下次球聚的日期會根據使用者看到文章的當天計算例如，預計週三聚會，使用者週四才看到文章。此時需顯示下次聚會日">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2016-04-21T23:03:00.000Z">
+<meta property="article:modified_time" content="2016-07-18T14:33:39.000Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="rails">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Rails]  KH Badminton Map計算聚會時間及使用helper整理views">
-<meta name="twitter:description" content="在上一篇搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -29,10 +29,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -75,8 +77,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -107,13 +107,13 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在<a href="http://alexliang-blog.logdown.com/posts/713401-rails-i18n-translation-chinese" target="_blank" rel="noopener">上一篇</a>搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）<br>藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view<br><a id="more"></a></p>
+        <p>在<a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/713401-rails-i18n-translation-chinese">上一篇</a>搞定球聚時間的選單後，我們需要計算下次球聚的日期 （只顯示星期幾而沒有日期，不方便記日子）<br>藉由Ruby的Time class和rails的helper，可以將計算的過程藏在後面，而不弄亂前端的view<br><!--  more  --></p>
 <p>首先，因為球聚的時間是記錄星期幾，在model裡僅是個數字 (0~6表示週日到週六)<br>下次球聚的日期會根據使用者看到文章的當天計算<br>例如，預計週三聚會，使用者週四才看到文章。此時需顯示下次聚會日期 (也就是下週三)</p>
-<h2 id="Time-Class"><a href="#Time-Class" class="headerlink" title="Time Class"></a>Time Class</h2><p>Ruby的Time class提供wday，可得知日期對應到星期幾，例如<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">2.2.0 :009 &gt;</span> t = Time.now</span><br><span class="line"> =&gt; <span class="number">2016</span>-<span class="number">04</span>-<span class="number">22</span> <span class="number">15</span><span class="symbol">:</span><span class="number">20</span><span class="symbol">:</span><span class="number">42</span> +080<span class="number">0</span></span><br><span class="line"><span class="meta">2.2.0 :010 &gt;</span> t.wday</span><br><span class="line"> =&gt; <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...略</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  時間：&lt;%= next_meetup_date(@post.day.to_i) %&gt;</span><br><span class="line">&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Helper"><a href="#Helper" class="headerlink" title="Helper"></a>Helper</h2><p>day_offset是預計週幾聚會，利用Time.now.wday和它之間的關係算出下次聚會日期<br>next_meetup_date除了顯示日期，還加上星期幾<br><figure class="highlight ruby"><figcaption><span>app/helper/posts_helper.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">PostsHelper</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">calculate_date</span><span class="params">(day_offset)</span></span></span><br><span class="line">    meetup_day = day_offset</span><br><span class="line">    current_day = Time.now.wday   </span><br><span class="line">    next_date = DateTime.now + (meetup_day - current_day).days      </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> meetup_day &lt; current_day </span><br><span class="line">      next_date += <span class="number">7</span>.days  <span class="comment"># Next week</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    next_date.strftime(<span class="string">'%Y/%m/%d'</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">next_meetup_date</span><span class="params">(day_offset)</span></span></span><br><span class="line">    calculate_date(day_offset) + <span class="string">' ('</span> + I18n.t(<span class="symbol">:<span class="string">"date.day_names"</span></span>)[day_offset] + <span class="string">')'</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Time-Class"><a href="#Time-Class" class="headerlink" title="Time Class"></a>Time Class</h2><p>Ruby的Time class提供wday，可得知日期對應到星期幾，例如<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">2.2.0 :009 &gt;</span> t = Time.now</span><br><span class="line"> =&gt; <span class="number">2016</span>-<span class="number">04</span>-<span class="number">22</span> <span class="number">15</span><span class="symbol">:</span><span class="number">20</span><span class="symbol">:</span><span class="number">42</span> +0800</span><br><span class="line"><span class="meta">2.2.0 :010 &gt;</span> t.wday</span><br><span class="line"> =&gt; <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight ruby"><figcaption><span>app/views/posts/show.html.erb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...略</span><br><span class="line">&lt;p&gt;</span><br><span class="line">  時間：&lt;%= next_meetup_date(<span class="variable">@post</span>.day.to_i) %&gt;</span><br><span class="line">&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Helper"><a href="#Helper" class="headerlink" title="Helper"></a>Helper</h2><p>day_offset是預計週幾聚會，利用Time.now.wday和它之間的關係算出下次聚會日期<br>next_meetup_date除了顯示日期，還加上星期幾<br><figure class="highlight ruby"><figcaption><span>app/helper/posts_helper.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">PostsHelper</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">calculate_date</span><span class="params">(day_offset)</span></span></span><br><span class="line">    meetup_day = day_offset</span><br><span class="line">    current_day = Time.now.wday   </span><br><span class="line">    next_date = DateTime.now + (meetup_day - current_day).days      </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> meetup_day &lt; current_day </span><br><span class="line">      next_date += <span class="number">7</span>.days  <span class="comment"># Next week</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    next_date.strftime(<span class="string">&#x27;%Y/%m/%d&#x27;</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">next_meetup_date</span><span class="params">(day_offset)</span></span></span><br><span class="line">    calculate_date(day_offset) + <span class="string">&#x27; (&#x27;</span> + I18n.t(<span class="symbol">:<span class="string">&quot;date.day_names&quot;</span></span>)[day_offset] + <span class="string">&#x27;)&#x27;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
 <p>使用helper的好處是將來如果要改變顯示格式，只要改一個地方就好，其它的view也能使用。</p>
-<p>參考來源：<br><a href="http://ruby-doc.org/core-2.1.1/Time.html" target="_blank" rel="noopener">Ruby Time文件</a><br><a href="http://apidock.com/ruby/DateTime/strftime" target="_blank" rel="noopener">strftime 格式化時間的說明</a></p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="http://ruby-doc.org/core-2.1.1/Time.html">Ruby Time文件</a><br><a target="_blank" rel="noopener" href="http://apidock.com/ruby/DateTime/strftime">strftime 格式化時間的說明</a></p>
 
       
     </div>
@@ -124,16 +124,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/" data-id="cktip5uxj001n4mp4layi684k" class="article-share-link">
+      <a data-url="https://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/" data-id="cktu63010001n59p4bgp245in" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -166,7 +166,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -183,17 +183,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -202,7 +197,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -221,23 +216,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -261,7 +256,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/';
+  var disqus_url = 'https://alexliang.me/rails-calculated-meetup-date-and-use-a-helper-organize-views/';
   
   (function(){
     var dsq = document.createElement('script');
@@ -279,7 +274,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

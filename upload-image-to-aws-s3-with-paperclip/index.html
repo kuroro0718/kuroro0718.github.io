@@ -5,18 +5,19 @@
   
   <title>Uploading image to AWS S3 with Paperclip  | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷">
-<meta name="keywords" content="rails,heroku">
+  <meta name="description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷 一開始，照著Heroku 官方教學實作。沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗 事前準備1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http:&#x2F;&#x2F;alexliang-blog.log">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Uploading image to AWS S3 with Paperclip ">
-<meta property="og:url" content="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/index.html">
+<meta property="og:url" content="https://alexliang.me/upload-image-to-aws-s3-with-paperclip/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷">
-<meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2016-07-18T14:34:20.000Z">
+<meta property="og:description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷 一開始，照著Heroku 官方教學實作。沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗 事前準備1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http:&#x2F;&#x2F;alexliang-blog.log">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2016-05-02T23:29:00.000Z">
+<meta property="article:modified_time" content="2016-07-18T14:34:20.000Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="rails">
+<meta property="article:tag" content="heroku">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Uploading image to AWS S3 with Paperclip ">
-<meta name="twitter:description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -29,10 +30,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -75,8 +78,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -107,19 +108,18 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br><a id="more"></a></p>
-<p>一開始，照著<a href="https://devcenter.heroku.com/articles/paperclip-s3" target="_blank" rel="noopener">Heroku 官方教學</a>實作。<br>沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗</p>
+        <p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br><!--  more  --></p>
+<p>一開始，照著<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/paperclip-s3">Heroku 官方教學</a>實作。<br>沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗</p>
 <h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><pre><code>1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images)
 2. 己安裝ImageMagick
 3. 己安裝Heroku Toolbelt
-</code></pre><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">"paperclip"</span>, <span class="string">'~&gt; 4.3.6'</span></span><br><span class="line">gem <span class="string">'aws-sdk'</span>, <span class="string">'&lt; 2.0'</span></span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&quot;paperclip&quot;</span>, <span class="string">&#x27;~&gt; 4.3.6&#x27;</span></span><br><span class="line">gem <span class="string">&#x27;aws-sdk&#x27;</span>, <span class="string">&#x27;&lt; 2.0&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>因為paperclip對新版的aws-sdk尚未支援，aws-sdk採用2.0以前版本；paperclip用穩定版本</p>
-<figure class="highlight ruby"><figcaption><span>config/environments/production.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config.paperclip_defaults = &#123;</span><br><span class="line">  <span class="symbol">:storage</span> =&gt; <span class="symbol">:s3</span>,</span><br><span class="line">  <span class="symbol">:s3_credentials</span> =&gt; &#123;</span><br><span class="line">    <span class="symbol">:bucket</span> =&gt; ENV[<span class="string">'S3_BUCKET_NAME'</span>],</span><br><span class="line">    <span class="symbol">:access_key_id</span> =&gt; ENV[<span class="string">'AWS_ACCESS_KEY_ID'</span>],</span><br><span class="line">    <span class="symbol">:secret_access_key</span> =&gt; ENV[<span class="string">'AWS_SECRET_ACCESS_KEY'</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>config/environments/production.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config.paperclip_defaults = &#123;</span><br><span class="line">  <span class="symbol">:storage</span> =&gt; <span class="symbol">:s3</span>,</span><br><span class="line">  <span class="symbol">:s3_credentials</span> =&gt; &#123;</span><br><span class="line">    <span class="symbol">:bucket</span> =&gt; ENV[<span class="string">&#x27;S3_BUCKET_NAME&#x27;</span>],</span><br><span class="line">    <span class="symbol">:access_key_id</span> =&gt; ENV[<span class="string">&#x27;AWS_ACCESS_KEY_ID&#x27;</span>],</span><br><span class="line">    <span class="symbol">:secret_access_key</span> =&gt; ENV[<span class="string">&#x27;AWS_SECRET_ACCESS_KEY&#x27;</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>這裡使用ENV表示機密資訊，你可以在application.yml設定其值（注意此yml檔要加入.gitignore）<br>但heroku不知道這些值，所以要另外設定</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ heroku config:<span class="built_in">set</span> S3_BUCKET_NAME=your_bucket_name</span><br><span class="line">$ heroku config:<span class="built_in">set</span> AWS_ACCESS_KEY_ID=your_access_key_id</span><br><span class="line">$ heroku config:<span class="built_in">set</span> AWS_SECRET_ACCESS_KEY=your_secret_access_key</span><br></pre></td></tr></table></figure>
-<p>新增paperclip.rb檔在config/initializers下<br><figure class="highlight ruby"><figcaption><span>config/initializers/paperclip.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> Rails.env.production?</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:url</span>] = your_bucket_url</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:path</span>] = <span class="string">'/:class/:attachment/:id_partition/:style/:filename'</span></span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:s3_host_name</span>] = <span class="string">'s3-us-west-1.amazonaws.com'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>要注意:url的值為’bucket_name’+s3.amazonaws.com，例如bucket取名paperclip-test，則url為paperclip-test.s3.amazonaws.com<br>而:s3_host_name則需參考<a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank" rel="noopener">AWS文件</a>做相對應的修改。</p>
-<p>參考資料：<br><a href="http://stackoverflow.com/questions/36391871/paperclip-s3-heroku-but-something-went-wrong" target="_blank" rel="noopener">Stack Overflow討論文章</a><br><a href="https://github.com/thoughtbot/paperclip" target="_blank" rel="noopener">Paperclip github</a></p>
+<p>新增paperclip.rb檔在config/initializers下<br><figure class="highlight ruby"><figcaption><span>config/initializers/paperclip.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> Rails.env.production?</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:url</span>] = your_bucket_url</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:path</span>] = <span class="string">&#x27;/:class/:attachment/:id_partition/:style/:filename&#x27;</span></span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:s3_host_name</span>] = <span class="string">&#x27;s3-us-west-1.amazonaws.com&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>要注意:url的值為’bucket_name’+s3.amazonaws.com，例如bucket取名paperclip-test，則url為paperclip-test.s3.amazonaws.com<br>而:s3_host_name則需參考<a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">AWS文件</a>做相對應的修改。</p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/36391871/paperclip-s3-heroku-but-something-went-wrong">Stack Overflow討論文章</a><br><a target="_blank" rel="noopener" href="https://github.com/thoughtbot/paperclip">Paperclip github</a></p>
 
       
     </div>
@@ -130,16 +130,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/" data-id="cktip5uy4002j4mp4zdp8lbay" class="article-share-link">
+      <a data-url="https://alexliang.me/upload-image-to-aws-s3-with-paperclip/" data-id="cktu63019001z59p433n00qgy" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/upload-image-to-aws-s3-with-paperclip/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/upload-image-to-aws-s3-with-paperclip/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
 
 
     </footer>
@@ -172,7 +172,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -189,17 +189,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -208,7 +203,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -227,23 +222,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -267,7 +262,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/upload-image-to-aws-s3-with-paperclip/';
+  var disqus_url = 'https://alexliang.me/upload-image-to-aws-s3-with-paperclip/';
   
   (function(){
     var dsq = document.createElement('script');
@@ -285,7 +280,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>

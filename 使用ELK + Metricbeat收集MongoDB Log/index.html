@@ -6,21 +6,22 @@
   <title>使用ELK + Metricbeat收集MongoDB Log | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。">
-<meta name="keywords" content="mongodb,elk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用ELK + Metricbeat收集MongoDB Log">
-<meta property="og:url" content="http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/index.html">
+<meta property="og:url" content="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/index.html">
 <meta property="og:site_name" content="Alex Liang">
 <meta property="og:description" content="最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。">
-<meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/sentinl.png">
-<meta property="og:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/mongodb.png">
-<meta property="og:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/system.png">
-<meta property="og:updated_time" content="2019-02-16T09:52:08.000Z">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/sentinl.png">
+<meta property="og:image" content="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/mongodb.png">
+<meta property="og:image" content="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/system.png">
+<meta property="article:published_time" content="2019-01-26T08:14:12.000Z">
+<meta property="article:modified_time" content="2019-02-16T09:52:08.000Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="mongodb">
+<meta property="article:tag" content="elk">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用ELK + Metricbeat收集MongoDB Log">
-<meta name="twitter:description" content="最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。">
-<meta name="twitter:image" content="http://alexliang.me/使用ELK%20+%20Metricbeat收集MongoDB%20Log/sentinl.png">
+<meta name="twitter:image" content="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/sentinl.png">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
   
@@ -33,10 +34,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/styles.css">
+  
+<link rel="stylesheet" href="/css/styles.css">
+
   
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
   <nav class="navbar navbar-inverse">
@@ -79,8 +82,6 @@
     <div class="blog-header">
   <h1 class="blog-title">Alex Liang</h1>
   
-    <p class="lead blog-description">在新創公司擔任軟體工程師，記錄我的學習歷程</p>
-  
 </div>
 
     <div class="row">
@@ -100,7 +101,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/使用ELK + Metricbeat收集MongoDB Log/" class="article-date"><time datetime="2019-01-26T08:14:12.000Z" itemprop="datePublished">2019-01-26</time></a>
+  <a href="/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/" class="article-date"><time datetime="2019-01-26T08:14:12.000Z" itemprop="datePublished">2019-01-26</time></a>
 </div>
 
     
@@ -111,28 +112,28 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。<br><a id="more"></a></p>
-<h2 id="安裝ELK"><a href="#安裝ELK" class="headerlink" title="安裝ELK"></a>安裝ELK</h2><p>我們使用<a href="https://github.com/deviantony/docker-elk" target="_blank" rel="noopener">docker-elk</a>安裝ELK stack</p>
+        <p>最近研究如何使用ELK(Elasticsearch, Logstash和Kibana)監控MongoDB的效能，之前公司己經使用ELK監控爬蟲，這次試著擴大範圍並加入告警的通知。<br><span id="more"></span></p>
+<h2 id="安裝ELK"><a href="#安裝ELK" class="headerlink" title="安裝ELK"></a>安裝ELK</h2><p>我們使用<a target="_blank" rel="noopener" href="https://github.com/deviantony/docker-elk">docker-elk</a>安裝ELK stack</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:deviantony/docker-elk.git</span><br></pre></td></tr></table></figure>
-<h2 id="安裝SENTINL-Plugin"><a href="#安裝SENTINL-Plugin" class="headerlink" title="安裝SENTINL Plugin"></a>安裝SENTINL Plugin</h2><p>Kibana需要安裝<a href="https://sentinl.readthedocs.io/en/latest/" target="_blank" rel="noopener">SENTINL</a>這套plugin才能加上watcher的功能</p>
+<h2 id="安裝SENTINL-Plugin"><a href="#安裝SENTINL-Plugin" class="headerlink" title="安裝SENTINL Plugin"></a>安裝SENTINL Plugin</h2><p>Kibana需要安裝<a target="_blank" rel="noopener" href="https://sentinl.readthedocs.io/en/latest/">SENTINL</a>這套plugin才能加上watcher的功能</p>
 <p>修改kibana資料夾的Dockerfile，讓docker-compose在build的時候能安裝plugin</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARG</span> ELK_VERSION</span><br><span class="line"></span><br><span class="line"><span class="comment"># https://github.com/elastic/kibana-docker</span></span><br><span class="line"><span class="keyword">FROM</span> docker.elastic.co/kibana/kibana-oss:$&#123;ELK_VERSION&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add your kibana plugins setup here</span></span><br><span class="line"><span class="comment"># Example: RUN kibana-plugin install &lt;name|url&gt;</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> kibana-plugin install https://github.com/sirensolutions/sentinl/releases/download/tag-6.5.0-0/sentinl-v6.5.4.zip</span></span><br></pre></td></tr></table></figure>
-<p>SENTINL的版本建議和ELK一致，<a href="https://github.com/sirensolutions/sentinl/releases" target="_blank" rel="noopener">這裡</a>可以找到所有版本的release</p>
+<p>SENTINL的版本建議和ELK一致，<a target="_blank" rel="noopener" href="https://github.com/sirensolutions/sentinl/releases">這裡</a>可以找到所有版本的release</p>
 <h2 id="設定SENTINL"><a href="#設定SENTINL" class="headerlink" title="設定SENTINL"></a>設定SENTINL</h2><p>為了讓事件發生時能發出通知，需要設定如email、slack等平台的存取權限。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">## Default Kibana configuration from kibana-docker.</span><br><span class="line">## from https://github.com/elastic/kibana-docker/blob/master/build/kibana/config/kibana.yml</span><br><span class="line">#</span><br><span class="line">server.name: kibana</span><br><span class="line">server.host: &quot;0&quot;</span><br><span class="line">elasticsearch.url: elasticsearch:9200</span><br><span class="line">sentinl:</span><br><span class="line">  settings:</span><br><span class="line">    email:</span><br><span class="line">      active: true</span><br><span class="line">      host: &quot;smtp.gmail.com&quot;</span><br><span class="line">      user: &quot;user@gmail.com&quot;</span><br><span class="line">      port: 587</span><br><span class="line">      password: password</span><br><span class="line">      tls: true</span><br><span class="line">      timeout: 20000  # mail server connection timeout</span><br><span class="line">    slack:</span><br><span class="line">      active: true</span><br><span class="line">      token: [your token]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">## Default Kibana configuration from kibana-docker.</span><br><span class="line">## from https://github.com/elastic/kibana-docker/blob/master/build/kibana/config/kibana.yml</span><br><span class="line">#</span><br><span class="line">server.name: kibana</span><br><span class="line">server.host: &quot;0&quot;</span><br><span class="line">elasticsearch.url: elasticsearch:9200</span><br><span class="line">sentinl:</span><br><span class="line">  settings:</span><br><span class="line">    email:</span><br><span class="line">      active: true</span><br><span class="line">      host: &quot;smtp.gmail.com&quot;</span><br><span class="line">      user: &quot;user@gmail.com&quot;</span><br><span class="line">      port: 587</span><br><span class="line">      password: password</span><br><span class="line">      tls: true</span><br><span class="line">      timeout: 20000  # mail server connection timeout</span><br><span class="line">    slack:</span><br><span class="line">      active: true</span><br><span class="line">      token: [your token]</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build</span><br><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
-<p>這裡以GMAIL和slack做為通知平台，<a href="https://sentinl.readthedocs.io/en/latest/Config-Example/#kibana-config-for-sentinl-v6" target="_blank" rel="noopener">官網</a>有其它範例。</p>
+<p>這裡以GMAIL和slack做為通知平台，<a target="_blank" rel="noopener" href="https://sentinl.readthedocs.io/en/latest/Config-Example/#kibana-config-for-sentinl-v6">官網</a>有其它範例。</p>
 <p>連上管理介面應該能看到左側多了SENTINL的欄位如下:</p>
 <p><img src="sentinl.png" alt="sentinl"></p>
-<h2 id="使用Metricbeat收集log"><a href="#使用Metricbeat收集log" class="headerlink" title="使用Metricbeat收集log"></a>使用Metricbeat收集log</h2><p><a href="https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html" target="_blank" rel="noopener">Metricbeat</a>用來收集後端服務的log，舉凡MongoDB, Apache, Docker和Kubernetes都有相關的模組可以使用</p>
+<h2 id="使用Metricbeat收集log"><a href="#使用Metricbeat收集log" class="headerlink" title="使用Metricbeat收集log"></a>使用Metricbeat收集log</h2><p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html">Metricbeat</a>用來收集後端服務的log，舉凡MongoDB, Apache, Docker和Kubernetes都有相關的模組可以使用</p>
 <ul>
 <li>安裝Metricbeat，一樣使用docker image</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">docker stop metricbeat</span><br><span class="line">docker rm -v metricbeat</span><br><span class="line">docker run -d \</span><br><span class="line">  --name=metricbeat \</span><br><span class="line">  --hostname=</span><br><span class="line">  --volume=&quot;$(pwd)/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro&quot; \</span><br><span class="line">  --volume=&quot;/var/run/docker.sock:/var/run/docker.sock:ro&quot; \</span><br><span class="line">  --volume=&quot;/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro&quot; \</span><br><span class="line">  --volume=&quot;/proc:/hostfs/proc:ro&quot; \</span><br><span class="line">  --volume=&quot;/:/hostfs:ro&quot; \</span><br><span class="line">  docker.elastic.co/beats/metricbeat:6.5.4 metricbeat -e -c metricbeat.yml</span><br><span class="line">docker exec -d metricbeat metricbeat setup</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">docker stop metricbeat</span><br><span class="line">docker rm -v metricbeat</span><br><span class="line">docker run -d \</span><br><span class="line">  --name=metricbeat \</span><br><span class="line">  --hostname=</span><br><span class="line">  --volume=&quot;$(pwd)/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro&quot; \</span><br><span class="line">  --volume=&quot;/var/run/docker.sock:/var/run/docker.sock:ro&quot; \</span><br><span class="line">  --volume=&quot;/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro&quot; \</span><br><span class="line">  --volume=&quot;/proc:/hostfs/proc:ro&quot; \</span><br><span class="line">  --volume=&quot;/:/hostfs:ro&quot; \</span><br><span class="line">  docker.elastic.co/beats/metricbeat:6.5.4 metricbeat -e -c metricbeat.yml</span><br><span class="line">docker exec -d metricbeat metricbeat setup</span><br></pre></td></tr></table></figure>
 <ul>
 <li>修改metricbeat config<br>進入docker image環境，根目錄有<code>metricbeat.reference.yml</code>和<code>metricbeat.yml</code>二個檔案，前者為各種服務的設定參考；後者為乾淨的設定檔。我們在<code>metricbeat.yml</code>加入mongodb和system的設定(你也可以自訂檔名)</li>
 </ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">metricbeat.modules:</span></span><br><span class="line">  <span class="comment">#------------ MongoDB Module ------------------------</span></span><br><span class="line"><span class="attr">  - module:</span> <span class="string">mongodb</span></span><br><span class="line"><span class="attr">    metricsets:</span> <span class="string">["dbstats",</span> <span class="string">"status"</span><span class="string">,</span> <span class="string">"collstats"</span><span class="string">,</span> <span class="string">"metrics"</span><span class="string">,</span> <span class="string">"replstatus"</span><span class="string">]</span></span><br><span class="line"><span class="attr">    period:</span> <span class="number">10</span><span class="string">s</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># The hosts must be passed as MongoDB URLs in the format:</span></span><br><span class="line">    <span class="comment"># [mongodb://][user:pass@]host[:port].</span></span><br><span class="line">    <span class="comment"># The username and password can also be set using the respective configuration</span></span><br><span class="line">    <span class="comment"># options. The credentials in the URL take precedence over the username and</span></span><br><span class="line">    <span class="comment"># password configuration options.</span></span><br><span class="line"><span class="attr">    hosts:</span> <span class="string">["localhost:27017"]</span></span><br><span class="line">    </span><br><span class="line">  <span class="comment">#============ System ===============================</span></span><br><span class="line"><span class="attr">  - module:</span> <span class="string">system</span></span><br><span class="line"><span class="attr">    metricsets:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">cpu</span> <span class="comment"># CPU usage</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">load</span> <span class="comment"># CPU load averages</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">memory</span> <span class="comment"># Memory usage</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">network</span> <span class="comment"># Network IO</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">process</span> <span class="comment"># Per process metrics</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">process_summary</span> <span class="comment"># Process summary</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">uptime</span> <span class="comment"># System Uptime</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">core</span> <span class="comment"># Per CPU core usage</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">diskio</span> <span class="comment"># Disk IO</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">filesystem</span> <span class="comment"># File system usage for each mountpoint</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">fsstat</span> <span class="comment"># File system summary metrics</span></span><br><span class="line">      <span class="comment">#- raid           # Raid</span></span><br><span class="line">      <span class="comment">#- socket         # Sockets and connection info (linux only)</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    period:</span> <span class="number">1</span><span class="string">m</span></span><br><span class="line"><span class="attr">    processes:</span> <span class="string">[".*"]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Configure the metric types that are included by these metricsets.</span></span><br><span class="line">    <span class="string">cpu.metrics:</span> <span class="string">["percentages"]</span> <span class="comment"># The other available options are normalized_percentages and ticks.</span></span><br><span class="line">    <span class="string">core.metrics:</span> <span class="string">["percentages"]</span> <span class="comment"># The other available option is ticks</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">metricbeat.modules:</span></span><br><span class="line">  <span class="comment">#------------ MongoDB Module ------------------------</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">module:</span> <span class="string">mongodb</span></span><br><span class="line">    <span class="attr">metricsets:</span> [<span class="string">&quot;dbstats&quot;</span>, <span class="string">&quot;status&quot;</span>, <span class="string">&quot;collstats&quot;</span>, <span class="string">&quot;metrics&quot;</span>, <span class="string">&quot;replstatus&quot;</span>]</span><br><span class="line">    <span class="attr">period:</span> <span class="string">10s</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># The hosts must be passed as MongoDB URLs in the format:</span></span><br><span class="line">    <span class="comment"># [mongodb://][user:pass@]host[:port].</span></span><br><span class="line">    <span class="comment"># The username and password can also be set using the respective configuration</span></span><br><span class="line">    <span class="comment"># options. The credentials in the URL take precedence over the username and</span></span><br><span class="line">    <span class="comment"># password configuration options.</span></span><br><span class="line">    <span class="attr">hosts:</span> [<span class="string">&quot;localhost:27017&quot;</span>]</span><br><span class="line">    </span><br><span class="line">  <span class="comment">#============ System ===============================</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">module:</span> <span class="string">system</span></span><br><span class="line">    <span class="attr">metricsets:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">cpu</span> <span class="comment"># CPU usage</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">load</span> <span class="comment"># CPU load averages</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">memory</span> <span class="comment"># Memory usage</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">network</span> <span class="comment"># Network IO</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">process</span> <span class="comment"># Per process metrics</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">process_summary</span> <span class="comment"># Process summary</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">uptime</span> <span class="comment"># System Uptime</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">core</span> <span class="comment"># Per CPU core usage</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">diskio</span> <span class="comment"># Disk IO</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">filesystem</span> <span class="comment"># File system usage for each mountpoint</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">fsstat</span> <span class="comment"># File system summary metrics</span></span><br><span class="line">      <span class="comment">#- raid           # Raid</span></span><br><span class="line">      <span class="comment">#- socket         # Sockets and connection info (linux only)</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">period:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">processes:</span> [<span class="string">&quot;.*&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Configure the metric types that are included by these metricsets.</span></span><br><span class="line">    <span class="attr">cpu.metrics:</span> [<span class="string">&quot;percentages&quot;</span>] <span class="comment"># The other available options are normalized_percentages and ticks.</span></span><br><span class="line">    <span class="attr">core.metrics:</span> [<span class="string">&quot;percentages&quot;</span>] <span class="comment"># The other available option is ticks</span></span><br></pre></td></tr></table></figure>
 <p>這裡節錄module的部分，Kibana和Elasticsearch的host需要根據環境修改</p>
 <ul>
 <li>啓動 Metricbeat</li>
@@ -144,8 +145,8 @@
 <p><img src="system.png" alt="system"></p>
 <p>到這裡己經能看到系統的狀態，接下來要設定watcher讓狀況發生時能通知管理者。</p>
 <p>參考:</p>
-<p><a href="https://dzone.com/articles/watchingalerting-on-real-time-data-in-elasticsearc" target="_blank" rel="noopener">Watching/Alerting on Real-Time Data in Elasticsearch Using Kibana and SentiNL</a></p>
-<p><a href="https://blog.yowko.com/elk-mongodb-monitor/" target="_blank" rel="noopener">使用Elastic Stack(ELK)來監控MongoDB</a></p>
+<p><a target="_blank" rel="noopener" href="https://dzone.com/articles/watchingalerting-on-real-time-data-in-elasticsearc">Watching/Alerting on Real-Time Data in Elasticsearch Using Kibana and SentiNL</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.yowko.com/elk-mongodb-monitor/">使用Elastic Stack(ELK)來監控MongoDB</a></p>
 
       
     </div>
@@ -156,16 +157,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/" data-id="cktip5uzm004v4mp4931dchkc" class="article-share-link">
+      <a data-url="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/" data-id="cktu6302z004v59p49jb57cpm" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elk/">elk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elk/" rel="tag">elk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a></li></ul>
 
 
     </footer>
@@ -175,7 +176,7 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/Mocha跑測試時hang住的偵錯方法/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Mocha%E8%B7%91%E6%B8%AC%E8%A9%A6%E6%99%82hang%E4%BD%8F%E7%9A%84%E5%81%B5%E9%8C%AF%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
       <span class="article-nav-link-title">Mocha跑測試時hang住的偵錯方法</span>
     </a>
@@ -183,7 +184,7 @@
   
   
   <li role="presentation">
-    <a href="/使用ELK監控MongoDB-service/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/%E4%BD%BF%E7%94%A8ELK%E7%9B%A3%E6%8E%A7MongoDB-service/" id="article-nav-newer" class="article-nav-link-wrap">
       <span class="article-nav-link-title">使用ELK監控MongoDB service</span>
       <i class="fa fa-chevron-right pull-right"></i>
     </a>
@@ -198,7 +199,7 @@
 
 <section id="comments">
   <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
 </section>
 
@@ -215,17 +216,12 @@
 
 
   
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"></ul>
-  </div>
-
 
 
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/演講筆記/">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/讀書筆記/">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -234,7 +230,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/演講筆記/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/讀書筆記/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -253,23 +249,23 @@
     <ul class="sidebar-module-list">
       
         <li>
-          <a href="/Working-with-legacy-code-使用-newman-建立整合測試/">[Working with legacy code] 使用 newman 建立整合測試</a>
+          <a href="/Working-with-legacy-code-%E4%BD%BF%E7%94%A8-newman-%E5%BB%BA%E7%AB%8B%E6%95%B4%E5%90%88%E6%B8%AC%E8%A9%A6/">[Working with legacy code] 使用 newman 建立整合測試</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-利用dependency-injection降低耦合/">[Design Pattern] 利用dependency injection降低耦合</a>
+          <a href="/Design-Pattern-%E5%88%A9%E7%94%A8dependency-injection%E9%99%8D%E4%BD%8E%E8%80%A6%E5%90%88/">[Design Pattern] 利用dependency injection降低耦合</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-工廠方法模式-Factory-介紹與應用/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
+          <a href="/Design-Pattern-%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 工廠方法模式(Factory)介紹與應用</a>
         </li>
       
         <li>
-          <a href="/商業思維學院-技術人的職涯規劃心得/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
+          <a href="/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD%E5%AD%B8%E9%99%A2-%E6%8A%80%E8%A1%93%E4%BA%BA%E7%9A%84%E8%81%B7%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%BF%83%E5%BE%97/">[商業思維學院] Ant-技術人的職涯規劃心得</a>
         </li>
       
         <li>
-          <a href="/Design-Pattern-簡單工廠方法模式-Simple-Factory-介紹與應用/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
+          <a href="/Design-Pattern-%E7%B0%A1%E5%96%AE%E5%B7%A5%E5%BB%A0%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Simple-Factory-%E4%BB%8B%E7%B4%B9%E8%88%87%E6%87%89%E7%94%A8/">[Design Pattern] 簡單工廠方法模式(Simple Factory)介紹與應用 </a>
         </li>
       
     </ul>
@@ -293,7 +289,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'http://alexliang.me/使用ELK + Metricbeat收集MongoDB Log/';
+  var disqus_url = 'https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%20+%20Metricbeat%E6%94%B6%E9%9B%86MongoDB%20Log/';
   
   (function(){
     var dsq = document.createElement('script');
@@ -311,7 +307,9 @@
 
 
 
+
 <script src="/js/script.js"></script>
+
 
 </body>
 </html>
