@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alexliang.me/"/>
-  <updated>2022-09-10T14:09:21.357Z</updated>
+  <updated>2022-10-27T00:20:53.159Z</updated>
   <id>https://alexliang.me/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PostgreSQL index 淺談及整理</title>
+    <link href="https://alexliang.me/PostgreSQL-index-%E6%B7%BA%E8%AB%87%E5%8F%8A%E6%95%B4%E7%90%86/"/>
+    <id>https://alexliang.me/PostgreSQL-index-淺談及整理/</id>
+    <published>2022-10-16T02:48:43.000Z</published>
+    <updated>2022-10-27T00:20:53.159Z</updated>
+    
+    <content type="html"><![CDATA[<p>前陣子遇到了 DB 效能的問題才回頭檢視 PostgreSQL index 的基本運作和注意事項。</p><p>這篇文章簡單做個記錄，介紹 PG 是如何存放資料、為何加了 index 可以加快查詢速度，以及哪些情況用 index 沒有效果。</p><span id="more"></span><h2 id="PostgreSQL-如何存取資料"><a href="#PostgreSQL-如何存取資料" class="headerlink" title="PostgreSQL 如何存取資料"></a>PostgreSQL 如何存取資料</h2><p>資料庫做為存放 persistence data 的單元，如何設計檔案系統將資料存在 HD (SSD) 便是一大課題。</p><p>先介紹 PG 的檔案系統的各個名詞：</p><ul><li>heap file(heap): 存放 table 所有資料的檔案</li><li>item(tuple): 表示 table 的單一 row </li><li>block(page): heap file 被分為許多 block，一個 block (8KB) 包含許多 rows </li></ul><p>假如系統有一張 customers 的 table, 其內容如下:</p><p><img src="customer_table.png" alt="customer"></p><p>在沒有建 index 的情況下，使用者查詢 customers 時， PG 會將整張表載入 memory 裡再根據條件一個個找</p><p><img src="pg_heap_file_mem.drawio.png" alt="load customer table to memory"></p><p>可以想像，當這張表很多記錄時，這種操作會多麼的耗時。這也就是我們說的 full table scan</p><p><strong>note: 除了上述的情況，還有其它會造成 <a href="https://en.wikipedia.org/wiki/Full_table_scan">full table scan 的情境</a></strong></p><h2 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h2><p>為了要避免每次查詢時需要 full table scan, 我們可以選定欄位建 index</p><p>挑選欄位建 index 時，需要從查詢常用的條件下手。</p><p>PostgreSQL 提供多種 index 型態，預設使用 <a href="https://clu.gitbook.io/data-structure-note/b-tree">B tree</a> 做為 index 的資料結構</p><p>以上個例子舉例，假如塵用程式以 name 查詢 customers，以 name 建立 index 為合理的選擇。其 SQL 如下:</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX <span class="keyword">ON</span> customers (name);</span><br></pre></td></tr></table></figure><p>建立 index 後，使用 name 查詢時，PG 會先去從 index 搜尋資料的位址:</p><p><img src="pg_heap_file_index.drawio.png" alt="index with B-Tree"></p><p>假如 SQL 為: </p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> </span><br><span class="line"><span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;ALex&#x27;</span></span><br></pre></td></tr></table></figure><p>則 PG 能從 index 知道 “Alex” 這筆記錄在 block 0, index 0 的位置。</p><h2 id="使用-Index-的限制"><a href="#使用-Index-的限制" class="headerlink" title="使用 Index 的限制"></a>使用 Index 的限制</h2><p>建完 index 後，不是每種查詢方式都能利用到它。以 <a href="https://www.postgresql.org/docs/current/indexes-types.html#INDEXES-TYPES-BTREE">B-Tree</a> 來說，它只支援 <code>&lt;   &lt;=   =   &gt;=   &gt;</code>  這幾種條件。</p><p>假如用 <code>Like</code> 這種 pattern match 的查詢，在條件是以固定字串為開始的情況，如 <code>name Like &#39;Alex%&#39;</code> 或是 <code>name Like &#39;^Alex&#39;</code> 能利用到 index。</p><p>但假如是 <code>name Like &#39;%ALex&#39;</code> 則無法利用到 index，這點要特別留意。</p><p>另外，建立 index 是需要付出代價的。它也是種存放在硬碟的檔案，隨著 table 的資料量增加，index 的用量也會增加。</p><p>在資料的 insert/update/delete 都需要更新 index，這些操作也會增加執行時間。</p><p>建議定期去整理 table 的 index，將已經沒有使用的 index 刪掉。 </p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://www.udemy.com/course/sql-and-postgresql/">SQL and PostgreSQL: The Complete Developer’s Guide</a></li><li><a href="https://www.postgresql.org/docs/current/indexes-types.html#INDEXES-TYPES-BTREE">B-Tree Index Type</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前陣子遇到了 DB 效能的問題才回頭檢視 PostgreSQL index 的基本運作和注意事項。&lt;/p&gt;
+&lt;p&gt;這篇文章簡單做個記錄，介紹 PG 是如何存放資料、為何加了 index 可以加快查詢速度，以及哪些情況用 index 沒有效果。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="postgresql" scheme="https://alexliang.me/tags/postgresql/"/>
+    
+      <category term="database" scheme="https://alexliang.me/tags/database/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 babel decorator plugin 實現 Aspect-Oriented Programming</title>
@@ -445,30 +468,6 @@
       <category term="javascript" scheme="https://alexliang.me/tags/javascript/"/>
     
       <category term="Node.js" scheme="https://alexliang.me/tags/Node-js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用MongoHub執行aggregate數量錯誤問題</title>
-    <link href="https://alexliang.me/%E4%BD%BF%E7%94%A8MongoHub%E5%9F%B7%E8%A1%8Caggregate%E6%95%B8%E9%87%8F%E9%8C%AF%E8%AA%A4%E5%95%8F%E9%A1%8C/"/>
-    <id>https://alexliang.me/使用MongoHub執行aggregate數量錯誤問題/</id>
-    <published>2017-04-10T14:57:35.000Z</published>
-    <updated>2017-04-10T15:23:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在os X的環境下，常使用<a href="https://github.com/jeromelebel/MongoHub-Mac">MongoHub</a>檢視資料庫及執行aggregate的動作。</p><p>前陣子使用aggregate檢查資料數量時，發現怎麼找數量總是多一筆。本來以為是指令下錯了，簡單做個實驗後，發現MongoHub的aggregate結果會有個預設值，如下圖</p><p><img src="MongoHub-aggregate.png" alt="MongoHub-aggregate"></p><p>在date match空值的情況下，仍然有1個document被找到，但根本沒這個document。<br>下次做aggregate時結果的數量得先減個1才準。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在os X的環境下，常使用&lt;a href=&quot;https://github.com/jeromelebel/MongoHub-Mac&quot;&gt;MongoHub&lt;/a&gt;檢視資料庫及執行aggregate的動作。&lt;/p&gt;
-&lt;p&gt;前陣子使用aggregate檢查資料數量時，發現怎麼找數量
-      
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://alexliang.me/tags/MongoDB/"/>
     
   </entry>
   
