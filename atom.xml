@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alexliang.me/"/>
-  <updated>2022-10-27T00:20:53.159Z</updated>
+  <updated>2022-10-30T05:52:26.863Z</updated>
   <id>https://alexliang.me/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka producer 如何避免 in-sync replicas fail 問題</title>
+    <link href="https://alexliang.me/Kafka-producer-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D-in-sync-replicas-fail-%E5%95%8F%E9%A1%8C/"/>
+    <id>https://alexliang.me/Kafka-producer-如何避免-in-sync-replicas-fail-問題/</id>
+    <published>2022-10-27T00:27:30.000Z</published>
+    <updated>2022-10-30T05:52:26.863Z</updated>
+    
+    <content type="html"><![CDATA[<p>今年公司的架構開始轉為 microservice + event driven，我們選擇 <a href="https://aws.amazon.com/tw/msk/">AWS MSK</a> 託管 Kafka broker 以提供系統各 service 之間的溝通橋樑。</p><p>在一次 MSK upgrade 時，Kafka broker 重啓居然造成系統的 producer 無法 publish event，導致 streaming pipeline 短暫失常。</p><p>這篇文章記錄問題的發生原因和解決方法。</p><span id="more"></span><h2 id="Kafka-Replica"><a href="#Kafka-Replica" class="headerlink" title="Kafka Replica"></a>Kafka Replica</h2><p>在設定 Kafka broker 時，有一個參數通常會打開來，那就是 <a href="https://www.conduktor.io/kafka/kafka-topic-replication">kafka topic replication</a>。</p><p>它會複製 topic 到不同的 broker，降低一台 broker 發生問題時，event 消失的情況。</p><p>其中，replication factor 便是指定 event 會複製幾份在 broker。</p><p>假如設為 1， 表示 event 只有一份，並沒有 replication 的效果。要設幾份 replica 取決於 broker 數量及資料特性。</p><h2 id="In-Sync-Replicas-Fails"><a href="#In-Sync-Replicas-Fails" class="headerlink" title="In-Sync Replicas Fails"></a>In-Sync Replicas Fails</h2><p>假如今天 Kafka cluster 有三台 broker，replication factor 設為 2。 </p><p>在 producer publish event 時，會確保2份 replica 都寫入 broker 才回報成功。</p><p>而這次的情況是 MSK upgrade 時，重啓一台 broker，但我們的 producer 採用所有的 replica 都要寫入才算數。</p><p>這造成了不斷有 event 出現 In-Sync Replicas fails 問題，且這是無法 retry 成功的，直到 broker upgrade 完成。</p><h2 id="如何解決"><a href="#如何解決" class="headerlink" title="如何解決"></a>如何解決</h2><p>了解問題原因後，回到我們使用的 Kafka client library 官網。</p><p>找到 [produce message}(<a href="https://kafka.js.org/docs/producing#producing-messages">https://kafka.js.org/docs/producing#producing-messages</a>) 時有一個 <code>acks</code> 的選項，預設為 <code>-1</code> 表示所有 replica<br>都要完成寫入才會告知 producer publish 成功。</p><p>於是將這個參數改為 1，只要 leader broker 寫入成功便回報，這樣就能避免其中一台 broker 失效便無法完成 publish。</p><p>MSK 不定期會 upgrade，雖然都會通知用戶，但少了這個參數對系統穩定性會有很大的影響。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今年公司的架構開始轉為 microservice + event driven，我們選擇 &lt;a href=&quot;https://aws.amazon.com/tw/msk/&quot;&gt;AWS MSK&lt;/a&gt; 託管 Kafka broker 以提供系統各 service 之間的溝通橋樑。&lt;/p&gt;
+&lt;p&gt;在一次 MSK upgrade 時，Kafka broker 重啓居然造成系統的 producer 無法 publish event，導致 streaming pipeline 短暫失常。&lt;/p&gt;
+&lt;p&gt;這篇文章記錄問題的發生原因和解決方法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="kafka" scheme="https://alexliang.me/tags/kafka/"/>
+    
+      <category term="event-driven" scheme="https://alexliang.me/tags/event-driven/"/>
+    
+  </entry>
   
   <entry>
     <title>PostgreSQL index 淺談及整理</title>
@@ -445,29 +469,6 @@
       <category term="Node.js" scheme="https://alexliang.me/tags/Node-js/"/>
     
       <category term="koa" scheme="https://alexliang.me/tags/koa/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用jschardet偵測網頁編碼</title>
-    <link href="https://alexliang.me/%E4%BD%BF%E7%94%A8jschardet%E5%81%B5%E6%B8%AC%E7%B6%B2%E9%A0%81%E7%B7%A8%E7%A2%BC/"/>
-    <id>https://alexliang.me/使用jschardet偵測網頁編碼/</id>
-    <published>2017-06-26T14:18:09.000Z</published>
-    <updated>2017-06-26T14:45:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>寫爬蟲的過程中常需要對網頁選擇適當的編碼。</p><p>今天介紹一個jschardet module能自動檢測網頁編碼</p><span id="more"></span><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> iconv     = <span class="built_in">require</span>(<span class="string">&#x27;iconv-lite&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> jschardet = <span class="built_in">require</span>(<span class="string">&#x27;jschardet&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchRawHtml</span>(<span class="params">linkURL, callback</span>) </span>&#123;</span><br><span class="line">request.get(&#123;</span><br><span class="line">      <span class="attr">url</span>:       linkURL,</span><br><span class="line">      <span class="attr">encoding</span>:  <span class="literal">null</span>,</span><br><span class="line">    &#125;, <span class="function">(<span class="params">error, response, body</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(error);</span><br><span class="line">        callback(error);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (response.statusCode !== <span class="number">200</span>) &#123;</span><br><span class="line">        callback(<span class="string">`Status code: <span class="subst">$&#123;response.statusCode&#125;</span>`</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> buf = iconv.decode(<span class="keyword">new</span> Buffer(body), jschardet.detect(body).encoding);</span><br><span class="line"></span><br><span class="line">      callback(<span class="literal">null</span>, buf);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>jschardet.detect(body).encoding會回傳該網頁的編碼，對module實作有興趣的人可以參考原始碼，基本上是列出該編碼常用字元，算出網頁使用編碼的機率有多高</p><p>如此一來，以後遇到big5或其它語系的編碼不用另外記錄，可以直接取得正確的raw data</p><p>參考資料：<br><a href="https://github.com/aadsm/jschardet">官方github</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;寫爬蟲的過程中常需要對網頁選擇適當的編碼。&lt;/p&gt;
-&lt;p&gt;今天介紹一個jschardet module能自動檢測網頁編碼&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="javascript" scheme="https://alexliang.me/tags/javascript/"/>
-    
-      <category term="Node.js" scheme="https://alexliang.me/tags/Node-js/"/>
     
   </entry>
   
