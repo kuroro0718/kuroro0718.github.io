@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alexliang.me/"/>
-  <updated>2022-12-11T13:09:51.303Z</updated>
+  <updated>2022-12-22T14:15:54.912Z</updated>
   <id>https://alexliang.me/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 EXPLAIN 調校 SQL 查詢</title>
+    <link href="https://alexliang.me/%E4%BD%BF%E7%94%A8-EXPLAIN-%E8%AA%BF%E6%A0%A1-SQL-%E6%9F%A5%E8%A9%A2/"/>
+    <id>https://alexliang.me/使用-EXPLAIN-調校-SQL-查詢/</id>
+    <published>2022-12-16T02:13:59.000Z</published>
+    <updated>2022-12-22T14:15:54.912Z</updated>
+    
+    <content type="html"><![CDATA[<p>遇到 SQL 查詢效能不彰時，除了 review SQL 以外，使用 EXPLAIN 可以了解效能低落的原因。</p><p>這篇文章介紹如何使用這個指令及解讀回傳的結果。</p><span id="more"></span><h2 id="Query-Process"><a href="#Query-Process" class="headerlink" title="Query Process"></a>Query Process</h2><p>要解釋 EXPLAIN 前，需要了解 PostgreSQL 在查詢的內部流程。主要有下列步驟:</p><ul><li>Parser: 如同編譯器一樣，PostgreSQL 需要將人看的懂的 SQL 翻譯成它能執行的語言 (<em>query tree</em>)</li><li>Rewrite: 調整 query tree，分解 views 到對應的 table</li><li><strong>Planner</strong>: 由 query tree 規劃該如何快速地找到資料。這個步驟跟 query 效能直接相關</li><li>Execute: 執行 query</li></ul><p>使用 EXPLAIN 能讓我們知道 query 會如何執行，接下來說明它的用法。</p><h2 id="EXPLAIN"><a href="#EXPLAIN" class="headerlink" title="EXPLAIN"></a>EXPLAIN</h2><p>基本的用法是在 SQL 最前面加上 <code>EXPLAIN</code>，則查詢結果回傳 <em>query plan</em>。也就是預估每次下 SQL 查詢時，背後的 planner 讀取多少 row, index 並且花了多少資源。</p><p><em>假如要真的執行 SQL，可使用 <code>EXPLAIN ANALYZE</code>，則 PG 會執行並分析此 SQL。</em></p><p>以下面 SQL 為例:</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">JOIN</span> public.address <span class="keyword">ON</span> address.employee_id <span class="operator">=</span> employees.id</span><br><span class="line"><span class="keyword">WHERE</span> first_name <span class="operator">=</span> <span class="string">&#x27;Alex&#x27;</span></span><br></pre></td></tr></table></figure><p>回傳結果會是</p><p><img src="explain.png" alt="explain result"></p><p>逐一分析結果:</p><ul><li>Hash Join  (cost=20.18..43.69 rows=5 width=120) 執行 JOIN 的預估，此操作需要將一張表讀進 memory 再根據條件找出記錄<ul><li>cost 是猜測此 SQL 要花多少時間執行。裡面包含二個數字: 前者為隨機找二筆記錄需要的時間；後者表示逐一檢視記錄的總成本</li><li>rows 為猜測需要掃描多少筆記錄</li><li>width 為猜測平均每筆記錄的長度 (bytes)    </li></ul></li><li>Hash Cond: (address.employee_id = employees.id) 使用 employee id 去 address table 找對應的記錄</li><li>-&gt;  Seq Scan on address  (cost=0.00..20.70 rows=1070 width=48) 逐一掃描 address 的成本</li><li>-&gt;  Hash  (cost=20.12..20.12 rows=4 width=72) </li><li>-&gt;  Seq Scan on employees  (cost=0.00..20.12 rows=4 width=72) 逐一掃描 employees 的預估成本</li><li>Filter: (first_name = ‘Alex’::text) 使用 first_name 當查詢條件</li></ul><p>在 query planner 階段，PostgreSQL 會比較隨機找出記錄和逐一掃描 heap file 需要的成本。</p><p>如果使用 index，會從 B+ tree root node 隨機找 child page 再搜尋對應的 heap file。一般來說，會比逐一找記錄來的快。</p><p>假如使用 pgadmin 的話有按鈕可以執行 EXPLAIN </p><p><img src="pgadmin_explain.png" alt="pgadmin_explain"></p><p>它也可以用圖形的方式呈現 query plan</p><p><img src="explain_graphical.png" alt="explain_graph"></p><p><em>要注意使用 GUI 就不用在 SQL 加上 EXPLAIN</em></p><p>除了 Join 的 query plan, PostgreSQL 官方文件有列出各種 EXPLAIN 結果。如:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM tenk1 WHERE unique1 = 42;</span><br><span class="line"></span><br><span class="line">                                 QUERY PLAN</span><br><span class="line">-------------------------------------------------------------------​----------</span><br><span class="line"> Index Scan using tenk1_unique1 on tenk1  (cost=0.29..8.30 rows=1 width=244)</span><br><span class="line">   Index Cond: (unique1 = 42)</span><br></pre></td></tr></table></figure><p>此 SQL 使用 index column 查詢，query planner 呈現 index scan 結果。</p><p>在調校 SQL query 時，可藉由 EXPLAIN 分析需要的成本及過程。</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://www.postgresql.org/docs/current/using-explain.html#USING-EXPLAIN-BASICS">Using EXPLAIN</a></li><li><a href="https://www.udemy.com/course/sql-and-postgresql/">SQL and PostgreSQL: The Complete Developer’s Guide</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;遇到 SQL 查詢效能不彰時，除了 review SQL 以外，使用 EXPLAIN 可以了解效能低落的原因。&lt;/p&gt;
+&lt;p&gt;這篇文章介紹如何使用這個指令及解讀回傳的結果。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="postgresql" scheme="https://alexliang.me/tags/postgresql/"/>
+    
+      <category term="database" scheme="https://alexliang.me/tags/database/"/>
+    
+  </entry>
   
   <entry>
     <title>淺談 concurrency 和 parallelism 以 Node.js為例</title>
@@ -444,30 +467,6 @@
       <category term="front-end" scheme="https://alexliang.me/tags/front-end/"/>
     
       <category term="React" scheme="https://alexliang.me/tags/React/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mongoose Schema 設計:如何讓 array 能被移除</title>
-    <link href="https://alexliang.me/MongoDB-Schema-%E8%A8%AD%E8%A8%88-%E5%A6%82%E4%BD%95%E8%AE%93-array-%E8%83%BD%E8%A2%AB%E7%A7%BB%E9%99%A4/"/>
-    <id>https://alexliang.me/MongoDB-Schema-設計-如何讓-array-能被移除/</id>
-    <published>2018-06-07T23:57:19.000Z</published>
-    <updated>2018-06-08T00:22:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在MongoDB的操作裡，如果要清除某個欄位，我們可以用 $unset。而日前對著文件裡的 array 做此動作時，array只被清空但還是留下該欄位。</p><p>要解決此問題，在定義schema時，將array的default value設為undefined即可</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CarSchema = <span class="keyword">new</span> Schema(&#123;</span><br><span class="line">  <span class="attr">cars</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="built_in">Array</span>,</span><br><span class="line">    <span class="attr">default</span>: <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>參考資料： <a href="http://mongoosejs.com/docs/schematypes.html#arrays">Mongoose文件</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在MongoDB的操作裡，如果要清除某個欄位，我們可以用 $unset。而日前對著文件裡的 array 做此動作時，array只被清空但還是留下該欄位。&lt;/p&gt;
-&lt;p&gt;要解決此問題，在定義schema時，將array的default value設為undefined即可&lt;/
-      
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://alexliang.me/tags/MongoDB/"/>
     
   </entry>
   
