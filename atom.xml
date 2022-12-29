@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alexliang.me/"/>
-  <updated>2022-12-22T14:15:54.912Z</updated>
+  <updated>2022-12-29T15:19:55.387Z</updated>
   <id>https://alexliang.me/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>工程師在淡季可以做的事</title>
+    <link href="https://alexliang.me/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/"/>
+    <id>https://alexliang.me/工程師在淡季可以做的事/</id>
+    <published>2022-12-26T00:16:15.000Z</published>
+    <updated>2022-12-29T15:19:55.387Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果你在外商，或是客戶大多在國外。每年到了聖誕節左右應該會有一段時間會是沒什麼 loading 的狀態。</p><p>又或者大部分台灣公司，在農曆新年前也不太會上新功能，工程師們會多出一些時間。</p><p>這時候除了發呆裝忙，還能做些什麼呢？ (這篇絕對不是叫各位上班刷題 LOL)</p><span id="more"></span><h2 id="整理文件"><a href="#整理文件" class="headerlink" title="整理文件"></a>整理文件</h2><p>工程師都很討厭專案或流程沒有文件，但偏偏又不喜歡自己寫文件。</p><p>在空檔時期將重要的流程整理起來，相信同事和未來的自己會很感謝你。</p><p>假如需要記錄每個 service 之間的溝通方式，自己很常用 <a href="https://plantuml.com/en/sequence-diagram">sequence-diagram</a>。它可以幫助 team member 更快了解整個流程，也可以知道 service 之間怎麼互動。</p><p>使用 VS code 的人，有 <a href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml">PlantUML plugin</a> 可以安裝。</p><p>JetBrains 系列的 IDE 也有 <a href="https://plugins.jetbrains.com/plugin/7017-plantuml-integration">PlantUML</a>。</p><p>我習慣將這些 UML 檔放在專案裡，要編輯或查閱都很方便。</p><h2 id="翻新-Onboarding-手冊"><a href="#翻新-Onboarding-手冊" class="headerlink" title="翻新 Onboarding 手冊"></a>翻新 Onboarding 手冊</h2><p>另一個可以做的事情就是翻新 onboarding 手冊。在軟體架構越來越複雜的情況下，不論是剛加入的成員或已經待一陣子的人，都會對整個系統見樹不見林。如果每次都用口頭或白板說明，是一件很沒效益的事。</p><p>在這個時候你可以寫 onboarding 手冊，或是新人剛入職時，跑完 onboarding process 也能幫忙更新過期的內容。</p><p>將這些文件化的好處是所有人都能減少被詢問打斷的時間，新人也能更快上手。</p><h2 id="還技術債"><a href="#還技術債" class="headerlink" title="還技術債"></a>還技術債</h2><p>過去一直沒時間還的技術債可以趁這段時間補起來，或是一直沒寫的測試也能在此時補齊。</p><p>我們都能理解在時間緊迫下，必須 work around 完成某些功能。但基礎不穩固的系統是無法一直加新功能的。</p><p>在空檔時間，把過去不好的設計整理一下，能讓之後的開發更順利。</p><h2 id="分享知識"><a href="#分享知識" class="headerlink" title="分享知識"></a>分享知識</h2><p>在上述項目都做完，也許你該向 team member 分享過程遇到的困難及解決的方法。</p><p>讓整個小組一起變強，這也是團隊運作越來越有效率的關鍵。</p><blockquote><p>團隊戰力就像一個浴桶一樣，能裝多少水取決於最短的木片。</p></blockquote><blockquote><p>假如每個成員都很強，那浴桶就能裝更多水，大家的開發體驗也就更好了。</p></blockquote><p>以上是工程師在空檔時間可以去做的事情。有其它不錯項目也歡迎留言分享。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如果你在外商，或是客戶大多在國外。每年到了聖誕節左右應該會有一段時間會是沒什麼 loading 的狀態。&lt;/p&gt;
+&lt;p&gt;又或者大部分台灣公司，在農曆新年前也不太會上新功能，工程師們會多出一些時間。&lt;/p&gt;
+&lt;p&gt;這時候除了發呆裝忙，還能做些什麼呢？ (這篇絕對不是叫各位上班刷題 LOL)&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="職涯發展" scheme="https://alexliang.me/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 EXPLAIN 調校 SQL 查詢</title>
@@ -434,30 +456,6 @@
     <summary type="html">
     
       &lt;p&gt;前陣子遇到一個React效能調教問題，一個後端API花不到一秒完成request，但整個畫面要5秒左右才會render完成。&lt;br&gt;後來發現每次只有一個項目需要更新，而全部重render的結果就是卡在browser，我們改用shouldComponentUpdate來改善此問題。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="javascript" scheme="https://alexliang.me/tags/javascript/"/>
-    
-      <category term="front-end" scheme="https://alexliang.me/tags/front-end/"/>
-    
-      <category term="React" scheme="https://alexliang.me/tags/React/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React Context API 介紹</title>
-    <link href="https://alexliang.me/React-Context-API-%E4%BB%8B%E7%B4%B9/"/>
-    <id>https://alexliang.me/React-Context-API-介紹/</id>
-    <published>2018-06-13T14:06:02.000Z</published>
-    <updated>2018-06-24T09:16:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。<br>而Context API便是用來解決資料傳遞的問題。</p><span id="more"></span><p>在React 16.3之前，context API的使用較為不便，得在parent component class定義若干函式，</p><p>而新的context API只要定義: </p><ol><li>context provider，提供要傳遞的data</li><li>context consumer，接收data</li></ol><p>下面是一個簡單的範例，假如頁面上有三個component，分別為書藉清單、書的簡介和內容試閱，它們為階層式架構，最底層的試閱得拿到書名。</p><p>在使用context前，必須先建立實體，createContext可傳入data的預設值。接著引入context至component</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BookContext = React.createContext();</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookList</span> <span class="keyword">extends</span> <span class="title">Componet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">     <span class="attr">bookName</span>: <span class="string">&#x27;Javascript the good part&#x27;</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 傳遞資料的Component使用Provider</span></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">BookContext.Provider</span> <span class="attr">value</span>=<span class="string">&#123;this.state&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">BookBrief</span> /&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">BookContext.Provider</span>&gt;</span></span>    </span><br><span class="line">  );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中間這一層不需要傳context下去</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">BookBrief</span> (<span class="params">props</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ContentFragment</span> /&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"> );  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 要用到context這層使用Consumer接收資料</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ContentFragment</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> (</span><br><span class="line">   <span class="xml"><span class="tag">&lt;<span class="name">BookContext.Consumer</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#123;context =&gt; context.bookName&#125;</span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">BookContext.Consumer</span>&gt;</span></span></span><br><span class="line"> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如此一來即可從BookList直接傳遞資料至底層的ContentFragment<br>不只是資料，我們也能傳函式下去，可以更方便的由Child Component呼叫Parent的函式。</p><p>參考資料: </p><ol><li><a href="https://reactjs.org/docs/context.html">官方文件</a></li><li><a href="https://hackernoon.com/how-to-use-the-new-react-context-api-fce011e7d87">How to use the new react contenxt API</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在React裡，如果Parent和Child Component之間需要傳data，最直覺的方式是透過props傳進去，然而在結構複雜的頁面中，如果得一層一層傳下去，對於之後的維謢相當的麻煩。&lt;br&gt;而Context API便是用來解決資料傳遞的問題。&lt;/p&gt;
     
     </summary>
     

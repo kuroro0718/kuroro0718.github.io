@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Check list of Heroku deployment | Alex Liang</title>
+  <title>工程師在淡季可以做的事 | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在deploy到Heroku前，應該檢查的事： 開Branch因為你永遠不知道deploy後有什麼狀況，修改branch也比較安全事實上，在修改bug、開發沒做過的功能前，你都應該新增branch Devise如果有裝Devise，記得加上這段config&#x2F;initializers&#x2F;devise.rb1config.secret_key &#x3D; ENV[&quot;DEVISE_SECRET&amp;quot">
+  <meta name="description" content="如果你在外商，或是客戶大多在國外。每年到了聖誕節左右應該會有一段時間會是沒什麼 loading 的狀態。 又或者大部分台灣公司，在農曆新年前也不太會上新功能，工程師們會多出一些時間。 這時候除了發呆裝忙，還能做些什麼呢？ (這篇絕對不是叫各位上班刷題 LOL)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Check list of Heroku deployment">
-<meta property="og:url" content="https://alexliang.me/check-list-of-heroku-deployment/index.html">
+<meta property="og:title" content="工程師在淡季可以做的事">
+<meta property="og:url" content="https://alexliang.me/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/index.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="在deploy到Heroku前，應該檢查的事： 開Branch因為你永遠不知道deploy後有什麼狀況，修改branch也比較安全事實上，在修改bug、開發沒做過的功能前，你都應該新增branch Devise如果有裝Devise，記得加上這段config&#x2F;initializers&#x2F;devise.rb1config.secret_key &#x3D; ENV[&quot;DEVISE_SECRET&amp;quot">
+<meta property="og:description" content="如果你在外商，或是客戶大多在國外。每年到了聖誕節左右應該會有一段時間會是沒什麼 loading 的狀態。 又或者大部分台灣公司，在農曆新年前也不太會上新功能，工程師們會多出一些時間。 這時候除了發呆裝忙，還能做些什麼呢？ (這篇絕對不是叫各位上班刷題 LOL)">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2016-05-02T19:24:00.000Z">
-<meta property="article:modified_time" content="2016-07-18T14:34:06.000Z">
+<meta property="article:published_time" content="2022-12-26T00:16:15.000Z">
+<meta property="article:modified_time" content="2022-12-29T15:19:55.387Z">
 <meta property="article:author" content="Alex Liang">
-<meta property="article:tag" content="heroku">
+<meta property="article:tag" content="職涯發展">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
@@ -81,13 +81,13 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-check-list-of-heroku-deployment" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-工程師在淡季可以做的事" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      Check list of Heroku deployment
+      工程師在淡季可以做的事
     </h1>
   
 
@@ -96,7 +96,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/check-list-of-heroku-deployment/" class="article-date"><time datetime="2016-05-02T19:24:00.000Z" itemprop="datePublished">2016-05-03</time></a>
+  <a href="/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/" class="article-date"><time datetime="2022-12-26T00:16:15.000Z" itemprop="datePublished">2022-12-26</time></a>
 </div>
 
     
@@ -107,12 +107,31 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在deploy到Heroku前，應該檢查的事：<br><!--  more  --></p>
-<h2 id="開Branch"><a href="#開Branch" class="headerlink" title="開Branch"></a>開Branch</h2><p>因為你永遠不知道deploy後有什麼狀況，修改branch也比較安全<br>事實上，在修改bug、開發沒做過的功能前，你都應該新增branch</p>
-<h2 id="Devise"><a href="#Devise" class="headerlink" title="Devise"></a>Devise</h2><p>如果有裝Devise，記得加上這段<br><figure class="highlight ruby"><figcaption><span>config/initializers/devise.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.secret_key = ENV[<span class="string">&quot;DEVISE_SECRET&quot;</span>]</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ heroku config:<span class="built_in">set</span> DEVISE_SECRET=XXX</span><br></pre></td></tr></table></figure>
-<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>因為Heroku不支援sqlite3，production改用postgresql<br><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">group <span class="symbol">:development</span>, <span class="symbol">:test</span> <span class="keyword">do</span></span><br><span class="line">  gem <span class="string">&#x27;sqlite3&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">group <span class="symbol">:production</span> <span class="keyword">do</span></span><br><span class="line">  gem <span class="string">&#x27;pg&#x27;</span></span><br><span class="line">en</span><br></pre></td></tr></table></figure><br>記得bundle install</p>
-<p>參考資料：<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/18080910/devise-secret-key-was-not-set">Stack Overflow文章</a><br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/11714336/heroku-push-fails-with-the-error-an-error-occurred-while-installing-sqlite3-rub">設定production database</a></p>
+        <p>如果你在外商，或是客戶大多在國外。每年到了聖誕節左右應該會有一段時間會是沒什麼 loading 的狀態。</p>
+<p>又或者大部分台灣公司，在農曆新年前也不太會上新功能，工程師們會多出一些時間。</p>
+<p>這時候除了發呆裝忙，還能做些什麼呢？ (這篇絕對不是叫各位上班刷題 LOL)</p>
+<span id="more"></span>
+<h2 id="整理文件"><a href="#整理文件" class="headerlink" title="整理文件"></a>整理文件</h2><p>工程師都很討厭專案或流程沒有文件，但偏偏又不喜歡自己寫文件。</p>
+<p>在空檔時期將重要的流程整理起來，相信同事和未來的自己會很感謝你。</p>
+<p>假如需要記錄每個 service 之間的溝通方式，自己很常用 <a target="_blank" rel="noopener" href="https://plantuml.com/en/sequence-diagram">sequence-diagram</a>。它可以幫助 team member 更快了解整個流程，也可以知道 service 之間怎麼互動。</p>
+<p>使用 VS code 的人，有 <a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml">PlantUML plugin</a> 可以安裝。</p>
+<p>JetBrains 系列的 IDE 也有 <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7017-plantuml-integration">PlantUML</a>。</p>
+<p>我習慣將這些 UML 檔放在專案裡，要編輯或查閱都很方便。</p>
+<h2 id="翻新-Onboarding-手冊"><a href="#翻新-Onboarding-手冊" class="headerlink" title="翻新 Onboarding 手冊"></a>翻新 Onboarding 手冊</h2><p>另一個可以做的事情就是翻新 onboarding 手冊。在軟體架構越來越複雜的情況下，不論是剛加入的成員或已經待一陣子的人，都會對整個系統見樹不見林。如果每次都用口頭或白板說明，是一件很沒效益的事。</p>
+<p>在這個時候你可以寫 onboarding 手冊，或是新人剛入職時，跑完 onboarding process 也能幫忙更新過期的內容。</p>
+<p>將這些文件化的好處是所有人都能減少被詢問打斷的時間，新人也能更快上手。</p>
+<h2 id="還技術債"><a href="#還技術債" class="headerlink" title="還技術債"></a>還技術債</h2><p>過去一直沒時間還的技術債可以趁這段時間補起來，或是一直沒寫的測試也能在此時補齊。</p>
+<p>我們都能理解在時間緊迫下，必須 work around 完成某些功能。但基礎不穩固的系統是無法一直加新功能的。</p>
+<p>在空檔時間，把過去不好的設計整理一下，能讓之後的開發更順利。</p>
+<h2 id="分享知識"><a href="#分享知識" class="headerlink" title="分享知識"></a>分享知識</h2><p>在上述項目都做完，也許你該向 team member 分享過程遇到的困難及解決的方法。</p>
+<p>讓整個小組一起變強，這也是團隊運作越來越有效率的關鍵。</p>
+<blockquote>
+<p>團隊戰力就像一個浴桶一樣，能裝多少水取決於最短的木片。</p>
+</blockquote>
+<blockquote>
+<p>假如每個成員都很強，那浴桶就能裝更多水，大家的開發體驗也就更好了。</p>
+</blockquote>
+<p>以上是工程師在空檔時間可以去做的事情。有其它不錯項目也歡迎留言分享。</p>
 
       
     </div>
@@ -123,16 +142,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://alexliang.me/check-list-of-heroku-deployment/" data-id="cktu63018001x59p495u87qut" class="article-share-link">
+      <a data-url="https://alexliang.me/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/" data-id="clc98fzfb000053p4fqhdhev5" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://alexliang.me/check-list-of-heroku-deployment/#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" rel="tag">職涯發展</a></li></ul>
 
 
     </footer>
@@ -142,19 +161,12 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/rails-use-friendly-id-increase-the-readability-url/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/%E4%BD%BF%E7%94%A8-EXPLAIN-%E8%AA%BF%E6%A0%A1-SQL-%E6%9F%A5%E8%A9%A2/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">[Rails]  使用friendly_id增加URL可讀性</span>
+      <span class="article-nav-link-title">使用 EXPLAIN 調校 SQL 查詢</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/upload-image-to-aws-s3-with-paperclip/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Uploading image to AWS S3 with Paperclip </span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -255,7 +267,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'https://alexliang.me/check-list-of-heroku-deployment/';
+  var disqus_url = 'https://alexliang.me/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/';
   
   (function(){
     var dsq = document.createElement('script');
