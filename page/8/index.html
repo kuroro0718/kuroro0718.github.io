@@ -78,6 +78,139 @@
         <div class="col-sm-8 blog-main">
           
   
+    <article id="post-archetecture-the-lost-years-by-uncle-bob-lecture-notes" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/archetecture-the-lost-years-by-uncle-bob-lecture-notes/">Archetecture the Lost Years by Uncle Bob演講筆記</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" class="article-date"><time datetime="2016-04-01T00:05:00.000Z" itemprop="datePublished">2016-04-01</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近看了Uncle Bob在Ruby Midwest 2011的演講（<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WpkDN78P884&amp;list=LLvUp_IPqUJMajFn1HI2PYgw&amp;index=1">影片連結</a>）介紹軟體架構。<br><!--  more  --></p>
+<h3 id="Archetecture-is-about-intent"><a href="#Archetecture-is-about-intent" class="headerlink" title="Archetecture is about intent"></a>Archetecture is about intent</h3><p>一開始Uncle Bob列出幾種建築物的結構圖，藉此比喻好的架構設計能讓工程師迅速了解系統<br>從這裡再帶出web framework常採用的MVC架構<br>為何會有MVC的出現？ 為了讓系統耦合度降低 讓前端的設計不需要跟後端的資料庫或商業邏輯綁在一起</p>
+<p>演講從一個user case講起，再畫一個UML圖解釋架構。<br>他使用類似MVC架構的系統(interactor, entity, boundary)來處理這個問題<br>例如： interactor負責application特有的商業邏輯，並且和entity有連結的關係，可以視為controller<br>entity則是處理資料庫存取，屬於一般application共有的行為<br>boundary把interactor產生的資訊秀出來給使用者，整體架構如下圖所示：<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wVKfwcrEQO2FVYwXNMAd_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%884.44.26.png" alt="螢幕快照 2016-04-01 下午4.44.26.png"><br>Uncle Bob解釋這種設計能將商業邏輯和使用者介面切開，二者之間少了相依性<br>而右半邊的interactor和entity可封裝成gem或dll(看是哪種application)<br>最左邊的delivery machanism負責將user input分配給boundary，可封裝成plug-in的型態，方便測試</p>
+<h3 id="What-about-MVC"><a href="#What-about-MVC" class="headerlink" title="What about MVC?"></a>What about MVC?</h3><p>講到MVC這章，先從發明人<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Trygve_Reenskaug">Trygve Reenskaug</a>開始介紹<br>延申到web application時會出現view和controller相依model的現象，如下圖<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/wxVl3bRZSX63THFRtV6d_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%882.27.14.png" alt="螢幕快照 2016-04-04 下午2.27.14.png"><br>從測試的角度來看，view只要把資訊編排顯示正確即可，不需要關心後端的資料如何產生<br>對於商業邏輯的正確才是每次測試的重點，這點他比較偏好<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter">Model-View-Presenter</a><br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/UYnWHAPQkSOdj6leELrD_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.06.06.png" alt="螢幕快照 2016-04-04 下午3.06.06.png"></p>
+<p>接下來Uncle Bob問觀眾做一次測試要多久？測了幾項？</p>
+<blockquote>
+<p>4分半測1000多項 –&gt; That’s good<br> 1小時半 –&gt; That’s bad &gt;”&lt;</p>
+</blockquote>
+<p>對工程師來說，測試如果花太久的時間，之後每次修改都會猶豫要不要測試。<br>這也增加專案爆炸的機率…</p>
+<h3 id="Good-Architeture"><a href="#Good-Architeture" class="headerlink" title="Good Architeture"></a>Good Architeture</h3><p>Uncle Bob最後提到早期一個wiki-like project。<br>從一開始他們就決定晚一點連結資料庫，先把application實作完<br>為了滅少測試時間，把wiki page存在memory中，雖然不能存檔，但至少能測試整個專案<br>後來他的同事實作FileSystemPage測試persistence，架構如下<br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/692308/mKseKRgTWeCgK3GK6yg6_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-04%20%E4%B8%8B%E5%8D%883.30.17.png" alt="螢幕快照 2016-04-04 下午3.30.17.png"><br>而這時專案還沒有真正的database</p>
+<blockquote>
+<p>A good architecture allows major decisions to be deferred<br>A good architecture maximizes the number of decisions not made</p>
+</blockquote>
+<p>到最後客戶要求需要database，而他們只需要一天就把專案完成了</p>
+<p>好的架構可推遲重大的決定；好的架構能滅少做決定的次數。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/" data-id="cktu6300u001b59p40sg238p1" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+        <a href="https://alexliang.me/archetecture-the-lost-years-by-uncle-bob-lecture-notes/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-679354" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/679354/">[前端筆記] CSS3 Cross Country筆記</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/679354/" class="article-date"><time datetime="2016-03-24T23:16:00.000Z" itemprop="datePublished">2016-03-25</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>把Code School CSS3課程做個筆記<br><!--  more  --></p>
+<h2 id="Inheritance-amp-Specificity"><a href="#Inheritance-amp-Specificity" class="headerlink" title="Inheritance &amp; Specificity"></a>Inheritance &amp; Specificity</h2><p>CSS3對selector和class有優先權的設定<br>有個數列能做參考：</p>
+<p><inline>, <ID>, <Class>, <Element><br>由左至右為權限高到低，舉例來說<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;product&quot;</span>&gt;</span>Coffee brewer<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It&#x27;s the best way to enjoy coffee<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#content</span> <span class="selector-tag">p</span> &#123;		# specificity: <span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span></span><br><span class="line">	color: <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.product</span> &#123;			#	 specificity: <span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>  優先權較低，不會生效</span><br><span class="line">	color: <span class="number">#555</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#content</span> <span class="selector-class">.product</span> &#123;		# specificity: <span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span> 加上ID selector才會生效</span><br><span class="line">	color: <span class="number">#555</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="The-Box-Model"><a href="#The-Box-Model" class="headerlink" title="The Box Model"></a>The Box Model</h2><p>當我們需要計算某個樣式的寬度時，需套入以下公式：<br>total calculated box width = content width + padding width + border width<br>例如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.form</span> &#123;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">5px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>此樣式總寬度為： 120(content)＋15(padding)＋10(border)＝145px</p>
+<h2 id="Positioning"><a href="#Positioning" class="headerlink" title="Positioning"></a>Positioning</h2><p>CSS的樣式位置預設是static，總共有4種設定：static/relative/absolute/fixed<br>除了static之外，其它3種設定可分別調整元素上、下、左、右位置，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Alex&#x27;s Playground<span class="tag">&lt;<span class="name">sup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sup</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sup</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">60%</span>;</span><br><span class="line">  <span class="attribute">vertical-align</span>: baseline;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">top</span>: -<span class="number">0.5em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><img src="http://user-image.logdown.io/user/15598/blog/14782/post/679354/tFOXb3xESeOZJ6dIYI3b_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-01%20%E4%B8%8B%E5%8D%882.17.56.png" alt="螢幕快照 2016-04-01 下午2.17.56.png"></p>
+<p>參考來源：<br><a target="_blank" rel="noopener" href="http://www.w3schools.com/cssref/pr_class_position.asp">Positioning</a></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://alexliang.me/679354/" data-id="cktu6300t001959p4bz5kaavt" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+        <a href="https://alexliang.me/679354/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/front-end/" rel="tag">front-end</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-rails-paperclip-upload-files-and-images" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -620,153 +753,6 @@
 
 
   
-    <article id="post-404906" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/404906/">[Rails]  Resolution Tracker－User Story</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/404906/" class="article-date"><time datetime="2016-01-04T06:20:00.000Z" itemprop="datePublished">2016-01-04</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在<a target="_blank" rel="noopener" href="http://alexliang-blog.logdown.com/posts/404856-project-management-on-resolution-tracker">上一篇</a>解釋這個專案的想法從何而來。這一篇開始寫user story。<br><!--  more  --><br>Version 1.</p>
-<pre><code>1. 身為使用者，我能夠以email登入網站
-2. 身為使用者，我能夠新增目標和完成時間
-3. 身為使用者，我能夠刪除目標
-4. 身為使用者，我能夠透過email分享目標給朋友
-5. 身為使用者，我能夠設定通知信寄送日期
-6. 身為使用者，我能夠看到目標的進度
-</code></pre><p>Version 2.  update January 14,2016</p>
-<pre><code>1. 身為使用者，我能夠以email登入網站 
-2. 身為使用者，我能夠新增目標和完成時間
-3. 身為使用者，我能夠刪除目標
-4. 身為使用者，我能夠勾選己完成的目標
-5. 身為使用者，我能夠透過email分享目標給朋友 
-         * 身為使用者，我需要登入才能看見朋友的目標
-   * 身為使用者，我能夠設定要分享權限
-    6. 身為使用者，我能夠設定通知信寄送日期
-7. 身為使用者，我能夠看到目標的進度
-     * 進度會以百分比顯示    
-    8. 身為管理者，我能管理一般使用者的帳號
-     * 身為管理者，我能停權一般使用者的帳號
-   * 身為管理者，我能恢復一般使用者的帳號
-</code></pre>
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://alexliang.me/404906/" data-id="cktu6300a000p59p4ey8t36x4" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="https://alexliang.me/404906/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-project-management-on-resolution-tracker" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/project-management-on-resolution-tracker/">[Rails]  Resolution Tracker－KICK OFF! </a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/project-management-on-resolution-tracker/" class="article-date"><time datetime="2016-01-04T05:44:00.000Z" itemprop="datePublished">2016-01-04</time></a>
-</div>
-
-    
-    
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前天上完目標設定，對接下來一年有更具體的規劃</p>
-<p>在短期目標中，我寫下要轉職為rails developer。 </p>
-<p>要說服別人，當然得拿出作品來。於是resolution-tracker的想法就產生了⋯⋯<br><!--  more  --></p>
-<p>那天活動結束，老師要我們找3~4人的小組，大家互相督促。 但從過去的經驗來看，這樣還是不夠的</p>
-<p>所以我才想要用rails打造一個小組追蹤目標進度的網站，把目標和時程放上去，接近設定的時間時會自動寄信提醒。</p>
-<p>這個作品就用xdite的專案管理技巧來實作吧（真是一魚三吃 XD）</p>
-<p>首先是規劃時程。我己經昭告組員會在過年時放出beta版，以星期來看：</p>
-<pre><code>1. 1/4~1/10   寫user story，開始實作
-2. 1/11~1/17  實作
-3. 1/18~1/24  release preview version
-4. 1/25~1/31  修改樣式和bug 
-5. 2/1~2/7        release beta version
-</code></pre><p>對我來說，這schedule達成率是60%左右，但我有信心能完成它！　</p>
-<p>2016/1/17<br>激情過後，今天在家實作。發現在view的部分還是不太熟，要做出腦中的畫面還是需要看之前的作業。<br>而且最重要的寄信提醒功能還沒做，要加快腳步了。</p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://alexliang.me/project-management-on-resolution-tracker/" data-id="cktu6300b000r59p4bp2adoil" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-        <a href="https://alexliang.me/project-management-on-resolution-tracker/#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> Comments
-        </a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <div id="page-nav">
@@ -791,7 +777,7 @@
   
   <div class="sidebar-module">
     <h4>Tags</h4>
-    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aop/" rel="tag">aop</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/babel/" rel="tag">babel</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/database/" rel="tag">database</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/event-driven/" rel="tag">event-driven</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">13</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postgresql/" rel="tag">postgresql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" rel="tag">職涯發展</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aop/" rel="tag">aop</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/babel/" rel="tag">babel</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/database/" rel="tag">database</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/docker/" rel="tag">docker</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/event-driven/" rel="tag">event-driven</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/github/" rel="tag">github</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">13</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postgresql/" rel="tag">postgresql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" rel="tag">職涯發展</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/" rel="tag">讀書心得</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
   </div>
 
 
@@ -800,7 +786,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aop/" style="font-size: 10px;">aop</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/backend/" style="font-size: 11.11px;">backend</a> <a href="/tags/database/" style="font-size: 11.11px;">database</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/event-driven/" style="font-size: 10px;">event-driven</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postgresql/" style="font-size: 11.11px;">postgresql</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" style="font-size: 12.22px;">職涯發展</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aop/" style="font-size: 10px;">aop</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/backend/" style="font-size: 11.11px;">backend</a> <a href="/tags/database/" style="font-size: 12.22px;">database</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 11.11px;">devops</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/event-driven/" style="font-size: 10px;">event-driven</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postgresql/" style="font-size: 11.11px;">postgresql</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" style="font-size: 12.22px;">職涯發展</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/" style="font-size: 10px;">讀書心得</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
     </p>
   </div>
 
@@ -808,7 +794,7 @@
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/12/">十二月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/11/">十一月 2022</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/10/">十月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/09/">九月 2022</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/09/">九月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/03/">三月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/02/">二月 2021</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/10/">十月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/07/">七月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/06/">六月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/06/">六月 2018</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/04/">四月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2023/01/">一月 2023</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/12/">十二月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/11/">十一月 2022</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/10/">十月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/09/">九月 2022</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/09/">九月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/03/">三月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/02/">二月 2021</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/10/">十月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/07/">七月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/06/">六月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/06/">六月 2018</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/04/">四月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
   </div>
 
 
@@ -817,6 +803,14 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/%E4%BD%BF%E7%94%A8-golang-migrate%E5%9F%B7%E8%A1%8C-database-migration/">使用 golang-migrate 執行 database migration</a>
+        </li>
+      
+        <li>
+          <a href="/%E6%88%91%E6%83%B3%E5%92%8C%E4%BD%A0%E8%81%8A%E4%B8%80%E8%81%8A-%E8%AE%80%E5%BE%8C%E6%84%9F/">&lt;我想和你聊一聊&gt; 讀後感</a>
+        </li>
       
         <li>
           <a href="/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/">工程師在淡季可以做的事</a>
@@ -828,14 +822,6 @@
       
         <li>
           <a href="/%E6%B7%BA%E8%AB%87-concurrency-%E5%92%8C-parallelism-%E4%BB%A5%20Node-js%E7%82%BA%E4%BE%8B/">淺談 concurrency 和 parallelism 以 Node.js為例</a>
-        </li>
-      
-        <li>
-          <a href="/%E6%88%90%E5%8A%9F%E8%BD%89%E8%81%B7%E5%B7%A5%E7%A8%8B%E5%B8%AB%EF%BC%8C%E7%84%B6%E5%BE%8C%E5%91%A2%EF%BC%9F/">成功轉職工程師，然後呢？</a>
-        </li>
-      
-        <li>
-          <a href="/%E5%B0%8D%E6%96%BC%E8%BD%89%E8%81%B7%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E4%B8%80%E4%BA%9B%E9%AB%94%E6%9C%83/">對於轉職軟體工程師的一些體會</a>
         </li>
       
     </ul>

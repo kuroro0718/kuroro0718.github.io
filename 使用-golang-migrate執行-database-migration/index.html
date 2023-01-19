@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用 golang-migrate 執行 database migration | Alex Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前陣子團隊使用golang-migrate對 Cassandra 進行 migration。 覺得順手後，想用它當做 PostgreSQL migration tool。 這篇文章記錄該如何使用 golang-migrate 撰寫 docker-compose 檔案及 github action 的 yaml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 golang-migrate 執行 database migration">
+<meta property="og:url" content="https://alexliang.me/%E4%BD%BF%E7%94%A8-golang-migrate%E5%9F%B7%E8%A1%8C-database-migration/index.html">
+<meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="前陣子團隊使用golang-migrate對 Cassandra 進行 migration。 覺得順手後，想用它當做 PostgreSQL migration tool。 這篇文章記錄該如何使用 golang-migrate 撰寫 docker-compose 檔案及 github action 的 yaml">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2023-01-18T15:16:19.000Z">
+<meta property="article:modified_time" content="2023-01-19T01:08:36.656Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="devops">
+<meta property="article:tag" content="database">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="github">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  
+<link rel="stylesheet" href="/css/styles.css">
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">Alex Liang</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-使用-golang-migrate執行-database-migration" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      使用 golang-migrate 執行 database migration
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/%E4%BD%BF%E7%94%A8-golang-migrate%E5%9F%B7%E8%A1%8C-database-migration/" class="article-date"><time datetime="2023-01-18T15:16:19.000Z" itemprop="datePublished">2023-01-18</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前陣子團隊使用<a target="_blank" rel="noopener" href="https://github.com/golang-migrate/migrate">golang-migrate</a>對 Cassandra 進行 migration。</p>
+<p>覺得順手後，想用它當做 PostgreSQL migration tool。</p>
+<p>這篇文章記錄該如何使用 golang-migrate 撰寫 docker-compose 檔案及 github action 的 yaml </p>
+<span id="more"></span>
+<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><p>假如要在本地端起一台 PG 和執行 migration，使用 docker 會是比較方便的選擇。以下為 docker-compose.yaml 的內容</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.3&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">postgres:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres:11.9</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">POSTGRES_DB:</span> <span class="string">db</span></span><br><span class="line">      <span class="attr">POSTGRES_USER:</span> <span class="string">user</span></span><br><span class="line">      <span class="attr">POSTGRES_PASSWORD:</span> <span class="string">password</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">5432</span><span class="string">:5432</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./scripts:/docker-entrypoint-initdb.d/</span></span><br><span class="line">  <span class="attr">migrate:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">migrate/migrate</span></span><br><span class="line">    <span class="attr">command:</span> [ <span class="string">&quot;-path&quot;</span>, <span class="string">&quot;/migrations&quot;</span>, <span class="string">&quot;-database&quot;</span>,  <span class="string">&quot;postgresql://user:password@postgres:5432/db?sslmode=disable&quot;</span>, <span class="string">&quot;up&quot;</span> ]</span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./migrations:/migrations</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">on-failure</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">postgres</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>PG 在初始化後要執行的任務放在 <code>./scripts</code> 並掛到 <code>docker-entrypoint-initdb.d</code>，例如建 schema</li>
+<li>第二個 service migrate/migrate 是本文的主角，其 migration command 可以到官網查詢。</li>
+<li>由於 migration 要等 PG 初始化並允許連線才能執行，這裡用 <code>restart: on-failure</code> 不斷的去試，直到連到 DB 為止。</li>
+</ul>
+<h2 id="github-action"><a href="#github-action" class="headerlink" title="github action"></a>github action</h2><p>如果在 github 上跑 CI 需要設定 github action。這裡以 node.js + PostgreSQL 為例，說明如何使用 golang-migrate:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Unit</span> <span class="string">Test</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">release</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;feat/*&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;fix/*&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;refactor/*&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;chore/*&#x27;</span></span><br><span class="line">  <span class="attr">pull_request:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;*&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">      <span class="attr">POSTGRES_DB:</span> <span class="string">db</span></span><br><span class="line">      <span class="attr">POSTGRES_USER:</span> <span class="string">user</span></span><br><span class="line">      <span class="attr">POSTGRES_PASSWORD:</span> <span class="string">password</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">services:</span></span><br><span class="line">      <span class="attr">postgres:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">postgres:11.9</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">POSTGRES_DB:</span> <span class="string">$&#123;&#123;env.POSTGRES_DB&#125;&#125;</span></span><br><span class="line">          <span class="attr">POSTGRES_USER:</span> <span class="string">$&#123;&#123;env.POSTGRES_USER&#125;&#125;</span></span><br><span class="line">          <span class="attr">POSTGRES_PASSWORD:</span> <span class="string">$&#123;&#123;env.POSTGRES_PASSWORD&#125;&#125;</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="number">5432</span><span class="string">:5432</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">/migrations:/migrations</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span> <span class="number">16.16</span><span class="number">.0</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">node-version:</span> <span class="number">16.16</span><span class="number">.0</span></span><br><span class="line">        <span class="attr">cache:</span> <span class="string">&#x27;npm&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Create</span> <span class="string">Schema</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        psql postgresql://$&#123;&#123;env.POSTGRES_USER&#125;&#125;:$&#123;&#123;env.POSTGRES_PASSWORD&#125;&#125;@localhost:5432/$&#123;&#123;env.POSTGRES_DB&#125;&#125;?sslmode=disable -c &#x27;CREATE SCHEMA IF NOT EXISTS demo;&#x27;</span></span><br><span class="line"><span class="string"></span>    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">migrations</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">docker://migrate/migrate</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">args:</span> <span class="string">&quot;-path ./migrations -database postgresql://$<span class="template-variable">&#123;&#123;env.POSTGRES_USER&#125;&#125;</span>:$<span class="template-variable">&#123;&#123;env.POSTGRES_PASSWORD&#125;&#125;</span>@postgres:5432/$<span class="template-variable">&#123;&#123;env.POSTGRES_DB&#125;&#125;</span>?sslmode=disable up&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">run</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm install</span></span><br><span class="line"><span class="string">        npm run test</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在 Create Schema 階段執行 <code>psql</code> 指令</li>
+<li>在 Run migrations 階段使用 <code>uses</code> 指定 docker image path，並帶入 migration 指令</li>
+</ul>
+<p>以上是 docker-compose 和 github action 使用 golang-migrate 執行 migration 的設定。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://alexliang.me/%E4%BD%BF%E7%94%A8-golang-migrate%E5%9F%B7%E8%A1%8C-database-migration/" data-id="cld2e9wvu0000frp4g7qtgpkb" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+        <a href="https://alexliang.me/%E4%BD%BF%E7%94%A8-golang-migrate%E5%9F%B7%E8%A1%8C-database-migration/#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/" rel="tag">database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devops/" rel="tag">devops</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/%E6%88%91%E6%83%B3%E5%92%8C%E4%BD%A0%E8%81%8A%E4%B8%80%E8%81%8A-%E8%AE%80%E5%BE%8C%E6%84%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">&lt;我想和你聊一聊&gt; 讀後感</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  <h4>About</h4>
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href='mailto:alex.ycliang@gmail.com'>連絡我</a></p>
+
+</div>
+
+
+  
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aop/" rel="tag">aop</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/babel/" rel="tag">babel</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/database/" rel="tag">database</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/docker/" rel="tag">docker</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/event-driven/" rel="tag">event-driven</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/github/" rel="tag">github</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">13</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postgresql/" rel="tag">postgresql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" rel="tag">職涯發展</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/" rel="tag">讀書心得</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aop/" style="font-size: 10px;">aop</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/backend/" style="font-size: 11.11px;">backend</a> <a href="/tags/database/" style="font-size: 12.22px;">database</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 11.11px;">devops</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/event-driven/" style="font-size: 10px;">event-driven</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postgresql/" style="font-size: 11.11px;">postgresql</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" style="font-size: 12.22px;">職涯發展</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/" style="font-size: 10px;">讀書心得</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2023/01/">一月 2023</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/12/">十二月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/11/">十一月 2022</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/10/">十月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/09/">九月 2022</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/09/">九月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/03/">三月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/02/">二月 2021</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/10/">十月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/07/">七月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/06/">六月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/06/">六月 2018</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/04/">四月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/%E4%BD%BF%E7%94%A8-golang-migrate%E5%9F%B7%E8%A1%8C-database-migration/">使用 golang-migrate 執行 database migration</a>
+        </li>
+      
+        <li>
+          <a href="/%E6%88%91%E6%83%B3%E5%92%8C%E4%BD%A0%E8%81%8A%E4%B8%80%E8%81%8A-%E8%AE%80%E5%BE%8C%E6%84%9F/">&lt;我想和你聊一聊&gt; 讀後感</a>
+        </li>
+      
+        <li>
+          <a href="/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B/">工程師在淡季可以做的事</a>
+        </li>
+      
+        <li>
+          <a href="/%E4%BD%BF%E7%94%A8-EXPLAIN-%E8%AA%BF%E6%A0%A1-SQL-%E6%9F%A5%E8%A9%A2/">使用 EXPLAIN 調校 SQL 查詢</a>
+        </li>
+      
+        <li>
+          <a href="/%E6%B7%BA%E8%AB%87-concurrency-%E5%92%8C-parallelism-%E4%BB%A5%20Node-js%E7%82%BA%E4%BE%8B/">淺談 concurrency 和 parallelism 以 Node.js為例</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Alex Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+<script>
+  var disqus_shortname = 'alexliang-blog';
+  
+  var disqus_url = 'https://alexliang.me/%E4%BD%BF%E7%94%A8-golang-migrate%E5%9F%B7%E8%A1%8C-database-migration/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</body>
+</html>
