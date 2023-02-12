@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Restful API 檢查清單  | Alex Liang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Restful API 檢查清單 ">
+<meta property="og:url" content="https://alexliang.me/Restful%20API%20%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE%20.html">
+<meta property="og:site_name" content="Alex Liang">
+<meta property="og:description" content="後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2018-04-09T23:59:04.000Z">
+<meta property="article:modified_time" content="2023-02-12T08:53:19.163Z">
+<meta property="article:author" content="Alex Liang">
+<meta property="article:tag" content="backend">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  
+<link rel="stylesheet" href="/css/styles.css">
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">Alex Liang</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-Restful-API-檢查清單" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      Restful API 檢查清單 
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/Restful%20API%20%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE%20.html" class="article-date"><time datetime="2018-04-09T23:59:04.000Z" itemprop="datePublished">2018-04-10</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>後端工程師的工作之一便是規劃API，不論是公司內部提供給前端或是第三方的溝通。這篇文章整設計API前要注意的事項</p>
+<span id="more"></span>
+<h3 id="在API設計之前"><a href="#在API設計之前" class="headerlink" title="在API設計之前"></a>在API設計之前</h3><p>提供給前端的API請先和前端工程師及UI/UX 討論流程和需要的功能。一般來說，UI/UX會先出圖，再來才是前後端工程師討論，此時要從用戶(前端和UI/UX)的角度思考：</p>
+<ol>
+<li>為什麼他們需要這個功能</li>
+<li>此功能要完成什麼工作，如果讓後端邏輯變複雜，有沒有其它替代方案？</li>
+<li>之後會不會擴展API功能（如增加第三方支付廠商，或是為其它客戶做客製化）</li>
+</ol>
+<p>這個階段得具體和詳細的討論，在流程和功能沒結果前不動手寫code<br>如果此API只是單純後端的需要，那只是討論的對象不同，其思考方式一樣。</p>
+<h3 id="API設計"><a href="#API設計" class="headerlink" title="API設計"></a>API設計</h3><p>與用戶討論完API的功能後，下一步就要設計介面<br><a target="_blank" rel="noopener" href="https://tw.twincl.com/programming/*641y">這篇文章</a>談到Restful API在設計需注意的事。先分清楚此API是跟資源有關還是utility的功能，這會影響到URI的設計</p>
+<p>跟資源相關的就是CRUD操作，例如註冊會員或刪除文章</p>
+<p>而utility的API可能不特別針對哪個資源，例如 background job</p>
+<p>至於使用哪個http動詞就看該行為了，例如註冊一個會員帳號你可能會使用 POST /1/members<br>一切先以用戶的角度看待介面的合理性。</p>
+<p>設計時需要針對各操作構思後端的邏輯，列出該操作所有的選項，思考使用的DB資源，此時對於整個API應該有清楚的規劃。</p>
+<h3 id="API實作之前"><a href="#API實作之前" class="headerlink" title="API實作之前"></a>API實作之前</h3><p>在API實作之前還需要 </p>
+<ol>
+<li>寫unit test </li>
+<li>撰寫API文件，讓前端人員參考</li>
+</ol>
+<p>單元測試有幾點須注意： </p>
+<ol>
+<li>測試應涵蓋設計階段討論的 corner case </li>
+<li>測試資料應盡可能簡明</li>
+<li>API上線後如果遇到當初沒討論的狀況，先寫測試再解bug</li>
+</ol>
+<p>在撰寫文件方面，我們團隊使用<a target="_blank" rel="noopener" href="http://apidocjs.com/">API Doc</a>幫助產出document。不用另外存放文件，用註解的方式就能產出文件，對於前後端人員都是很方便的作法。</p>
+<p>以上是這陣子和同事討論API到實作的心得，這篇記錄將來還會持續更新，讓每次的工作都能更順利。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://alexliang.me/Restful%20API%20%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE%20.html" data-id="cktu6302p004g59p4gqjpfvoq" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+        <a href="https://alexliang.me/Restful%20API%20%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE%20.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> Comments
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backend/" rel="tag">backend</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/React%E5%88%9D%E6%8E%A2%20%E4%BB%A5Todo%20app%E7%82%BA%E4%BE%8B%20.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">React初探 以Todo app為例 </span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/Mongoose%20Schema%20%E8%A8%AD%E8%A8%88:%E5%A6%82%E4%BD%95%E8%AE%93%20array%20%E8%83%BD%E8%A2%AB%E7%A7%BB%E9%99%A4.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">Mongoose Schema 設計:如何讓 array 能被移除</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  <h4>About</h4>
+  <p>喜歡學習新技能，期許自己一步步往商業和技術並重的工程師前進。<a href='mailto:alex.ycliang@gmail.com'>連絡我</a></p>
+
+</div>
+
+
+  
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list" itemprop="keywords"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Node-js/" rel="tag">Node.js</a><span class="sidebar-module-list-count">12</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/React/" rel="tag">React</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aop/" rel="tag">aop</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/aws/" rel="tag">aws</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/babel/" rel="tag">babel</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/backend/" rel="tag">backend</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/database/" rel="tag">database</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/design-pattern/" rel="tag">design pattern</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/devops/" rel="tag">devops</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/docker/" rel="tag">docker</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/elk/" rel="tag">elk</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/event-driven/" rel="tag">event-driven</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/front-end/" rel="tag">front-end</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/github/" rel="tag">github</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/heroku/" rel="tag">heroku</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/integration-test/" rel="tag">integration test</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/ios/" rel="tag">ios</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="sidebar-module-list-count">13</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/kafka/" rel="tag">kafka</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/koa/" rel="tag">koa</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/newman/" rel="tag">newman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postgresql/" rel="tag">postgresql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/postman/" rel="tag">postman</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/rails/" rel="tag">rails</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/soft-skill/" rel="tag">soft skill</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/swift/" rel="tag">swift</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" rel="tag">演講筆記</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" rel="tag">職涯發展</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/" rel="tag">讀書心得</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" rel="tag">讀書筆記</a><span class="sidebar-module-list-count">3</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/ELK/" style="font-size: 10px;">ELK</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/Node-js/" style="font-size: 16.67px;">Node.js</a> <a href="/tags/React/" style="font-size: 12.22px;">React</a> <a href="/tags/aop/" style="font-size: 10px;">aop</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/babel/" style="font-size: 10px;">babel</a> <a href="/tags/backend/" style="font-size: 11.11px;">backend</a> <a href="/tags/database/" style="font-size: 12.22px;">database</a> <a href="/tags/design-pattern/" style="font-size: 12.22px;">design pattern</a> <a href="/tags/devops/" style="font-size: 11.11px;">devops</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/event-driven/" style="font-size: 10px;">event-driven</a> <a href="/tags/front-end/" style="font-size: 14.44px;">front-end</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/heroku/" style="font-size: 13.33px;">heroku</a> <a href="/tags/integration-test/" style="font-size: 10px;">integration test</a> <a href="/tags/ios/" style="font-size: 15.56px;">ios</a> <a href="/tags/javascript/" style="font-size: 17.78px;">javascript</a> <a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongodb/" style="font-size: 11.11px;">mongodb</a> <a href="/tags/newman/" style="font-size: 10px;">newman</a> <a href="/tags/postgresql/" style="font-size: 11.11px;">postgresql</a> <a href="/tags/postman/" style="font-size: 10px;">postman</a> <a href="/tags/rails/" style="font-size: 20px;">rails</a> <a href="/tags/soft-skill/" style="font-size: 11.11px;">soft skill</a> <a href="/tags/swift/" style="font-size: 18.89px;">swift</a> <a href="/tags/%E6%BC%94%E8%AC%9B%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">演講筆記</a> <a href="/tags/%E8%81%B7%E6%B6%AF%E7%99%BC%E5%B1%95/" style="font-size: 13.33px;">職涯發展</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E5%BF%83%E5%BE%97/" style="font-size: 10px;">讀書心得</a> <a href="/tags/%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98/" style="font-size: 12.22px;">讀書筆記</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2023/02/">二月 2023</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2023/01/">一月 2023</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/12/">十二月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/11/">十一月 2022</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/10/">十月 2022</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2022/09/">九月 2022</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/09/">九月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/03/">三月 2021</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2021/02/">二月 2021</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/10/">十月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/07/">七月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2020/06/">六月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/06/">六月 2018</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2018/04/">四月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/07/">七月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">六月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">四月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/02/">二月 2017</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/01/">一月 2017</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">十二月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">十一月 2016</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/10/">十月 2016</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/09/">九月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/08/">八月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/07/">七月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/06/">六月 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/05/">五月 2016</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/04/">四月 2016</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/03/">三月 2016</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/02/">二月 2016</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/01/">一月 2016</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2015/12/">十二月 2015</a><span class="sidebar-module-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/%E4%BA%A4%E4%BB%98%E7%94%A2%E5%93%81%E8%A6%81%E5%84%98%E5%8F%AF%E8%83%BD%E7%B8%AE%E7%9F%AD%20lead%20time%EF%BC%8C%E4%BA%BA%E7%94%9F%E4%B9%9F%E6%98%AF.html">交付產品要儘可能縮短 lead time，人生也是</a>
+        </li>
+      
+        <li>
+          <a href="/%E4%BD%BF%E7%94%A8%20golang-migrate%20%E5%9F%B7%E8%A1%8C%20database%20migration.html">使用 golang-migrate 執行 database migration</a>
+        </li>
+      
+        <li>
+          <a href="/%3C%E6%88%91%E6%83%B3%E5%92%8C%E4%BD%A0%E8%81%8A%E4%B8%80%E8%81%8A%3E%20%E8%AE%80%E5%BE%8C%E6%84%9F.html">&lt;我想和你聊一聊&gt; 讀後感</a>
+        </li>
+      
+        <li>
+          <a href="/%E5%B7%A5%E7%A8%8B%E5%B8%AB%E5%9C%A8%E6%B7%A1%E5%AD%A3%E5%8F%AF%E4%BB%A5%E5%81%9A%E7%9A%84%E4%BA%8B.html">工程師在淡季可以做的事</a>
+        </li>
+      
+        <li>
+          <a href="/%E4%BD%BF%E7%94%A8%20EXPLAIN%20%E8%AA%BF%E6%A0%A1%20SQL%20%E6%9F%A5%E8%A9%A2.html">使用 EXPLAIN 調校 SQL 查詢</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Alex Liang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+<script>
+  var disqus_shortname = 'alexliang-blog';
+  
+  var disqus_url = 'https://alexliang.me/Restful%20API%20%E6%AA%A2%E6%9F%A5%E6%B8%85%E5%96%AE%20.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</body>
+</html>
