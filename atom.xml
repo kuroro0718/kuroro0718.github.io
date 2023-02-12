@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alexliang.me/"/>
-  <updated>2023-02-12T00:34:18.600Z</updated>
+  <updated>2023-02-12T00:40:57.581Z</updated>
   <id>https://alexliang.me/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>交付產品要儘可能縮短 lead time，人生也是</title>
-    <link href="https://alexliang.me/using-lead-time-concept-in-life.html"/>
-    <id>https://alexliang.me/using-lead-time-concept-in-life.html</id>
+    <link href="https://alexliang.me/%E4%BA%A4%E4%BB%98%E7%94%A2%E5%93%81%E8%A6%81%E5%84%98%E5%8F%AF%E8%83%BD%E7%B8%AE%E7%9F%AD%20lead%20time%EF%BC%8C%E4%BA%BA%E7%94%9F%E4%B9%9F%E6%98%AF.html"/>
+    <id>https://alexliang.me/交付產品要儘可能縮短 lead time，人生也是.html</id>
     <published>2023-02-01T00:24:34.000Z</published>
-    <updated>2023-02-12T00:34:18.600Z</updated>
+    <updated>2023-02-12T00:40:57.581Z</updated>
     
     <content type="html"><![CDATA[<p>在軟體開發和生產管理有一個衡量效率的指標 <a href="https://zh.wikipedia.org/zh-tw/%E5%89%8D%E7%BD%AE%E6%97%B6%E9%97%B4">lead time</a>，指的是從下單訂購到交付產品所需的時間。</p><p>以專案管理的角度來說，這個指標能衡量組織的效率和營運成本。</p><p>在軟體開發上，有經驗的工程師會用有效率的方式驗證想法和找出問題。</p><p>這個概念也能套用在人生的各個層面。</p><span id="more"></span><h2 id="敏捷開發與-Lead-Time"><a href="#敏捷開發與-Lead-Time" class="headerlink" title="敏捷開發與 Lead Time"></a>敏捷開發與 Lead Time</h2><p>軟體工程師如果要快速驗證一段程式碼能順利執行，透過 <a href="https://www.npmjs.com/package/jay-repl">REPL</a> 或<a href="https://replit.com/site/ide">線上編輯器</a> 可達成任務。</p><p>同樣的，在 debug 時，我們也會從 error log 去找出問題點並試圖用最小的力氣重現。</p><p>以上的還輯套用在專案管理上，便是敏捷開發的精神：<em>在短時間內交付功能並驗證</em></p><p>回到平常生活，有哪些地方可以縮短 lead time 呢？</p><p>例如閱讀，如何將書裡提出的作法應用在自己的問題上。看完一本書後，自己可以好好思考 take away 及後續的行動。</p><p>或是工作上，假如二週後要面對高階主管提產品規劃，最好在下週或更早就和主管討論初步的內容。</p><p>不論是哪個階段的工作者，儘可能縮短工作成果的 lead time 會是讓自己在團隊突出的方法。</p><h2 id="縮短-Lead-Time"><a href="#縮短-Lead-Time" class="headerlink" title="縮短 Lead Time"></a>縮短 Lead Time</h2><p>在軟體開發/專案管理中，有幾個手段可以縮短 lead time：</p><ul><li>縮小範圍，減少不必要的功能</li><li>用空間(或$$)換取時間</li><li>營造可控的環境驗證作法 </li></ul><p>這些是工程師常用的手法，我們可以思考怎麼應用在生活上。</p><p>例如想每週產出一篇 blog 文章，規定自己每天寫一點，即使只有一行也好，會比只在週末一次寫完來的容易。</p><p>家裡太亂沒時間整理？你可以投資在掃地機器人或是每週請打掃阿姨，或是將家裡分區域 divide and conquer 一次做一點。</p><p>比起隔一段時間整理，用金錢(資源)或分段處理可以更有效解決問題。 </p><h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>人都是有惰性的，只靠意志力和幹勁是無法長時間保持高效的產出。</p><p>縮短 lead time 除了盡快展現成果，還能讓我們因為事情順利推進而有動力往前。</p><p>希望這個概念能幫助到大家。</p>]]></content>
     
