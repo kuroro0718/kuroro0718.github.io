@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Uploading image to AWS S3 with Paperclip  | Alex Liang</title>
+  <title>pg-pool 解決 Connection terminated unexpectedly | Alex Liang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷 一開始，照著Heroku 官方教學實作。沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗 事前準備1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http:&#x2F;&#x2F;alexliang-blog.log">
+  <meta name="description" content="前陣子公司內部負責處理 data pipeline 的服務偶爾發生 PostgreSQL Connection terminated unexpectedly，造成服務 crash 並中斷 pipeline。 這篇文章記如何解決問題。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Uploading image to AWS S3 with Paperclip ">
-<meta property="og:url" content="https://alexliang.me/Uploading%20image%20to%20AWS%20S3%20with%20Paperclip%20.html">
+<meta property="og:title" content="pg-pool 解決 Connection terminated unexpectedly">
+<meta property="og:url" content="https://alexliang.me/solve-connection-terminated-unexpectedly-in-pg-pool.html">
 <meta property="og:site_name" content="Alex Liang">
-<meta property="og:description" content="這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久把解決過程記錄下來，以免未來再踩雷 一開始，照著Heroku 官方教學實作。沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗 事前準備1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http:&#x2F;&#x2F;alexliang-blog.log">
+<meta property="og:description" content="前陣子公司內部負責處理 data pipeline 的服務偶爾發生 PostgreSQL Connection terminated unexpectedly，造成服務 crash 並中斷 pipeline。 這篇文章記如何解決問題。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2016-05-02T23:29:00.000Z">
-<meta property="article:modified_time" content="2023-02-12T05:50:32.947Z">
+<meta property="article:published_time" content="2023-04-09T14:50:36.000Z">
+<meta property="article:modified_time" content="2023-05-28T14:28:36.542Z">
 <meta property="article:author" content="Alex Liang">
-<meta property="article:tag" content="rails">
-<meta property="article:tag" content="heroku">
+<meta property="article:tag" content="Node.js">
+<meta property="article:tag" content="postgresql">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Alex Liang" type="application/atom+xml">
@@ -82,13 +82,13 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          <article id="post-upload-image-to-aws-s3-with-paperclip" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-pg-pool-解決-Connection-terminated-unexpectedly" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      Uploading image to AWS S3 with Paperclip 
+      pg-pool 解決 Connection terminated unexpectedly
     </h1>
   
 
@@ -97,7 +97,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/Uploading%20image%20to%20AWS%20S3%20with%20Paperclip%20.html" class="article-date"><time datetime="2016-05-02T23:29:00.000Z" itemprop="datePublished">2016-05-03</time></a>
+  <a href="/solve-connection-terminated-unexpectedly-in-pg-pool.html" class="article-date"><time datetime="2023-04-09T14:50:36.000Z" itemprop="datePublished">2023-04-09</time></a>
 </div>
 
     
@@ -108,18 +108,14 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>這二天將專案deploy到Heroku，卻因為paperclip和aws-sdk版本問題卡了好久<br>把解決過程記錄下來，以免未來再踩雷<br><!--  more  --></p>
-<p>一開始，照著<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/paperclip-s3">Heroku 官方教學</a>實作。<br>沒注意到文章表明此範例不支援aws-sdk 2之後的版本，以及沒指定paperclip的版本，導致圖片上傳失敗</p>
-<h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><pre><code>1. 必須要有AWS S3的帳號，設定方法可參考[這篇](http://alexliang-blog.logdown.com/posts/385515-aws-uses-s3-for-uploading-images)
-2. 己安裝ImageMagick
-3. 己安裝Heroku Toolbelt
-</code></pre><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><figure class="highlight ruby"><figcaption><span>Gemfile</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&quot;paperclip&quot;</span>, <span class="string">&#x27;~&gt; 4.3.6&#x27;</span></span><br><span class="line">gem <span class="string">&#x27;aws-sdk&#x27;</span>, <span class="string">&#x27;&lt; 2.0&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>因為paperclip對新版的aws-sdk尚未支援，aws-sdk採用2.0以前版本；paperclip用穩定版本</p>
-<figure class="highlight ruby"><figcaption><span>config/environments/production.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config.paperclip_defaults = &#123;</span><br><span class="line">  <span class="symbol">:storage</span> =&gt; <span class="symbol">:s3</span>,</span><br><span class="line">  <span class="symbol">:s3_credentials</span> =&gt; &#123;</span><br><span class="line">    <span class="symbol">:bucket</span> =&gt; ENV[<span class="string">&#x27;S3_BUCKET_NAME&#x27;</span>],</span><br><span class="line">    <span class="symbol">:access_key_id</span> =&gt; ENV[<span class="string">&#x27;AWS_ACCESS_KEY_ID&#x27;</span>],</span><br><span class="line">    <span class="symbol">:secret_access_key</span> =&gt; ENV[<span class="string">&#x27;AWS_SECRET_ACCESS_KEY&#x27;</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>這裡使用ENV表示機密資訊，你可以在application.yml設定其值（注意此yml檔要加入.gitignore）<br>但heroku不知道這些值，所以要另外設定</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ heroku config:<span class="built_in">set</span> S3_BUCKET_NAME=your_bucket_name</span><br><span class="line">$ heroku config:<span class="built_in">set</span> AWS_ACCESS_KEY_ID=your_access_key_id</span><br><span class="line">$ heroku config:<span class="built_in">set</span> AWS_SECRET_ACCESS_KEY=your_secret_access_key</span><br></pre></td></tr></table></figure>
-<p>新增paperclip.rb檔在config/initializers下<br><figure class="highlight ruby"><figcaption><span>config/initializers/paperclip.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> Rails.env.production?</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:url</span>] = your_bucket_url</span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:path</span>] = <span class="string">&#x27;/:class/:attachment/:id_partition/:style/:filename&#x27;</span></span><br><span class="line">  Paperclip::Attachment.default_options[<span class="symbol">:s3_host_name</span>] = <span class="string">&#x27;s3-us-west-1.amazonaws.com&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>要注意:url的值為’bucket_name’+s3.amazonaws.com，例如bucket取名paperclip-test，則url為paperclip-test.s3.amazonaws.com<br>而:s3_host_name則需參考<a target="_blank" rel="noopener" href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region">AWS文件</a>做相對應的修改。</p>
-<p>參考資料：<br><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/36391871/paperclip-s3-heroku-but-something-went-wrong">Stack Overflow討論文章</a><br><a target="_blank" rel="noopener" href="https://github.com/thoughtbot/paperclip">Paperclip github</a></p>
+        <p>前陣子公司內部負責處理 data pipeline 的服務偶爾發生 PostgreSQL Connection terminated unexpectedly，造成服務 crash 並中斷 pipeline。</p>
+<p>這篇文章記如何解決問題。</p>
+<span id="more"></span>
+<p>在 Connection pool 初始化時，監聽 <code>connect</code> 事件並加入 error handler </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Pool &#125; <span class="keyword">from</span> <span class="string">&quot;pg&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pool = <span class="keyword">new</span> Pool(&#123;</span><br><span class="line">  <span class="comment">// PG config</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加入 connect error handler </span></span><br><span class="line">pool.on(<span class="string">&quot;connect&quot;</span>, <span class="function">(<span class="params">client</span>) =&gt;</span> &#123;</span><br><span class="line">  client.on(<span class="string">&quot;error&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  	<span class="built_in">console</span>.info(<span class="string">`connection error: <span class="subst">$&#123;err&#125;</span>`</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>現代的 infra 通常會在 PostgreSQL 前多加 pgBouncer 當 proxy，它也具備 connection pool 功能。<br>上述的程式碼是 application layer 的 connection pool，在多層的架構下，會發生 application 以為手上的 connection 還是連著的，但實際上已被 pgBouncer 斷掉。<br>我們可以在取得 connection 時檢查連線是否建立，例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="title">getConnection</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> connect = <span class="keyword">await</span> pool.connect();</span><br><span class="line">  <span class="keyword">const</span> checkResult = <span class="keyword">await</span> client.query(<span class="string">&quot;SELECT 1&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (!checkResult || checkResult.rows.length === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// wait for 1 second</span></span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> pool.connect();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過以上方法，能讓 application 在操作 </p>
 
       
     </div>
@@ -130,16 +126,16 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://alexliang.me/Uploading%20image%20to%20AWS%20S3%20with%20Paperclip%20.html" data-id="cktu63019001z59p433n00qgy" class="article-share-link">
+      <a data-url="https://alexliang.me/solve-connection-terminated-unexpectedly-in-pg-pool.html" data-id="cli7ioaf70000841y7yo788xu" class="article-share-link">
         <i class="fa fa-share"></i> Share
       </a>
       
-        <a href="https://alexliang.me/Uploading%20image%20to%20AWS%20S3%20with%20Paperclip%20.html#disqus_thread" class="article-comment-link">
+        <a href="https://alexliang.me/solve-connection-terminated-unexpectedly-in-pg-pool.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> Comments
         </a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/" rel="tag">postgresql</a></li></ul>
 
 
     </footer>
@@ -149,19 +145,12 @@
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/Check%20list%20of%20Heroku%20deployment.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/%E4%BA%A4%E4%BB%98%E7%94%A2%E5%93%81%E8%A6%81%E5%84%98%E5%8F%AF%E8%83%BD%E7%B8%AE%E7%9F%AD%20lead%20time%EF%BC%8C%E4%BA%BA%E7%94%9F%E4%B9%9F%E6%98%AF.html" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">Check list of Heroku deployment</span>
+      <span class="article-nav-link-title">交付產品要儘可能縮短 lead time，人生也是</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/%5BCode%20School%5D%20Rails%20API%20%20Routing%20Note.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">[Code School] Rails API  Routing Note</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -262,7 +251,7 @@
 <script>
   var disqus_shortname = 'alexliang-blog';
   
-  var disqus_url = 'https://alexliang.me/Uploading%20image%20to%20AWS%20S3%20with%20Paperclip%20.html';
+  var disqus_url = 'https://alexliang.me/solve-connection-terminated-unexpectedly-in-pg-pool.html';
   
   (function(){
     var dsq = document.createElement('script');
