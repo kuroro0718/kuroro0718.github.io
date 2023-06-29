@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://alexliang.me/"/>
-  <updated>2023-05-28T14:28:36.542Z</updated>
+  <updated>2023-06-29T00:29:07.352Z</updated>
   <id>https://alexliang.me/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解決重複賣票問題</title>
+    <link href="https://alexliang.me/resolve-double-booking-problem.html"/>
+    <id>https://alexliang.me/resolve-double-booking-problem.html</id>
+    <published>2023-06-18T14:52:40.000Z</published>
+    <updated>2023-06-29T00:29:07.352Z</updated>
+    
+    <content type="html"><![CDATA[<p>在搶演唱會門票時，常遇到選完座位要結帳出現該座位已被訂走的訊息。</p><p>以後端的角度來說，如何確保座位只會被一位使用者買走而不 block 住整個系統，是基本的要求。</p><p>這篇文章探討如何解決重複賣票問題。</p><span id="more"></span><p>假設我們有一張表記錄演唱會門票售出情形</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span>  tickets (</span><br><span class="line">  id SERIAL <span class="keyword">PRIMARY</span> KEY <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  is_solded NUMBER <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">  owner <span class="type">VARCHAR</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  created_at <span class="type">TIMESTAMP</span> <span class="type">WITHOUT TIMEZONE</span> <span class="keyword">DEFAULT</span> now),</span><br><span class="line">  updated_at <span class="type">TIMESTAMP</span> <span class="type">WITHOUT TIMEZONE</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>訂購門票的 SQL 用一般的 transaction 寫法:</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 判斷票是否被訂走</span><br><span class="line"><span class="keyword">SELECT</span> is_solded, owner <span class="keyword">FROM</span> tickets <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> is_solded <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 如果票券還在則更新狀態</span><br><span class="line">UPDATE tickets <span class="keyword">SET</span> is_solded <span class="operator">=</span> <span class="number">1</span>, owner <span class="operator">=</span> <span class="string">&#x27;Alex&#x27;</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure><p>這樣的寫法有什麼問題呢？ 假如同時有另一位使用者在 Alex 的 transaction 還沒結束時也訂了 id = 1 的票，則這張票會被他買走。</p><p>為了避免此情況，可以加上 <code>FOR UPDATE</code> 先查詢:</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 使用 <span class="keyword">FOR</span> UPDATE </span><br><span class="line"><span class="keyword">SELECT</span> is_solded, owner <span class="keyword">FROM</span> tickets <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> is_solded <span class="operator">=</span> <span class="number">0</span> <span class="keyword">FOR</span> UPDATE;</span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 如果票券還在則更新狀態</span><br><span class="line">UPDATE tickets <span class="keyword">SET</span> is_solded <span class="operator">=</span> <span class="number">1</span>, owner <span class="operator">=</span> <span class="string">&#x27;Alex&#x27;</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure><p><code>FOR UPDATE</code> 會加上 row level lock，避免其它 transaction 更動記錄。</p><h3 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h3><p>如果 database server 是 PostgreSQL，以下的 transaction 也能防止 double booking </p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line">UPDATE tickets <span class="keyword">SET</span> is_solded <span class="operator">=</span> <span class="number">1</span>, owner <span class="operator">=</span> <span class="string">&#x27;Alex&#x27;</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">and</span> is_solded <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure><p>假如有另一位使用者同時執行 transaction，在第一個 transaction commit 後，第二個 transaction UPDATE 不會 overwrite 結果。</p><p>PG 在每筆 record 後面會加上 lock 的資訊並放在 heap，當第二個 transaction 在 heap 找到 id = 1 的 record 就能得到目前 lock 的狀態。</p><p>在第一個 transaction commit 後，PG 會更新 heap 資訊，讓其它 transaction 在 update 時得到新的狀態。</p><p>用這種 implicitly 寫法最好加個註解說明。不同的 RDBMS 對於 isolation level 和 lock 有自己的管理方式，工程師需要了解細節才能設計出穩定的服務。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在搶演唱會門票時，常遇到選完座位要結帳出現該座位已被訂走的訊息。&lt;/p&gt;
+&lt;p&gt;以後端的角度來說，如何確保座位只會被一位使用者買走而不 block 住整個系統，是基本的要求。&lt;/p&gt;
+&lt;p&gt;這篇文章探討如何解決重複賣票問題。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="postgresql" scheme="https://alexliang.me/tags/postgresql/"/>
+    
+      <category term="database" scheme="https://alexliang.me/tags/database/"/>
+    
+  </entry>
   
   <entry>
     <title>pg-pool 解決 Connection terminated unexpectedly</title>
@@ -449,30 +473,6 @@
     
     
       <category term="Node.js" scheme="https://alexliang.me/tags/Node-js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用ELK監控MongoDB service</title>
-    <link href="https://alexliang.me/%E4%BD%BF%E7%94%A8ELK%E7%9B%A3%E6%8E%A7MongoDB%20service.html"/>
-    <id>https://alexliang.me/使用ELK監控MongoDB service.html</id>
-    <published>2019-01-31T03:26:14.000Z</published>
-    <updated>2023-02-12T08:55:40.670Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log">上一篇</a>提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。</p><span id="more"></span><h2 id="設定Watcher"><a href="#設定Watcher" class="headerlink" title="設定Watcher"></a>設定Watcher</h2><p>進入SENTINL的頁面，在右上角點選<code>New</code>新增watcher</p><p><img src="sentinl_setting.png" alt="sentinl_setting"></p><p>使用watcher wizard設定watcher的名稱和使用的index</p><p><img src="watcher_wizard.png" alt="watcher_wizard"></p><p>設定完可以看到下方出現折線圖</p><p><img src="chart.png" alt="chart"></p><p>可以針對內建指標做監控並設定觸發條件。</p><p>接下來是設定通知的動作，這裡以email為例，可設定寄件人(也就是在<code>kibana.yml</code>設定的user email)和收件人及訊息內容</p><p><img src="action.png" alt="action"></p><h2 id="設定特殊條件的Watcher"><a href="#設定特殊條件的Watcher" class="headerlink" title="設定特殊條件的Watcher"></a>設定特殊條件的Watcher</h2><p>當你要監控的指標需要自行計算時(如磯碟己用空間的百分比，該數值在dashboard是由磁碟空間和己用空間計算出來)便需要自行修改query語法</p><p>我們使用wizard新增watcher，<strong>WHEN</strong>選擇max，此時可看到<strong>AGG</strong>多了一個field，選擇<code>system.ffstat.total_size.total</code></p><p><img src="system_total.png" alt="system_total"></p><p>點選<strong>Watcher Query</strong>，然後conver to advanced，開始修改query條件。此時畫面會回到watcher清單，再點選剛才建立的watcher，會發現看到類似DSL語法的畫面</p><p>在<code>metricAgg</code>下可看到剛才設定的<code>system.ffstat.total_size.total</code>。我們新增一項指標並修改<code>condition</code>的script在磁碟空間己用80%時發通知</p><p><img src="advanced_watcher.png" alt="advanced_watcher"></p><p>修改後別忘了儲存，可以回到watcher清單列表，在<strong>Alarms</strong>可以看到通知有無正確的發出。</p><p>這個機制可用在其它後端服務上，對於管理機器是個方便的工具。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://alexliang.me/使用ELK-Metricbeat收集MongoDB-Log&quot;&gt;上一篇&lt;/a&gt;提到如何安裝ELK和Metricbeat收集DB的log，接下來介紹如何在Kibana設定watcher讓系統有問題時自動通知管理者。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="devops" scheme="https://alexliang.me/tags/devops/"/>
-    
-      <category term="mongodb" scheme="https://alexliang.me/tags/mongodb/"/>
-    
-      <category term="ELK" scheme="https://alexliang.me/tags/ELK/"/>
     
   </entry>
   
